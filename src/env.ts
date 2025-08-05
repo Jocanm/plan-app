@@ -6,12 +6,14 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    TEST_ENV: z.string(),
+    DATABASE_URL: z.string().min(1),
+    AUTH_SECRET: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    AUTH_SECRET: process.env.AUTH_SECRET,
     NODE_ENV: process.env.NODE_ENV,
-    TEST_ENV: process.env.TEST_ENV,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
