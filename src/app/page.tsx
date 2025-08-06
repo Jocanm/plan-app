@@ -12,7 +12,7 @@ const HomePage = async () => {
         action={async () => {
           "use server";
           await signOut({
-            redirectTo: "/",
+            redirectTo: "/auth/login",
           });
         }}
       >
