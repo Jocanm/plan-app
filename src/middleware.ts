@@ -1,12 +1,10 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import { ROUTES } from "./constants/routes";
-
-const publicPath = "/auth";
+import { AUTH_PATH, ROUTES } from "./constants/routes";
 
 export default auth((req) => {
   const isLoggedIn = req.auth?.user;
-  const isPublicRoute = req.nextUrl.pathname.startsWith(publicPath);
+  const isPublicRoute = req.nextUrl.pathname.startsWith(AUTH_PATH);
 
   if (!isLoggedIn && !isPublicRoute) {
     return NextResponse.redirect(new URL(ROUTES.LOGIN, req.url));
