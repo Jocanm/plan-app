@@ -2,8 +2,11 @@ import { NextPagePromiseProps } from "@/types";
 import { AlertTriangleIcon } from "lucide-react";
 import Link from "next/link";
 import { getLoginError } from "../helpers/getLoginError";
+import { ROUTES } from "@/constants/routes";
 
-export default async function AuthErrorPage({ searchParams }: NextPagePromiseProps) {
+export default async function AuthErrorPage({
+  searchParams,
+}: NextPagePromiseProps) {
   const error = (await searchParams)?.error;
   const { title, message } = getLoginError(error as string);
 
@@ -21,10 +24,10 @@ export default async function AuthErrorPage({ searchParams }: NextPagePromisePro
         <div className="mt-8">
           <Link
             replace
-            href="/auth/login"
+            href={ROUTES.LOGIN}
             className="inline-block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
-            Volver a la página de inicio
+            Go to Login
           </Link>
         </div>
       </div>

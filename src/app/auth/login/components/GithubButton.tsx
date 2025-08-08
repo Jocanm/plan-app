@@ -1,20 +1,21 @@
 "use client";
 
-import { Button } from '@/components/ui/Button';
+import { Button } from "@/components/ui/Button";
+import { ROUTES } from "@/constants/routes";
 import { Github } from "lucide-react";
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export const GithubButton = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async () => {
     setIsLoading(true);
-    await signIn('github', {
-      redirectTo: "/",
-    })
+    await signIn("github", {
+      redirectTo: ROUTES.HOME,
+    });
     setIsLoading(false);
-  }
+  };
 
   return (
     <Button

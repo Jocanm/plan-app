@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/Button";
+import { ROUTES } from "@/constants/routes";
 import { auth, signOut } from "@/lib/auth";
 import React from "react";
 
@@ -12,7 +13,7 @@ const HomePage = async () => {
         action={async () => {
           "use server";
           await signOut({
-            redirectTo: "/auth/login",
+            redirectTo: ROUTES.LOGIN,
           });
         }}
       >

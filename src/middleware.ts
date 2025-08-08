@@ -1,17 +1,26 @@
-import { auth } from "@/lib/auth"
+import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { ROUTES } from "./constants/routes";
 
-// export { auth as middleware } from "@/lib/auth"
+const publicPath = "/auth";
 
 export default auth((req) => {
-  console.log("Middleware executed for request:", req.auth);
+  const isLoggedIn = req.auth?.user;
+  const isPublicRoute = req.nextUrl.pathname.startsWith(publicPath);
+
+  if (!isLoggedIn && !isPublicRoute) {
+    return NextResponse.redirect(new URL(ROUTES.LOGIN, req.url));
+  }
+
+  if (isLoggedIn && isPublicRoute) {
+    return NextResponse.redirect(new URL(ROUTES.HOME, req.url));
+  }
 
   return NextResponse.next();
 })
 
 export const config = {
   matcher: [
-    // Excluimos las carpetas de archivos estáticos y la de imágenes de Next.js
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };

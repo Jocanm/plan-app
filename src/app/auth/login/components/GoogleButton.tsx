@@ -2,6 +2,7 @@
 
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { Button } from "@/components/ui/Button";
+import { ROUTES } from "@/constants/routes";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ export const GoogleButton = () => {
   const onClick = async () => {
     setLoading(true);
     await signIn("google", {
-      redirectTo: "/",
+      redirectTo: ROUTES.HOME,
     });
     setLoading(false);
   };
