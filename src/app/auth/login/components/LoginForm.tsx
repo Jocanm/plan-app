@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/Card";
-import { GoogleButton } from "./GoogleButton";
-import { GithubButton } from "./GithubButton";
+import { OauthForm } from "./oauth/OauthForm";
 
 export const LoginForm = () => {
   return (
@@ -17,10 +16,7 @@ export const LoginForm = () => {
               </p>
             </div>
 
-            <div className="space-y-4">
-              <GoogleButton />
-              <GithubButton />
-            </div>
+            <OauthForm />
           </CardContent>
         </Card>
       </div>

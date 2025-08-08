@@ -1,7 +1,7 @@
+import { ROUTES } from "@/constants/routes";
 import { NextPagePromiseProps } from "@/types";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./components/LoginForm";
-import { ROUTES } from "@/constants/routes";
 
 export const metadata = {
   title: "Login - Plan app",
@@ -13,9 +13,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
   const error = (await searchParams)?.error;
 
   if (error) {
-    const url = new URL(ROUTES.ERROR, window.location.origin);
-    url.searchParams.set("error", String(error));
-    redirect(url.toString());
+    redirect(`${ROUTES.ERROR}?error=${error}`);
   }
 
   return (

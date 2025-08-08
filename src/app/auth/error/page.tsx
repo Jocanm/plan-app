@@ -14,7 +14,7 @@ export default async function AuthErrorPage({
     <div className="flex min-h-screen w-full items-center justify-center bg-slate-50 p-4">
       <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-lg">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-          <AlertTriangleIcon className="h-8 w-8 text-red-600" />
+          <AlertTriangleIcon className="h-8 w-8 text-warning" />
         </div>
 
         <h1 className="mt-6 text-2xl font-bold text-slate-800">{title}</h1>
