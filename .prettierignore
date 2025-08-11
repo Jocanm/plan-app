@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+build/
+*.log
+.env*
+.DS_Store
+coverage/
+*.tgz
+*.tar.gz
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.turbo/
+prisma/migrations/

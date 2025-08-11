@@ -9,4 +9,4 @@ export const getLoginError = (error: string | string[] | undefined) => {
       : loginErrorMessages.Default;
 
   return { title, message };
-}
+};

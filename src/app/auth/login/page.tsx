@@ -33,19 +33,19 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
             </div>
             <div className="space-y-6 hidden md:block">
               <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-success rounded-full"></div>
+                <div className="w-2 h-2 bg-success rounded-full" />
                 <span className="text-muted-foreground">
                   Beautiful task organization
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <div className="w-2 h-2 bg-primary rounded-full" />
                 <span className="text-muted-foreground">
                   Intuitive calendar integration
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-warning rounded-full"></div>
+                <div className="w-2 h-2 bg-warning rounded-full" />
                 <span className="text-muted-foreground">
                   Seamless collaboration
                 </span>

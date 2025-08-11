@@ -7,5 +7,5 @@ export type NextPageProps<P = object> = P & {
 
 export type NextPagePromiseProps<P = object> = P & {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-  params?: Promise<{ [key: string]: string | string[] | undefined }>; 
-}
+  params?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
