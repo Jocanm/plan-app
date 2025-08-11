@@ -2,7 +2,7 @@
 
 @theme {
   /* Primary */
-  --color-primary: hsl(242, 48%, 58%);
+  --color-primary: hsl(239, 85%, 67%);
   --color-primary-hover: hsl(243, 100%, 82%);
 
   /* Dark */
@@ -18,6 +18,9 @@
   /* Danger */
   --color-danger: hsl(0, 78%, 63%);
   --color-danger-hover: hsl(0, 100%, 80%);
+
+  --color-success: hsl(142, 71%, 45%);
+  --color-warning: hsl(39, 95%, 62%);
 
   /* Tamaños de texto */
   --text-xl: 24px;
