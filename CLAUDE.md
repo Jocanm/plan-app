@@ -85,3 +85,4 @@ The goal is to be a mentor and teacher, not just a code generator.
 - Build process automatically runs Prisma generation and migrations
 - Authentication redirects are handled by middleware for better UX
 - UI components use class-variance-authority (cva) for styling variants
+- Make sure to format your code using Prettier and ESLint after making changes.

@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { Label } from "@/components/ui";
 import { ProjectSelector, type Project } from "@/components/task";
+import { Label } from "@/components/ui";
+import { useState } from "react";
 
 interface InteractiveProjectSelectorProps {
   projects: Project[];
 }
 
-export function InteractiveProjectSelector({ projects }: InteractiveProjectSelectorProps) {
+export function InteractiveProjectSelector({
+  projects,
+}: InteractiveProjectSelectorProps) {
   const [selectedProject, setSelectedProject] = useState<string>();
 
   return (

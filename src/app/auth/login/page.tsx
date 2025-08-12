@@ -1,3 +1,9 @@
+import {
+  CalendarIntegrationIcon,
+  CollaborationIcon,
+  TaskOrganizationIcon,
+} from "@/components/icons/FeatureIcons";
+import { PlanLogo } from "@/components/icons/PlanLogo";
 import { ROUTES } from "@/constants/routes";
 import { NextPagePromiseProps } from "@/types";
 import { redirect } from "next/navigation";
@@ -17,38 +23,151 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="flex flex-col md:flex-row min-h-screen justify-center">
-        <div className="md:flex-1 flex items-center justify-center px-12 py-8 md:py-16">
-          <div className="max-w-lg">
-            <div className="mb-8">
-              <h1 className="text-5xl font-light text-foreground mb-6">
-                Welcome to{" "}
-                <span className="font-semibold text-primary">Plan app</span>
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed hidden md:block">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background gradient and patterns */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-success/5" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-warning/3 via-transparent to-primary/8" />
+
+      {/* Geometric pattern overlay */}
+      <div className="absolute inset-0 opacity-30">
+        <svg
+          className="absolute top-20 left-20 w-32 h-32 text-primary/20"
+          viewBox="0 0 100 100"
+        >
+          <circle cx="50" cy="50" r="2" fill="currentColor">
+            <animate
+              attributeName="r"
+              values="2;8;2"
+              dur="4s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
+        <svg
+          className="absolute top-40 right-32 w-24 h-24 text-success/20"
+          viewBox="0 0 100 100"
+        >
+          <polygon
+            points="50,15 85,85 15,85"
+            fill="currentColor"
+            opacity="0.6"
+          />
+        </svg>
+        <svg
+          className="absolute bottom-32 left-32 w-20 h-20 text-warning/20"
+          viewBox="0 0 100 100"
+        >
+          <rect
+            x="20"
+            y="20"
+            width="60"
+            height="60"
+            fill="currentColor"
+            opacity="0.4"
+          />
+        </svg>
+      </div>
+
+      <div className="flex flex-col lg:flex-row min-h-screen justify-center relative z-10">
+        <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-8 md:py-16">
+          <div className="max-w-lg animate-fade-in">
+            <div className="mb-8 lg:mb-12">
+              <div className="flex flex-col sm:flex-row items-center sm:gap-4 mb-6 lg:mb-8 text-center sm:text-left">
+                <PlanLogo size="lg" className="animate-slide-in mb-4 sm:mb-0" />
+                <div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-2">
+                    Welcome to{" "}
+                    <span className="font-semibold bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">
+                      Plan app
+                    </span>
+                  </h1>
+                </div>
+              </div>
+              <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed text-center sm:text-left">
                 Organize your life, manage your tasks, and achieve your goals
                 with our beautiful and intuitive task management platform.
               </p>
             </div>
-            <div className="space-y-6 hidden md:block">
-              <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-success rounded-full" />
-                <span className="text-muted-foreground">
-                  Beautiful task organization
-                </span>
+
+            {/* Mobile feature showcase */}
+            <div className="grid grid-cols-1 gap-4 md:hidden mb-8">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-success/5 to-success/3 border border-success/10">
+                <TaskOrganizationIcon />
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Beautiful task organization
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Organize with drag & drop
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-muted-foreground">
-                  Intuitive calendar integration
-                </span>
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-primary/5 to-primary/3 border border-primary/10">
+                <CalendarIntegrationIcon />
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Calendar integration
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Schedule seamlessly
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-2 h-2 bg-warning rounded-full" />
-                <span className="text-muted-foreground">
-                  Seamless collaboration
-                </span>
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-warning/5 to-warning/3 border border-warning/10">
+                <CollaborationIcon />
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Team collaboration
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Work together effortlessly
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop feature showcase */}
+            <div className="space-y-8 hidden md:block">
+              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-success/10 to-success/5 group-hover:shadow-lg transition-shadow">
+                  <TaskOrganizationIcon />
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground mb-1">
+                    Beautiful task organization
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Organize your tasks with intuitive drag & drop
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:shadow-lg transition-shadow">
+                  <CalendarIntegrationIcon />
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground mb-1">
+                    Intuitive calendar integration
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Schedule and track your tasks seamlessly
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-warning/10 to-warning/5 group-hover:shadow-lg transition-shadow">
+                  <CollaborationIcon />
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground mb-1">
+                    Seamless collaboration
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Work together with your team effortlessly
+                  </p>
+                </div>
               </div>
             </div>
           </div>
