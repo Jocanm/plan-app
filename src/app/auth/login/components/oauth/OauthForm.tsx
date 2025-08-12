@@ -28,38 +28,44 @@ export const OauthForm = () => {
   };
 
   return (
-    <form className="space-y-5">
-      <OauthButton
-        onClick={() => onSignIn("google")}
-        disabled={isLoading}
-        isLoading={loadingProvider === "google"}
-        provider="google"
-      >
-        <GoogleIcon />
-        Continue with Google
-      </OauthButton>
-
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-white/20" />
+    <div className="animate-in fade-in duration-500 delay-500">
+      <form className="space-y-5">
+        <div className="animate-in zoom-in duration-500 delay-600">
+          <OauthButton
+            onClick={() => onSignIn("google")}
+            disabled={isLoading}
+            isLoading={loadingProvider === "google"}
+            provider="google"
+          >
+            <GoogleIcon />
+            Continue with Google
+          </OauthButton>
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-transparent px-4 text-muted-foreground font-medium">
-            or
-          </span>
-        </div>
-      </div>
 
-      <OauthButton
-        onClick={() => onSignIn("github")}
-        disabled={isLoading}
-        isLoading={loadingProvider === "github"}
-        provider="github"
-      >
-        <Github />
-        Continue with GitHub
-      </OauthButton>
-    </form>
+        <div className="relative animate-in fade-in duration-400 delay-700">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/20" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-transparent px-4 text-muted-foreground font-medium">
+              or
+            </span>
+          </div>
+        </div>
+
+        <div className="animate-in zoom-in duration-500 delay-[750ms]">
+          <OauthButton
+            onClick={() => onSignIn("github")}
+            disabled={isLoading}
+            isLoading={loadingProvider === "github"}
+            provider="github"
+          >
+            <Github />
+            Continue with GitHub
+          </OauthButton>
+        </div>
+      </form>
+    </div>
   );
 };
 
@@ -90,10 +96,10 @@ const OauthButton = ({
       className={`
         w-full h-14 lg:h-16 text-sm lg:text-base font-medium relative overflow-hidden group
         bg-white/5 backdrop-blur-sm border border-white/20 
-        hover:bg-white/10 hover:border-white/30 hover:scale-[1.02]
+        hover:-translate-y-0.5 hover:scale-105 hover:shadow-lg
         focus:ring-2 focus:ring-primary/50 focus:border-primary/50
-        transition-all duration-300 ease-out
-        disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+        transition-all duration-200 ease-out
+        disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
         ${provider ? providerStyles[provider] : ""}
         ${className}
       `}
@@ -104,21 +110,21 @@ const OauthButton = ({
       {/* Content */}
       <div className="relative flex items-center justify-center gap-2 lg:gap-3">
         {isLoading ? (
-          <div className="w-5 lg:w-6 h-5 lg:h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 lg:w-6 h-5 lg:h-6 border-2 border-current border-t-transparent rounded-full animate-smooth-spin" />
         ) : (
-          <span className="w-5 lg:w-6 h-5 lg:h-6 flex items-center justify-center">
+          <span className="w-5 lg:w-6 h-5 lg:h-6 flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
             {React.Children.toArray(children)[0]}
           </span>
         )}
-        <span className="font-medium">
+        <span className="font-medium transition-all duration-200">
           {isLoading ? "Signing in..." : React.Children.toArray(children)[1]}
         </span>
       </div>
 
       {/* Loading overlay */}
       {isLoading && (
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center">
-          <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200">
+          <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-smooth-spin" />
         </div>
       )}
     </Button>

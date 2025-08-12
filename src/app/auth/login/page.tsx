@@ -70,20 +70,21 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
 
       <div className="flex flex-col lg:flex-row min-h-screen justify-center relative z-10">
         <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-8 md:py-16">
-          <div className="max-w-lg animate-fade-in">
+          <div className="max-w-lg">
             <div className="mb-8 lg:mb-12">
               <div className="flex flex-col sm:flex-row items-center sm:gap-4 mb-6 lg:mb-8 text-center sm:text-left">
-                <PlanLogo size="lg" className="animate-slide-in mb-4 sm:mb-0" />
-                <div>
+                <PlanLogo size="lg" className="animate-in fade-in slide-in-from-bottom-3 duration-700 delay-100 mb-4 sm:mb-0" />
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-700 delay-200">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-2">
                     Welcome to{" "}
                     <span className="font-semibold bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">
                       Plan app
                     </span>
                   </h1>
+                  <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-primary to-success rounded-full mx-auto sm:mx-0 animate-in zoom-in duration-500 delay-[400ms]" />
                 </div>
               </div>
-              <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed text-center sm:text-left">
+              <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed text-center sm:text-left animate-in fade-in slide-in-from-bottom-1 duration-700 delay-300">
                 Organize your life, manage your tasks, and achieve your goals
                 with our beautiful and intuitive task management platform.
               </p>
@@ -91,7 +92,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
 
             {/* Mobile feature showcase */}
             <div className="grid grid-cols-1 gap-4 md:hidden mb-8">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-success/5 to-success/3 border border-success/10">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-success/5 to-success/3 border border-success/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-left-2 duration-600 delay-[400ms]">
                 <TaskOrganizationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
@@ -102,7 +103,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-primary/5 to-primary/3 border border-primary/10">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-primary/5 to-primary/3 border border-primary/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-left-2 duration-600 delay-500">
                 <CalendarIntegrationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
@@ -113,7 +114,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-warning/5 to-warning/3 border border-warning/10">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-warning/5 to-warning/3 border border-warning/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-left-2 duration-600 delay-600">
                 <CollaborationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
@@ -128,8 +129,8 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
 
             {/* Desktop feature showcase */}
             <div className="space-y-8 hidden md:block">
-              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-success/10 to-success/5 group-hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 duration-600 delay-[400ms]">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-success/10 to-success/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
                   <TaskOrganizationIcon />
                 </div>
                 <div>
@@ -142,8 +143,8 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 duration-600 delay-500">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
                   <CalendarIntegrationIcon />
                 </div>
                 <div>
@@ -156,8 +157,8 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 group hover:transform hover:translate-x-2 transition-all duration-300">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-warning/10 to-warning/5 group-hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 duration-600 delay-600">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-warning/10 to-warning/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
                   <CollaborationIcon />
                 </div>
                 <div>
