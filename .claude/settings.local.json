@@ -17,7 +17,8 @@
       "Bash(pnpm run lint:*)",
       "Bash(pnpm run format:check:*)",
       "Bash(pnpm run:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(touch:*)"
     ],
     "deny": []
   }
