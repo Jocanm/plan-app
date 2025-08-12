@@ -11,7 +11,13 @@
       "mcp__playwright__browser_navigate",
       "mcp__playwright__browser_take_screenshot",
       "Bash(claude config list)",
-      "Bash(claude mcp:*)"
+      "Bash(claude mcp:*)",
+      "Bash(npx:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm run format:check:*)",
+      "Bash(pnpm run:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }
