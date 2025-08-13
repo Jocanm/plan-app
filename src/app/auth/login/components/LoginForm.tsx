@@ -21,7 +21,7 @@ export const LoginForm = () => {
           <CardContent className="p-6 lg:p-8 relative z-10">
             <div className="text-center mb-8 lg:mb-10">
               <div className="mb-6">
-                <div className="w-14 lg:w-16 h-14 lg:h-16 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-success/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 animate-in zoom-in duration-500 delay-[400ms] hover:scale-105 transition-transform duration-200">
+                <div className="w-14 lg:w-16 h-14 lg:h-16 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-success/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 animate-in zoom-in delay-[400ms] hover:scale-105 transition-transform duration-200">
                   <svg
                     className="w-7 lg:w-8 h-7 lg:h-8 text-primary"
                     fill="none"
