@@ -1,14 +1,11 @@
 import { signIn, signOut } from "@/lib/auth";
-import {
-  type AuthProvider,
-  type IAuthRepository,
-} from "../domain/repositories/IAuthRepository";
+import { type IAuthRepository } from "../domain/repositories/IAuthRepository";
 
 export const authJsRepository: IAuthRepository = {
-  async signIn(provider: AuthProvider) {
-    await signIn(provider);
+  async signIn(provider, options) {
+    await signIn(provider, options);
   },
-  async signOut() {
-    await signOut();
+  async signOut(options) {
+    await signOut(options);
   },
 };

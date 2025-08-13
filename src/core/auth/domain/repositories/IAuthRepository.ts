@@ -1,6 +1,10 @@
 export type AuthProvider = "google" | "github";
 
+export interface AuthOptions {
+  redirectTo?: string;
+}
+
 export interface IAuthRepository {
-  signIn(provider: AuthProvider): Promise<void>;
-  signOut(): Promise<void>;
+  signIn(provider: AuthProvider, options?: AuthOptions): Promise<void>;
+  signOut(options?: AuthOptions): Promise<void>;
 }

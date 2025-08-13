@@ -5,12 +5,17 @@ import { Button, ButtonProps } from "@/components/ui/Button";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useFormStatus } from "react-dom";
+import { ROUTES } from "../../../../../constants/routes";
 import { signInAction } from "../../../actions/auth.actions";
+
+const BASE_OPTIONS = {
+  redirectTo: ROUTES.DESIGN_SYSTEM,
+};
 
 export const OauthForm = () => {
   return (
     <div className="animate-in fade-in duration-500 delay-500 space-y-5">
-      <form action={() => signInAction("google")}>
+      <form action={() => signInAction("google", BASE_OPTIONS)}>
         <div className="animate-in zoom-in duration-500 delay-600">
           <OauthButton>
             <GoogleIcon />
@@ -19,7 +24,7 @@ export const OauthForm = () => {
         </div>
       </form>
       <Separator />
-      <form action={() => signInAction("github")}>
+      <form action={() => signInAction("github", BASE_OPTIONS)}>
         <div className="animate-in zoom-in duration-500 delay-[750ms]">
           <OauthButton>
             <Github />
