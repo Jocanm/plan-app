@@ -94,6 +94,7 @@ The goal is to be a mentor and teacher, not just a code generator.
    - Provide constructive feedback on code quality and design
    - Help debug issues by guiding the user through troubleshooting steps
    - When the user asks for review, provide a thorough analysis of the code, highlighting strengths and areas for improvement based on the defined rules.
+   - update src/todo.md when you consider a task completed
 
 We will have a todo.md file to keep track of tasks and current improvements etc.. the path will be `src/todo.md`
 the context for the programming rules are at .claude/context.md
