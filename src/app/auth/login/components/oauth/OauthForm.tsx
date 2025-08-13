@@ -2,64 +2,26 @@
 
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/components/ui/Button";
-import { ROUTES } from "@/constants/routes";
+import clsx from "clsx";
 import { Github } from "lucide-react";
-import { type ProviderId } from "next-auth/providers";
-import { signIn } from "next-auth/react";
-import React, { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { signInAction } from "../../../actions/auth.actions";
 
 export const OauthForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingProvider, setLoadingProvider] = useState<ProviderId | null>(
-    null
-  );
-
-  const onSignIn = async (provider: ProviderId) => {
-    setIsLoading(true);
-    setLoadingProvider(provider);
-    try {
-      await signIn(provider, {
-        redirectTo: ROUTES.HOME,
-      });
-    } finally {
-      setIsLoading(false);
-      setLoadingProvider(null);
-    }
-  };
-
   return (
-    <div className="animate-in fade-in duration-500 delay-500">
-      <form className="space-y-5">
+    <div className="animate-in fade-in duration-500 delay-500 space-y-5">
+      <form action={() => signInAction("google")}>
         <div className="animate-in zoom-in duration-500 delay-600">
-          <OauthButton
-            onClick={() => onSignIn("google")}
-            disabled={isLoading}
-            isLoading={loadingProvider === "google"}
-            provider="google"
-          >
+          <OauthButton>
             <GoogleIcon />
             Continue with Google
           </OauthButton>
         </div>
-
-        <div className="relative animate-in fade-in duration-400 delay-700">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-white/20" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-transparent px-4 text-muted-foreground font-medium">
-              or
-            </span>
-          </div>
-        </div>
-
+      </form>
+      <Separator />
+      <form action={() => signInAction("github")}>
         <div className="animate-in zoom-in duration-500 delay-[750ms]">
-          <OauthButton
-            onClick={() => onSignIn("github")}
-            disabled={isLoading}
-            isLoading={loadingProvider === "github"}
-            provider="github"
-          >
+          <OauthButton>
             <Github />
             Continue with GitHub
           </OauthButton>
@@ -69,64 +31,48 @@ export const OauthForm = () => {
   );
 };
 
-interface OauthButtonProps extends ButtonProps {
-  isLoading?: boolean;
-  provider?: "google" | "github";
-}
-
 const OauthButton = ({
   className,
-  isLoading = false,
-  provider,
   children,
   disabled,
   ...props
-}: OauthButtonProps) => {
-  const providerStyles = {
-    google: "hover:shadow-[0_8px_30px_rgb(66,133,244,0.3)]",
-    github: "hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]",
-  };
+}: ButtonProps) => {
+  const { pending } = useFormStatus();
 
   return (
     <Button
       {...props}
-      type="button"
+      type="submit"
       variant="outline"
-      disabled={disabled || isLoading}
-      className={`
-        w-full h-14 lg:h-16 text-sm lg:text-base font-medium relative overflow-hidden group
+      disabled={disabled || pending}
+      className={clsx(
+        `w-full h-14 lg:h-16 text-sm lg:text-base font-medium relative overflow-hidden group
         bg-white/5 backdrop-blur-sm border border-white/20 
-        hover:-translate-y-0.5 hover:scale-105 hover:shadow-lg
+        hover:-translate-y-0.5 hover:shadow-lg
         focus:ring-2 focus:ring-primary/50 focus:border-primary/50
         transition-all duration-200 ease-out
-        disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
-        ${provider ? providerStyles[provider] : ""}
-        ${className}
-      `}
+        disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`,
+        className
+      )}
     >
-      {/* Background gradient on hover */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-success/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Content */}
-      <div className="relative flex items-center justify-center gap-2 lg:gap-3">
-        {isLoading ? (
-          <div className="w-5 lg:w-6 h-5 lg:h-6 border-2 border-current border-t-transparent rounded-full animate-smooth-spin" />
-        ) : (
-          <span className="w-5 lg:w-6 h-5 lg:h-6 flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
-            {React.Children.toArray(children)[0]}
-          </span>
-        )}
-        <span className="font-medium transition-all duration-200">
-          {isLoading ? "Signing in..." : React.Children.toArray(children)[1]}
+      <div className="flex items-center justify-center gap-2">{children}</div>
+    </Button>
+  );
+};
+
+const Separator = () => {
+  return (
+    <div className="relative animate-in fade-in duration-400 delay-700">
+      <div className="absolute inset-0 flex items-center">
+        <div className="w-full border-t border-white/20" />
+      </div>
+      <div className="relative flex justify-center text-xs uppercase">
+        <span className="bg-transparent px-4 text-muted-foreground font-medium">
+          or
         </span>
       </div>
-
-      {/* Loading overlay */}
-      {isLoading && (
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200">
-          <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-smooth-spin" />
-        </div>
-      )}
-    </Button>
+    </div>
   );
 };

@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/Button";
-import { ROUTES } from "@/constants/routes";
-import { auth, signOut } from "@/lib/auth";
-import React from "react";
+import { auth } from "@/lib/auth";
+import { signOutAction } from "./auth/actions/auth.actions";
 
 const HomePage = async () => {
   const session = await auth();
@@ -12,9 +11,7 @@ const HomePage = async () => {
       <form
         action={async () => {
           "use server";
-          await signOut({
-            redirectTo: ROUTES.LOGIN,
-          });
+          await signOutAction();
         }}
       >
         <Button type="submit" className="mt-4">
