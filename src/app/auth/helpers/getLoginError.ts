@@ -1,4 +1,4 @@
-import { loginErrorMessages } from "@/constants/login-error";
+import { loginErrorMessages } from "@/lib/constants/login-error";
 
 type ErrorKey = keyof typeof loginErrorMessages;
 

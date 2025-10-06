@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { auth } from "@/lib/auth";
-import { signOutAction } from "./auth/actions/auth.actions";
+import { signOutAction } from "../features/auth/actions";
 
 const HomePage = async () => {
   const session = await auth();

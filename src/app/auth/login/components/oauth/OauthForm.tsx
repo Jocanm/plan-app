@@ -2,11 +2,11 @@
 
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/components/ui/Button";
+import { signInAction } from "@/features/auth/actions";
+import { ROUTES } from "@/lib/constants/routes";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useFormStatus } from "react-dom";
-import { ROUTES } from "../../../../../constants/routes";
-import { signInAction } from "../../../actions/auth.actions";
 
 const BASE_OPTIONS = {
   redirectTo: ROUTES.DESIGN_SYSTEM,

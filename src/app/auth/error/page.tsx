@@ -1,8 +1,8 @@
+import { ROUTES } from "@/lib/constants/routes";
 import { NextPagePromiseProps } from "@/types";
 import { AlertTriangleIcon } from "lucide-react";
 import Link from "next/link";
 import { getLoginError } from "../helpers/getLoginError";
-import { ROUTES } from "@/constants/routes";
 
 export default async function AuthErrorPage({
   searchParams,
