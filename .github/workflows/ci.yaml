@@ -42,3 +42,10 @@ jobs:
 
       - name: Run Tests
         run: pnpm test --coverage
+      
+      - name: Run E2E Tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm start
+          wait-on: 'http://localhost:3000'
