@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { authRepository } from "../../data/auth";
 import { AuthOptions, AuthProvider } from "../../lib/types/auth";
@@ -11,8 +11,6 @@ export const signInAction = async (
   await signInWithProviderUseCase(provider, options, authRepository);
 };
 
-export const signOutAction = async (
-  options?: AuthOptions
-) => {
+export const signOutAction = async (options?: AuthOptions) => {
   await signOutUseCase(options, authRepository);
 };

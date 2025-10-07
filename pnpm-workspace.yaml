@@ -1,7 +1,10 @@
 onlyBuiltDependencies:
-  - '@prisma/engines'
-  - '@tailwindcss/oxide'
+  - "@prisma/client"
+  - "@prisma/engines"
+  - "@tailwindcss/oxide"
+  - cypress
   - prisma
-  - '@prisma/client'
   - sharp
   - unrs-resolver
+
+sideEffectsCache: false

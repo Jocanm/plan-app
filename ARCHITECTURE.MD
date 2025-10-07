@@ -74,44 +74,45 @@ src/
 ```typescript
 // src/lib/validations/project.ts
 
-export type ValidationResult = 
+export type ValidationResult =
   | { success: true; data: string }
   | { success: false; error: string };
 
 export function validateProjectName(name: string): ValidationResult {
   const trimmed = name.trim();
-  
+
   if (trimmed.length === 0) {
-    return { success: false, error: 'El nombre es requerido' };
+    return { success: false, error: "El nombre es requerido" };
   }
-  
+
   if (trimmed.length < 3) {
-    return { success: false, error: 'Mínimo 3 caracteres' };
+    return { success: false, error: "Mínimo 3 caracteres" };
   }
-  
+
   if (trimmed.length > 50) {
-    return { success: false, error: 'Máximo 50 caracteres' };
+    return { success: false, error: "Máximo 50 caracteres" };
   }
-  
+
   return { success: true, data: trimmed };
 }
 ```
 
 **Test:**
+
 ```typescript
 // src/lib/validations/__tests__/project.test.ts
-import { validateProjectName } from '../project';
+import { validateProjectName } from "../project";
 
-test('rechaza nombres cortos', () => {
-  const result = validateProjectName('ab');
+test("rechaza nombres cortos", () => {
+  const result = validateProjectName("ab");
   expect(result.success).toBe(false);
-  expect(result.error).toBe('Mínimo 3 caracteres');
+  expect(result.error).toBe("Mínimo 3 caracteres");
 });
 
-test('acepta nombres válidos', () => {
-  const result = validateProjectName('Mi Proyecto');
+test("acepta nombres válidos", () => {
+  const result = validateProjectName("Mi Proyecto");
   expect(result.success).toBe(true);
-  expect(result.data).toBe('Mi Proyecto');
+  expect(result.data).toBe("Mi Proyecto");
 });
 ```
 
@@ -126,24 +127,25 @@ export function calculateProjectStats(tasks: Task[]) {
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed).length;
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-  
+
   return { total, completed, percentage };
 }
 ```
 
 **Test:**
+
 ```typescript
-test('calcula estadísticas correctamente', () => {
+test("calcula estadísticas correctamente", () => {
   const tasks = [
-    { id: '1', completed: true },
-    { id: '2', completed: false },
-    { id: '3', completed: true }
+    { id: "1", completed: true },
+    { id: "2", completed: false },
+    { id: "3", completed: true },
   ];
-  
+
   expect(calculateProjectStats(tasks)).toEqual({
     total: 3,
     completed: 2,
-    percentage: 67
+    percentage: 67,
   });
 });
 ```
@@ -155,8 +157,8 @@ test('calcula estadísticas correctamente', () => {
 ```typescript
 // src/data/projects.ts
 
-import { prisma } from '@/lib/prisma';
-import type { Prisma, Project } from '@prisma/client';
+import { prisma } from "@/lib/prisma";
+import type { Prisma, Project } from "@prisma/client";
 
 // ✅ Tipo para el contrato (la "interfaz")
 export type ProjectRepository = {
@@ -172,38 +174,38 @@ export const projectRepository: ProjectRepository = {
   async create(data) {
     return await prisma.project.create({ data });
   },
-  
+
   async findByUserId(userId) {
     return await prisma.project.findMany({
       where: { userId },
       include: { tasks: true },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: "desc" },
     });
   },
-  
+
   async findById(id) {
     return await prisma.project.findUnique({
       where: { id },
-      include: { tasks: true }
+      include: { tasks: true },
     });
   },
-  
+
   async update(id, data) {
     return await prisma.project.update({
       where: { id },
-      data
+      data,
     });
   },
-  
+
   async delete(id) {
     await prisma.project.delete({ where: { id } });
-  }
+  },
 };
 
 // ✅ Implementación fake (testing)
 export function createFakeProjectRepository(): ProjectRepository {
   const projects: Project[] = [];
-  
+
   return {
     async create(data) {
       const project = {
@@ -213,54 +215,55 @@ export function createFakeProjectRepository(): ProjectRepository {
         color: data.color as string | null,
         userId: data.userId as string,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       } as Project;
-      
+
       projects.push(project);
       return project;
     },
-    
+
     async findByUserId(userId) {
       return projects.filter(p => p.userId === userId);
     },
-    
+
     async findById(id) {
       return projects.find(p => p.id === id) ?? null;
     },
-    
+
     async update(id, data) {
       const index = projects.findIndex(p => p.id === id);
-      if (index === -1) throw new Error('Project not found');
-      
+      if (index === -1) throw new Error("Project not found");
+
       projects[index] = { ...projects[index], ...data, updatedAt: new Date() };
       return projects[index];
     },
-    
+
     async delete(id) {
       const index = projects.findIndex(p => p.id === id);
       if (index !== -1) projects.splice(index, 1);
-    }
+    },
   };
 }
 ```
 
 **Test:**
-```typescript
-import { createFakeProjectRepository } from '../projects';
 
-test('crea y recupera proyecto', async () => {
+```typescript
+import { createFakeProjectRepository } from "../projects";
+
+test("crea y recupera proyecto", async () => {
   const repo = createFakeProjectRepository();
-  
+
   const created = await repo.create({
-    name: 'Test Project',
-    userId: 'user-123'
+    name: "Test Project",
+    userId: "user-123",
   });
-  
-  expect(created.name).toBe('Test Project');
-  
-  const projects = await repo.findByUserId('user-123');
+
+  expect(created.name).toBe("Test Project");
+
+  const projects = await repo.findByUserId("user-123");
   expect(projects).toHaveLength(1);
-  expect(projects[0].name).toBe('Test Project');
+  expect(projects[0].name).toBe("Test Project");
 });
 ```
 
@@ -270,14 +273,14 @@ test('crea y recupera proyecto', async () => {
 
 ```typescript
 // src/features/projects/actions.ts
-'use server';
+"use server";
 
-import { auth } from '@/lib/auth';
-import { validateProjectName } from '@/lib/validations/project';
-import { projectRepository } from '@/data/projects';
-import { revalidatePath } from 'next/cache';
+import { auth } from "@/lib/auth";
+import { validateProjectName } from "@/lib/validations/project";
+import { projectRepository } from "@/data/projects";
+import { revalidatePath } from "next/cache";
 
-type ActionResult<T> = 
+type ActionResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };
 
@@ -289,28 +292,28 @@ export async function createProject(
   // 1. Autenticación
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: 'No autenticado' };
+    return { success: false, error: "No autenticado" };
   }
-  
+
   // 2. Validación (Domain)
   const validation = validateProjectName(name);
   if (!validation.success) {
     return validation;
   }
-  
+
   // 3. Persistencia (Data)
   try {
     const project = await repository.create({
       name: validation.data,
-      userId: session.user.id
+      userId: session.user.id,
     });
-    
-    revalidatePath('/projects');
-    
+
+    revalidatePath("/projects");
+
     return { success: true, data: project };
   } catch (error) {
-    console.error('Error creating project:', error);
-    return { success: false, error: 'Error al crear proyecto' };
+    console.error("Error creating project:", error);
+    return { success: false, error: "Error al crear proyecto" };
   }
 }
 
@@ -319,14 +322,14 @@ export async function getProjects(
 ): Promise<ActionResult<Project[]>> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: 'No autenticado' };
+    return { success: false, error: "No autenticado" };
   }
-  
+
   try {
     const projects = await repository.findByUserId(session.user.id);
     return { success: true, data: projects };
   } catch (error) {
-    return { success: false, error: 'Error al cargar proyectos' };
+    return { success: false, error: "Error al cargar proyectos" };
   }
 }
 
@@ -336,50 +339,51 @@ export async function deleteProject(
 ): Promise<ActionResult<void>> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: 'No autenticado' };
+    return { success: false, error: "No autenticado" };
   }
-  
+
   try {
     await repository.delete(projectId);
-    revalidatePath('/projects');
+    revalidatePath("/projects");
     return { success: true, data: undefined };
   } catch (error) {
-    return { success: false, error: 'Error al eliminar proyecto' };
+    return { success: false, error: "Error al eliminar proyecto" };
   }
 }
 ```
 
 **Test:**
+
 ```typescript
-import { createProject } from '../actions';
-import { createFakeProjectRepository } from '@/data/projects';
+import { createProject } from "../actions";
+import { createFakeProjectRepository } from "@/data/projects";
 
 // Mock de auth
-jest.mock('@/lib/auth', () => ({
+jest.mock("@/lib/auth", () => ({
   auth: jest.fn().mockResolvedValue({
-    user: { id: 'user-123' }
-  })
+    user: { id: "user-123" },
+  }),
 }));
 
-test('crea proyecto con nombre válido', async () => {
+test("crea proyecto con nombre válido", async () => {
   const fakeRepo = createFakeProjectRepository();
-  
-  const result = await createProject('Mi Proyecto', fakeRepo);
-  
+
+  const result = await createProject("Mi Proyecto", fakeRepo);
+
   expect(result.success).toBe(true);
   if (result.success) {
-    expect(result.data.name).toBe('Mi Proyecto');
+    expect(result.data.name).toBe("Mi Proyecto");
   }
 });
 
-test('rechaza nombre inválido', async () => {
+test("rechaza nombre inválido", async () => {
   const fakeRepo = createFakeProjectRepository();
-  
-  const result = await createProject('ab', fakeRepo);
-  
+
+  const result = await createProject("ab", fakeRepo);
+
   expect(result.success).toBe(false);
   if (!result.success) {
-    expect(result.error).toBe('Mínimo 3 caracteres');
+    expect(result.error).toBe("Mínimo 3 caracteres");
   }
 });
 ```
@@ -390,64 +394,65 @@ test('rechaza nombre inválido', async () => {
 
 ```typescript
 // src/features/projects/hooks.ts
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react';
-import { createProject, deleteProject } from './actions';
+import { useState, useTransition } from "react";
+import { createProject, deleteProject } from "./actions";
 
 export function useCreateProject() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  
+
   const create = (name: string) => {
     setError(null);
-    
+
     startTransition(async () => {
       const result = await createProject(name);
-      
+
       if (!result.success) {
         setError(result.error);
       }
     });
   };
-  
+
   return { create, isPending, error };
 }
 
 export function useDeleteProject() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  
+
   const deleteProj = (projectId: string) => {
     setError(null);
-    
+
     startTransition(async () => {
       const result = await deleteProject(projectId);
-      
+
       if (!result.success) {
         setError(result.error);
       }
     });
   };
-  
+
   return { deleteProject: deleteProj, isPending, error };
 }
 ```
 
 **Test:**
-```typescript
-import { renderHook, act } from '@testing-library/react';
-import { useCreateProject } from '../hooks';
 
-test('hook maneja estado de loading', async () => {
+```typescript
+import { renderHook, act } from "@testing-library/react";
+import { useCreateProject } from "../hooks";
+
+test("hook maneja estado de loading", async () => {
   const { result } = renderHook(() => useCreateProject());
-  
+
   expect(result.current.isPending).toBe(false);
-  
+
   act(() => {
-    result.current.create('Test Project');
+    result.current.create("Test Project");
   });
-  
+
   expect(result.current.isPending).toBe(true);
 });
 ```
@@ -468,7 +473,7 @@ import { Input } from '@/components/ui/input';
 export function ProjectForm() {
   const [name, setName] = useState('');
   const { create, isPending, error } = useCreateProject();
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
@@ -476,7 +481,7 @@ export function ProjectForm() {
       setName('');
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
@@ -487,14 +492,14 @@ export function ProjectForm() {
           disabled={isPending}
         />
       </div>
-      
-      <Button 
-        type="submit" 
+
+      <Button
+        type="submit"
         disabled={isPending || name.length < 3}
       >
         {isPending ? 'Creando...' : 'Crear Proyecto'}
       </Button>
-      
+
       {error && (
         <p className="text-sm text-red-500">{error}</p>
       )}
@@ -504,6 +509,7 @@ export function ProjectForm() {
 ```
 
 **Test:**
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -511,30 +517,30 @@ import { ProjectForm } from '../ProjectForm';
 
 test('deshabilita botón con nombre corto', () => {
   render(<ProjectForm />);
-  
+
   const button = screen.getByRole('button', { name: /crear proyecto/i });
   expect(button).toBeDisabled();
 });
 
 test('habilita botón con nombre válido', async () => {
   render(<ProjectForm />);
-  
+
   const input = screen.getByPlaceholderText('Nombre del proyecto');
   await userEvent.type(input, 'Mi Proyecto');
-  
+
   const button = screen.getByRole('button', { name: /crear proyecto/i });
   expect(button).toBeEnabled();
 });
 
 test('muestra loading al enviar', async () => {
   render(<ProjectForm />);
-  
+
   const input = screen.getByPlaceholderText('Nombre del proyecto');
   await userEvent.type(input, 'Mi Proyecto');
-  
+
   const button = screen.getByRole('button');
   await userEvent.click(button);
-  
+
   expect(screen.getByText('Creando...')).toBeInTheDocument();
 });
 ```

@@ -22,11 +22,13 @@ Your primary goal is to **teach and guide**, not to complete tasks. The user is 
 #### When the user asks for help:
 
 ❌ **DON'T DO THIS:**
+
 ```
 "Here's the complete implementation: [200 lines of code]"
 ```
 
 ✅ **DO THIS INSTEAD:**
+
 ```
 "Let's break this down together. Before we start:
 
@@ -40,11 +42,13 @@ Let me know your thoughts, and I'll guide you through it step by step."
 #### When reviewing code:
 
 ❌ **DON'T DO THIS:**
+
 ```
 "Looks good! ✓"
 ```
 
 ✅ **DO THIS INSTEAD:**
+
 ```
 "I see some issues we need to address:
 
@@ -58,6 +62,7 @@ Want to tackle these one by one?"
 #### When implementing features:
 
 ✅ **ALWAYS follow this order:**
+
 1. Discuss architecture/design first
 2. Write tests (TDD)
 3. Implement minimal code to pass tests
@@ -139,12 +144,12 @@ src/
 
 ### Layer Responsibilities
 
-| Layer | What goes here | What DOESN'T go here |
-|-------|----------------|----------------------|
-| **lib/** | Pure functions, validations, utils | React, Prisma, fetch, side effects |
-| **data/** | Repository pattern, data access | Business logic, UI, validations |
-| **features/** | Server Actions, hooks, components | Direct DB access, complex logic |
-| **app/** | Routes, layouts, metadata | Business logic, data access |
+| Layer         | What goes here                     | What DOESN'T go here               |
+| ------------- | ---------------------------------- | ---------------------------------- |
+| **lib/**      | Pure functions, validations, utils | React, Prisma, fetch, side effects |
+| **data/**     | Repository pattern, data access    | Business logic, UI, validations    |
+| **features/** | Server Actions, hooks, components  | Direct DB access, complex logic    |
+| **app/**      | Routes, layouts, metadata          | Business logic, data access        |
 
 ---
 
@@ -165,6 +170,7 @@ src/
 ### Rule 2: Architecture Compliance
 
 **NEVER allow:**
+
 - ❌ Components calling Prisma directly
 - ❌ Server Actions with business logic embedded
 - ❌ Validation logic in components
@@ -172,6 +178,7 @@ src/
 - ❌ Direct database queries in UI code
 
 **ALWAYS require:**
+
 - ✅ Pure functions in `lib/`
 - ✅ Repository pattern in `data/`
 - ✅ Dependency Injection in Server Actions
@@ -181,6 +188,7 @@ src/
 ### Rule 3: Code Quality Standards
 
 **Before accepting ANY code, check:**
+
 - [ ] Tests exist and pass
 - [ ] High cohesion (single responsibility)
 - [ ] Low coupling (minimal dependencies)
@@ -192,6 +200,7 @@ src/
 ### Rule 4: No Spoon-Feeding
 
 **When the user asks for help:**
+
 1. Ask guiding questions first
 2. Make them think through the problem
 3. Provide hints, not solutions
@@ -203,6 +212,7 @@ src/
 ### Rule 5: Teaching Opportunities
 
 **Always explain:**
+
 - WHY a pattern is used
 - WHAT problems it solves
 - WHEN to apply it
@@ -229,24 +239,27 @@ src/
 ### What to Test Where
 
 **lib/ (Unit tests with Jest)**
+
 ```typescript
 // Pure functions - super fast, many tests
-test('validateProjectName rejects short names', () => {
-  expect(validateProjectName('ab').success).toBe(false);
+test("validateProjectName rejects short names", () => {
+  expect(validateProjectName("ab").success).toBe(false);
 });
 ```
 
 **data/ (Integration tests with Fakes)**
+
 ```typescript
 // Repository pattern - test with fake implementations
-test('creates project in repository', async () => {
+test("creates project in repository", async () => {
   const repo = createFakeProjectRepository();
-  const project = await repo.create({ name: 'Test', userId: '1' });
-  expect(project.name).toBe('Test');
+  const project = await repo.create({ name: "Test", userId: "1" });
+  expect(project.name).toBe("Test");
 });
 ```
 
 **features/ (Component + Hook tests with RTL)**
+
 ```typescript
 // UI interactions and state management
 test('form disables button while submitting', async () => {
@@ -257,11 +270,12 @@ test('form disables button while submitting', async () => {
 ```
 
 **E2E (Critical user flows with Cypress)**
+
 ```typescript
 // Full user journeys
-test('user creates project and sees it in list', async ({ page }) => {
-  await page.goto('/projects');
-  await page.click('text=New Project');
+test("user creates project and sees it in list", async ({ page }) => {
+  await page.goto("/projects");
+  await page.click("text=New Project");
   // ...
 });
 ```
@@ -301,6 +315,7 @@ test('user creates project and sees it in list', async ({ page }) => {
 Watch for and **ALWAYS call out** these mistakes:
 
 ### Low Cohesion
+
 ```typescript
 // ❌ BAD: Unrelated functions in one file
 // src/lib/utils.ts
@@ -310,6 +325,7 @@ export function sendNotification() {}
 ```
 
 ### God Components
+
 ```typescript
 // ❌ BAD: Component doing everything
 function Dashboard() {
@@ -320,6 +336,7 @@ function Dashboard() {
 ```
 
 ### Missing Tests
+
 ```typescript
 // ❌ BAD: No tests for this logic
 export function calculateProjectStats(tasks: Task[]) {
@@ -328,15 +345,17 @@ export function calculateProjectStats(tasks: Task[]) {
 ```
 
 ### Direct DB Access in UI
+
 ```typescript
 // ❌ BAD: Prisma in component
-'use client';
+"use client";
 function ProjectList() {
   const projects = await prisma.project.findMany(); // NEVER!
 }
 ```
 
 ### No Dependency Injection
+
 ```typescript
 // ❌ BAD: Hard-coded dependency
 export async function createProject(name: string) {
@@ -344,10 +363,7 @@ export async function createProject(name: string) {
 }
 
 // ✅ GOOD: Injected dependency
-export async function createProject(
-  name: string,
-  repo = projectRepository
-) {
+export async function createProject(name: string, repo = projectRepository) {
   await repo.create({ name }); // Easy to test with fake!
 }
 ```
@@ -359,6 +375,7 @@ export async function createProject(
 We use `src/todo.md` to track tasks and progress.
 
 **Update it when:**
+
 - A feature is completed
 - Architecture decisions are made
 - Technical debt is identified
@@ -381,6 +398,7 @@ A task is considered "done" when:
 9. ✅ `todo.md` updated
 
 **Not done if:**
+
 - Tests missing or written after code
 - Architecture violations present
 - User can't explain the approach

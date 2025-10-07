@@ -1,33 +1,40 @@
 # Clean Architecture for Next.js and TDD - Planning App
 
 ## 1. The Philosophy
+
 Based on battle-tested principles from large-scale React applications, our architecture will be governed by a golden rule:
 **Our business logic must not know that Next.js, React, or Prisma exist.**
 
 This means that the core of our application will be pure TypeScript code, without framework dependencies.
 
 ### Lessons from 2M+ LOC Banking App
+
 - When business logic lives inside React components, testing becomes painful
 - Developers skip tests when they require rendering components, mocking hooks, or updating snapshots
 - **Solution**: Abstract ALL business logic into regular functions with zero React awareness
 
 ### What Gets Abstracted (IOSP - Integration Operation Segregation Principle)
+
 - **IF conditions** → pure functions
 - **API requests or SDK usage** → abstracted behind interfaces
-- **Data extraction/transformation** → pure functions  
+- **Data extraction/transformation** → pure functions
 - **Cookie, localStorage manipulation** → abstracted services
 - **Any external dependency** → inverted and abstracted
 
 ## 2. Fundamental Principles
 
 ### **Separation of Concerns (SoC)**
+
 We will isolate business logic in its own layer, separated from the UI (React/Next.js), from the database (Prisma), and from any external service. ALL business logic will be regular TypeScript functions with zero framework awareness.
 
 ### **Dependency Inversion (D)**
+
 Internal layers (our business logic) will not depend on external layers (the database). Instead, external layers will depend on "contracts" (interfaces) defined by internal layers.
 
 ### **Integration Operation Segregation Principle (IOSP)**
+
 We segregate operations into two types:
+
 - **Pure Operations**: Business logic, transformations, validations (easy to test)
 - **Integration Operations**: I/O, external calls, side effects (abstracted behind interfaces)
 
@@ -86,12 +93,14 @@ src/
 This allows us to write tests that validate **behavior**, not implementation, following lessons from large-scale React applications.
 
 ### The Problem with Component-Heavy Testing
+
 - Testing components requires rendering (slow and brittle)
 - Snapshot tests break on every JSX change
 - Mocking React hooks and internals is painful
 - Developers skip tests when they're hard to write
 
 ### Our Solution: Test Pure Business Logic
+
 To test any use case, we will:
 
 1. **Write the test FIRST.**
@@ -100,6 +109,7 @@ To test any use case, we will:
 4. Execute the pure business logic and **assert** the expected outcomes
 
 The result is a test that:
+
 - Is **extremely fast** (no DOM rendering, no external systems)
 - Validates pure business logic in isolation
 - **Won't break** when UI changes or external implementations change
@@ -109,6 +119,7 @@ The result is a test that:
 ## Review Criteria for Claude Code
 
 ### ✅ ACCEPT when:
+
 - Tests describe user/business behavior, not implementation details
 - Business logic is extracted into **pure functions** (zero React/framework awareness)
 - Tests are **unit tests on functions**, not component tests
@@ -119,6 +130,7 @@ The result is a test that:
 - Server Actions only orchestrate, don't contain business logic
 
 ### ❌ REJECT when:
+
 - Tests require component rendering (use RTL only for UI behavior, not business logic)
 - Tests use snapshots for business logic validation
 - Business logic is mixed with React components
@@ -132,6 +144,7 @@ The result is a test that:
 ## TDD Workflow Validation
 
 ### Before Implementation:
+
 1. Use case test exists and is RED
 2. Test describes business behavior in plain English
 3. Test calls **pure functions directly** (no component rendering)
@@ -139,6 +152,7 @@ The result is a test that:
 5. Test assertions focus on business outcomes
 
 ### After Implementation:
+
 1. Test is GREEN without changing the test
 2. Use case is a **pure function** with no framework imports
 3. Repository contract is satisfied by infrastructure layer
@@ -162,20 +176,22 @@ The result is a test that:
 ## Integration Operation Segregation Principle (IOSP) Examples
 
 ### ❌ DON'T (Mixed in Component):
+
 ```tsx
 function ProjectForm() {
   const [projects, setProjects] = useState([]);
-  
+
   const handleSubmit = async (data) => {
     // Business logic mixed with UI!
     if (data.name.length < 3) return; // Validation logic
     const userId = localStorage.getItem('userId'); // Integration
-    await prisma.project.create({...}); // Integration  
+    await prisma.project.create({...}); // Integration
   };
 }
 ```
 
 ### ✅ DO (Segregated):
+
 ```tsx
 // Pure business logic (easily testable)
 function validateProjectName(name: string): boolean {
@@ -185,14 +201,14 @@ function validateProjectName(name: string): boolean {
 // Use case (pure function)
 function createProject(data: ProjectData, deps: Dependencies): Result {
   if (!validateProjectName(data.name)) {
-    return { success: false, error: 'Name too short' };
+    return { success: false, error: "Name too short" };
   }
   // Use abstracted dependencies...
 }
 
 // Component (only UI orchestration)
 function ProjectForm() {
-  const handleSubmit = (data) => {
+  const handleSubmit = data => {
     const result = createProject(data, dependencies);
     // Handle result...
   };

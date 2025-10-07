@@ -8,4 +8,4 @@ export const authRepository: IAuthRepository = {
   async signOut(options) {
     return authJsSignOut(options);
   },
-}
+};
