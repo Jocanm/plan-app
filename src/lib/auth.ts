@@ -1,7 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { env } from "../env";
 import prisma from "./prisma";
 
 declare module "next-auth" {
@@ -15,16 +17,39 @@ declare module "next-auth" {
   }
 }
 
+const providers: NextAuthConfig["providers"] = [Google, GitHub];
+const isDevEnvironment = env.NODE_ENV === "development";
+
+if (isDevEnvironment) {
+  providers.push(
+    Credentials({
+      id: "password",
+      name: "Password",
+      credentials: {
+        password: { label: "Password", type: "password" },
+      },
+      authorize: credentials => {
+        if (credentials.password === "password") {
+          return {
+            email: "bob@alice.com",
+            name: "Bob Alice",
+          };
+        }
+        return null;
+      },
+    })
+  );
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers,
   adapter: PrismaAdapter(prisma),
-  providers: [Google, GitHub],
   session: {
     strategy: "database",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
   pages: {
-    signIn: "/auth/login",
     error: "/auth/error",
   },
 });
