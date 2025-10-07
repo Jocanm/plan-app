@@ -51,7 +51,7 @@ jobs:
           start: pnpm start
           wait-on: 'http://localhost:3000'
         env:
-          DATABASE_URL: "postgresql://user:pass@localhost:5432/test"
+          DATABASE_URL: "prisma+postgres://user:pass@localhost:5432/test"
           AUTH_SECRET: "test-secret-key-for-ci-only"
           AUTH_TRUST_HOST: "true"
           NEXTAUTH_URL: "http://localhost:3000"
