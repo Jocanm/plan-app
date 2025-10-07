@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate --no-engine && prisma migrate deploy && next build",
+    "build:ci": "prisma generate --no-engine && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
