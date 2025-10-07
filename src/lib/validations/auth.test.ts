@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { ROUTES } from "../constants/routes";
 import { getAuthRedirect, isPublicRoute } from "./auth";
 
