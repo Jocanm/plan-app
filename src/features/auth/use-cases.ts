@@ -1,8 +1,9 @@
+import { ROUTES } from "@/lib/constants/routes";
 import {
   type AuthOptions,
   type AuthProvider,
   type IAuthRepository,
-} from "../../lib/types/auth";
+} from "@/lib/types/auth";
 
 export async function signInWithProviderUseCase(
   provider: AuthProvider,
@@ -16,5 +17,9 @@ export async function signOutUseCase(
   options: AuthOptions | undefined,
   repo: IAuthRepository
 ) {
-  await repo.signOut(options);
+  const defaultOptions: AuthOptions = {
+    redirectTo: ROUTES.LOGIN,
+    ...options,
+  };
+  await repo.signOut(defaultOptions);
 }
