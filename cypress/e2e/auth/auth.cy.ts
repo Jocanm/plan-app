@@ -1,6 +1,6 @@
 import { ROUTES } from "../../../src/lib/constants/routes";
 
-describe("Auth Middleware", () => {
+describe("Auth Cases", () => {
   describe("Unauthenticated User", () => {
     beforeEach(() => {
       cy.clearAllCookies();
@@ -15,4 +15,6 @@ describe("Auth Middleware", () => {
       cy.url().should("include", ROUTES.LOGIN);
     });
   });
+
+  describe("Authenticated User", () => {});
 });

@@ -18,9 +18,9 @@ declare module "next-auth" {
 }
 
 const providers: NextAuthConfig["providers"] = [Google, GitHub];
-const isDevEnvironment = env.NODE_ENV === "development";
+const isEndToEndEnvironment = env.NODE_ENV === "development" && env.APP_TEST;
 
-if (isDevEnvironment) {
+if (isEndToEndEnvironment) {
   providers.push(
     Credentials({
       id: "password",
@@ -45,9 +45,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: "database",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
+    strategy: isEndToEndEnvironment ? "jwt" : "database",
   },
   pages: {
     error: "/auth/error",

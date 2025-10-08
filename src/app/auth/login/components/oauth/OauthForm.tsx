@@ -9,7 +9,7 @@ import { Github } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 const BASE_OPTIONS = {
-  redirectTo: ROUTES.DESIGN_SYSTEM,
+  redirectTo: ROUTES.HOME,
 };
 
 export const OauthForm = () => {
