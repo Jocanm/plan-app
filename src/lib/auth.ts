@@ -18,7 +18,12 @@ declare module "next-auth" {
 }
 
 const providers: NextAuthConfig["providers"] = [Google, GitHub];
-const isEndToEndEnvironment = env.NODE_ENV === "development" && env.APP_TEST;
+const isEndToEndEnvironment = env.APP_TEST;
+const isProductionEnvironment = process.env.VERCEL_ENV;
+
+if (isEndToEndEnvironment && isProductionEnvironment) {
+  throw new Error("APP_TEST should never be true in production");
+}
 
 if (isEndToEndEnvironment) {
   providers.push(
