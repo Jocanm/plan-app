@@ -5,4 +5,5 @@ export const ROUTES = {
   DESIGN_SYSTEM: "/design-system",
   LOGIN: `${AUTH_PATH}/login`,
   ERROR: `${AUTH_PATH}/error`,
+  API_LOGIN: "/api/auth/signin",
 } as const;

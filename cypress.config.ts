@@ -7,7 +7,4 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-  env: {
-    APP_TEST: true,
-  },
 });

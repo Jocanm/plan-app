@@ -55,3 +55,4 @@ jobs:
           AUTH_SECRET: "test-secret-key-for-ci-only"
           AUTH_TRUST_HOST: "true"
           NEXTAUTH_URL: "http://localhost:3000"
+          APP_TEST: "true"

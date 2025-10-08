@@ -14,7 +14,7 @@ const HomePage = async () => {
           await signOutAction();
         }}
       >
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" data-testid="sign-out-button">
           Sign Out
         </Button>
       </form>
