@@ -1,0 +1,27 @@
+{
+  "login": {
+    "title": "Welcome to",
+    "subtitle": "Sign in to your account",
+    "description": "Organize your life, manage your tasks, and achieve your goals with our beautiful and intuitive task management platform.",
+    "continue_with_google": "Continue with Google",
+    "continue_with_github": "Continue with GitHub",
+    "beautiful_task_organization": "Beautiful task organization",
+    "organize_with_drag_and_drop": "Organize with drag & drop",
+    "calendar_integration": "Calendar integration",
+    "schedule_seamlessly": "Schedule seamlessly",
+    "team_collaboration": "Team collaboration",
+    "work_together": "Work together effortlessly",
+    "seamless_collaboration": "Seamless collaboration",
+    "app_name": "Plan App",
+    "meta": {
+      "title": "Signin - Plan App",
+      "description": "Sign in to your account and start organizing your tasks with Plan App."
+    }
+  },
+  "common": {
+    "meta": {
+      "title": "Plan App - Task Management Made Simple",
+      "description": "A simple and efficient task management app."
+    }
+  }
+}

@@ -1,7 +1,10 @@
 import { Card, CardContent } from "@/components/ui/Card";
+import { getTranslations } from "next-intl/server";
 import { OauthForm } from "./oauth/OauthForm";
 
-export const LoginForm = () => {
+export const LoginForm = async () => {
+  await getTranslations("login");
+
   return (
     <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-6 lg:py-16 relative">
       <div className="absolute inset-0 bg-gradient-to-bl from-primary/3 via-transparent to-background/50" />

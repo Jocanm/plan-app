@@ -6,16 +6,20 @@ import {
 import { PlanLogo } from "@/components/icons/PlanLogo";
 import { ROUTES } from "@/lib/constants/routes";
 import { NextPagePromiseProps } from "@/types";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./components/LoginForm";
 
-export const metadata = {
-  title: "Login - Plan app",
-  description:
-    "Sign in to your Plan app account to manage your tasks and projects.",
+export const generateMetadata = async () => {
+  const t = await getTranslations("login");
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+  };
 };
 
 const Login = async ({ searchParams }: NextPagePromiseProps) => {
+  const t = await getTranslations("login");
   const error = (await searchParams)?.error;
 
   if (error) {
@@ -79,17 +83,16 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 />
                 <div className="animate-in fade-in slide-in-from-bottom-2 duration-700 delay-200">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-2">
-                    Welcome to{" "}
+                    {t("title")}{" "}
                     <span className="font-semibold bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">
-                      Plan app
+                      {t("app_name")}
                     </span>
                   </h1>
                   <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-primary to-success rounded-full mx-auto sm:mx-0 animate-in zoom-in duration-500 delay-[400ms]" />
                 </div>
               </div>
               <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed text-center sm:text-left animate-in fade-in slide-in-from-bottom-1 duration-700 delay-300">
-                Organize your life, manage your tasks, and achieve your goals
-                with our beautiful and intuitive task management platform.
+                {t("description")}
               </p>
             </div>
 
@@ -99,10 +102,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 <TaskOrganizationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
-                    Beautiful task organization
+                    {t("beautiful_task_organization")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Organize with drag & drop
+                    {t("organize_with_drag_and_drop")}
                   </p>
                 </div>
               </div>
@@ -110,10 +113,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 <CalendarIntegrationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
-                    Calendar integration
+                    {t("calendar_integration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Schedule seamlessly
+                    {t("schedule_seamlessly")}
                   </p>
                 </div>
               </div>
@@ -121,10 +124,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 <CollaborationIcon />
                 <div>
                   <h3 className="font-medium text-foreground">
-                    Team collaboration
+                    {t("team_collaboration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Work together effortlessly
+                    {t("work_together")}
                   </p>
                 </div>
               </div>
@@ -138,10 +141,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground mb-1">
-                    Beautiful task organization
+                    {t("beautiful_task_organization")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Organize your tasks with intuitive drag & drop
+                    {t("organize_with_drag_and_drop")}
                   </p>
                 </div>
               </div>
@@ -152,10 +155,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground mb-1">
-                    Intuitive calendar integration
+                    {t("calendar_integration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Schedule and track your tasks seamlessly
+                    {t("schedule_seamlessly")}
                   </p>
                 </div>
               </div>
@@ -166,10 +169,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground mb-1">
-                    Seamless collaboration
+                    {t("team_collaboration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Work together with your team effortlessly
+                    {t("work_together")}
                   </p>
                 </div>
               </div>

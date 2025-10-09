@@ -1,0 +1,27 @@
+{
+  "login": {
+    "title": "Bienvenido a",
+    "subtitle": "Inicia sesión en tu cuenta",
+    "description": "Organiza tu vida, gestiona tus tareas y alcanza tus objetivos con nuestra hermosa e intuitiva plataforma de gestión de tareas.",
+    "continue_with_google": "Continuar con Google",
+    "continue_with_github": "Continuar con GitHub",
+    "beautiful_task_organization": "Hermosa organización de tareas",
+    "organize_with_drag_and_drop": "Organiza arrastrando y soltando",
+    "calendar_integration": "Integración de calendario",
+    "schedule_seamlessly": "Programa sin problemas",
+    "team_collaboration": "Colaboración en equipo",
+    "work_together": "Trabajen juntos sin esfuerzo",
+    "seamless_collaboration": "Colaboración fluida",
+    "app_name": "Plan App",
+    "meta": {
+      "title": "Iniciar Sesión - Plan App",
+      "description": "Inicia sesión en tu cuenta y comienza a organizar tus tareas con Plan App."
+    }
+  },
+  "common": {
+    "meta": {
+      "title": "Plan App - Gestión de Tareas Simplificada",
+      "description": "Una aplicación simple y eficiente para la gestión de tareas."
+    }
+  }
+}

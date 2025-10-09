@@ -6,6 +6,7 @@ import { signInAction } from "@/features/auth/actions";
 import { ROUTES } from "@/lib/constants/routes";
 import clsx from "clsx";
 import { Github } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
 
 const BASE_OPTIONS = {
@@ -13,13 +14,15 @@ const BASE_OPTIONS = {
 };
 
 export const OauthForm = () => {
+  const t = useTranslations("login");
+
   return (
     <div className="animate-in fade-in duration-500 delay-500 space-y-5">
       <form action={() => signInAction("google", BASE_OPTIONS)}>
         <div className="animate-in zoom-in duration-500 delay-600">
           <OauthButton>
             <GoogleIcon />
-            Continue with Google
+            {t("continue_with_google")}
           </OauthButton>
         </div>
       </form>
@@ -28,7 +31,7 @@ export const OauthForm = () => {
         <div className="animate-in zoom-in duration-500 delay-[750ms]">
           <OauthButton>
             <Github />
-            Continue with GitHub
+            {t("continue_with_github")}
           </OauthButton>
         </div>
       </form>
