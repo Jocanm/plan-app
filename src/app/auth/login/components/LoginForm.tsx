@@ -4,7 +4,6 @@ import { OauthForm } from "./oauth/OauthForm";
 export const LoginForm = () => {
   return (
     <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-6 lg:py-16 relative">
-      {/* Subtle background pattern for the form side */}
       <div className="absolute inset-0 bg-gradient-to-bl from-primary/3 via-transparent to-background/50" />
 
       <div className="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
