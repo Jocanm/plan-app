@@ -21,8 +21,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -42,14 +42,14 @@ jobs:
 
       - name: Run Tests
         run: pnpm test --coverage
-      
+
       - name: Run E2E Tests
         uses: cypress-io/github-action@v6
         with:
           install: false
           build: pnpm build:ci
           start: pnpm start
-          wait-on: 'http://localhost:3000'
+          wait-on: "http://localhost:3000"
         env:
           DATABASE_URL: "prisma+postgres://user:pass@localhost:5432/test"
           AUTH_SECRET: "test-secret-key-for-ci-only"
