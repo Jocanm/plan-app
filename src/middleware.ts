@@ -5,6 +5,7 @@ import { getAuthRedirect } from "./lib/validations/auth";
 export default auth(req => {
   const isLoggedIn = !!req.auth?.user;
   const pathname = req.nextUrl.pathname;
+  // const acceptLanguageHeader = req.headers.get(ACCEPT_LANGUAGE_HEADER)
 
   const redirectResponse = getAuthRedirect({ isLoggedIn, pathname });
 
