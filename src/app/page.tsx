@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/Button";
 import { auth } from "@/lib/auth";
+import { getTranslations } from "next-intl/server";
 import { signOutAction } from "../features/auth/actions";
 
 const HomePage = async () => {
   const session = await auth();
+  const t = await getTranslations("home");
 
   return (
     <pre>
@@ -15,7 +17,7 @@ const HomePage = async () => {
         }}
       >
         <Button type="submit" className="mt-4" data-testid="sign-out-button">
-          Sign Out
+          {t("sign_out")}
         </Button>
       </form>
     </pre>

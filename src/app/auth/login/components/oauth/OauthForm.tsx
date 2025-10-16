@@ -71,6 +71,8 @@ const OauthButton = ({
 };
 
 const Separator = () => {
+  const t = useTranslations("login");
+
   return (
     <div className="relative animate-in fade-in duration-400 delay-700">
       <div className="absolute inset-0 flex items-center">
@@ -78,7 +80,7 @@ const Separator = () => {
       </div>
       <div className="relative flex justify-center text-xs uppercase">
         <span className="bg-transparent px-4 text-muted-foreground font-medium">
-          or
+          {t("separator_or")}
         </span>
       </div>
     </div>

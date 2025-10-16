@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { OauthForm } from "./oauth/OauthForm";
 
 export const LoginForm = async () => {
-  await getTranslations("login");
+  const t = await getTranslations("login");
 
   return (
     <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-6 lg:py-16 relative">
@@ -39,12 +39,12 @@ export const LoginForm = async () => {
                   </svg>
                 </div>
                 <h2 className="text-xl lg:text-2xl font-semibold text-foreground mb-2 animate-in fade-in slide-in-from-bottom-1 duration-600 delay-500">
-                  Sign in to your account
+                  {t("subtitle")}
                 </h2>
                 <div className="h-0.5 w-16 bg-gradient-to-r from-primary to-success rounded-full mx-auto animate-in zoom-in duration-400 delay-600" />
               </div>
               <p className="text-muted-foreground text-sm lg:text-base animate-in fade-in slide-in-from-bottom-1 duration-500 delay-700">
-                Choose your preferred sign in method
+                {t("choose_signin_method")}
               </p>
             </div>
 
@@ -64,7 +64,7 @@ export const LoginForm = async () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Secured with enterprise-grade encryption</span>
+                <span>{t("security_message")}</span>
               </div>
             </div>
           </CardContent>

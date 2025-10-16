@@ -1,22 +1,28 @@
 import { ROUTES } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-export const metadata = {
-  title: "404 - Not Found",
-  description: "The page you are looking for does not exist.",
+export const generateMetadata = async () => {
+  const t = await getTranslations("not_found.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
 };
 
-const NotFound = () => {
+const NotFound = async () => {
+  const t = await getTranslations("not_found");
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 text-black">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
+        <h1 className="text-4xl font-bold mb-4 text-black">{t("title")}</h1>
+        <p className="text-xl text-gray-600 mb-4">{t("message")}</p>
         <Link
           href={ROUTES.HOME}
           className="text-blue-500 hover:text-blue-700 underline"
         >
-          Return to Home
+          {t("return_home")}
         </Link>
       </div>
     </div>

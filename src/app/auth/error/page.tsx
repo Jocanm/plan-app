@@ -1,6 +1,7 @@
 import { ROUTES } from "@/lib/constants/routes";
 import { NextPagePromiseProps } from "@/types";
 import { AlertTriangleIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { getLoginError } from "../helpers/getLoginError";
 
@@ -8,7 +9,8 @@ export default async function AuthErrorPage({
   searchParams,
 }: NextPagePromiseProps) {
   const error = (await searchParams)?.error;
-  const { title, message } = getLoginError(error as string);
+  const { title, message } = await getLoginError(error as string);
+  const t = await getTranslations("error");
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-slate-50 p-4">
@@ -27,7 +29,7 @@ export default async function AuthErrorPage({
             href={ROUTES.LOGIN}
             className="inline-block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
-            Go to Login
+            {t("go_to_login")}
           </Link>
         </div>
       </div>

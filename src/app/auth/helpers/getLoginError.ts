@@ -1,12 +1,13 @@
-import { loginErrorMessages } from "@/lib/constants/login-error";
+import { getTranslations } from "next-intl/server";
 
-type ErrorKey = keyof typeof loginErrorMessages;
+export const getLoginError = async (error: string | string[] | undefined) => {
+  const t = await getTranslations("error.errors");
 
-export const getLoginError = (error: string | string[] | undefined) => {
-  const { title, message } =
-    error && loginErrorMessages[error as ErrorKey]
-      ? loginErrorMessages[error as ErrorKey]
-      : loginErrorMessages.Default;
+  const errorKey =
+    error === "OAuthAccountNotLinked" ? "oauth_account_not_linked" : "default";
 
-  return { title, message };
+  return {
+    title: t(`${errorKey}.title`),
+    message: t(`${errorKey}.message`),
+  };
 };

@@ -13,9 +13,37 @@
     "work_together": "Work together effortlessly",
     "seamless_collaboration": "Seamless collaboration",
     "app_name": "Plan App",
+    "choose_signin_method": "Choose your preferred sign in method",
+    "security_message": "Secured with enterprise-grade encryption",
+    "separator_or": "or",
     "meta": {
       "title": "Signin - Plan App",
       "description": "Sign in to your account and start organizing your tasks with Plan App."
+    }
+  },
+  "home": {
+    "sign_out": "Sign Out"
+  },
+  "not_found": {
+    "title": "404",
+    "message": "Oops! Page not found",
+    "return_home": "Return to Home",
+    "meta": {
+      "title": "404 - Not Found",
+      "description": "The page you are looking for does not exist."
+    }
+  },
+  "error": {
+    "go_to_login": "Go to Login",
+    "errors": {
+      "oauth_account_not_linked": {
+        "title": "This account already exists",
+        "message": "The email associated with this provider is already in use with another account. Please sign in with the method you originally used to continue."
+      },
+      "default": {
+        "title": "Authentication Error",
+        "message": "An unexpected error occurred while trying to sign in. Please try again."
+      }
     }
   },
   "common": {

@@ -56,5 +56,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   pages: {
     error: "/auth/error",
+    signIn: isEndToEndEnvironment ? undefined : "/auth/login",
   },
 });
