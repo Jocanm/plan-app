@@ -7,12 +7,16 @@ const DEFAULT_LOCALE = "en";
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
-  const locale = cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
-  const validLocale = isLocaleValid(locale) ? locale : DEFAULT_LOCALE;
+
+  const cookieLocale =
+    cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
+  const validLocale = isLocaleValid(cookieLocale)
+    ? cookieLocale
+    : DEFAULT_LOCALE;
 
   const config: RequestConfig = {
     locale: validLocale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: (await import(`../../messages/${validLocale}.json`)).default,
   };
 
   return config;
