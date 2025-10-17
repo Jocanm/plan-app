@@ -1,4 +1,4 @@
-import { AUTH_PATH, ROUTES } from "../constants/routes";
+import { AUTH_PATH, ROUTES } from "@/lib/config/constants";
 
 type RedirectionDecision =
   | { shouldRedirect: false }

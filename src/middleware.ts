@@ -1,13 +1,13 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import { env } from "./env";
+import { getAuthRedirect } from "./features/auth/domain/validations";
 import {
   ACCEPT_LANGUAGE_HEADER,
   LOCALE_COOKIE_KEY,
   locales,
-} from "./lib/constants/locale";
-import { getPrimaryLanguage } from "./lib/utils/i18n";
-import { getAuthRedirect } from "./lib/validations/auth";
+} from "./features/i18n/domain/constants";
+import { getPrimaryLanguage } from "./features/i18n/domain/utils";
+import { env } from "./lib/env";
 
 const LOCALE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 

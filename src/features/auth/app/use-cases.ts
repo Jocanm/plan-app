@@ -1,9 +1,9 @@
-import { ROUTES } from "@/lib/constants/routes";
 import {
   type AuthOptions,
   type AuthProvider,
   type IAuthRepository,
-} from "@/lib/types/auth";
+} from "@/features/auth/domain/types";
+import { ROUTES } from "@/lib/config/constants";
 
 export async function signInWithProviderUseCase(
   provider: AuthProvider,

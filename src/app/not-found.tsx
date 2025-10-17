@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/constants/routes";
+import { ROUTES } from "@/lib/config/constants";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 

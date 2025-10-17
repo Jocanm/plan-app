@@ -1,7 +1,10 @@
 import { getRequestConfig, RequestConfig } from "next-intl/server";
 import { cookies } from "next/headers";
-import { DEFAULT_LOCALE, LOCALE_COOKIE_KEY } from "../lib/constants/locale";
-import { isLocaleValid } from "../lib/validations/i18n";
+import {
+  DEFAULT_LOCALE,
+  LOCALE_COOKIE_KEY,
+} from "../features/i18n/domain/constants";
+import { isLocaleValid } from "../features/i18n/domain/validations";
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();

@@ -3,7 +3,7 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import { env } from "../env";
+import { env } from "./env";
 import prisma from "./prisma";
 
 declare module "next-auth" {

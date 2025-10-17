@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPrimaryLanguage, normalizeLocale } from "./i18n";
+import { getPrimaryLanguage, normalizeLocale } from "./utils";
 
 describe("I18n - Utils", () => {
   describe("Get primary language", () => {

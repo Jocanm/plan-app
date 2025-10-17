@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
-import { ROUTES } from "../../src/lib/constants/routes";
+
+import { ROUTES } from "../../src/lib/config/constants";
 
 declare global {
   namespace Cypress {

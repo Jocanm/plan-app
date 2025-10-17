@@ -1,7 +1,7 @@
 "use server";
 
-import { authRepository } from "../../data/auth";
-import { AuthOptions, AuthProvider } from "../../lib/types/auth";
+import { authRepository } from "../data/auth";
+import { AuthOptions, AuthProvider } from "../domain/types";
 import { signInWithProviderUseCase, signOutUseCase } from "./use-cases";
 
 export const signInAction = async (

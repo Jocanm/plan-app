@@ -1,4 +1,4 @@
-import { ROUTES } from "../../../src/lib/constants/routes";
+import { ROUTES } from "../../../src/lib/config/constants";
 
 describe("Auth tests", () => {
   beforeEach(() => {

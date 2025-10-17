@@ -1,5 +1,5 @@
 import { Locale } from "next-intl";
-import { locales } from "../constants/locale";
+import { locales } from "./constants";
 
 export function isLocaleValid(
   locale: string[],

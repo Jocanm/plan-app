@@ -1,5 +1,5 @@
+import { locales } from "@/features/i18n/domain/constants";
 import messages from "./messages/en.json";
-import { locales } from "./src/lib/constants/locale";
 
 declare module "next-intl" {
   interface AppConfig {

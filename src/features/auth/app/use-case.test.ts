@@ -1,5 +1,5 @@
+import { ROUTES } from "@/lib/config/constants";
 import { describe, expect, it, vi } from "vitest";
-import { ROUTES } from "../../lib/constants/routes";
 import { signOutUseCase } from "./use-cases";
 
 describe("Auth - use cases", () => {

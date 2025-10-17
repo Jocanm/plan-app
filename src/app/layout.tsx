@@ -1,9 +1,12 @@
+import {
+  DEFAULT_LOCALE,
+  LOCALE_COOKIE_KEY,
+} from "@/features/i18n/domain/constants";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
-import { DEFAULT_LOCALE, LOCALE_COOKIE_KEY } from "../lib/constants/locale";
 import "./globals.css";
 
 const geistSans = Geist({

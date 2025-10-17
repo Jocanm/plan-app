@@ -1,5 +1,5 @@
 import { signIn as authJsSignIn, signOut as authJsSignOut } from "@/lib/auth";
-import { IAuthRepository } from "../lib/types/auth";
+import { IAuthRepository } from "../domain/types";
 
 export const authRepository: IAuthRepository = {
   async signIn(provider, options) {

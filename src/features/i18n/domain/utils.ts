@@ -1,5 +1,5 @@
-import { isLocaleValid } from "../validations/i18n";
-import { parseHeadersList } from "./headers";
+import { parseHeadersList } from "@/shared/utils/headers";
+import { isLocaleValid } from "./validations";
 
 export const normalizeLocale = (locale: string) => {
   const baseLocale = locale.split("-")[0] ?? "";

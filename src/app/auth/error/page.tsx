@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/constants/routes";
+import { ROUTES } from "@/lib/config/constants";
 import { NextPagePromiseProps } from "@/shared/types";
 import { AlertTriangleIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";

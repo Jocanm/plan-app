@@ -1,6 +1,6 @@
+import { ROUTES } from "@/lib/config/constants";
 import { describe, expect, it } from "vitest";
-import { ROUTES } from "../constants/routes";
-import { getAuthRedirect, isPublicRoute } from "./auth";
+import { getAuthRedirect, isPublicRoute } from "./validations";
 
 describe("Auth - Validations", () => {
   describe("Public Routes", () => {

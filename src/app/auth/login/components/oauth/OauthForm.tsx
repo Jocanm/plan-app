@@ -1,7 +1,7 @@
 "use client";
 
-import { signInAction } from "@/features/auth/actions";
-import { ROUTES } from "@/lib/constants/routes";
+import { signInAction } from "@/features/auth/app/actions";
+import { ROUTES } from "@/lib/config/constants";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/shared/components/ui/Button";
 import clsx from "clsx";

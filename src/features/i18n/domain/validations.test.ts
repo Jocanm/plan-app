@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isLocaleValid } from "./i18n";
+import { isLocaleValid } from "./validations";
 
 const SUPPORTED_LOCALES = ["en", "es"];
 
