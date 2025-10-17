@@ -1,5 +1,3 @@
-export type AuthError = "OAuthAccountNotLinked" | "Default";
-
 export type NextPageProps<P = object> = P & {
   searchParams?: { [key: string]: string | string[] | undefined };
   params?: { [key: string]: string | string[] | undefined };
