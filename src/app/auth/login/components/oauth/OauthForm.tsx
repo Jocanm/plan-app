@@ -1,6 +1,6 @@
 "use client";
 
-import { signInAction } from "@/features/auth/app/actions";
+import { signInAction } from "@/features/auth/app/actions/signIn";
 import { ROUTES } from "@/lib/config/constants";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/shared/components/ui/Button";
