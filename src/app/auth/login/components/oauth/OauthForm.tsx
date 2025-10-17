@@ -1,9 +1,9 @@
 "use client";
 
-import { GoogleIcon } from "@/components/icons/GoogleIcon";
-import { Button, ButtonProps } from "@/components/ui/Button";
 import { signInAction } from "@/features/auth/actions";
 import { ROUTES } from "@/lib/constants/routes";
+import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
+import { Button, ButtonProps } from "@/shared/components/ui/Button";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useTranslations } from "next-intl";

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/shared/components/ui/Card";
 import { getTranslations } from "next-intl/server";
 import { OauthForm } from "./oauth/OauthForm";
 

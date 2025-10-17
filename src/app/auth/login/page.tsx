@@ -1,11 +1,11 @@
+import { ROUTES } from "@/lib/constants/routes";
 import {
   CalendarIntegrationIcon,
   CollaborationIcon,
   TaskOrganizationIcon,
-} from "@/components/icons/FeatureIcons";
-import { PlanLogo } from "@/components/icons/PlanLogo";
-import { ROUTES } from "@/lib/constants/routes";
-import { NextPagePromiseProps } from "@/types";
+} from "@/shared/components/icons/FeatureIcons";
+import { PlanLogo } from "@/shared/components/icons/PlanLogo";
+import { NextPagePromiseProps } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./components/LoginForm";

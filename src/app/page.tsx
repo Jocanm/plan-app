@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/Button";
 import { auth } from "@/lib/auth";
+import { Button } from "@/shared/components/ui/Button";
 import { getTranslations } from "next-intl/server";
 import { signOutAction } from "../features/auth/actions";
 

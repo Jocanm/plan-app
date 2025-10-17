@@ -1,5 +1,5 @@
 import { ROUTES } from "@/lib/constants/routes";
-import { NextPagePromiseProps } from "@/types";
+import { NextPagePromiseProps } from "@/shared/types";
 import { AlertTriangleIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
