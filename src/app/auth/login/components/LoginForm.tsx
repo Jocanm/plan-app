@@ -6,7 +6,7 @@ export const LoginForm = async () => {
   const t = await getTranslations("login");
 
   return (
-    <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-6 lg:py-16">
+    <div className="flex items-center justify-center px-6 md:px-12 py-6 lg:py-16">
       <div className="w-full max-w-md">
         <Card className="border shadow-lg">
           <CardContent className="p-6 lg:p-8">

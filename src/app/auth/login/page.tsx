@@ -148,7 +148,10 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
           </section>
 
           {/* Right Column - Login Card */}
-          <section aria-label="Sign in form">
+          <section
+            aria-label="Sign in form"
+            className="flex-1 flex items-center justify-center"
+          >
             <LoginForm />
           </section>
         </div>
