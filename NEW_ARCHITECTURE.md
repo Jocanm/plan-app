@@ -211,6 +211,7 @@ lib/                      ← Infraestructura técnica global
 ```
 
 **Razón:**
+
 - `domain/` = lógica de negocio específica de la feature
 - `lib/` = herramientas técnicas compartidas (auth, prisma, env)
 - Diferenciación semántica clara
@@ -224,6 +225,7 @@ features/tasks/app/
 ```
 
 **Razón:**
+
 - Separa explícitamente la Application Layer
 - Mantiene visibles las 4 capas de Clean Architecture
 - Escalable: cada hook/action tiene su propio archivo
@@ -236,6 +238,7 @@ features/tasks/app/
 ```
 
 **Razón:**
+
 - La carpeta ya da el contexto (tasks)
 - Menos typing
 - Más limpio
@@ -255,6 +258,7 @@ app/actions/
 ```
 
 **Razón:**
+
 - Alta cohesión (1 responsabilidad por archivo)
 - Fácil de encontrar
 - Escalable (50+ archivos sin problema)
@@ -266,12 +270,13 @@ Solo en el root del feature si aporta valor real:
 
 ```typescript
 // features/tasks/index.ts (opcional)
-export { createTask, deleteTask } from './app/actions'
-export { useCreateTask } from './app/hooks'
-export type { Task, TaskInput } from './domain/types'
+export { createTask, deleteTask } from "./app/actions";
+export { useCreateTask } from "./app/hooks";
+export type { Task, TaskInput } from "./domain/types";
 ```
 
 **Razón:**
+
 - Evita overhead innecesario
 - Solo si mejora la API pública del feature
 
@@ -282,6 +287,7 @@ export type { Task, TaskInput } from './domain/types'
 ### 1. **Las capas siguen existiendo**
 
 #### Antes (flat):
+
 ```
 lib/validations/task.ts    ← Domain
 lib/utils/task.ts          ← Domain
@@ -291,6 +297,7 @@ features/tasks/components/ ← Presentation
 ```
 
 #### Después (feature-based):
+
 ```
 features/tasks/
 ├── domain/           ← Domain (MISMA CAPA)
@@ -335,9 +342,9 @@ lib/prisma.ts
 // ✅ PURO - No depende de Next.js, Prisma, React, etc.
 export function validateTaskTitle(title: string): ValidationResult {
   if (title.trim().length === 0) {
-    return { success: false, error: "Title required" }
+    return { success: false, error: "Title required" };
   }
-  return { success: true, data: title.trim() }
+  return { success: true, data: title.trim() };
 }
 ```
 
@@ -349,23 +356,23 @@ export function validateTaskTitle(title: string): ValidationResult {
 
 ```typescript
 // features/tasks/app/actions/createTask.ts
-"use server"
+"use server";
 
-import { validateTaskTitle } from '../../domain/validations'
-import { taskRepository } from '../../data/repository'
+import { validateTaskTitle } from "../../domain/validations";
+import { taskRepository } from "../../data/repository";
 
 export async function createTask(
   data: TaskInput,
-  repository = taskRepository  // ← DI para testing
+  repository = taskRepository // ← DI para testing
 ): Promise<ActionResult<Task>> {
   // Validación (Domain)
-  const validation = validateTaskTitle(data.title)
-  if (!validation.success) return validation
+  const validation = validateTaskTitle(data.title);
+  if (!validation.success) return validation;
 
   // Persistencia (Data)
-  const task = await repository.create(data)
+  const task = await repository.create(data);
 
-  return { success: true, data: task }
+  return { success: true, data: task };
 }
 ```
 
@@ -379,25 +386,25 @@ export async function createTask(
 // features/tasks/domain/validations.test.ts
 // ✅ Unit test - 100% PURO
 test("validates task title", () => {
-  expect(validateTaskTitle("").success).toBe(false)
-  expect(validateTaskTitle("Valid").success).toBe(true)
-})
+  expect(validateTaskTitle("").success).toBe(false);
+  expect(validateTaskTitle("Valid").success).toBe(true);
+});
 
 // features/tasks/data/repository.test.ts
 // ✅ Integration test con Fake
 test("creates task in repository", async () => {
-  const repo = createFakeTaskRepository()
-  const task = await repo.create({ title: "Test", userId: "1" })
-  expect(task.title).toBe("Test")
-})
+  const repo = createFakeTaskRepository();
+  const task = await repo.create({ title: "Test", userId: "1" });
+  expect(task.title).toBe("Test");
+});
 
 // features/tasks/app/actions/__tests__/createTask.test.ts
 // ✅ Integration test con DI
 test("createTask validates and persists", async () => {
-  const fakeRepo = createFakeTaskRepository()
-  const result = await createTask({ title: "Test" }, fakeRepo)
-  expect(result.success).toBe(true)
-})
+  const fakeRepo = createFakeTaskRepository();
+  const result = await createTask({ title: "Test" }, fakeRepo);
+  expect(result.success).toBe(true);
+});
 ```
 
 **✅ Misma estrategia: Unit → Integration → E2E**
@@ -407,6 +414,7 @@ test("createTask validates and persists", async () => {
 ## 🎯 Ventajas
 
 ### 1. **Alta cohesión**
+
 ```bash
 # Todo lo relacionado con tasks está junto
 features/tasks/
@@ -420,6 +428,7 @@ features/tasks/
 ```
 
 ### 2. **Bajo acoplamiento**
+
 ```bash
 # Eliminar feature = eliminar carpeta
 rm -rf features/tasks
@@ -428,6 +437,7 @@ rm -rf features/tasks
 ```
 
 ### 3. **Escalabilidad**
+
 ```bash
 # 50+ hooks sin problema
 features/tasks/app/hooks/
@@ -442,6 +452,7 @@ features/tasks/app/hooks/
 ```
 
 ### 4. **Onboarding rápido**
+
 ```bash
 # Nuevo dev pregunta: "¿Dónde está la lógica de tasks?"
 → "features/tasks/"
@@ -453,6 +464,7 @@ features/tasks/app/hooks/
 ```
 
 ### 5. **Self-documenting**
+
 ```
 features/tasks/
 ├── domain/     ← "Ah, reglas de negocio"
@@ -462,6 +474,7 @@ features/tasks/
 ```
 
 ### 6. **Fácil de navegar**
+
 ```
 "¿Dónde está el hook de crear task?"
 → features/tasks/app/hooks/useCreateTask.ts
@@ -492,35 +505,36 @@ mkdir -p shared/{ui,hooks,utils,types}
 
 ### Fase 2: Mover archivos de i18n
 
-| Origen | Destino |
-|--------|---------|
-| `lib/validations/i18n.ts` | `features/i18n/domain/validations.ts` |
-| `lib/validations/i18n.test.ts` | `features/i18n/domain/validations.test.ts` |
-| `lib/utils/i18n.ts` | `features/i18n/domain/utils.ts` |
-| `lib/utils/i18n.test.ts` | `features/i18n/domain/utils.test.ts` |
-| `lib/utils/headers.ts` | `features/i18n/domain/utils.ts` (merge) |
-| `lib/utils/headers.test.ts` | `features/i18n/domain/utils.test.ts` (merge) |
-| `lib/constants/locale.ts` | `features/i18n/domain/constants.ts` |
+| Origen                         | Destino                                      |
+| ------------------------------ | -------------------------------------------- |
+| `lib/validations/i18n.ts`      | `features/i18n/domain/validations.ts`        |
+| `lib/validations/i18n.test.ts` | `features/i18n/domain/validations.test.ts`   |
+| `lib/utils/i18n.ts`            | `features/i18n/domain/utils.ts`              |
+| `lib/utils/i18n.test.ts`       | `features/i18n/domain/utils.test.ts`         |
+| `lib/utils/headers.ts`         | `features/i18n/domain/utils.ts` (merge)      |
+| `lib/utils/headers.test.ts`    | `features/i18n/domain/utils.test.ts` (merge) |
+| `lib/constants/locale.ts`      | `features/i18n/domain/constants.ts`          |
 
 ### Fase 3: Mover archivos de auth
 
-| Origen | Destino |
-|--------|---------|
-| `lib/validations/auth.ts` | `features/auth/domain/validations.ts` |
-| `lib/validations/auth.test.ts` | `features/auth/domain/validations.test.ts` |
-| `lib/types/auth.ts` | `features/auth/domain/types.ts` |
-| `features/auth/actions.ts` | Separar en `features/auth/app/actions/signIn.ts` + `signOut.ts` |
+| Origen                         | Destino                                                         |
+| ------------------------------ | --------------------------------------------------------------- |
+| `lib/validations/auth.ts`      | `features/auth/domain/validations.ts`                           |
+| `lib/validations/auth.test.ts` | `features/auth/domain/validations.test.ts`                      |
+| `lib/types/auth.ts`            | `features/auth/domain/types.ts`                                 |
+| `features/auth/actions.ts`     | Separar en `features/auth/app/actions/signIn.ts` + `signOut.ts` |
 
 ### Fase 4: Mover shared components
 
-| Origen | Destino |
-|--------|---------|
-| `components/ui/*` | `shared/ui/*` |
+| Origen                     | Destino              |
+| -------------------------- | -------------------- |
+| `components/ui/*`          | `shared/ui/*`        |
 | `lib/utils.ts` (shadcn cn) | `shared/utils/cn.ts` |
 
 ### Fase 5: Actualizar imports
 
 **Archivos a actualizar:**
+
 - `src/middleware.ts`
 - `src/i18n/request.ts`
 - `src/app/layout.tsx`
@@ -536,18 +550,18 @@ mkdir -p shared/{ui,hooks,utils,types}
 
 ```typescript
 // ❌ Antes
-import { isLocaleValid } from "@/lib/validations/i18n"
-import { getPrimaryLanguage } from "@/lib/utils/i18n"
-import { locales } from "@/lib/constants/locale"
-import { getAuthRedirect } from "@/lib/validations/auth"
-import { Button } from "@/components/ui/Button"
+import { isLocaleValid } from "@/lib/validations/i18n";
+import { getPrimaryLanguage } from "@/lib/utils/i18n";
+import { locales } from "@/lib/constants/locale";
+import { getAuthRedirect } from "@/lib/validations/auth";
+import { Button } from "@/components/ui/Button";
 
 // ✅ Después
-import { isLocaleValid } from "@/features/i18n/domain/validations"
-import { getPrimaryLanguage } from "@/features/i18n/domain/utils"
-import { locales } from "@/features/i18n/domain/constants"
-import { getAuthRedirect } from "@/features/auth/domain/validations"
-import { Button } from "@/shared/ui/Button"
+import { isLocaleValid } from "@/features/i18n/domain/validations";
+import { getPrimaryLanguage } from "@/features/i18n/domain/utils";
+import { locales } from "@/features/i18n/domain/constants";
+import { getAuthRedirect } from "@/features/auth/domain/validations";
+import { Button } from "@/shared/ui/Button";
 ```
 
 ### Fase 6: Limpiar carpetas vacías
@@ -575,6 +589,7 @@ npm run build      # ✅ Build exitoso
 ### Escenario: "Quiero ver toda la lógica de tasks"
 
 #### Antes (flat):
+
 ```bash
 # Buscar en 5 lugares diferentes
 lib/validations/task.ts
@@ -586,6 +601,7 @@ features/tasks/components/
 ```
 
 #### Después (feature-based):
+
 ```bash
 # Un solo lugar
 features/tasks/
@@ -600,6 +616,7 @@ features/tasks/
 ### Escenario: "Necesito eliminar la feature de tasks"
 
 #### Antes (flat):
+
 ```bash
 # Buscar y eliminar manualmente en múltiples carpetas
 rm lib/validations/task.ts
@@ -611,6 +628,7 @@ rm -rf features/tasks
 ```
 
 #### Después (feature-based):
+
 ```bash
 # Un comando
 rm -rf features/tasks
@@ -622,6 +640,7 @@ rm -rf features/tasks
 ### Escenario: "Nuevo developer: ¿Cómo funciona auth?"
 
 #### Antes (flat):
+
 ```
 "Mira lib/validations/auth.ts para validaciones,
 lib/types/auth.ts para tipos,
@@ -631,6 +650,7 @@ y lib/auth.ts para la config de NextAuth"
 ```
 
 #### Después (feature-based):
+
 ```
 "Todo está en features/auth/
 └── domain/, app/, components/
@@ -645,23 +665,27 @@ Ah, y lib/auth.ts es la config de NextAuth (infraestructura compartida)"
 ### ¿Qué va en `lib/` (root) vs `features/X/domain/`?
 
 **`lib/` (infraestructura compartida):**
+
 - ✅ NextAuth config (`lib/auth.ts`)
 - ✅ Prisma client (`lib/prisma.ts`)
 - ✅ Environment config (`lib/env.ts`)
 - ✅ Configuración técnica global
 
 **`shared/` (código de negocio compartido):**
+
 - ✅ UI components compartidos (`shared/ui/`)
 - ✅ Hooks compartidos (`shared/hooks/useDebounce.ts`)
 - ✅ Utils compartidos (`shared/utils/date.ts`)
 - ✅ Usado por 2+ features
 
 **`features/X/domain/` (lógica de negocio específica):**
+
 - ✅ Solo usado por esa feature
 - ✅ Reglas de negocio del dominio
 - ✅ Validaciones específicas
 
 **Test:** "Si borro la feature, ¿algo más se rompe?"
+
 - **No** → Va en `features/X/domain/`
 - **Sí** → Va en `shared/` o `lib/`
 
@@ -669,17 +693,17 @@ Ah, y lib/auth.ts es la config de NextAuth (infraestructura compartida)"
 
 ## ⏱️ Tiempo Estimado
 
-| Fase | Tiempo |
-|------|--------|
-| Crear estructura de carpetas | 3 min |
-| Mover archivos de i18n | 5 min |
-| Mover archivos de auth | 5 min |
-| Mover shared components | 2 min |
-| Actualizar imports | 15 min |
-| Merge headers.ts en utils.ts | 5 min |
-| Separar actions.ts | 5 min |
-| Verificar tests | 5 min |
-| Limpiar y commit | 5 min |
+| Fase                         | Tiempo |
+| ---------------------------- | ------ |
+| Crear estructura de carpetas | 3 min  |
+| Mover archivos de i18n       | 5 min  |
+| Mover archivos de auth       | 5 min  |
+| Mover shared components      | 2 min  |
+| Actualizar imports           | 15 min |
+| Merge headers.ts en utils.ts | 5 min  |
+| Separar actions.ts           | 5 min  |
+| Verificar tests              | 5 min  |
+| Limpiar y commit             | 5 min  |
 
 **Total:** ~45-50 minutos
 

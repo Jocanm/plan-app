@@ -4,6 +4,11 @@ interface PlanLogoProps {
 }
 
 export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
+  // Generate unique IDs to avoid conflicts when multiple logos are on the same page
+  const uniqueId = Math.random().toString(36).substring(2, 9);
+  const gradientId = `planGradient-${uniqueId}`;
+  const accentId = `planAccent-${uniqueId}`;
+
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-12 h-12",
@@ -15,11 +20,11 @@ export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
     <div className={`${sizeClasses[size]} ${className}`}>
       <svg viewBox="0 0 48 48" className="w-full h-full">
         <defs>
-          <linearGradient id="planGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(239, 85%, 67%)" />
             <stop offset="100%" stopColor="hsl(243, 100%, 82%)" />
           </linearGradient>
-          <linearGradient id="planAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={accentId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(142, 71%, 45%)" />
             <stop offset="100%" stopColor="hsl(39, 95%, 62%)" />
           </linearGradient>
@@ -30,7 +35,7 @@ export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
           cx="24"
           cy="24"
           r="20"
-          fill="url(#planGradient)"
+          fill={`url(#${gradientId})`}
           className="drop-shadow-lg"
         />
 
@@ -52,10 +57,10 @@ export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
           </g>
 
           {/* Small accent dots */}
-          <circle cx="0" cy="-10" r="1.5" fill="url(#planAccent)" />
-          <circle cx="7" cy="-7" r="1.5" fill="url(#planAccent)" />
-          <circle cx="10" cy="0" r="1.5" fill="url(#planAccent)" />
-          <circle cx="7" cy="7" r="1.5" fill="url(#planAccent)" />
+          <circle cx="0" cy="-10" r="1.5" fill={`url(#${accentId})`} />
+          <circle cx="7" cy="-7" r="1.5" fill={`url(#${accentId})`} />
+          <circle cx="10" cy="0" r="1.5" fill={`url(#${accentId})`} />
+          <circle cx="7" cy="7" r="1.5" fill={`url(#${accentId})`} />
         </g>
       </svg>
     </div>

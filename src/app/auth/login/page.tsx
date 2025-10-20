@@ -27,120 +27,51 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background gradient and patterns */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-success/5" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-warning/3 via-transparent to-primary/8" />
+    <div className="min-h-screen">
+      {/* Mobile Layout - Hero + Login */}
+      <div className="lg:hidden">
+        {/* Hero Section */}
+        <div className="px-6 py-12 text-center">
+          <PlanLogo size="lg" className="mx-auto mb-6" />
+          <h1 className="text-4xl font-bold text-foreground mb-3">
+            {t("title")} <span className="text-primary">{t("app_name")}</span>
+          </h1>
+          <p className="text-muted-foreground text-lg">{t("description")}</p>
+        </div>
 
-      {/* Geometric pattern overlay */}
-      <div className="absolute inset-0 opacity-30">
-        <svg
-          className="absolute top-20 left-20 w-32 h-32 text-primary/20"
-          viewBox="0 0 100 100"
-        >
-          <circle cx="50" cy="50" r="2" fill="currentColor">
-            <animate
-              attributeName="r"
-              values="2;8;2"
-              dur="4s"
-              repeatCount="indefinite"
-            />
-          </circle>
-        </svg>
-        <svg
-          className="absolute top-40 right-32 w-24 h-24 text-success/20"
-          viewBox="0 0 100 100"
-        >
-          <polygon
-            points="50,15 85,85 15,85"
-            fill="currentColor"
-            opacity="0.6"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-32 left-32 w-20 h-20 text-warning/20"
-          viewBox="0 0 100 100"
-        >
-          <rect
-            x="20"
-            y="20"
-            width="60"
-            height="60"
-            fill="currentColor"
-            opacity="0.4"
-          />
-        </svg>
+        <div className="px-6 pb-12">
+          <LoginForm />
+        </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row min-h-screen justify-center relative z-10">
-        <div className="lg:flex-1 flex items-center justify-center px-6 md:px-12 py-8 md:py-16">
+      {/* Desktop Layout - Features + Login */}
+      <div className="hidden lg:flex min-h-screen">
+        {/* Left Column - Features */}
+        <div className="flex-1 flex items-center justify-center px-12 py-16">
           <div className="max-w-lg">
-            <div className="mb-8 lg:mb-12">
-              <div className="flex flex-col sm:flex-row items-center sm:gap-4 mb-6 lg:mb-8 text-center sm:text-left">
-                <PlanLogo
-                  size="lg"
-                  className="animate-in fade-in slide-in-from-bottom-3 duration-700 delay-100 mb-4 sm:mb-0"
-                />
-                <div className="animate-in fade-in slide-in-from-bottom-2 duration-700 delay-200">
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-2">
-                    {t("title")}{" "}
-                    <span className="font-semibold bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">
-                      {t("app_name")}
-                    </span>
-                  </h1>
-                  <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-primary to-success rounded-full mx-auto sm:mx-0 animate-in zoom-in duration-500 delay-[400ms]" />
-                </div>
-              </div>
-              <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed text-center sm:text-left animate-in fade-in slide-in-from-bottom-1 duration-700 delay-300">
+            {/* Logo + Title */}
+            <div className="mb-12">
+              <PlanLogo size="lg" className="mb-6" />
+              <h1 className="text-5xl font-light text-foreground mb-2">
+                {t("title")}{" "}
+                <span className="font-semibold text-primary">
+                  {t("app_name")}
+                </span>
+              </h1>
+              <div className="h-1 w-32 bg-primary rounded-full mb-6" />
+              <p className="text-xl text-muted-foreground leading-relaxed">
                 {t("description")}
               </p>
             </div>
 
-            {/* Mobile feature showcase */}
-            <div className="grid grid-cols-1 gap-4 md:hidden mb-8">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-success/5 to-success/3 border border-success/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-600 animate-in fade-in slide-in-from-left-2 delay-[400ms]">
-                <TaskOrganizationIcon />
-                <div>
-                  <h3 className="font-medium text-foreground">
-                    {t("beautiful_task_organization")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("organize_with_drag_and_drop")}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-primary/5 to-primary/3 border border-primary/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-left-2 delay-500">
-                <CalendarIntegrationIcon />
-                <div>
-                  <h3 className="font-medium text-foreground">
-                    {t("calendar_integration")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("schedule_seamlessly")}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-warning/5 to-warning/3 border border-warning/10 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-left-2 delay-600">
-                <CollaborationIcon />
-                <div>
-                  <h3 className="font-medium text-foreground">
-                    {t("team_collaboration")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("work_together")}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Desktop feature showcase */}
-            <div className="space-y-8 hidden md:block">
-              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 delay-[400ms]">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-success/10 to-success/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
+            {/* Features List */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center flex-shrink-0">
                   <TaskOrganizationIcon />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-foreground mb-1">
+                  <h3 className="text-lg font-medium text-foreground">
                     {t("beautiful_task_organization")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
@@ -149,12 +80,12 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 delay-500">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <CalendarIntegrationIcon />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-foreground mb-1">
+                  <h3 className="text-lg font-medium text-foreground">
                     {t("calendar_integration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
@@ -163,12 +94,12 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 group hover:translate-x-1 transition-all duration-300 animate-in fade-in slide-in-from-left-3 delay-600">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-warning/10 to-warning/5 group-hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-warning/10 flex items-center justify-center flex-shrink-0">
                   <CollaborationIcon />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-foreground mb-1">
+                  <h3 className="text-lg font-medium text-foreground">
                     {t("team_collaboration")}
                   </h3>
                   <p className="text-muted-foreground text-sm">
