@@ -13,21 +13,21 @@ export default async function AuthErrorPage({
   const t = await getTranslations("error");
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-slate-50 p-4">
-      <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-lg">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-          <AlertTriangleIcon className="h-8 w-8 text-warning" />
+    <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
+      <div className="w-full max-w-md rounded-xl border bg-card p-8 text-center shadow-lg">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-danger/10">
+          <AlertTriangleIcon className="h-8 w-8 text-danger" />
         </div>
 
-        <h1 className="mt-6 text-2xl font-bold text-slate-800">{title}</h1>
+        <h1 className="mt-6 text-2xl font-bold text-foreground">{title}</h1>
 
-        <p className="mt-4 text-slate-600">{message}</p>
+        <p className="mt-4 text-muted-foreground">{message}</p>
 
         <div className="mt-8">
           <Link
             replace
             href={ROUTES.LOGIN}
-            className="inline-block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-block w-full rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-md transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
             {t("go_to_login")}
           </Link>

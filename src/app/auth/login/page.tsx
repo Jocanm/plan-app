@@ -45,73 +45,76 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
       </div>
 
       {/* Desktop Layout - Features + Login */}
-      <div className="hidden lg:flex min-h-screen">
-        {/* Left Column - Features */}
-        <div className="flex-1 flex items-center justify-center px-12 py-16">
-          <div className="max-w-lg">
-            {/* Logo + Title */}
-            <div className="mb-12">
-              <PlanLogo size="lg" className="mb-6" />
-              <h1 className="text-5xl font-light text-foreground mb-2">
-                {t("title")}{" "}
-                <span className="font-semibold text-primary">
-                  {t("app_name")}
-                </span>
-              </h1>
-              <div className="h-1 w-32 bg-primary rounded-full mb-6" />
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {t("description")}
-              </p>
-            </div>
-
-            {/* Features List */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center flex-shrink-0">
-                  <TaskOrganizationIcon />
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">
-                    {t("beautiful_task_organization")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("organize_with_drag_and_drop")}
-                  </p>
-                </div>
+      <div className="hidden lg:flex min-h-screen justify-center items-center px-6">
+        <div className="w-full max-w-7xl flex">
+          {/* Left Column - Features */}
+          <div className="flex-1 flex items-center justify-center px-12 py-16">
+            <div className="max-w-lg">
+              {/* Logo + Title */}
+              <div className="mb-12">
+                <PlanLogo size="lg" className="mb-6" />
+                <h1 className="text-5xl font-light text-foreground mb-2">
+                  {t("title")}{" "}
+                  <span className="font-semibold text-primary">
+                    {t("app_name")}
+                  </span>
+                </h1>
+                <div className="h-1 w-32 bg-primary rounded-full mb-6" />
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  {t("description")}
+                </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <CalendarIntegrationIcon />
+              {/* Features List */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center flex-shrink-0">
+                    <TaskOrganizationIcon />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground">
+                      {t("beautiful_task_organization")}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {t("organize_with_drag_and_drop")}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">
-                    {t("calendar_integration")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("schedule_seamlessly")}
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-warning/10 flex items-center justify-center flex-shrink-0">
-                  <CollaborationIcon />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <CalendarIntegrationIcon />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground">
+                      {t("calendar_integration")}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {t("schedule_seamlessly")}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">
-                    {t("team_collaboration")}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t("work_together")}
-                  </p>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-warning/10 flex items-center justify-center flex-shrink-0">
+                    <CollaborationIcon />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground">
+                      {t("team_collaboration")}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {t("work_together")}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <LoginForm />
+          {/* Right Column - Login Card */}
+          <LoginForm />
+        </div>
       </div>
     </div>
   );
