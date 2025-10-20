@@ -1,9 +1,9 @@
+import { getLoginError } from "@/features/auth/domain/utils";
 import { ROUTES } from "@/lib/config/constants";
 import { NextPagePromiseProps } from "@/shared/types";
 import { AlertTriangleIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { getLoginError } from "../helpers/getLoginError";
 
 export const generateMetadata = async () => {
   const t = await getTranslations("error.meta");
@@ -17,9 +17,9 @@ export const generateMetadata = async () => {
 export default async function AuthErrorPage({
   searchParams,
 }: NextPagePromiseProps) {
-  const error = (await searchParams)?.error;
-  const { title, message } = await getLoginError(error as string);
   const t = await getTranslations("error");
+  const error = (await searchParams)?.error;
+  const { titleKey, messageKey } = getLoginError(error as string);
 
   return (
     <main
@@ -43,11 +43,11 @@ export default async function AuthErrorPage({
           id="error-title"
           className="mt-6 text-2xl font-bold text-foreground"
         >
-          {title}
+          {t(`errors.${titleKey}`)}
         </h1>
 
         <p id="error-message" className="mt-4 text-muted-foreground">
-          {message}
+          {t(`errors.${messageKey}`)}
         </p>
 
         <div className="mt-8">
