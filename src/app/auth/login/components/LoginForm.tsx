@@ -18,6 +18,7 @@ export const LoginForm = async () => {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -46,6 +47,7 @@ export const LoginForm = async () => {
                   className="w-3 h-3 text-success"
                   fill="currentColor"
                   viewBox="0 0 20 20"
+                  aria-hidden="true"
                 >
                   <path
                     fillRule="evenodd"

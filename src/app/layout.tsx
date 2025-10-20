@@ -22,9 +22,59 @@ const geistMono = Geist_Mono({
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("common");
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
   return {
     title: t("meta.title"),
     description: t("meta.description"),
+    viewport: "width=device-width, initial-scale=1",
+    alternates: {
+      canonical: baseUrl,
+    },
+    openGraph: {
+      title: t("meta.title"),
+      description: t("meta.description"),
+      url: baseUrl,
+      siteName: t("meta.title"),
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: t("meta.title"),
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("meta.title"),
+      description: t("meta.description"),
+      images: [`${baseUrl}/og-image.png`],
+    },
+    other: {
+      "application-ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: t("meta.title"),
+        description: t("meta.description"),
+        url: baseUrl,
+        applicationCategory: "ProductivityApplication",
+        operatingSystem: "Web",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        creator: {
+          "@type": "Organization",
+          name: t("company_name"),
+        },
+      }),
+    },
   };
 };
 
@@ -33,14 +83,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
+  const [cookieStore, t] = await Promise.all([
+    cookies(),
+    getTranslations("common"),
+  ]);
   const locale = cookieStore.get(LOCALE_COOKIE_KEY)?.value || DEFAULT_LOCALE;
 
+  // Determine text direction based on locale
+  const isRTL = ["ar", "he", "fa", "ur"].includes(locale);
+  const direction = isRTL ? "rtl" : "ltr";
+
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <a href="#main-content" className="skip-link">
+          {t("skip_to_main_content")}
+        </a>
         <NextIntlClientProvider>
           <ThemeProvider
             enableSystem

@@ -125,3 +125,35 @@ body {
   color: var(--color-foreground);
   background: var(--color-background);
 }
+
+/* ============================================
+  ACCESSIBILITY UTILITIES
+   ============================================ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

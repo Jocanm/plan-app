@@ -7,6 +7,7 @@ export const generateMetadata = async () => {
   return {
     title: t("title"),
     description: t("description"),
+    robots: "noindex, nofollow",
   };
 };
 
@@ -14,18 +15,23 @@ const NotFound = async () => {
   const t = await getTranslations("not_found");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <main
+      id="main-content"
+      className="min-h-screen flex items-center justify-center bg-background"
+    >
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 text-black">{t("title")}</h1>
-        <p className="text-xl text-gray-600 mb-4">{t("message")}</p>
+        <h1 className="text-4xl font-bold mb-4 text-foreground">
+          {t("title")}
+        </h1>
+        <p className="text-xl text-muted-foreground mb-4">{t("message")}</p>
         <Link
           href={ROUTES.HOME}
-          className="text-blue-500 hover:text-blue-700 underline"
+          className="text-primary hover:text-primary/80 underline"
         >
           {t("return_home")}
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 

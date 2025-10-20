@@ -1,11 +1,18 @@
+import { getTranslations } from "next-intl/server";
+
 interface PlanLogoProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
 }
 
-export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
+export const PlanLogo = async ({
+  className = "",
+  size = "md",
+}: PlanLogoProps) => {
+  const t = await getTranslations("common");
+
   // Generate unique IDs to avoid conflicts when multiple logos are on the same page
-  const uniqueId = Math.random().toString(36).substring(2, 9);
+  const uniqueId = crypto.randomUUID().slice(0, 8);
   const gradientId = `planGradient-${uniqueId}`;
   const accentId = `planAccent-${uniqueId}`;
 
@@ -18,7 +25,12 @@ export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
 
   return (
     <div className={`${sizeClasses[size]} ${className}`}>
-      <svg viewBox="0 0 48 48" className="w-full h-full">
+      <svg
+        viewBox="0 0 48 48"
+        className="w-full h-full"
+        role="img"
+        aria-label={t("logo_alt")}
+      >
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(239, 85%, 67%)" />

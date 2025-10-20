@@ -4,7 +4,7 @@ interface FeatureIconProps {
 
 export const TaskOrganizationIcon = ({ className = "" }: FeatureIconProps) => (
   <div className={`w-12 h-12 ${className}`}>
-    <svg viewBox="0 0 48 48" className="w-full h-full">
+    <svg viewBox="0 0 48 48" className="w-full h-full" aria-hidden="true">
       <defs>
         <linearGradient id="taskGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="hsl(142, 71%, 45%)" />
@@ -59,7 +59,7 @@ export const CalendarIntegrationIcon = ({
   className = "",
 }: FeatureIconProps) => (
   <div className={`w-12 h-12 ${className}`}>
-    <svg viewBox="0 0 48 48" className="w-full h-full">
+    <svg viewBox="0 0 48 48" className="w-full h-full" aria-hidden="true">
       <defs>
         <linearGradient
           id="calendarGradient"
@@ -129,7 +129,7 @@ export const CalendarIntegrationIcon = ({
 
 export const CollaborationIcon = ({ className = "" }: FeatureIconProps) => (
   <div className={`w-12 h-12 ${className}`}>
-    <svg viewBox="0 0 48 48" className="w-full h-full">
+    <svg viewBox="0 0 48 48" className="w-full h-full" aria-hidden="true">
       <defs>
         <linearGradient id="collabGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="hsl(39, 95%, 62%)" />

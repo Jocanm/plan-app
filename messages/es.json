@@ -16,6 +16,7 @@
     "choose_signin_method": "Elige tu método de inicio de sesión preferido",
     "security_message": "Protegido con cifrado de nivel empresarial",
     "separator_or": "o",
+    "signing_in_wait": "Iniciando sesión, por favor espera...",
     "meta": {
       "title": "Iniciar Sesión - Plan App",
       "description": "Inicia sesión en tu cuenta y comienza a organizar tus tareas con Plan App."
@@ -44,12 +45,50 @@
         "title": "Error de Autenticación",
         "message": "Ocurrió un error inesperado al intentar iniciar sesión. Por favor, intenta de nuevo."
       }
+    },
+    "meta": {
+      "title": "Error de Autenticación", 
+      "description": "Ocurrió un error durante la autenticación."
     }
   },
   "common": {
     "meta": {
       "title": "Plan App - Gestión de Tareas Simplificada",
       "description": "Una aplicación simple y eficiente para la gestión de tareas."
+    },
+    "skip_to_main_content": "Ir al contenido principal",
+    "logo_alt": "Logo de Plan App",
+    "company_name": "Equipo de Plan App"
+  },
+  "design_system": {
+    "title": "Sistema de Diseño",
+    "description": "Biblioteca de componentes y patrones de diseño para Plan App",
+    "colors_heading": "Paleta de Colores",
+    "buttons_heading": "Botones", 
+    "accessibility_heading": "Características de Accesibilidad",
+    "color_primary": "Primario",
+    "color_primary_desc": "Color de Marca",
+    "color_success": "Éxito",
+    "color_success_desc": "Acciones Positivas",
+    "color_warning": "Advertencia", 
+    "color_warning_desc": "Estados de Precaución",
+    "color_danger": "Peligro",
+    "color_danger_desc": "Estados de Error",
+    "button_default": "Botón Predeterminado",
+    "button_secondary": "Secundario",
+    "button_outline": "Contorno",
+    "button_ghost": "Fantasma", 
+    "button_link": "Botón Enlace",
+    "button_destructive": "Destructivo",
+    "button_disabled": "Deshabilitado",
+    "accessibility_feature_1": "Contraste de color compatible con WCAG 2.1 AA",
+    "accessibility_feature_2": "Soporte para navegación por teclado",
+    "accessibility_feature_3": "Marcado optimizado para lectores de pantalla", 
+    "accessibility_feature_4": "Gestión e indicadores de enfoque",
+    "accessibility_feature_5": "Estructura HTML semántica",
+    "meta": {
+      "title": "Sistema de Diseño - Plan App",
+      "description": "Una visión integral de los componentes y patrones del sistema de diseño."
     }
   }
 }

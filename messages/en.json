@@ -1,4 +1,44 @@
 {
+  "common": {
+    "meta": {
+      "title": "Plan App - Task Management Made Simple",
+      "description": "A simple and efficient task management app."
+    },
+    "skip_to_main_content": "Skip to main content",
+    "logo_alt": "Plan App logo",
+    "company_name": "Plan App Team"
+  },
+  "design_system": {
+    "title": "Design System",
+    "description": "Component library and design patterns for Plan App",
+    "colors_heading": "Color Palette",
+    "buttons_heading": "Buttons",
+    "accessibility_heading": "Accessibility Features",
+    "color_primary": "Primary",
+    "color_primary_desc": "Brand Color",
+    "color_success": "Success", 
+    "color_success_desc": "Positive Actions",
+    "color_warning": "Warning",
+    "color_warning_desc": "Caution States",
+    "color_danger": "Danger",
+    "color_danger_desc": "Error States",
+    "button_default": "Default Button",
+    "button_secondary": "Secondary",
+    "button_outline": "Outline", 
+    "button_ghost": "Ghost",
+    "button_link": "Link Button",
+    "button_destructive": "Destructive",
+    "button_disabled": "Disabled",
+    "accessibility_feature_1": "WCAG 2.1 AA compliant color contrast",
+    "accessibility_feature_2": "Keyboard navigation support", 
+    "accessibility_feature_3": "Screen reader optimized markup",
+    "accessibility_feature_4": "Focus management and indicators",
+    "accessibility_feature_5": "Semantic HTML structure",
+    "meta": {
+      "title": "Design System - Plan App",
+      "description": "A comprehensive overview of the design system components and patterns."
+    }
+  },
   "login": {
     "title": "Welcome to",
     "subtitle": "Sign in to your account",
@@ -16,6 +56,7 @@
     "choose_signin_method": "Choose your preferred sign in method",
     "security_message": "Secured with enterprise-grade encryption",
     "separator_or": "or",
+    "signing_in_wait": "Signing in, please wait...",
     "meta": {
       "title": "Signin - Plan App",
       "description": "Sign in to your account and start organizing your tasks with Plan App."
@@ -44,12 +85,10 @@
         "title": "Authentication Error",
         "message": "An unexpected error occurred while trying to sign in. Please try again."
       }
-    }
-  },
-  "common": {
+    },
     "meta": {
-      "title": "Plan App - Task Management Made Simple",
-      "description": "A simple and efficient task management app."
+      "title": "Authentication Error",
+      "description": "An error occurred during authentication."
     }
   }
 }

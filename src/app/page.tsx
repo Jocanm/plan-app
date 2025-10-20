@@ -8,19 +8,27 @@ const HomePage = async () => {
   const t = await getTranslations("home");
 
   return (
-    <pre>
-      {JSON.stringify(session, null, 2)}
-      <form
-        action={async () => {
-          "use server";
-          await signOutAction();
-        }}
-      >
-        <Button type="submit" className="mt-4" data-testid="sign-out-button">
-          {t("sign_out")}
-        </Button>
-      </form>
-    </pre>
+    <main id="main-content" className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Session Debug</h1>
+      <section aria-label="Session data">
+        <pre className="bg-muted p-4 rounded overflow-auto">
+          <code>{JSON.stringify(session, null, 2)}</code>
+        </pre>
+      </section>
+
+      <section aria-label="Authentication controls" className="mt-6">
+        <form
+          action={async () => {
+            "use server";
+            await signOutAction();
+          }}
+        >
+          <Button type="submit" className="mt-4" data-testid="sign-out-button">
+            {t("sign_out")}
+          </Button>
+        </form>
+      </section>
+    </main>
   );
 };
 
