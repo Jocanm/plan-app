@@ -49,7 +49,10 @@ describe("Auth tests", () => {
         qs: { error: CUSTOM_ERROR },
       });
 
-      cy.location("search").should("contain", `error=${CUSTOM_ERROR}`);
+      cy.location().should(loc => {
+        expect(loc.pathname).equal(ROUTES.ERROR);
+        expect(loc.search).contain(`error=${CUSTOM_ERROR}`);
+      });
     });
   });
 });
