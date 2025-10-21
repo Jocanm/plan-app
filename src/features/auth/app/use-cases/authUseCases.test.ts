@@ -1,6 +1,6 @@
 import { ROUTES } from "@/lib/config/constants";
 import { describe, expect, it, vi } from "vitest";
-import { signOutUseCase } from "./authUseCases";
+import { signInWithProviderUseCase, signOutUseCase } from "./authUseCases";
 
 describe("Auth - use cases", () => {
   describe("Auth - signout", () => {
@@ -28,6 +28,40 @@ describe("Auth - use cases", () => {
 
       expect(authRepoStub.signOut).toHaveBeenCalledWith({
         redirectTo: "/custom",
+      });
+    });
+  });
+
+  describe("Auth - signin", () => {
+    it("Should redirect to dashboard page by default after signin", async () => {
+      const authRepoStub = {
+        signOut: vi.fn(),
+        signIn: vi.fn(),
+      };
+
+      await signInWithProviderUseCase("github", undefined, authRepoStub);
+
+      expect(authRepoStub.signIn).toHaveBeenCalledWith("github", {
+        redirectTo: ROUTES.DASHBOARD,
+      });
+    });
+
+    it("Should be able to redirect to custom page after signin", async () => {
+      const authRepoStub = {
+        signOut: vi.fn(),
+        signIn: vi.fn(),
+      };
+
+      await signInWithProviderUseCase(
+        "github",
+        {
+          redirectTo: "custom",
+        },
+        authRepoStub
+      );
+
+      expect(authRepoStub.signIn).toHaveBeenCalledWith("github", {
+        redirectTo: "custom",
       });
     });
   });

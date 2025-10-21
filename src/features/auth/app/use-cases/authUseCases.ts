@@ -10,7 +10,11 @@ export async function signInWithProviderUseCase(
   options: AuthOptions | undefined,
   repo: IAuthRepository
 ) {
-  await repo.signIn(provider, options);
+  const defaultOptions: AuthOptions = {
+    redirectTo: ROUTES.DASHBOARD,
+    ...options,
+  };
+  await repo.signIn(provider, defaultOptions);
 }
 
 export async function signOutUseCase(
