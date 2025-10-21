@@ -7,34 +7,19 @@ import {
 } from "@/shared/components/icons/FeatureIcons";
 import { PlanLogo } from "@/shared/components/icons/PlanLogo";
 import { NextPagePromiseProps } from "@/shared/types";
+import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export const generateMetadata = async () => {
   const t = await getTranslations("login");
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+  const baseUrl = getBaseUrl();
   return {
     title: t("meta.title"),
     description: t("meta.description"),
     alternates: {
       canonical: `${baseUrl}/auth/login`,
     },
-    // openGraph: {
-    //   title: t("meta.title"),
-    //   description: t("meta.description"),
-    //   url: `${baseUrl}/auth/login`,
-    //   images: [
-    //     {
-    //       url: `${baseUrl}/og-login.png`,
-    //       width: 1200,
-    //       height: 630,
-    //       alt: t("meta.title"),
-    //     },
-    //   ],
-    // },
   };
 };
 

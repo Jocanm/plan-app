@@ -14,6 +14,7 @@ export const env = createEnv({
     AUTH_GITHUB_ID: z.string().min(1),
     AUTH_GITHUB_SECRET: z.string().min(1),
     NEXTAUTH_URL: z.url().optional(),
+    VERCEL_URL: z.string().optional(),
   },
   client: {},
   runtimeEnv: {
@@ -26,6 +27,7 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     APP_TEST: process.env.APP_TEST === "true",
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    VERCEL_URL: process.env.VERCEL_URL,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,

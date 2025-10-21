@@ -2,12 +2,13 @@ import {
   DEFAULT_LOCALE,
   LOCALE_COOKIE_KEY,
 } from "@/features/i18n/domain/constants";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "../shared/components/providers/ThemeProvider";
+import { getBaseUrl } from "../shared/utils/getBaseUrl";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,16 +21,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("common");
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+  const baseUrl = getBaseUrl();
   return {
     title: t("meta.title"),
     description: t("meta.description"),
-    viewport: "width=device-width, initial-scale=1",
     alternates: {
       canonical: baseUrl,
     },
