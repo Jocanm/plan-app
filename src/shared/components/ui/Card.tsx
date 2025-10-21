@@ -32,7 +32,7 @@ const CardHeader = ({ className, ref, ...props }: CardHeaderProps) => (
 CardHeader.displayName = "CardHeader";
 
 interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  ref?: React.Ref<HTMLParagraphElement>;
+  ref?: React.Ref<HTMLHeadingElement>;
 }
 
 const CardTitle = ({ className, ref, ...props }: CardTitleProps) => (

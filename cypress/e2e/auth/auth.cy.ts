@@ -40,4 +40,16 @@ describe("Auth tests", () => {
       cy.location("pathname").should("equal", ROUTES.LOGIN);
     });
   });
+
+  describe("Login", () => {
+    it("Should redirect to error page if there was an error redirection and append error to url", () => {
+      const CUSTOM_ERROR = "customError";
+
+      cy.visit(ROUTES.LOGIN, {
+        qs: { error: CUSTOM_ERROR },
+      });
+
+      cy.location("search").should("contain", `error=${CUSTOM_ERROR}`);
+    });
+  });
 });

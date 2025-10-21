@@ -11,7 +11,6 @@ export const PlanLogo = async ({
 }: PlanLogoProps) => {
   const t = await getTranslations("common");
 
-  // Generate unique IDs to avoid conflicts when multiple logos are on the same page
   const uniqueId = crypto.randomUUID().slice(0, 8);
   const gradientId = `planGradient-${uniqueId}`;
   const accentId = `planAccent-${uniqueId}`;

@@ -53,7 +53,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
         {/* Hero Section */}
         <section
           aria-labelledby="hero-heading-mobile"
-          className="px-6 py-12 text-center"
+          className="px-4 py-12 text-center"
         >
           <PlanLogo size="lg" className="mx-auto mb-6" />
           <h1
@@ -65,7 +65,7 @@ const Login = async ({ searchParams }: NextPagePromiseProps) => {
           <p className="text-muted-foreground text-lg">{t("description")}</p>
         </section>
 
-        <section aria-label="Sign in form" className="px-6 pb-12">
+        <section aria-label="Sign in form" className="px-2 pb-12">
           <LoginForm />
         </section>
       </div>
