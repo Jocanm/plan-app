@@ -1,3 +1,4 @@
+import { LoginForm } from "@/features/auth/components/login/LoginForm";
 import { ROUTES } from "@/lib/config/constants";
 import {
   CalendarIntegrationIcon,
@@ -8,7 +9,6 @@ import { PlanLogo } from "@/shared/components/icons/PlanLogo";
 import { NextPagePromiseProps } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { LoginForm } from "./components/LoginForm";
 
 export const generateMetadata = async () => {
   const t = await getTranslations("login");
@@ -22,19 +22,19 @@ export const generateMetadata = async () => {
     alternates: {
       canonical: `${baseUrl}/auth/login`,
     },
-    openGraph: {
-      title: t("meta.title"),
-      description: t("meta.description"),
-      url: `${baseUrl}/auth/login`,
-      images: [
-        {
-          url: `${baseUrl}/og-login.png`,
-          width: 1200,
-          height: 630,
-          alt: t("meta.title"),
-        },
-      ],
-    },
+    // openGraph: {
+    //   title: t("meta.title"),
+    //   description: t("meta.description"),
+    //   url: `${baseUrl}/auth/login`,
+    //   images: [
+    //     {
+    //       url: `${baseUrl}/og-login.png`,
+    //       width: 1200,
+    //       height: 630,
+    //       alt: t("meta.title"),
+    //     },
+    //   ],
+    // },
   };
 };
 
