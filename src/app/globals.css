@@ -114,16 +114,19 @@
   --color-warning-foreground: hsl(0, 0%, 100%);
 }
 
-/* ============================================
+@layer base {
+  /* ============================================
   GLOBAL STYLES
    ============================================ */
-* {
-  border-color: var(--color-border);
-}
 
-body {
-  color: var(--color-foreground);
-  background: var(--color-background);
+  body {
+    color: var(--color-foreground);
+    background: var(--color-background);
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
 }
 
 /* ============================================

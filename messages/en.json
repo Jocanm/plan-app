@@ -6,7 +6,8 @@
     },
     "skip_to_main_content": "Skip to main content",
     "logo_alt": "Plan App logo",
-    "company_name": "Plan App Team"
+    "company_name": "Plan App Team",
+    "app_name": "Plan App"
   },
   "design_system": {
     "title": "Design System",
@@ -16,7 +17,7 @@
     "accessibility_heading": "Accessibility Features",
     "color_primary": "Primary",
     "color_primary_desc": "Brand Color",
-    "color_success": "Success", 
+    "color_success": "Success",
     "color_success_desc": "Positive Actions",
     "color_warning": "Warning",
     "color_warning_desc": "Caution States",
@@ -24,13 +25,13 @@
     "color_danger_desc": "Error States",
     "button_default": "Default Button",
     "button_secondary": "Secondary",
-    "button_outline": "Outline", 
+    "button_outline": "Outline",
     "button_ghost": "Ghost",
     "button_link": "Link Button",
     "button_destructive": "Destructive",
     "button_disabled": "Disabled",
     "accessibility_feature_1": "WCAG 2.1 AA compliant color contrast",
-    "accessibility_feature_2": "Keyboard navigation support", 
+    "accessibility_feature_2": "Keyboard navigation support",
     "accessibility_feature_3": "Screen reader optimized markup",
     "accessibility_feature_4": "Focus management and indicators",
     "accessibility_feature_5": "Semantic HTML structure",
@@ -89,6 +90,21 @@
     "meta": {
       "title": "Authentication Error",
       "description": "An error occurred during authentication."
+    }
+  },
+  "sidebar": {
+    "welcome_back": "Welcome back!",
+    "settings": {
+      "title": "Settings"
+    },
+    "navigation": {
+      "title": "NAVIGATION",
+      "todays_link": "Today's Focus",
+      "calendar_link": "Calendar View",
+      "tasks_link": "All Tasks"
+    },
+    "projects": {
+      "title": "PROJECTS"
     }
   }
 }

@@ -25,6 +25,7 @@ const NotFound = async () => {
         </h1>
         <p className="text-xl text-muted-foreground mb-4">{t("message")}</p>
         <Link
+          replace
           href={ROUTES.HOME}
           className="text-primary hover:text-primary/80 underline"
         >

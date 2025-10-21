@@ -113,7 +113,7 @@ The application centers around a task management system with these main entities
 
 ## 🎨 Architecture Layers
 
-**CRITICAL**: Read `ARCHITECTURE.md` for complete details. Summary:
+**CRITICAL**: Read `ARCHITECTURE.md` and `NEW_ARCHITECTURE.md` for complete details. Summary:
 
 ```
 src/

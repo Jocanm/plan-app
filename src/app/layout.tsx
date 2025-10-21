@@ -8,6 +8,7 @@ import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "../shared/components/providers/ThemeProvider";
+import { ThemeSwitcher } from "../shared/components/dev/ThemeSwitcher";
 import { getBaseUrl } from "../shared/utils/getBaseUrl";
 import "./globals.css";
 
@@ -118,6 +119,8 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            {/* TODO: REMOVE THIS - Only for development. Move to proper theme toggle in UI */}
+            <ThemeSwitcher />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
