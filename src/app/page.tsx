@@ -1,11 +1,15 @@
 import { auth } from "@/lib/auth";
 import { Button } from "@/shared/components/ui/Button";
 import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 import { signOutAction } from "../features/auth/app/actions/signOut";
+import { ROUTES } from "../lib/config/constants";
 
 const HomePage = async () => {
   const session = await auth();
   const t = await getTranslations("home");
+
+  redirect(ROUTES.DASHBOARD);
 
   return (
     <main id="main-content" className="p-6">
