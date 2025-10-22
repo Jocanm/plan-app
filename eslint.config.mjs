@@ -1,4 +1,6 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -11,18 +13,14 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ["commitlint.config.js"],
+    ignores: ["commitlint.config.js", "commitlint.config.mjs"],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
   ...compat.config({
     extends: ["prettier"],
-    plugins: ["@typescript-eslint", "prettier"],
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      project: "./tsconfig.json",
-    },
+    plugins: ["prettier"],
+
     rules: {
       "prettier/prettier": "error",
       "@typescript-eslint/no-unused-vars": [

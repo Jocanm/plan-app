@@ -13,5 +13,6 @@
   "prettier.requireConfig": true,
   "files.eol": "\n",
   "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.suggest.autoImports": true
+  "typescript.suggest.autoImports": true,
+  "cSpell.words": ["typegen"]
 }
