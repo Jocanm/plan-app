@@ -10,7 +10,7 @@ declare global {
 
       getByTestId(
         testId: string,
-        options: Partial<
+        options?: Partial<
           Cypress.Loggable &
             Cypress.Timeoutable &
             Cypress.Withinable &
