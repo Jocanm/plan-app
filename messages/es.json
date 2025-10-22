@@ -91,6 +91,7 @@
   },
   "sidebar": {
     "welcome_back": "¡Bienvenido de vuelta!",
+    "number_of_tasks": "{count, plural, =0 {No hay tareas pendientes} one {# tarea pendiente} other {# tareas pendientes}}",
     "settings": {
       "title": "Configuración"
     },

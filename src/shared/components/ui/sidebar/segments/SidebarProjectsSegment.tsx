@@ -5,7 +5,11 @@ export const SidebarProjectsSegment = async () => {
   const t = await getTranslations("sidebar");
 
   return (
-    <nav aria-labelledby="sidebar-projects-segment-title" className="space-y-4">
+    <nav
+      role="navigation"
+      className="space-y-4"
+      aria-labelledby="sidebar-projects-segment-title"
+    >
       <h3
         id="sidebar-projects-segment-title"
         className="text-sm font-semibold text-muted-foreground"

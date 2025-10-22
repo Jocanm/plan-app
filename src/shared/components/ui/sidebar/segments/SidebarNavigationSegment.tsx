@@ -14,24 +14,25 @@ const ACTIVE_LINK_CLASS =
 export const SidebarNavigationSegment = () => {
   const mainNavId = useId();
   const pathname = usePathname();
-  const translations = useTranslations("sidebar");
+  const t = useTranslations("sidebar");
 
   const isLinkActive = (linkPath: string) => {
     return pathname === linkPath;
   };
 
   return (
-    <nav aria-labelledby={mainNavId} className="space-y-2">
+    <nav aria-labelledby={mainNavId} className="space-y-2" role="navigation">
       <h3
         id={mainNavId}
         className="text-sm font-semibold text-muted-foreground"
       >
-        {translations("navigation.title")}
+        {t("navigation.title")}
       </h3>
       <ul>
         <li>
           <SidebarLink
             href={ROUTES.DASHBOARD}
+            aria-current={isLinkActive(ROUTES.DASHBOARD) ? "page" : undefined}
             className={clsx(
               isLinkActive(ROUTES.DASHBOARD) && ACTIVE_LINK_CLASS
             )}
@@ -39,9 +40,7 @@ export const SidebarNavigationSegment = () => {
             <SidebarLink.Icon>
               <Home size={16} />
             </SidebarLink.Icon>
-            <SidebarLink.Label>
-              {translations("navigation.todays_link")}
-            </SidebarLink.Label>
+            <SidebarLink.Label>{t("navigation.todays_link")}</SidebarLink.Label>
             <SidebarLink.Badge
               className={clsx(
                 isLinkActive(ROUTES.DASHBOARD) && "border-primary"
@@ -54,28 +53,29 @@ export const SidebarNavigationSegment = () => {
         <li>
           <SidebarLink
             href={ROUTES.CALENDAR}
+            aria-current={isLinkActive(ROUTES.CALENDAR) ? "page" : undefined}
             className={clsx(isLinkActive(ROUTES.CALENDAR) && ACTIVE_LINK_CLASS)}
           >
             <SidebarLink.Icon>
               <Calendar size={16} />
             </SidebarLink.Icon>
             <SidebarLink.Label>
-              {translations("navigation.calendar_link")}
+              {t("navigation.calendar_link")}
             </SidebarLink.Label>
           </SidebarLink>
         </li>
         <li>
           <SidebarLink
             href={ROUTES.TASKS}
+            aria-current={isLinkActive(ROUTES.TASKS) ? "page" : undefined}
             className={clsx(isLinkActive(ROUTES.TASKS) && ACTIVE_LINK_CLASS)}
           >
             <SidebarLink.Icon>
               <SquareCheckBig size={16} />
             </SidebarLink.Icon>
-            <SidebarLink.Label>
-              {translations("navigation.tasks_link")}
-            </SidebarLink.Label>
+            <SidebarLink.Label>{t("navigation.tasks_link")}</SidebarLink.Label>
             <SidebarLink.Badge
+              ariaLabel={t("number_of_tasks", { count: 3 })}
               className={clsx(isLinkActive(ROUTES.TASKS) && "border-primary")}
             >
               3

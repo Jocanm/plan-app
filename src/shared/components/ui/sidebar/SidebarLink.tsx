@@ -35,19 +35,24 @@ const Color = ({ dot }: { dot: string }) => {
 const Badge = ({
   children,
   className,
+  ariaLabel,
 }: {
   children: React.ReactNode;
   className?: string;
+  ariaLabel?: string;
 }) => {
   return (
-    <span
-      className={cn(
-        "border rounded-full px-2 py-0.5 text-xs ml-auto",
-        className
-      )}
-    >
-      {children}
-    </span>
+    <div>
+      <span
+        className={cn(
+          "border rounded-full px-2 py-0.5 text-xs ml-auto",
+          className
+        )}
+      >
+        {children}
+      </span>
+      <span className="sr-only">{ariaLabel}</span>
+    </div>
   );
 };
 
