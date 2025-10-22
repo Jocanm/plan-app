@@ -16,3 +16,5 @@ yarn.lock
 prisma/migrations/
 # Auto-generated files
 messages/en.d.json.ts
+# Cypress files (TypeScript auto-formatting conflicts)
+cypress/support/commands.ts

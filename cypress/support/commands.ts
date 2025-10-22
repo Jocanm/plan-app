@@ -3,12 +3,14 @@
 import { ROUTES } from "../../src/lib/config/constants";
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       login(password: string): Chainable<void>;
+
       getByTestId(
         testId: string,
-        ...args: any[]
+        ...args: never[]
       ): Chainable<JQuery<HTMLElement>>;
     }
   }
@@ -23,4 +25,5 @@ Cypress.Commands.add("getByTestId", (testId, ...args) => {
   return cy.get(`[data-testid="${testId}"]`, ...args);
 });
 
-export {};
+export { };
+

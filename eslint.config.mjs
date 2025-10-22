@@ -13,7 +13,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ["commitlint.config.js"],
+    ignores: ["commitlint.config.js", "commitlint.config.mjs"],
   },
   ...nextCoreWebVitals,
   ...nextTypescript,
