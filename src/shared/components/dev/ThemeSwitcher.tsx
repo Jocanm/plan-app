@@ -12,18 +12,14 @@
 import { Button } from "@/shared/components/ui/Button";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   if (!mounted) {
+    setMounted(true);
     return null;
   }
 
