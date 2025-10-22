@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "typegen && prisma generate --no-engine && prisma migrate deploy && next build",
-    "build:ci": "typegen && prisma generate --no-engine && next build",
+    "build:ci": "prisma generate --no-engine && next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
