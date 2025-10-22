@@ -13,11 +13,12 @@
     "build": "prisma generate --no-engine && prisma migrate deploy && next build",
     "build:ci": "prisma generate --no-engine && next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "format:check": "prettier --check .",
     "format:all": "prettier --write . && eslint --fix .",
     "typecheck": "tsc --noEmit",
+    "typegen": "next typegen",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
@@ -46,9 +47,9 @@
     "clsx": "^2.1.1",
     "cva": "npm:class-variance-authority@^0.7.1",
     "lucide-react": "^0.545.0",
-    "next": "15.5.4",
+    "next": "16.0.0",
     "next-auth": "5.0.0-beta.29",
-    "next-intl": "^4.3.11",
+    "next-intl": "^4.4.0",
     "next-themes": "^0.4.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -58,13 +59,12 @@
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^24",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "@typescript-eslint/eslint-plugin": "^8.46.0",
     "@typescript-eslint/parser": "^8.46.0",
     "@vitejs/plugin-react": "^5.0.4",
@@ -72,7 +72,7 @@
     "@vitest/ui": "^3.2.4",
     "cypress": "^15.4.0",
     "eslint": "^9",
-    "eslint-config-next": "15.5.4",
+    "eslint-config-next": "16.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "husky": "^9.1.7",
@@ -85,5 +85,11 @@
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
+    }
   }
 }

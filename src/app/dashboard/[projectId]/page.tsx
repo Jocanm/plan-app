@@ -1,11 +1,8 @@
-"use client";
+const ProjectPage = async (props: PageProps<"/dashboard/[projectId]">) => {
+  const { projectId } = await props.params;
+  const search = await props.searchParams;
 
-import { usePathname } from "next/navigation";
-
-const ProjectPage = () => {
-  const pathname = usePathname();
-
-  return <div>ProjectPage: {pathname}</div>;
+  return <div>Project: {projectId}</div>;
 };
 
 export default ProjectPage;

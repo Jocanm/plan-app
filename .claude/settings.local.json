@@ -19,7 +19,9 @@
       "Bash(pnpm run:*)",
       "Bash(mkdir:*)",
       "Bash(touch:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(pnpm view:*)",
+      "mcp__next-devtools__browser_eval"
     ],
     "deny": []
   }
