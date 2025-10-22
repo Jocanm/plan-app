@@ -19,8 +19,7 @@ const eslintConfig = [
   ...nextTypescript,
   ...compat.config({
     extends: ["prettier"],
-    plugins: ["prettier"], // Removido "@typescript-eslint" porque ya está incluido
-    // Removido parser y parserOptions porque Next.js ya los configura
+    plugins: ["prettier"],
 
     rules: {
       "prettier/prettier": "error",

@@ -10,7 +10,12 @@ declare global {
 
       getByTestId(
         testId: string,
-        ...args: never[]
+        options: Partial<
+          Cypress.Loggable &
+            Cypress.Timeoutable &
+            Cypress.Withinable &
+            Cypress.Shadow
+        >
       ): Chainable<JQuery<HTMLElement>>;
     }
   }
@@ -26,4 +31,3 @@ Cypress.Commands.add("getByTestId", (testId, ...args) => {
 });
 
 export { };
-
