@@ -36,7 +36,7 @@ describe("Auth - Validations", () => {
     it("Should redirect to login if NOT authenticated user is in private route", () => {
       const redirectResponse = getAuthRedirect({
         isLoggedIn: false,
-        pathname: ROUTES.HOME,
+        pathname: ROUTES.DASHBOARD,
       });
 
       expect(redirectResponse).toEqual({
@@ -57,7 +57,7 @@ describe("Auth - Validations", () => {
     it("Should NOT redirect if authenticated user is in private route", () => {
       const redirectResponse = getAuthRedirect({
         isLoggedIn: true,
-        pathname: ROUTES.HOME,
+        pathname: ROUTES.DASHBOARD,
       });
 
       expect(redirectResponse).toEqual({
@@ -72,7 +72,7 @@ describe("Auth - Validations", () => {
 
       expect(redirectResponse).toEqual({
         shouldRedirect: true,
-        redirectTo: ROUTES.HOME,
+        redirectTo: ROUTES.DASHBOARD,
       });
     });
   });

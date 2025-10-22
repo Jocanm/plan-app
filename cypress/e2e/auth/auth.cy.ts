@@ -8,7 +8,7 @@ describe("Auth tests", () => {
 
   describe("Middleware behavior", () => {
     it("Should redirect to login if NOT authenticated user is in private route", () => {
-      cy.visit(ROUTES.HOME);
+      cy.visit(ROUTES.DASHBOARD);
       cy.url().should("include", ROUTES.LOGIN);
     });
 
@@ -26,16 +26,16 @@ describe("Auth tests", () => {
 
     it("Should allow authenticated user to access private routes", () => {
       cy.login("password");
-      cy.visit(ROUTES.HOME);
+      cy.visit(ROUTES.DASHBOARD);
 
-      cy.location("pathname").should("equal", ROUTES.HOME);
+      cy.location("pathname").should("equal", ROUTES.DASHBOARD);
     });
   });
 
   describe("Sign out", () => {
     it("Should redirect to login when sign out button is pressed", () => {
       cy.login("password");
-      cy.getByTestId("sign-out-button").should("be.visible").click();
+      cy.getByTestId("signout-button").should("be.visible").click();
 
       cy.location("pathname").should("equal", ROUTES.LOGIN);
     });

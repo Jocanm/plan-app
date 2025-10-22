@@ -1,7 +1,6 @@
 "use client";
 
 import { signInAction } from "@/features/auth/app/actions/signIn";
-import { ROUTES } from "@/lib/config/constants";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/shared/components/ui/Button";
 import clsx from "clsx";
@@ -9,17 +8,13 @@ import { Github } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
 
-const BASE_OPTIONS = {
-  redirectTo: ROUTES.HOME,
-};
-
 export const OauthForm = () => {
   const t = useTranslations("login");
 
   return (
     <div className="space-y-4">
       <form
-        action={() => signInAction("google", BASE_OPTIONS)}
+        action={() => signInAction("google")}
         aria-label={t("continue_with_google")}
       >
         <OauthButton aria-label={t("continue_with_google")}>
@@ -31,7 +26,7 @@ export const OauthForm = () => {
       <Separator />
 
       <form
-        action={() => signInAction("github", BASE_OPTIONS)}
+        action={() => signInAction("github")}
         aria-label={t("continue_with_github")}
       >
         <OauthButton aria-label={t("continue_with_github")}>

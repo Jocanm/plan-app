@@ -26,7 +26,8 @@ export const getAuthRedirect = ({
   const isInPublicRoute = isPublicRoute(pathname);
 
   if (isInPublicRoute) {
-    if (isLoggedIn) return { shouldRedirect: true, redirectTo: ROUTES.HOME };
+    if (isLoggedIn)
+      return { shouldRedirect: true, redirectTo: ROUTES.DASHBOARD };
     return { shouldRedirect: false };
   }
 

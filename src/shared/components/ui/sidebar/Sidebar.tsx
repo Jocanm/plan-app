@@ -1,6 +1,7 @@
 import { Settings } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { PlanLogo } from "../../icons/PlanLogo";
+import { LogoutButton } from "./LogoutButton";
 import { SidebarNavigationSegment } from "./segments/SidebarNavigationSegment";
 import { SidebarProjectsSegment } from "./segments/SidebarProjectsSegment";
 import { SidebarLink } from "./SidebarLink";
@@ -30,13 +31,18 @@ export const Sidebar = async () => {
         <SidebarProjectsSegment />
       </section>
 
-      <section aria-label="Configuration" className="px-6">
+      <section
+        aria-label="Configuration"
+        className="px-6 space-y-2 border-t pt-4"
+      >
         <SidebarLink href="/settings">
           <SidebarLink.Icon>
             <Settings size={16} />
           </SidebarLink.Icon>
           <SidebarLink.Label>{t("sidebar.settings.title")}</SidebarLink.Label>
         </SidebarLink>
+
+        <LogoutButton />
       </section>
     </aside>
   );

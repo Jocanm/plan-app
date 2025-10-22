@@ -22,9 +22,6 @@
       "description": "Inicia sesión en tu cuenta y comienza a organizar tus tareas con Plan App."
     }
   },
-  "home": {
-    "sign_out": "Cerrar Sesión"
-  },
   "not_found": {
     "title": "404",
     "message": "¡Oops! Página no encontrada",
@@ -105,6 +102,10 @@
     },
     "projects": {
       "title": "PROYECTOS"
+    },
+    "logout": {
+      "title": "Cerrar Sesión",
+      "loading": "Cerrando sesión..."
     }
   }
 }
