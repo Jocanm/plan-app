@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 /**
@@ -12,14 +13,17 @@
 import { Button } from "@/shared/components/ui/Button";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  if (!mounted) {
+  useEffect(() => {
     setMounted(true);
+  }, []);
+
+  if (!mounted) {
     return null;
   }
 
