@@ -6,6 +6,7 @@
      ============================================ */
   --color-primary: hsl(239, 85%, 67%);
   --color-primary-hover: hsl(243, 100%, 82%);
+  --color-primary-active: hsl(239, 85%, 50%);
   --color-primary-foreground: hsl(0, 0%, 100%);
 
   /* ============================================
@@ -112,6 +113,9 @@
 
   /* Warning foreground in dark mode - use white for better contrast */
   --color-warning-foreground: hsl(0, 0%, 100%);
+
+  /* Primary active - lighter for dark mode */
+  --color-primary-active: hsl(239, 85%, 75%);
 }
 
 @layer base {

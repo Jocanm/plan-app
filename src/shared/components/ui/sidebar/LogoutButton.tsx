@@ -2,9 +2,10 @@
 
 import { signOutAction } from "@/features/auth/app/actions/signOut";
 import { Button } from "@/shared/components/ui/Button";
-import { Loader2, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
+import { BaseLoader } from "../loaders/BaseLoader";
 
 export const LogoutButton = () => {
   const t = useTranslations("sidebar.logout");
@@ -42,11 +43,7 @@ const LogoutButtonContent = ({
       aria-label={pending ? loadingLabel : label}
       className="w-full justify-start hover:bg-danger/10 hover:text-danger focus-visible:ring-danger"
     >
-      {pending ? (
-        <Loader2 className="animate-spin" aria-hidden="true" />
-      ) : (
-        <LogOut aria-hidden="true" />
-      )}
+      {pending ? <BaseLoader /> : <LogOut aria-hidden="true" />}
 
       <span className="font-medium">{pending ? loadingLabel : label}</span>
 

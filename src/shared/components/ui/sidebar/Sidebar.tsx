@@ -2,8 +2,8 @@ import { Settings } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { PlanLogo } from "../../icons/PlanLogo";
 import { LogoutButton } from "./LogoutButton";
-import { SidebarNavigationSegment } from "./segments/SidebarNavigationSegment";
-import { SidebarProjectsSegment } from "./segments/SidebarProjectsSegment";
+import { SidebarNavigationSegment } from "./segments/navigation/SidebarNavigationSegment";
+import { SidebarProjectsSegment } from "./segments/projects/SidebarProjectsSegment";
 import { SidebarLink } from "./SidebarLink";
 
 export const Sidebar = async () => {

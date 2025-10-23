@@ -29,7 +29,15 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Color = ({ dot }: { dot: string }) => {
-  return <span className={cn("h-3 w-3 rounded-sm", dot)} aria-hidden="true" />;
+  return (
+    <span
+      className="h-3 w-3 rounded-sm"
+      aria-hidden="true"
+      style={{
+        backgroundColor: dot,
+      }}
+    />
+  );
 };
 
 const Badge = ({

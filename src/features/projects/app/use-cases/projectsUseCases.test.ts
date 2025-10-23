@@ -9,19 +9,12 @@ describe("Projects - use cases", () => {
         getProjectsForSidebar: vi.fn(),
       };
 
-      const from = new Date();
-      const to = new Date(from);
-
       await projectsUseCases.getProjectsForSidebar({
         repo: repoStub,
         userId: "userID",
-        dateRange: { from, to },
       });
 
-      expect(repoStub.getProjectsForSidebar).toHaveBeenCalledWith("userID", {
-        from,
-        to,
-      });
+      expect(repoStub.getProjectsForSidebar).toHaveBeenCalledWith("userID");
     });
 
     it("Should return the projects from repository", async () => {
@@ -36,7 +29,6 @@ describe("Projects - use cases", () => {
       const result = await projectsUseCases.getProjectsForSidebar({
         repo: repoStub,
         userId: "userID",
-        dateRange: { from: new Date(), to: new Date() },
       });
 
       expect(result).toEqual(mockProjects);
