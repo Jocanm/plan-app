@@ -1,8 +1,10 @@
+import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectsForSidebar } from "@/features/projects/app/actions/projects.actions";
 import { SidebarLink } from "../../SidebarLink";
 
 export const Projects = async () => {
-  const projects = await getProjectsForSidebar();
+  const currentUser = await getCurrentUser();
+  const projects = await getProjectsForSidebar(currentUser.id);
 
   return (
     <ul>

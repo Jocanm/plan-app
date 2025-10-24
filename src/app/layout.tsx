@@ -1,26 +1,10 @@
-import {
-  DEFAULT_LOCALE,
-  LOCALE_COOKIE_KEY,
-} from "@/features/i18n/domain/constants";
 import type { Metadata, Viewport } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
-import { ThemeProvider } from "../shared/components/providers/ThemeProvider";
-import { ThemeSwitcher } from "../shared/components/dev/ThemeSwitcher";
+import { Suspense } from "react";
+import { RootLayoutContent } from "../shared/components/ui/layouts/RootLayoutContent";
 import { getBaseUrl } from "../shared/utils/getBaseUrl";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -93,37 +77,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [cookieStore, t] = await Promise.all([
-    cookies(),
-    getTranslations("common"),
-  ]);
-  const locale = cookieStore.get(LOCALE_COOKIE_KEY)?.value || DEFAULT_LOCALE;
-
-  // Determine text direction based on locale
-  const isRTL = ["ar", "he", "fa", "ur"].includes(locale);
-  const direction = isRTL ? "rtl" : "ltr";
-
   return (
-    <html lang={locale} dir={direction} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <a href="#main-content" className="skip-link">
-          {t("skip_to_main_content")}
-        </a>
-        <NextIntlClientProvider>
-          <ThemeProvider
-            enableSystem
-            attribute="class"
-            defaultTheme="system"
-            disableTransitionOnChange
-          >
-            {children}
-            {/* TODO: REMOVE THIS - Only for development. Move to proper theme toggle in UI */}
-            <ThemeSwitcher />
-          </ThemeProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <Suspense>
+      <RootLayoutContent cookies={cookies()}>{children}</RootLayoutContent>
+    </Suspense>
   );
 }

@@ -27,3 +27,10 @@ export async function signOutUseCase(
   };
   await repo.signOut(defaultOptions);
 }
+
+export const getCurrentUserUseCase = async (repo: IAuthRepository) => {
+  const currentUser = await repo.getCurrentUser();
+  if (!currentUser) throw new Error();
+
+  return currentUser;
+};
