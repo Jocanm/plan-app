@@ -6,29 +6,38 @@ import {
   TaskOrganizationIcon,
 } from "@/shared/components/icons/FeatureIcons";
 import { PlanLogo } from "@/shared/components/icons/PlanLogo";
-import { NextPagePromiseProps } from "@/shared/types";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
-import { getTranslations } from "next-intl/server";
+import { Locale, useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { use } from "react";
 
-export const generateMetadata = async () => {
-  const t = await getTranslations("login");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) => {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "login" });
   const baseUrl = getBaseUrl();
   return {
     title: t("meta.title"),
     description: t("meta.description"),
     alternates: {
-      canonical: `${baseUrl}/auth/login`,
+      canonical: `${baseUrl}/${locale}/auth/login`,
     },
   };
 };
 
-const Login = async ({ searchParams }: NextPagePromiseProps) => {
-  const t = await getTranslations("login");
-  const error = (await searchParams)?.error;
+const Login = ({ params, searchParams }: PageProps<"/[locale]/auth/login">) => {
+  const { locale } = use(params);
+  const { error } = use(searchParams);
+  setRequestLocale(locale as Locale);
+
+  const t = useTranslations("login");
 
   if (error) {
-    redirect(`${ROUTES.ERROR}?error=${error}`);
+    redirect(`/${locale}${ROUTES.ERROR}?error=${error}`);
   }
 
   return (

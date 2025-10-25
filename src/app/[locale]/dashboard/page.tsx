@@ -1,6 +1,6 @@
+import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
+import { Button } from "@/shared/components/ui";
 import { revalidateTag } from "next/cache";
-import { getCurrentUser } from "../../features/auth/app/actions/getCurrentUser";
-import { Button } from "../../shared/components/ui";
 
 const DashboardPage = async () => {
   const currentUser = await getCurrentUser();

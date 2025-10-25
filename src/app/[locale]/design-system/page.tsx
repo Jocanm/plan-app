@@ -1,8 +1,15 @@
 import { Button } from "@/shared/components/ui/Button";
-import { getTranslations } from "next-intl/server";
+import { Locale, useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { use } from "react";
 
-export const generateMetadata = async () => {
-  const t = await getTranslations("design_system");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) => {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "design_system" });
   return {
     title: t("meta.title"),
     description: t("meta.description"),
@@ -10,8 +17,13 @@ export const generateMetadata = async () => {
   };
 };
 
-export default async function DesignSystemPage() {
-  const t = await getTranslations("design_system");
+export default function DesignSystemPage({
+  params,
+}: PageProps<"/[locale]/design-system">) {
+  const { locale } = use(params);
+  setRequestLocale(locale as Locale);
+
+  const t = useTranslations("design_system");
 
   return (
     <main id="main-content" className="container mx-auto p-6 max-w-4xl">

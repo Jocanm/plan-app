@@ -1,12 +1,18 @@
 import { getLoginError } from "@/features/auth/domain/utils";
 import { ROUTES } from "@/lib/config/constants";
-import { NextPagePromiseProps } from "@/shared/types";
 import { AlertTriangleIcon } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { Locale, useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import { use } from "react";
 
-export const generateMetadata = async () => {
-  const t = await getTranslations("error.meta");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) => {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "error.meta" });
   return {
     title: t("title"),
     description: t("description"),
@@ -14,11 +20,15 @@ export const generateMetadata = async () => {
   };
 };
 
-export default async function AuthErrorPage({
+export default function AuthErrorPage({
+  params,
   searchParams,
-}: NextPagePromiseProps) {
-  const t = await getTranslations("error");
-  const error = (await searchParams)?.error;
+}: PageProps<"/[locale]/auth/error">) {
+  const { locale } = use(params);
+  const { error } = use(searchParams);
+  setRequestLocale(locale as Locale);
+
+  const t = useTranslations("error");
   const { titleKey, messageKey } = getLoginError(error as string);
 
   return (

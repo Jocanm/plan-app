@@ -1,44 +1,28 @@
 import { auth } from "@/lib/auth";
+import createIntlMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import { getAuthRedirect } from "./features/auth/domain/validations";
-import {
-  ACCEPT_LANGUAGE_HEADER,
-  LOCALE_COOKIE_KEY,
-  locales,
-} from "./features/i18n/domain/constants";
-import { getPrimaryLanguage } from "./features/i18n/domain/utils";
-import { env } from "./lib/env";
+import { routing } from "./i18n/routing";
 
-const LOCALE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+const intlMiddleware = createIntlMiddleware(routing);
 
 export default auth(req => {
-  let localeToSet: string | undefined;
-  const cookieLocale = req.cookies.get(LOCALE_COOKIE_KEY)?.value;
+  const intlResponse = intlMiddleware(req);
 
-  if (!cookieLocale) {
-    const acceptLanguageHeader = req.headers.get(ACCEPT_LANGUAGE_HEADER);
-    localeToSet = getPrimaryLanguage(acceptLanguageHeader, locales);
+  if (intlResponse.status === 307 || intlResponse.status === 308) {
+    return intlResponse;
   }
 
   const isLoggedIn = !!req.auth?.user;
   const pathname = req.nextUrl.pathname;
   const redirectResponse = getAuthRedirect({ isLoggedIn, pathname });
 
-  const response = redirectResponse.shouldRedirect
-    ? NextResponse.redirect(new URL(redirectResponse.redirectTo, req.url))
-    : NextResponse.next();
-
-  if (localeToSet) {
-    response.cookies.set(LOCALE_COOKIE_KEY, localeToSet, {
-      path: "/",
-      sameSite: "lax",
-      httpOnly: false,
-      maxAge: LOCALE_COOKIE_MAX_AGE_SECONDS,
-      secure: env.NODE_ENV === "production",
-    });
+  if (redirectResponse.shouldRedirect) {
+    const url = new URL(redirectResponse.redirectTo, req.url);
+    return NextResponse.redirect(url);
   }
 
-  return response;
+  return NextResponse.next();
 });
 
 export const config = {

@@ -5,10 +5,12 @@ export function isLocaleValid(
   locale: string[],
   supportedLocales?: readonly string[]
 ): locale is Locale[];
+
 export function isLocaleValid(
   locale: string,
   supportedLocales?: readonly string[]
 ): locale is Locale;
+
 export function isLocaleValid(
   locale: string | string[],
   supportedLocales: readonly string[] = locales

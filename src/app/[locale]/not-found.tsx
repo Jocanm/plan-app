@@ -1,9 +1,19 @@
 import { ROUTES } from "@/lib/config/constants";
-import { getTranslations } from "next-intl/server";
+import { Locale, useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import { use } from "react";
 
-export const generateMetadata = async () => {
-  const t = await getTranslations("not_found.meta");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) => {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "not_found.meta",
+  });
   return {
     title: t("title"),
     description: t("description"),
@@ -11,8 +21,11 @@ export const generateMetadata = async () => {
   };
 };
 
-const NotFound = async () => {
-  const t = await getTranslations("not_found");
+const NotFound = ({ params }: { params: Promise<{ locale: Locale }> }) => {
+  const { locale } = use(params);
+
+  setRequestLocale(locale);
+  const t = useTranslations("not_found");
 
   return (
     <main

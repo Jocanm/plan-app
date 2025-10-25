@@ -1,5 +1,5 @@
 import { cn } from "@/shared/utils/cn";
-import Link, { LinkProps } from "next/link";
+import Link, { type LinkProps } from "next/link";
 
 interface Props extends LinkProps {
   className?: string;
