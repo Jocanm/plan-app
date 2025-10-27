@@ -109,7 +109,7 @@ export default function LocaleLayout({
   children,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = use(params);
 
@@ -117,7 +117,7 @@ export default function LocaleLayout({
     notFound();
   }
 
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const messages = use(getMessages());
 

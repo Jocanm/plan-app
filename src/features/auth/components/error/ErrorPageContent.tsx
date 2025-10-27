@@ -6,7 +6,7 @@ import { use } from "react";
 import { getLoginError } from "../../domain/utils";
 
 interface ErrorPageContentProps {
-  searchParams: PageProps<"/[locale]/auth/error">["searchParams"];
+  searchParams: Promise<{ error?: string }>;
 }
 
 export const ErrorPageContent = ({ searchParams }: ErrorPageContentProps) => {

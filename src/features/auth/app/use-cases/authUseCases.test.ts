@@ -1,14 +1,22 @@
 import { ROUTES } from "@/lib/config/constants";
 import { describe, expect, it, vi } from "vitest";
+import { IAuthRepository } from "../../domain/types";
 import { signInWithProviderUseCase, signOutUseCase } from "./authUseCases";
+
+const createAuthRepoStub = (methods: Partial<IAuthRepository>) => {
+  const authRepoStub = {
+    ...methods,
+  };
+
+  return authRepoStub as unknown as IAuthRepository;
+};
 
 describe("Auth - use cases", () => {
   describe("Auth - signout", () => {
     it("Should call signout with default values", async () => {
-      const authRepoStub = {
+      const authRepoStub = createAuthRepoStub({
         signOut: vi.fn(),
-        signIn: vi.fn(),
-      };
+      });
 
       await signOutUseCase(undefined, authRepoStub);
 
@@ -19,10 +27,9 @@ describe("Auth - use cases", () => {
     });
 
     it("Should call signout with override values", async () => {
-      const authRepoStub = {
+      const authRepoStub = createAuthRepoStub({
         signOut: vi.fn(),
-        signIn: vi.fn(),
-      };
+      });
 
       await signOutUseCase({ redirectTo: "/custom" }, authRepoStub);
 
@@ -34,10 +41,9 @@ describe("Auth - use cases", () => {
 
   describe("Auth - signin", () => {
     it("Should redirect to dashboard page by default after signin", async () => {
-      const authRepoStub = {
-        signOut: vi.fn(),
+      const authRepoStub = createAuthRepoStub({
         signIn: vi.fn(),
-      };
+      });
 
       await signInWithProviderUseCase("github", undefined, authRepoStub);
 
@@ -47,10 +53,9 @@ describe("Auth - use cases", () => {
     });
 
     it("Should be able to redirect to custom page after signin", async () => {
-      const authRepoStub = {
-        signOut: vi.fn(),
+      const authRepoStub = createAuthRepoStub({
         signIn: vi.fn(),
-      };
+      });
 
       await signInWithProviderUseCase(
         "github",
