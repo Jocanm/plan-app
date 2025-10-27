@@ -1,5 +1,4 @@
 import { LoginForm } from "@/features/auth/components/login/LoginForm";
-import { ROUTES } from "@/lib/config/constants";
 import {
   CalendarIntegrationIcon,
   CollaborationIcon,
@@ -7,10 +6,8 @@ import {
 } from "@/shared/components/icons/FeatureIcons";
 import { PlanLogo } from "@/shared/components/icons/PlanLogo";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
-import { Locale, useTranslations } from "next-intl";
+import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
-import { use } from "react";
 
 export const generateMetadata = async ({
   params,
@@ -29,16 +26,14 @@ export const generateMetadata = async ({
   };
 };
 
-const Login = ({ params, searchParams }: PageProps<"/[locale]/auth/login">) => {
-  const { locale } = use(params);
-  const { error } = use(searchParams);
+const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
+  const { locale } = await params;
   setRequestLocale(locale as Locale);
 
-  const t = useTranslations("login");
-
-  if (error) {
-    redirect(`/${locale}${ROUTES.ERROR}?error=${error}`);
-  }
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "login",
+  });
 
   return (
     <main id="main-content" className="min-h-screen">

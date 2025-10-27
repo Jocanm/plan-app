@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getPrimaryLanguage, normalizeLocale } from "./utils";
+import {
+  buildLocalizedRoute,
+  getPrimaryLanguage,
+  normalizeLocale,
+} from "./utils";
 
 describe("I18n - Utils", () => {
   describe("Get primary language", () => {
@@ -77,6 +81,17 @@ describe("I18n - Utils", () => {
 
     it("handles empty string", () => {
       expect(normalizeLocale("")).toBe("");
+    });
+  });
+
+  describe("Build Localized route", () => {
+    it("Should return the route with proper locale", () => {
+      const locale = "en";
+      const route = "/dashboard";
+
+      const localizedRoute = buildLocalizedRoute(route, locale);
+
+      expect(localizedRoute).toBe("/en/dashboard");
     });
   });
 });

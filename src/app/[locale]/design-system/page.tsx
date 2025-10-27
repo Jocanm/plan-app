@@ -1,7 +1,6 @@
 import { Button } from "@/shared/components/ui/Button";
-import { Locale, useTranslations } from "next-intl";
+import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
 
 export const generateMetadata = async ({
   params,
@@ -17,13 +16,16 @@ export const generateMetadata = async ({
   };
 };
 
-export default function DesignSystemPage({
+export default async function DesignSystemPage({
   params,
 }: PageProps<"/[locale]/design-system">) {
-  const { locale } = use(params);
+  const { locale } = await params;
   setRequestLocale(locale as Locale);
 
-  const t = useTranslations("design_system");
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "design_system",
+  });
 
   return (
     <main id="main-content" className="container mx-auto p-6 max-w-4xl">

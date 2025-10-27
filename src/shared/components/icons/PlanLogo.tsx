@@ -1,17 +1,17 @@
-import { getTranslations } from "next-intl/server";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { useId } from "react";
 
 interface PlanLogoProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
 }
 
-export const PlanLogo = async ({
-  className = "",
-  size = "md",
-}: PlanLogoProps) => {
-  const t = await getTranslations("common");
+export const PlanLogo = ({ className = "", size = "md" }: PlanLogoProps) => {
+  const t = useTranslations("common");
+  const uniqueId = useId();
 
-  const uniqueId = crypto.randomUUID().slice(0, 8);
   const gradientId = `planGradient-${uniqueId}`;
   const accentId = `planAccent-${uniqueId}`;
 

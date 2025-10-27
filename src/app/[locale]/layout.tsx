@@ -12,7 +12,8 @@ import {
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
+import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -103,14 +104,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   params,
   children,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: Locale }>;
 }) {
-  const { locale } = await params;
+  const { locale } = use(params);
 
   if (!locales.includes(locale as Locale)) {
     notFound();
@@ -118,7 +119,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = use(getMessages());
 
   return (
     <html lang={locale} suppressHydrationWarning>

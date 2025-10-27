@@ -19,3 +19,7 @@ export const getPrimaryLanguage = (
     return isLocaleValid(locale, supportedLocales);
   });
 };
+
+export const buildLocalizedRoute = (route: string, locale: string): string => {
+  return `/${locale}${route}`;
+};

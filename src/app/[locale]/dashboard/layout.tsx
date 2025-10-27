@@ -1,6 +1,12 @@
 import { Sidebar } from "@/shared/components/ui/sidebar/Sidebar";
+import { Locale } from "next-intl";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = async ({
+  children,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+}) => {
   return (
     <div className="flex h-screen">
       <Sidebar />

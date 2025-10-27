@@ -55,7 +55,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: isEndToEndEnvironment ? "jwt" : "database",
   },
   pages: {
-    error: "/auth/error",
-    signIn: isEndToEndEnvironment ? undefined : "/auth/login",
+    error: "/en/auth/error",
+    signIn: isEndToEndEnvironment ? undefined : "/en/auth/login",
   },
 });

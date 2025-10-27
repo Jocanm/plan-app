@@ -5,16 +5,17 @@ import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
 import { Button, ButtonProps } from "@/shared/components/ui/Button";
 import clsx from "clsx";
 import { Github } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
 
 export const OauthForm = () => {
+  const locale = useLocale();
   const t = useTranslations("login");
 
   return (
     <div className="space-y-4">
       <form
-        action={() => signInAction("google")}
+        action={() => signInAction("google", undefined, locale)}
         aria-label={t("continue_with_google")}
       >
         <OauthButton aria-label={t("continue_with_google")}>
@@ -26,7 +27,7 @@ export const OauthForm = () => {
       <Separator />
 
       <form
-        action={() => signInAction("github")}
+        action={() => signInAction("github", undefined, locale)}
         aria-label={t("continue_with_github")}
       >
         <OauthButton aria-label={t("continue_with_github")}>

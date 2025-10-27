@@ -1,8 +1,7 @@
 import { ROUTES } from "@/lib/config/constants";
 import { Locale, useTranslations } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { use } from "react";
 
 export const generateMetadata = async ({
   params,
@@ -21,10 +20,7 @@ export const generateMetadata = async ({
   };
 };
 
-const NotFound = ({ params }: { params: Promise<{ locale: Locale }> }) => {
-  const { locale } = use(params);
-
-  setRequestLocale(locale);
+const NotFound = () => {
   const t = useTranslations("not_found");
 
   return (

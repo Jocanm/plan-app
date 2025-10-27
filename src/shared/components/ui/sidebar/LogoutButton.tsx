@@ -3,15 +3,16 @@
 import { signOutAction } from "@/features/auth/app/actions/signOut";
 import { Button } from "@/shared/components/ui/Button";
 import { LogOut } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
 import { BaseLoader } from "../loaders/BaseLoader";
 
 export const LogoutButton = () => {
+  const locale = useLocale();
   const t = useTranslations("sidebar.logout");
 
   const handleLogout = async () => {
-    await signOutAction();
+    await signOutAction(undefined, locale);
   };
 
   return (

@@ -1,17 +1,17 @@
-import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { Button } from "@/shared/components/ui";
-import { revalidateTag } from "next/cache";
+import { Link } from "../../../i18n/navigation";
 
 const DashboardPage = async () => {
-  const currentUser = await getCurrentUser();
   return (
     <form
       action={async () => {
         "use server";
-        revalidateTag(`projects-${currentUser.id}`, "max");
       }}
     >
       <Button>Refresh</Button>
+      <Link locale="en" href="/dashboard">
+        change language
+      </Link>
     </form>
   );
 };

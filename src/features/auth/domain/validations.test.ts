@@ -1,30 +1,35 @@
-import { ROUTES } from "@/lib/config/constants";
 import { describe, expect, it } from "vitest";
 import { getAuthRedirect, isPublicRoute } from "./validations";
 
 describe("Auth - Validations", () => {
   describe("Public Routes", () => {
-    it("Should return true if route contains auth path", () => {
-      const ROUTE = "/auth/**";
+    it("Should return true if route contains auth path (with locale)", () => {
+      const ROUTE_EN = "/en/auth/login";
+      const ROUTE_ES = "/es/auth/error";
 
-      const isPublic = isPublicRoute(ROUTE);
+      const isPublicEn = isPublicRoute(ROUTE_EN);
+      const isPublicEs = isPublicRoute(ROUTE_ES);
 
-      expect(isPublic).toBe(true);
+      expect(isPublicEn).toBe(true);
+      expect(isPublicEs).toBe(true);
     });
 
-    it("Should return false for private routes", () => {
-      const ROUTE_1 = "/dash/**";
-      const HOMEPAGE_ROUTE = "/";
+    it("Should return false for private routes (with locale)", () => {
+      const ROUTE_DASHBOARD = "/en/dashboard";
+      const ROUTE_PROJECT = "/es/dashboard/project-123";
+      const HOMEPAGE_ROUTE = "/en";
 
-      const isPublic = isPublicRoute(ROUTE_1);
+      const isDashboardPublic = isPublicRoute(ROUTE_DASHBOARD);
+      const isProjectPublic = isPublicRoute(ROUTE_PROJECT);
       const isPublicHomePage = isPublicRoute(HOMEPAGE_ROUTE);
 
-      expect(isPublic).toBe(false);
+      expect(isDashboardPublic).toBe(false);
+      expect(isProjectPublic).toBe(false);
       expect(isPublicHomePage).toBe(false);
     });
 
-    it("should return false for /authentication", () => {
-      const ROUTE = "/authentication/**";
+    it("should return false for /authentication (with locale)", () => {
+      const ROUTE = "/en/authentication/login";
 
       const isPublic = isPublicRoute(ROUTE);
 
@@ -33,46 +38,79 @@ describe("Auth - Validations", () => {
   });
 
   describe("Routes redirection", () => {
-    it("Should redirect to login if NOT authenticated user is in private route", () => {
-      const redirectResponse = getAuthRedirect({
+    it("Should redirect to login (with locale) if NOT authenticated user is in private route", () => {
+      const redirectResponseEn = getAuthRedirect({
         isLoggedIn: false,
-        pathname: ROUTES.DASHBOARD,
+        pathname: "/en/dashboard",
+      });
+      const redirectResponseEs = getAuthRedirect({
+        isLoggedIn: false,
+        pathname: "/es/dashboard/project-123",
       });
 
-      expect(redirectResponse).toEqual({
+      expect(redirectResponseEn).toEqual({
         shouldRedirect: true,
-        redirectTo: ROUTES.LOGIN,
+        redirectTo: "/en/auth/login",
+      });
+      expect(redirectResponseEs).toEqual({
+        shouldRedirect: true,
+        redirectTo: "/es/auth/login",
       });
     });
+
     it("Should NOT redirect if NOT authenticated user is in public route", () => {
-      const redirectResponse = getAuthRedirect({
+      const redirectResponseEn = getAuthRedirect({
         isLoggedIn: false,
-        pathname: ROUTES.LOGIN,
+        pathname: "/en/auth/login",
+      });
+      const redirectResponseEs = getAuthRedirect({
+        isLoggedIn: false,
+        pathname: "/es/auth/error",
       });
 
-      expect(redirectResponse).toEqual({
+      expect(redirectResponseEn).toEqual({
+        shouldRedirect: false,
+      });
+      expect(redirectResponseEs).toEqual({
         shouldRedirect: false,
       });
     });
+
     it("Should NOT redirect if authenticated user is in private route", () => {
-      const redirectResponse = getAuthRedirect({
+      const redirectResponseEn = getAuthRedirect({
         isLoggedIn: true,
-        pathname: ROUTES.DASHBOARD,
+        pathname: "/en/dashboard",
+      });
+      const redirectResponseEs = getAuthRedirect({
+        isLoggedIn: true,
+        pathname: "/es/design-system",
       });
 
-      expect(redirectResponse).toEqual({
+      expect(redirectResponseEn).toEqual({
+        shouldRedirect: false,
+      });
+      expect(redirectResponseEs).toEqual({
         shouldRedirect: false,
       });
     });
-    it("Should redirect to home if authenticated user is in auth route", () => {
-      const redirectResponse = getAuthRedirect({
+
+    it("Should redirect to dashboard (with locale) if authenticated user is in auth route", () => {
+      const redirectResponseEn = getAuthRedirect({
         isLoggedIn: true,
-        pathname: ROUTES.LOGIN,
+        pathname: "/en/auth/login",
+      });
+      const redirectResponseEs = getAuthRedirect({
+        isLoggedIn: true,
+        pathname: "/es/auth/error",
       });
 
-      expect(redirectResponse).toEqual({
+      expect(redirectResponseEn).toEqual({
         shouldRedirect: true,
-        redirectTo: ROUTES.DASHBOARD,
+        redirectTo: "/en/dashboard",
+      });
+      expect(redirectResponseEs).toEqual({
+        shouldRedirect: true,
+        redirectTo: "/es/dashboard",
       });
     });
   });

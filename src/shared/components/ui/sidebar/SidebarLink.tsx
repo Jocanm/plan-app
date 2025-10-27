@@ -1,12 +1,13 @@
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/shared/utils/cn";
-import Link, { type LinkProps } from "next/link";
 
-interface Props extends LinkProps {
-  className?: string;
-  children: React.ReactNode;
-}
+type CustomLinkProps = Parameters<typeof Link>[0];
 
-export const SidebarLink = ({ className, children, ...props }: Props) => {
+export const SidebarLink = ({
+  className,
+  children,
+  ...props
+}: CustomLinkProps) => {
   return (
     <Link
       {...props}
