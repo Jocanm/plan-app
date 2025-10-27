@@ -6,12 +6,10 @@ import {
 import { IAuthRepository } from "../domain/types";
 
 const signIn: IAuthRepository["signIn"] = (provider, options) => {
-  console.log({ options });
   return authJsSignIn(provider, options);
 };
 
 const signOut: IAuthRepository["signOut"] = options => {
-  console.log({ options });
   return authJsSignOut(options);
 };
 
