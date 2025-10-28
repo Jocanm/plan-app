@@ -1,24 +1,6 @@
+import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
-import { Locale, useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
-
-export const generateMetadata = async ({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) => {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale,
-    namespace: "not_found.meta",
-  });
-  return {
-    title: t("title"),
-    description: t("description"),
-    robots: "noindex, nofollow",
-  };
-};
+import { useTranslations } from "next-intl";
 
 const NotFound = () => {
   const t = useTranslations("not_found");

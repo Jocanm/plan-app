@@ -1,111 +1,111 @@
 {
+  "common": {
+    "meta": {
+      "title": "Plan App - Gestión de tareas simple y eficiente",
+      "description": "Una plataforma intuitiva para planificar, organizar y cumplir tus objetivos."
+    },
+    "skip_to_main_content": "Saltar al contenido principal",
+    "logo_alt": "Logotipo de Plan App",
+    "company_name": "Equipo Plan App",
+    "app_name": "Plan App"
+  },
+  "design_system": {
+    "title": "Sistema de diseño",
+    "description": "Biblioteca de componentes y patrones visuales de Plan App",
+    "colors_heading": "Paleta de colores",
+    "buttons_heading": "Botones",
+    "accessibility_heading": "Funciones de accesibilidad",
+    "color_primary": "Primario",
+    "color_primary_desc": "Color principal de la marca",
+    "color_success": "Éxito",
+    "color_success_desc": "Acciones positivas",
+    "color_warning": "Advertencia",
+    "color_warning_desc": "Estados de precaución",
+    "color_danger": "Error",
+    "color_danger_desc": "Estados de error o alerta",
+    "button_default": "Botón predeterminado",
+    "button_secondary": "Secundario",
+    "button_outline": "Contorno",
+    "button_ghost": "Transparente",
+    "button_link": "Enlace",
+    "button_destructive": "Destructivo",
+    "button_disabled": "Deshabilitado",
+    "accessibility_feature_1": "Contraste de color conforme a WCAG 2.1 AA",
+    "accessibility_feature_2": "Compatibilidad con navegación por teclado",
+    "accessibility_feature_3": "Estructura optimizada para lectores de pantalla",
+    "accessibility_feature_4": "Gestión e indicadores de enfoque",
+    "accessibility_feature_5": "HTML semántico",
+    "meta": {
+      "title": "Sistema de diseño - Plan App",
+      "description": "Guía completa de los componentes y patrones visuales del sistema de diseño."
+    }
+  },
   "login": {
     "title": "Bienvenido a",
     "subtitle": "Inicia sesión en tu cuenta",
-    "description": "Organiza tu vida, gestiona tus tareas y alcanza tus objetivos con nuestra hermosa e intuitiva plataforma de gestión de tareas.",
+    "description": "Organiza tu vida, gestiona tus tareas y alcanza tus metas con nuestra plataforma simple e intuitiva.",
     "continue_with_google": "Continuar con Google",
     "continue_with_github": "Continuar con GitHub",
-    "beautiful_task_organization": "Hermosa organización de tareas",
+    "beautiful_task_organization": "Organiza tus tareas de forma atractiva",
     "organize_with_drag_and_drop": "Organiza arrastrando y soltando",
-    "calendar_integration": "Integración de calendario",
-    "schedule_seamlessly": "Programa sin problemas",
-    "team_collaboration": "Colaboración en equipo",
-    "work_together": "Trabajen juntos sin esfuerzo",
-    "seamless_collaboration": "Colaboración fluida",
+    "calendar_integration": "Integración con tu calendario",
+    "schedule_seamlessly": "Programa fácilmente",
+    "team_collaboration": "Colabora con tu equipo",
+    "work_together": "Trabaja en equipo sin complicaciones",
+    "seamless_collaboration": "Colaboración sin esfuerzo",
     "app_name": "Plan App",
-    "choose_signin_method": "Elige tu método de inicio de sesión preferido",
-    "security_message": "Protegido con cifrado de nivel empresarial",
+    "choose_signin_method": "Elige cómo deseas iniciar sesión",
+    "security_message": "Protección con cifrado de nivel empresarial",
     "separator_or": "o",
     "signing_in_wait": "Iniciando sesión, por favor espera...",
     "meta": {
-      "title": "Iniciar Sesión - Plan App",
-      "description": "Inicia sesión en tu cuenta y comienza a organizar tus tareas con Plan App."
+      "title": "Iniciar sesión - Plan App",
+      "description": "Accede a tu cuenta y empieza a organizar tus tareas con Plan App."
     }
   },
   "not_found": {
     "title": "404",
-    "message": "¡Oops! Página no encontrada",
-    "return_home": "Volver al Inicio",
+    "message": "¡Ups! Página no encontrada",
+    "return_home": "Volver al inicio",
     "meta": {
-      "title": "404 - No Encontrado",
-      "description": "La página que estás buscando no existe."
+      "title": "404 - No encontrado",
+      "description": "La página que buscas no existe o fue movida."
     }
   },
   "error": {
-    "go_to_login": "Ir al Inicio de Sesión",
+    "go_to_login": "Ir a inicio de sesión",
     "errors": {
       "oauth_account_not_linked": {
         "title": "Esta cuenta ya existe",
-        "message": "El correo electrónico asociado a este proveedor ya está en uso con otra cuenta. Por favor, inicia sesión con el método que usaste originalmente para continuar."
+        "message": "El correo asociado a este proveedor ya está vinculado a otra cuenta. Inicia sesión con el método original para continuar."
       },
       "default": {
-        "title": "Error de Autenticación",
-        "message": "Ocurrió un error inesperado al intentar iniciar sesión. Por favor, intenta de nuevo."
+        "title": "Error de autenticación",
+        "message": "Ocurrió un error inesperado al iniciar sesión. Inténtalo nuevamente."
       }
     },
     "meta": {
-      "title": "Error de Autenticación",
-      "description": "Ocurrió un error durante la autenticación."
-    }
-  },
-  "common": {
-    "meta": {
-      "title": "Plan App - Gestión de Tareas Simplificada",
-      "description": "Una aplicación simple y eficiente para la gestión de tareas."
-    },
-    "skip_to_main_content": "Ir al contenido principal",
-    "logo_alt": "Logo de Plan App",
-    "company_name": "Equipo de Plan App",
-    "app_name": "Plan App"
-  },
-  "design_system": {
-    "title": "Sistema de Diseño",
-    "description": "Biblioteca de componentes y patrones de diseño para Plan App",
-    "colors_heading": "Paleta de Colores",
-    "buttons_heading": "Botones",
-    "accessibility_heading": "Características de Accesibilidad",
-    "color_primary": "Primario",
-    "color_primary_desc": "Color de Marca",
-    "color_success": "Éxito",
-    "color_success_desc": "Acciones Positivas",
-    "color_warning": "Advertencia",
-    "color_warning_desc": "Estados de Precaución",
-    "color_danger": "Peligro",
-    "color_danger_desc": "Estados de Error",
-    "button_default": "Botón Predeterminado",
-    "button_secondary": "Secundario",
-    "button_outline": "Contorno",
-    "button_ghost": "Fantasma",
-    "button_link": "Botón Enlace",
-    "button_destructive": "Destructivo",
-    "button_disabled": "Deshabilitado",
-    "accessibility_feature_1": "Contraste de color compatible con WCAG 2.1 AA",
-    "accessibility_feature_2": "Soporte para navegación por teclado",
-    "accessibility_feature_3": "Marcado optimizado para lectores de pantalla",
-    "accessibility_feature_4": "Gestión e indicadores de enfoque",
-    "accessibility_feature_5": "Estructura HTML semántica",
-    "meta": {
-      "title": "Sistema de Diseño - Plan App",
-      "description": "Una visión integral de los componentes y patrones del sistema de diseño."
+      "title": "Error de autenticación",
+      "description": "Se produjo un error durante el proceso de inicio de sesión."
     }
   },
   "sidebar": {
-    "welcome_back": "¡Bienvenido de vuelta!",
-    "number_of_tasks": "{count, plural, =0 {No hay tareas pendientes} one {# tarea pendiente} other {# tareas pendientes}}",
+    "welcome_back": "¡Bienvenido de nuevo!",
+    "number_of_tasks": "{count, plural, =0 {No tienes tareas pendientes} one {# tarea pendiente} other {# tareas pendientes}}",
     "settings": {
       "title": "Configuración"
     },
     "navigation": {
       "title": "NAVEGACIÓN",
-      "todays_link": "Enfoque de Hoy",
-      "calendar_link": "Vista de Calendario",
-      "tasks_link": "Todas las Tareas"
+      "todays_link": "Plan del día",
+      "calendar_link": "Calendario",
+      "tasks_link": "Todas las tareas"
     },
     "projects": {
       "title": "PROYECTOS"
     },
     "logout": {
-      "title": "Cerrar Sesión",
+      "title": "Cerrar sesión",
       "loading": "Cerrando sesión..."
     }
   }

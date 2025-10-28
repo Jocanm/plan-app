@@ -17,7 +17,14 @@ declare module "next-auth" {
   }
 }
 
-const providers: NextAuthConfig["providers"] = [Google, GitHub];
+const providers: NextAuthConfig["providers"] = [
+  Google({
+    allowDangerousEmailAccountLinking: true,
+  }),
+  GitHub({
+    allowDangerousEmailAccountLinking: true,
+  }),
+];
 const isEndToEndEnvironment = env.APP_TEST;
 const isProductionEnvironment = process.env.VERCEL_ENV;
 
@@ -55,7 +62,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: isEndToEndEnvironment ? "jwt" : "database",
   },
   pages: {
-    error: "/en/auth/error",
-    signIn: isEndToEndEnvironment ? undefined : "/en/auth/login",
+    error: "/auth/error",
+    signIn: isEndToEndEnvironment ? undefined : "/auth/login",
   },
 });

@@ -28,7 +28,7 @@ describe("Auth tests", () => {
       cy.login("password");
       cy.visit(ROUTES.DASHBOARD);
 
-      cy.location("pathname").should("equal", ROUTES.DASHBOARD);
+      cy.location("pathname").should("contain", ROUTES.DASHBOARD);
     });
   });
 
@@ -37,7 +37,7 @@ describe("Auth tests", () => {
       cy.login("password");
       cy.getByTestId("signout-button").should("be.visible").click();
 
-      cy.location("pathname").should("equal", ROUTES.LOGIN);
+      cy.location("pathname").should("contain", ROUTES.LOGIN);
     });
   });
 
@@ -50,7 +50,7 @@ describe("Auth tests", () => {
       });
 
       cy.location().should(loc => {
-        expect(loc.pathname).equal(ROUTES.ERROR);
+        expect(loc.pathname).contain(ROUTES.ERROR);
         expect(loc.search).contain(`error=${CUSTOM_ERROR}`);
       });
     });
