@@ -13,37 +13,11 @@
 
 ### 🚧 Pending (Continue Tomorrow)
 
-#### 2. **Middleware: OAuth Error Redirects**
+#### 1. **Middleware: OAuth Error Redirects**
 - [ ] Modify `src/proxy.ts` to intercept `/api/auth/signin?error=...`
 - [ ] Redirect OAuth errors to `/{locale}/auth/error?error=...`
 - [ ] Extract locale from Referer header or URL
 - [ ] Test: OAuth error should redirect with correct locale
-
-#### 3. **Middleware: Login Page Error Redirects**
-- [ ] Intercept `/[locale]/auth/login?error=...` in middleware
-- [ ] Redirect to `/[locale]/auth/error?error=...` to keep login page static
-- [ ] Test: Login errors should redirect without flashing login page
-- [ ] Verify: Login page remains 100% static (check build output)
-
-#### 4. **Not-found Routing Verification**
-- [ ] Test: `/en/random` shows custom 404 in English
-- [ ] Test: `/es/nonexistent` shows custom 404 in Spanish
-- [ ] Test: `/random` (no locale) redirects then shows 404
-
-#### 5. **NextAuth Config Cleanup**
-- [ ] Remove hardcoded `pages` config in `src/lib/auth.ts` (lines 57-60)
-- [ ] Let middleware handle all auth redirects
-- [ ] Verify: OAuth and login errors still redirect correctly
-
-#### 6. **Final Verification**
-- [ ] Run `npm run build` and check all routes are static
-- [ ] Test full auth flows:
-  - Login from `/en/auth/login` → `/en/dashboard`
-  - Login from `/es/auth/login` → `/es/dashboard`
-  - Logout from `/es/dashboard` → `/es/auth/login`
-  - OAuth error → `/[locale]/auth/error?error=...`
-  - Login error → `/[locale]/auth/error?error=...`
-- [ ] Update use case tests if needed (should already pass)
 
 ---
 
