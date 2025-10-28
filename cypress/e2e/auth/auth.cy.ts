@@ -35,8 +35,13 @@ describe("Auth tests", () => {
   describe("Sign out", () => {
     it("Should take the user to login after he pressed logout button", () => {
       cy.login("password");
-      cy.getByTestId("signout-button").should("be.visible").click();
 
+      // WORKAROUND: Wait for React hydration to attach Server Action to form
+      // Without this, form has placeholder action that throws error
+      // Root cause: Server Actions in Client Components with async wrappers
+      // don't hydrate correctly in Cypress environment
+      cy.wait(1000);
+      cy.getByTestId("signout-button").should("be.visible").click();
       cy.location("pathname").should("contain", ROUTES.LOGIN);
     });
   });

@@ -7,7 +7,7 @@ export const Projects = async () => {
   const projects = await getProjectsForSidebar(currentUser.id);
 
   return (
-    <ul>
+    <ul data-testid="sidebar-projects-segment">
       {projects.map(project => (
         <li key={project.id}>
           <SidebarLink href={`/dashboard/${project.id}`}>
