@@ -10,7 +10,7 @@ export interface IProjectRepository {
   getProjectsForSidebar: (userId: string) => Promise<ProjectSidebar[]>;
 }
 
-const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
+export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
   async userId => {
     const projects = await prisma.project.findMany({
       where: { userId },
@@ -28,7 +28,3 @@ const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
       totalPendingTasks: 0,
     }));
   };
-
-export const projectsRepository: IProjectRepository = {
-  getProjectsForSidebar,
-};

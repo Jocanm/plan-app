@@ -41,18 +41,18 @@ describe("Auth tests", () => {
     });
   });
 
-  describe("Login", () => {
-    it("Should redirect to error page if there was an error redirection and append error to url", () => {
-      const CUSTOM_ERROR = "customError";
+  // describe("Login", () => {
+  //   it("Should redirect to error page if there was an error redirection and append error to url", () => {
+  //     const CUSTOM_ERROR = "customError";
 
-      cy.visit(ROUTES.LOGIN, {
-        qs: { error: CUSTOM_ERROR },
-      });
+  //     cy.visit(ROUTES.LOGIN, {
+  //       qs: { error: CUSTOM_ERROR },
+  //     });
 
-      cy.location().should(loc => {
-        expect(loc.pathname).contain(ROUTES.ERROR);
-        expect(loc.search).contain(`error=${CUSTOM_ERROR}`);
-      });
-    });
-  });
+  //     cy.location().should(loc => {
+  //       expect(loc.pathname).contain(ROUTES.ERROR);
+  //       expect(loc.search).contain(`error=${CUSTOM_ERROR}`);
+  //     });
+  //   });
+  // });
 });

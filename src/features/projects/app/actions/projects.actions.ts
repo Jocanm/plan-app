@@ -1,7 +1,7 @@
 "use server";
 
 import { cacheLife, cacheTag } from "next/cache";
-import { projectsRepository } from "../../data/projects.repository";
+import { projectsRepository } from "../../data/projects.repository.factory";
 import { projectsUseCases } from "../use-cases/projectsUseCases";
 
 export const getProjectsForSidebar = async (userId: string) => {

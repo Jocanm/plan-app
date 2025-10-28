@@ -43,8 +43,9 @@ if (isEndToEndEnvironment) {
       authorize: credentials => {
         if (credentials.password === "password") {
           return {
-            email: "bob@alice.com",
+            id: "user-id",
             name: "Bob Alice",
+            email: "bob@alice.com",
           };
         }
         return null;
@@ -64,5 +65,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     error: "/auth/error",
     signIn: isEndToEndEnvironment ? undefined : "/auth/login",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      if (session.user) {
+        session.user.id = (token?.id ?? user?.id) as string;
+      }
+      return session;
+    },
   },
 });
