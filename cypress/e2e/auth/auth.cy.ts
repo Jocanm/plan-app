@@ -33,7 +33,7 @@ describe("Auth tests", () => {
   });
 
   describe("Sign out", () => {
-    it("Should redirect to login when sign out button is pressed", () => {
+    it("Should take the user to login after he pressed logout button", () => {
       cy.login("password");
       cy.getByTestId("signout-button").should("be.visible").click();
 

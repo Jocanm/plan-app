@@ -1,17 +1,24 @@
 # Plan App - Todo List
 
-## 🔥 URGENT: i18n URL-Based Routing - Final Tasks
+## 🎯 Recent Achievements
 
-### ✅ Completed (Session Today)
-- ✅ Migrated from cookie-based to URL-based routing with `[locale]` folder
-- ✅ Created root and locale-specific not-found pages
-- ✅ Fixed dashboard translations (removed redundant `setRequestLocale`)
-- ✅ Fixed auth error page (added Suspense boundary)
-- ✅ Implemented locale injection in Server Actions (`signIn`, `signOut`)
-- ✅ Created `buildLocalizedRoute()` helper in Domain Layer
-- ✅ Updated `OauthForm` and `LogoutButton` to pass locale with `useLocale()`
+### 🚧 Pending Architecture Improvements
 
-### 🚧 Pending (Continue Tomorrow)
+#### 1. **Middleware Rules Pattern** (Optional - Future)
+- [ ] Implement Chain of Responsibility pattern for middleware redirects
+- [ ] Create `lib/middleware/rules/` structure
+- [ ] Add `authErrorRedirect` rule for login error handling
+- [ ] Enable adding redirect rules without touching core middleware
+
+#### 2. **Repository Testing** (Optional - If complexity grows)
+- [ ] Add tests for `createProjectsRepository` factory
+- [ ] Add tests for fake repositories (if they grow in complexity)
+
+---
+
+## 🔥 i18n URL-Based Routing - Final Tasks
+
+### 🚧 Pending
 
 #### 1. **Middleware: OAuth Error Redirects**
 - [ ] Modify `src/proxy.ts` to intercept `/api/auth/signin?error=...`
@@ -52,33 +59,11 @@
 
 ---
 
-## ✅ Completed
-
-### i18n (Internationalization) - URL-Based Routing
-- ✅ Migrated to URL-based locale routing (`/[locale]/`)
-- ✅ `localePrefix: "always"` configuration
-- ✅ Disabled cookies (`localeCookie: false`)
-- ✅ Server Actions with locale injection (DI pattern)
-- ✅ Domain helper: `buildLocalizedRoute(route, locale)`
-- ✅ Client components use `useLocale()` hook
-- ✅ Root and locale-specific not-found pages
-- ✅ All layouts and pages migrated to `[locale]` structure
-- ✅ Middleware integration for locale detection
-- ✅ Translation files for EN/ES
-
-### Authentication
-- ✅ NextAuth.js setup (Google + GitHub OAuth)
-- ✅ Login page with UI (translated)
-- ✅ Error page for auth errors (translated)
-- ✅ Protected routes middleware
-- ✅ Database integration (Prisma + PostgreSQL)
-- ✅ Logout functionality
-
----
-
 ## 📊 Backlog (Later)
 
 - Language switcher UI component
 - Analytics setup
 - Performance optimization
 - Error tracking
+- Language switcher component
+- Error boundary
