@@ -1,10 +1,11 @@
 "use client";
 
+import { removeLocalePrefix } from "@/features/auth/domain/validations";
+import { ROUTES } from "@/lib/config/constants";
 import clsx from "clsx";
 import { Calendar, Home, SquareCheckBig } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { ROUTES } from "../../../../../../lib/config/constants";
 import { SidebarLink } from "../../SidebarLink";
 
 const ACTIVE_LINK_CLASS =
@@ -15,7 +16,8 @@ export const Navigation = () => {
   const t = useTranslations("sidebar");
 
   const isLinkActive = (linkPath: string) => {
-    return pathname === linkPath;
+    const pathWithoutLocale = removeLocalePrefix(pathname);
+    return pathWithoutLocale === linkPath;
   };
 
   return (

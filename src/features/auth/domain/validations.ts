@@ -15,7 +15,7 @@ const extractLocale = (pathname: string): string => {
   return localeMatch ? localeMatch[1] : DEFAULT_LOCALE;
 };
 
-const removeLocalePrefix = (pathname: string): string => {
+export const removeLocalePrefix = (pathname: string): string => {
   return pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
 };
 

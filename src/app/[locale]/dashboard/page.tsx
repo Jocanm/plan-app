@@ -1,19 +1,5 @@
-import { Button } from "@/shared/components/ui";
-import { Link } from "../../../i18n/navigation";
-
-const DashboardPage = async () => {
-  return (
-    <form
-      action={async () => {
-        "use server";
-      }}
-    >
-      <Button>Refresh</Button>
-      <Link locale="en" href="/dashboard">
-        change language
-      </Link>
-    </form>
-  );
+const Page = () => {
+  return null;
 };
 
-export default DashboardPage;
+export default Page;

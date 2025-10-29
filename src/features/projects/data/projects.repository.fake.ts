@@ -1,5 +1,5 @@
 import { Project, ProjectSidebar } from "../domain/types/project";
-import { IProjectRepository } from "./projects.repository";
+import { IProjectRepository } from "../domain/types/repository";
 
 const SEED_PROJECTS: Project[] = [
   {

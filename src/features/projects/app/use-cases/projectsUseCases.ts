@@ -1,4 +1,4 @@
-import { IProjectRepository } from "../../data/projects.repository";
+import { IProjectRepository } from "../../domain/types/repository";
 
 type GetProjectsForSidebar = {
   userId: string;

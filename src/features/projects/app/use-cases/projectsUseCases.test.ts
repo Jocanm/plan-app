@@ -1,13 +1,21 @@
 import { describe, expect, it, vi } from "vitest";
-import { IProjectRepository } from "../../data/projects.repository";
+import { IProjectRepository } from "../../domain/types/repository";
 import { projectsUseCases } from "./projectsUseCases";
+
+const createProjectsRepoStub = (methods: Partial<IProjectRepository>) => {
+  const projectsRepoStub = {
+    ...methods,
+  };
+
+  return projectsRepoStub as unknown as IProjectRepository;
+};
 
 describe("Projects - use cases", () => {
   describe("Projects - Get projects for sidebar", () => {
     it("Should call the repo with proper params", async () => {
-      const repoStub: IProjectRepository = {
+      const repoStub = createProjectsRepoStub({
         getProjectsForSidebar: vi.fn(),
-      };
+      });
 
       await projectsUseCases.getProjectsForSidebar({
         repo: repoStub,
@@ -22,9 +30,9 @@ describe("Projects - use cases", () => {
         { id: "1", name: "Work", color: "#FF0000", totalPendingTasks: 5 },
       ];
 
-      const repoStub: IProjectRepository = {
+      const repoStub = createProjectsRepoStub({
         getProjectsForSidebar: vi.fn().mockResolvedValue(mockProjects),
-      };
+      });
 
       const result = await projectsUseCases.getProjectsForSidebar({
         repo: repoStub,
