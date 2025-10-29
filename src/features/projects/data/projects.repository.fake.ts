@@ -35,5 +35,9 @@ export function createFakeProjectsRepository(
         totalPendingTasks: 0,
       }));
     },
+
+    async getProjectDetails() {
+      return null;
+    },
   };
 }

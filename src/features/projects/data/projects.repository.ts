@@ -19,3 +19,12 @@ export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] 
       totalPendingTasks: 0,
     }));
   };
+
+export const getProjectDetails: IProjectRepository["getProjectDetails"] =
+  async (projectId, userId) => {
+    const project = await prisma.project.findUnique({
+      where: { id: projectId, userId },
+    });
+
+    return project;
+  };

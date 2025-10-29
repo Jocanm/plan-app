@@ -17,3 +17,15 @@ export const getProjectsForSidebar = async (userId: string) => {
     repo: projectsRepository,
   });
 };
+
+export const getProjectDetails = async (projectId: string, userId: string) => {
+  "use cache";
+  cacheTag(`projects-${userId}`, `project-details-${projectId}`);
+  cacheLife("minutes");
+
+  return await projectsUseCases.getProjectDetails({
+    userId,
+    projectId,
+    repo: projectsRepository,
+  });
+};
