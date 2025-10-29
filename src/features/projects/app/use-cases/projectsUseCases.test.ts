@@ -11,7 +11,7 @@ const createProjectsRepoStub = (methods: Partial<IProjectRepository>) => {
 };
 
 describe("Projects - use cases", () => {
-  describe("Projects - Get projects for sidebar", () => {
+  describe("Get projects for sidebar", () => {
     it("Should call the repo with proper params", async () => {
       const repoStub = createProjectsRepoStub({
         getProjectsForSidebar: vi.fn(),
@@ -40,6 +40,45 @@ describe("Projects - use cases", () => {
       });
 
       expect(result).toEqual(mockProjects);
+    });
+  });
+
+  describe("Get project details", () => {
+    const userId = "user-id";
+    const projectId = "project-id";
+
+    it("Should call the method with proper params", async () => {
+      const repoStub = createProjectsRepoStub({
+        getProjectDetails: vi.fn(),
+      });
+
+      await projectsUseCases.getProjectDetails({
+        userId,
+        projectId,
+        repo: repoStub,
+      });
+
+      expect(repoStub.getProjectDetails).toHaveBeenCalledTimes(1);
+      expect(repoStub.getProjectDetails).toHaveBeenCalledWith(
+        projectId,
+        userId
+      );
+    });
+
+    it("Should return the project detail", async () => {
+      const mockProject = { id: projectId, userId, name: "project" };
+
+      const repoStub = createProjectsRepoStub({
+        getProjectDetails: vi.fn().mockResolvedValue(mockProject),
+      });
+
+      const result = await projectsUseCases.getProjectDetails({
+        userId,
+        projectId,
+        repo: repoStub,
+      });
+
+      expect(result).toBe(mockProject);
     });
   });
 });
