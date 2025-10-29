@@ -1,8 +1,6 @@
 import { repositoryConfig } from "@/lib/config/repositories";
-import {
-  getProjectsForSidebar,
-  IProjectRepository,
-} from "./projects.repository";
+import { IProjectRepository } from "../domain/types/repository";
+import { getProjectsForSidebar } from "./projects.repository";
 import { createFakeProjectsRepository } from "./projects.repository.fake";
 
 const createProjectsRepository = (

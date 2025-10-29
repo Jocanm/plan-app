@@ -1,14 +1,5 @@
-import prisma from "../../../lib/prisma";
-import { ProjectSidebar } from "../domain/types/project";
-
-export interface DateRange {
-  from: Date;
-  to: Date;
-}
-
-export interface IProjectRepository {
-  getProjectsForSidebar: (userId: string) => Promise<ProjectSidebar[]>;
-}
+import prisma from "@/lib/prisma";
+import { IProjectRepository } from "../domain/types/repository";
 
 export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
   async userId => {

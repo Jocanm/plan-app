@@ -54,7 +54,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
           <p className="text-muted-foreground text-lg">{t("description")}</p>
         </section>
 
-        <section aria-label="Sign in form" className="px-2 pb-12">
+        <section aria-label={t("signin_form_label")} className="px-2 pb-12">
           <LoginForm />
         </section>
       </div>
@@ -138,7 +138,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
 
           {/* Right Column - Login Card */}
           <section
-            aria-label="Sign in form"
+            aria-label={t("signin_form_label")}
             className="flex-1 flex items-center justify-center"
           >
             <LoginForm />

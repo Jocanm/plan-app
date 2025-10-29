@@ -58,6 +58,7 @@
     "security_message": "Secured with enterprise-grade encryption",
     "separator_or": "or",
     "signing_in_wait": "Signing in, please wait...",
+    "signin_form_label": "Sign in form",
     "meta": {
       "title": "Sign In - Plan App",
       "description": "Access your account and start organizing your day with Plan App."

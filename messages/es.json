@@ -23,7 +23,7 @@
     "color_warning_desc": "Estados de precaución",
     "color_danger": "Error",
     "color_danger_desc": "Estados de error o alerta",
-    "button_default": "Botón predeterminado",
+    "button_default": "Predeterminado",
     "button_secondary": "Secundario",
     "button_outline": "Contorno",
     "button_ghost": "Transparente",
@@ -57,7 +57,8 @@
     "choose_signin_method": "Elige cómo deseas iniciar sesión",
     "security_message": "Protección con cifrado de nivel empresarial",
     "separator_or": "o",
-    "signing_in_wait": "Iniciando sesión, por favor espera...",
+    "signing_in_wait": "Iniciando sesión...",
+    "signin_form_label": "Formulario de inicio de sesión",
     "meta": {
       "title": "Iniciar sesión - Plan App",
       "description": "Accede a tu cuenta y empieza a organizar tus tareas con Plan App."
@@ -66,7 +67,7 @@
   "not_found": {
     "title": "404",
     "message": "¡Ups! Página no encontrada",
-    "return_home": "Volver al inicio",
+    "return_home": "Ir al inicio",
     "meta": {
       "title": "404 - No encontrado",
       "description": "La página que buscas no existe o fue movida."
@@ -81,7 +82,7 @@
       },
       "default": {
         "title": "Error de autenticación",
-        "message": "Ocurrió un error inesperado al iniciar sesión. Inténtalo nuevamente."
+        "message": "No pudimos iniciar tu sesión. Verifica tu conexión e inténtalo de nuevo."
       }
     },
     "meta": {
@@ -90,16 +91,16 @@
     }
   },
   "sidebar": {
-    "welcome_back": "¡Bienvenido de nuevo!",
+    "welcome_back": "¡Hola de nuevo!",
     "number_of_tasks": "{count, plural, =0 {No tienes tareas pendientes} one {# tarea pendiente} other {# tareas pendientes}}",
     "settings": {
       "title": "Configuración"
     },
     "navigation": {
-      "title": "NAVEGACIÓN",
+      "title": "MENÚ",
       "todays_link": "Plan del día",
       "calendar_link": "Calendario",
-      "tasks_link": "Todas las tareas"
+      "tasks_link": "Mis tareas"
     },
     "projects": {
       "title": "PROYECTOS"
