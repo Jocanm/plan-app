@@ -1,4 +1,5 @@
 import { Button } from "@/shared/components/ui/Button";
+import { Main } from "@/shared/components/ui/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -28,7 +29,7 @@ export default async function DesignSystemPage({
   });
 
   return (
-    <main id="main-content" className="container mx-auto p-6 max-w-4xl">
+    <Main className="container mx-auto p-6 max-w-4xl">
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-foreground mb-2">
           {t("title")}
@@ -91,6 +92,6 @@ export default async function DesignSystemPage({
           <li>• {t("accessibility_feature_5")}</li>
         </ul>
       </section>
-    </main>
+    </Main>
   );
 }

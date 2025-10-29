@@ -5,6 +5,7 @@ import {
   TaskOrganizationIcon,
 } from "@/shared/components/icons/FeatureIcons";
 import { PlanLogo } from "@/shared/components/icons/PlanLogo";
+import { Main } from "@/shared/components/ui/main/Main";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -36,7 +37,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
   });
 
   return (
-    <main id="main-content" className="min-h-screen">
+    <Main className="min-h-screen">
       {/* Mobile Layout - Hero + Login */}
       <div className="lg:hidden">
         {/* Hero Section */}
@@ -145,7 +146,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
           </section>
         </div>
       </div>
-    </main>
+    </Main>
   );
 };
 

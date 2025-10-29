@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
+import { Main } from "@/shared/components/ui/main/Main";
 import { AlertTriangleIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { use } from "react";
@@ -16,10 +17,7 @@ export const ErrorPageContent = ({ searchParams }: ErrorPageContentProps) => {
   const { titleKey, messageKey } = getLoginError(error as string);
 
   return (
-    <main
-      id="main-content"
-      className="flex min-h-screen w-full items-center justify-center bg-background p-4"
-    >
+    <Main className="flex min-h-screen w-full items-center justify-center bg-background p-4">
       <div
         role="alert"
         aria-live="assertive"
@@ -55,6 +53,6 @@ export const ErrorPageContent = ({ searchParams }: ErrorPageContentProps) => {
           </Link>
         </div>
       </div>
-    </main>
+    </Main>
   );
 };
