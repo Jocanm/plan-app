@@ -1,14 +1,10 @@
 import { Suspense } from "react";
-import { BaseLoader } from "../../loaders/BaseLoader";
+import { NavigationSkeleton } from "../skeletons/NavigationSkeleton";
 
 export const SegmentSuspense = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  return (
-    <Suspense fallback={<BaseLoader className="mx-auto" />}>
-      {children}
-    </Suspense>
-  );
+  return <Suspense fallback={<NavigationSkeleton />}>{children}</Suspense>;
 };

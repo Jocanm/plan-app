@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/shared/utils/cn";
+import { Suspense } from "react";
 
 type CustomLinkProps = Parameters<typeof Link>[0];
 
@@ -9,15 +10,17 @@ export const SidebarLink = ({
   ...props
 }: CustomLinkProps) => {
   return (
-    <Link
-      {...props}
-      className={cn(
-        "px-4 py-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md flex hover:bg-accent/50 transition-colors items-center text-foreground",
-        className
-      )}
-    >
-      <div className="flex items-center gap-2 flex-1">{children}</div>
-    </Link>
+    <Suspense>
+      <Link
+        {...props}
+        className={cn(
+          "px-4 py-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md flex hover:bg-accent/50 transition-colors items-center text-foreground",
+          className
+        )}
+      >
+        <div className="flex items-center gap-2 flex-1">{children}</div>
+      </Link>
+    </Suspense>
   );
 };
 

@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { SegmentSuspense } from "../SegmentSuspense";
 import { Navigation } from "./Navigation";
 
 export const SidebarNavigationSegment = async () => {
@@ -16,7 +17,9 @@ export const SidebarNavigationSegment = async () => {
       >
         {t("navigation.title")}
       </h3>
-      <Navigation />
+      <SegmentSuspense>
+        <Navigation />
+      </SegmentSuspense>
     </nav>
   );
 };
