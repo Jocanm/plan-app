@@ -85,7 +85,7 @@ model Project {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  task Task[]
+  tasks Task[]
 }
 
 model Task {

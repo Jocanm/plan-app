@@ -91,7 +91,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
               </div>
 
               {/* Features List */}
-              <ul className="space-y-6" role="list">
+              <ul className="space-y-6">
                 <li className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center flex-shrink-0">
                     <TaskOrganizationIcon />

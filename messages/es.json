@@ -9,6 +9,16 @@
     "company_name": "Equipo Plan App",
     "app_name": "Plan App"
   },
+
+  "project": {
+    "tasks_completed": "{completed} de {total, plural, =0 {# tareas} one {# tarea} other {# tareas}}",
+    "meta": {
+      "title": "{projectName} - Plan App",
+      "not_found_title": "Proyecto no encontrado - Plan App",
+      "description": "Visualiza y gestiona las tareas y detalles de tu proyecto en Plan App."
+    }
+  },
+
   "design_system": {
     "title": "Sistema de diseño",
     "description": "Biblioteca de componentes y patrones visuales de Plan App",

@@ -1,5 +1,7 @@
+import { BaseLoader } from "@/shared/components/ui/loaders/BaseLoader";
+
 const LoadingProject = () => {
-  return <div>LoadingProject</div>;
+  return <BaseLoader className="mx-auto" />;
 };
 
 export default LoadingProject;

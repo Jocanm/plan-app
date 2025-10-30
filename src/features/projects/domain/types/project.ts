@@ -1,3 +1,5 @@
+import { Task } from "../../../tasks/domain/task";
+
 export type Project = {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export type Project = {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
+  tasks: Task[];
 };
 
 export type ProjectSidebar = Pick<Project, "id" | "name" | "color"> & {

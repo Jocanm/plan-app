@@ -9,6 +9,7 @@ const SEED_PROJECTS: Project[] = [
     userId: "user-id",
     createdAt: new Date("2025-01-01"),
     updatedAt: new Date("2025-01-01"),
+    tasks: [],
   },
   {
     id: "project-2",
@@ -17,6 +18,7 @@ const SEED_PROJECTS: Project[] = [
     userId: "user-id",
     createdAt: new Date("2025-01-01"),
     updatedAt: new Date("2025-01-01"),
+    tasks: [],
   },
 ];
 

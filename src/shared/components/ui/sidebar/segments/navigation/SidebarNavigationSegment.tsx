@@ -7,7 +7,6 @@ export const SidebarNavigationSegment = async () => {
 
   return (
     <nav
-      role="navigation"
       className="space-y-2"
       aria-labelledby="sidebar-navigation-segment-title"
     >
