@@ -1,26 +1,20 @@
 import { Project } from "../domain/types/project";
 import { IProjectRepository } from "../domain/types/repository";
 
-export const SEED_PROJECTS: Project[] = [
-  {
-    id: "project-1",
-    name: "Personal",
-    color: "#FF6B6B",
-    userId: "user-id",
-    createdAt: new Date("2025-01-01"),
-    updatedAt: new Date("2025-01-01"),
-    tasks: [],
-  },
-  {
-    id: "project-2",
-    name: "Work",
-    color: "#FE2",
-    userId: "user-id",
-    createdAt: new Date("2025-01-01"),
-    updatedAt: new Date("2025-01-01"),
-    tasks: [],
-  },
-];
+const DEFAULT_PROJECT = {
+  name: "Test Project",
+  color: "#000000",
+  userId: "default-user",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  tasks: [],
+} satisfies Partial<Project>;
+
+const makeProject = (overrides: Partial<Project> = {}): Project => ({
+  ...DEFAULT_PROJECT,
+  id: crypto.randomUUID(),
+  ...overrides,
+});
 
 export class FakeProjectsRepositoryManager {
   private projects: Project[] = [];
@@ -42,8 +36,8 @@ export class FakeProjectsRepositoryManager {
     return this;
   }
 
-  seed(projects: Project[]): FakeProjectsRepositoryManager {
-    this.projects = [...projects];
+  seed(projects: Partial<Project>[]): FakeProjectsRepositoryManager {
+    this.projects = projects.map(makeProject);
     return this;
   }
 

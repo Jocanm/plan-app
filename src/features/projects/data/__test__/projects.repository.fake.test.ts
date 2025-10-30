@@ -1,8 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import {
-  FakeProjectsRepositoryManager,
-  SEED_PROJECTS,
-} from "../projects.repository.fake";
+import { FakeProjectsRepositoryManager } from "../projects.repository.fake";
 
 describe("Projects Repository fake", () => {
   beforeEach(() => {
@@ -20,19 +17,23 @@ describe("Projects Repository fake", () => {
     const manager = FakeProjectsRepositoryManager.getInstance();
     const repo = manager.getRepository();
 
-    manager.seed(SEED_PROJECTS);
+    manager.seed([
+      { userId: "default-user" },
+      { userId: "default-user" },
+      { userId: "other-user" },
+    ]);
 
-    const results = await repo.getProjectsForSidebar("user-id");
+    const results = await repo.getProjectsForSidebar("default-user");
     expect(results).toHaveLength(2);
   });
 
   it("Reset method should clear all projects", async () => {
     const manager = FakeProjectsRepositoryManager.getInstance();
     const repo = manager.getRepository();
-    manager.seed(SEED_PROJECTS);
+    manager.seed([{ name: "test project 1" }]);
     manager.reset();
 
-    const results = await repo.getProjectsForSidebar("user-id");
+    const results = await repo.getProjectsForSidebar("default-user");
 
     expect(results).toHaveLength(0);
   });

@@ -67,3 +67,4 @@
 - Error tracking
 - Language switcher component
 - Error boundary
+- Create copilot agents to analyze test coverage and suggest improvements for the test suite.

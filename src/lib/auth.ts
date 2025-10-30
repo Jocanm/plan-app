@@ -43,7 +43,7 @@ if (isEndToEndEnvironment) {
       authorize: credentials => {
         if (credentials.password === "password") {
           return {
-            id: "user-id",
+            id: "default-user",
             name: "Bob Alice",
             email: "bob@alice.com",
           };

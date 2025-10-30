@@ -1,84 +1,81 @@
-import { describe, expect, it, vi } from "vitest";
-import { IProjectRepository } from "../../domain/types/repository";
+import { beforeEach, describe, expect, it } from "vitest";
+import { FakeProjectsRepositoryManager } from "../../data/projects.repository.fake";
+import { Project } from "../../domain/types/project";
 import { projectsUseCases } from "./projectsUseCases";
 
-const createProjectsRepoStub = (methods: Partial<IProjectRepository>) => {
-  const projectsRepoStub = {
-    ...methods,
-  };
-
-  return projectsRepoStub as unknown as IProjectRepository;
-};
-
 describe("Projects - use cases", () => {
+  const repoManager = FakeProjectsRepositoryManager.getInstance();
+
+  beforeEach(() => {
+    repoManager.reset();
+  });
+
   describe("Get projects for sidebar", () => {
-    it("Should call the repo with proper params", async () => {
-      const repoStub = createProjectsRepoStub({
-        getProjectsForSidebar: vi.fn(),
-      });
-
-      await projectsUseCases.getProjectsForSidebar({
-        repo: repoStub,
-        userId: "userID",
-      });
-
-      expect(repoStub.getProjectsForSidebar).toHaveBeenCalledWith("userID");
-    });
-
-    it("Should return the projects from repository", async () => {
-      const mockProjects = [
-        { id: "1", name: "Work", color: "#FF0000", totalPendingTasks: 5 },
-      ];
-
-      const repoStub = createProjectsRepoStub({
-        getProjectsForSidebar: vi.fn().mockResolvedValue(mockProjects),
-      });
+    it("returns only projects for the specified user", async () => {
+      const repo = repoManager
+        .seed([
+          { name: "Work", userId: "user-1" },
+          { name: "Personal", userId: "user-2" },
+        ])
+        .getRepository();
 
       const result = await projectsUseCases.getProjectsForSidebar({
-        repo: repoStub,
-        userId: "userID",
+        repo,
+        userId: "user-1",
       });
 
-      expect(result).toEqual(mockProjects);
+      expect(result).toHaveLength(1);
+      expect(result[0].name).toBe("Work");
+    });
+
+    it("returns correct shape with totalPendingTasks", async () => {
+      const repo = repoManager
+        .seed([{ name: "Work", color: "#FF0000" }])
+        .getRepository();
+
+      const result = await projectsUseCases.getProjectsForSidebar({
+        repo,
+        userId: "default-user",
+      });
+
+      expect(result[0]).toEqual({
+        name: "Work",
+        color: "#FF0000",
+        totalPendingTasks: 0,
+        id: expect.any(String),
+      });
     });
   });
 
   describe("Get project details", () => {
-    const userId = "user-id";
+    const userId = "default-user";
     const projectId = "project-id";
 
-    it("Should call the method with proper params", async () => {
-      const repoStub = createProjectsRepoStub({
-        getProjectDetails: vi.fn(),
-      });
-
-      await projectsUseCases.getProjectDetails({
+    it("Should return the correct project", async () => {
+      const mockProject: Partial<Project> = {
         userId,
-        projectId,
-        repo: repoStub,
-      });
-
-      expect(repoStub.getProjectDetails).toHaveBeenCalledTimes(1);
-      expect(repoStub.getProjectDetails).toHaveBeenCalledWith(
-        projectId,
-        userId
-      );
-    });
-
-    it("Should return the project detail", async () => {
-      const mockProject = { id: projectId, userId, name: "project" };
-
-      const repoStub = createProjectsRepoStub({
-        getProjectDetails: vi.fn().mockResolvedValue(mockProject),
-      });
+        id: projectId,
+        name: "project-1",
+      };
+      const repo = repoManager.seed([mockProject]).getRepository();
 
       const result = await projectsUseCases.getProjectDetails({
+        repo,
         userId,
         projectId,
-        repo: repoStub,
       });
 
-      expect(result).toBe(mockProject);
+      expect(result?.id).toBe(mockProject.id);
+    });
+
+    it("Should return null if project is not found", async () => {
+      const repo = repoManager
+        .seed([{ name: "project-1", id: projectId, userId }])
+        .getRepository();
+
+      const result = await repo.getProjectDetails(projectId, "other-user-id");
+
+      expect(result).toBeNull();
     });
   });
 });
