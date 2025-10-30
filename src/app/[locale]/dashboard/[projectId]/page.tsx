@@ -35,7 +35,7 @@ const ProjectPage = async ({
 }: PageProps<"/[locale]/dashboard/[projectId]">) => {
   const { projectId } = await params;
   const projectDetails = await getProject(projectId);
-  const t = await getTranslations("project");
+  // const t = await getTranslations("project");
 
   if (!projectDetails) return null;
 
@@ -44,9 +44,9 @@ const ProjectPage = async ({
       <h1 className="text-2xl font-bold leading-tight tracking-tight">
         {projectDetails.name}
       </h1>
-      <p className="mt-2 text-md text-muted-foreground">
+      {/* <p className="mt-2 text-md text-muted-foreground">
         {t("tasks_completed", { completed: "1", total: 1 })}
-      </p>
+      </p> */}
     </Main>
   );
 };
