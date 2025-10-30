@@ -1,7 +1,7 @@
-import { Project, ProjectSidebar } from "../domain/types/project";
+import { Project } from "../domain/types/project";
 import { IProjectRepository } from "../domain/types/repository";
 
-const SEED_PROJECTS: Project[] = [
+export const SEED_PROJECTS: Project[] = [
   {
     id: "project-1",
     name: "Personal",
@@ -22,24 +22,53 @@ const SEED_PROJECTS: Project[] = [
   },
 ];
 
-export function createFakeProjectsRepository(
-  defaultProjects = SEED_PROJECTS
-): IProjectRepository {
-  const projects = defaultProjects;
+export class FakeProjectsRepositoryManager {
+  private projects: Project[] = [];
+  private static instance: FakeProjectsRepositoryManager;
 
-  return {
-    async getProjectsForSidebar(userId: string): Promise<ProjectSidebar[]> {
-      const userProjects = projects.filter(el => el.userId === userId);
-      return userProjects.map(el => ({
-        id: el.id,
-        name: el.name,
-        color: el.color,
-        totalPendingTasks: 0,
-      }));
-    },
+  private constructor() {}
 
-    async getProjectDetails() {
-      return null;
-    },
-  };
+  static getInstance(): FakeProjectsRepositoryManager {
+    if (!FakeProjectsRepositoryManager.instance) {
+      FakeProjectsRepositoryManager.instance =
+        new FakeProjectsRepositoryManager();
+    }
+
+    return FakeProjectsRepositoryManager.instance;
+  }
+
+  reset(): FakeProjectsRepositoryManager {
+    this.projects = [];
+    return this;
+  }
+
+  seed(projects: Project[]): FakeProjectsRepositoryManager {
+    this.projects = [...projects];
+    return this;
+  }
+
+  getRepository(): IProjectRepository {
+    return {
+      getProjectDetails: async (projectId, userId) => {
+        const project = this.projects.find(el => {
+          return el.id === projectId && el.userId === userId;
+        });
+
+        return project ?? null;
+      },
+      getProjectsForSidebar: async userId => {
+        const userProjects = this.projects.filter(el => el.userId === userId);
+        return userProjects.map(el => ({
+          id: el.id,
+          name: el.name,
+          color: el.color,
+          totalPendingTasks: 0,
+        }));
+      },
+    };
+  }
 }
+
+export const createFakeProjectsRepository = (): IProjectRepository => {
+  return FakeProjectsRepositoryManager.getInstance().getRepository();
+};
