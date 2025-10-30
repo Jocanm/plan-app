@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { SegmentSuspense } from "../SegmentSuspense";
-import { Projects } from "./Projects";
+import { SidebarProjectsList } from "./SidebarProjectsList";
 
 export const SidebarProjectsSegment = async () => {
   const t = await getTranslations("sidebar");
@@ -18,7 +18,7 @@ export const SidebarProjectsSegment = async () => {
         {t("projects.title")}
       </h3>
       <SegmentSuspense>
-        <Projects />
+        <SidebarProjectsList />
       </SegmentSuspense>
     </nav>
   );

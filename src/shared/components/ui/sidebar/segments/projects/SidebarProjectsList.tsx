@@ -1,20 +1,15 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectsForSidebar } from "@/features/projects/app/actions/projects.actions";
-import { SidebarLink } from "../../SidebarLink";
+import { SidebarProjectItem } from "./SidebarProjectItem";
 
-export const Projects = async () => {
+export const SidebarProjectsList = async () => {
   const currentUser = await getCurrentUser();
   const projects = await getProjectsForSidebar(currentUser.id);
 
   return (
     <ul data-testid="sidebar-projects-segment">
       {projects.map(project => (
-        <li key={project.id}>
-          <SidebarLink href={`/dashboard/${project.id}`}>
-            <SidebarLink.Color dot={project.color} />
-            <SidebarLink.Label>{project.name}</SidebarLink.Label>
-          </SidebarLink>
-        </li>
+        <SidebarProjectItem key={project.id} project={project} />
       ))}
     </ul>
   );

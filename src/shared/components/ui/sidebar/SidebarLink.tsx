@@ -2,11 +2,14 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/shared/utils/cn";
 import { Suspense } from "react";
 
-type CustomLinkProps = Parameters<typeof Link>[0];
+type CustomLinkProps = Parameters<typeof Link>[0] & {
+  isActive?: boolean;
+};
 
 export const SidebarLink = ({
   className,
   children,
+  isActive,
   ...props
 }: CustomLinkProps) => {
   return (
@@ -15,6 +18,10 @@ export const SidebarLink = ({
         {...props}
         className={cn(
           "px-4 py-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md flex hover:bg-accent/50 transition-colors items-center text-foreground",
+          {
+            "bg-primary/10 text-primary-active hover:bg-primary/10 hover:text-primary-active":
+              isActive,
+          },
           className
         )}
       >

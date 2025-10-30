@@ -1,23 +1,18 @@
 "use client";
 
-import { removeLocalePrefix } from "@/features/auth/domain/validations";
+import { usePathname } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
 import clsx from "clsx";
 import { Calendar, Home, SquareCheckBig } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
 import { SidebarLink } from "../../SidebarLink";
-
-const ACTIVE_LINK_CLASS =
-  "bg-primary/10 text-primary-active hover:bg-primary/10 hover:text-primary-active";
 
 export const Navigation = () => {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
 
   const isLinkActive = (linkPath: string) => {
-    const pathWithoutLocale = removeLocalePrefix(pathname);
-    return pathWithoutLocale === linkPath;
+    return pathname === linkPath;
   };
 
   return (
@@ -26,7 +21,7 @@ export const Navigation = () => {
         <SidebarLink
           href={ROUTES.DASHBOARD}
           aria-current={isLinkActive(ROUTES.DASHBOARD) ? "page" : undefined}
-          className={clsx(isLinkActive(ROUTES.DASHBOARD) && ACTIVE_LINK_CLASS)}
+          isActive={isLinkActive(ROUTES.DASHBOARD)}
         >
           <SidebarLink.Icon>
             <Home size={16} />
@@ -43,7 +38,7 @@ export const Navigation = () => {
         <SidebarLink
           href={ROUTES.CALENDAR}
           aria-current={isLinkActive(ROUTES.CALENDAR) ? "page" : undefined}
-          className={clsx(isLinkActive(ROUTES.CALENDAR) && ACTIVE_LINK_CLASS)}
+          isActive={isLinkActive(ROUTES.CALENDAR)}
         >
           <SidebarLink.Icon>
             <Calendar size={16} />
@@ -55,7 +50,7 @@ export const Navigation = () => {
         <SidebarLink
           href={ROUTES.TASKS}
           aria-current={isLinkActive(ROUTES.TASKS) ? "page" : undefined}
-          className={clsx(isLinkActive(ROUTES.TASKS) && ACTIVE_LINK_CLASS)}
+          isActive={isLinkActive(ROUTES.TASKS)}
         >
           <SidebarLink.Icon>
             <SquareCheckBig size={16} />

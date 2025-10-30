@@ -10,4 +10,5 @@ export const ROUTES = {
   DASHBOARD: `${DASHBOARD_PATH}`,
   CALENDAR: `${DASHBOARD_PATH}/calendar`,
   TASKS: `${DASHBOARD_PATH}/tasks`,
+  PROJECT: `${DASHBOARD_PATH}/:projectId`,
 } as const;
