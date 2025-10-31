@@ -91,6 +91,7 @@ model Project {
 model Task {
   id          String   @id @default(uuid())
   title       String
+  color       String
   description String?
   taskType    TaskType @default(one_time)
   isArchived  Boolean  @default(false)

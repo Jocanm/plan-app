@@ -8,7 +8,7 @@ export const Checkbox = ({ className, ...props }: CheckboxProps) => {
     <RadixCheckbox.Root
       {...props}
       className={cn(
-        "w-6 h-6 rounded border border-input",
+        "w-5 h-5 rounded border border-input",
         "flex items-center justify-center",
         "data-[state=checked]:bg-primary data-[state=checked]:border-primary",
         "focus-visible:ring-2 focus-visible:ring-primary",
@@ -17,7 +17,7 @@ export const Checkbox = ({ className, ...props }: CheckboxProps) => {
       )}
     >
       <RadixCheckbox.Indicator>
-        <Check size={16} strokeWidth={3} className="text-white" />
+        <Check size={14} strokeWidth={3} className="text-white" />
       </RadixCheckbox.Indicator>
     </RadixCheckbox.Root>
   );
