@@ -47,24 +47,16 @@ const ProjectPage = async ({
         </h1>
       </div>
       <ul className="space-y-4">
-        <TaskCard
-          id="1"
-          color="#4F46E5"
-          title="Design homepage"
-          description="Create a modern and responsive design for the homepage."
-        />
-        <TaskCard
-          id="2"
-          color="#FBBF24"
-          title="Implement authentication"
-          description="Set up user login and registration functionality."
-        />
-        <TaskCard
-          id="3"
-          color="#10B981"
-          title="Set up database"
-          description="Configure the database schema and initial data."
-        />
+        {projectDetails.tasks.map(task => (
+          <li key={task.id}>
+            <TaskCard
+              id={task.id}
+              color={task.color}
+              title={task.title}
+              description={task.description}
+            />
+          </li>
+        ))}
       </ul>
     </Main>
   );

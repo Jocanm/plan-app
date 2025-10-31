@@ -4,7 +4,7 @@ interface TaskCardProps {
   id: string;
   title: string;
   color: string;
-  description?: string;
+  description?: string | null;
 }
 
 export const TaskCard = ({ id, title, description, color }: TaskCardProps) => {
