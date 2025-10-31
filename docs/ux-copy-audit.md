@@ -14,12 +14,14 @@
 The application demonstrates strong internationalization practices with comprehensive EN/ES translation coverage and excellent accessibility implementation. The tone is consistently professional and user-friendly across most components.
 
 ### Key Metrics:
+
 - **Translation Coverage:** ~95% (5% hardcoded strings found)
 - **Accessibility:** Excellent (aria-labels, screen readers, skip navigation)
 - **Tone Consistency:** Professional, clear, action-oriented
 - **Microcopy Quality:** Good with room for improvement
 
 ### Priority Issues:
+
 - 🔴 **2 Critical:** Hardcoded strings breaking i18n consistency
 - 🟡 **3 Important:** Missing empty states and loading messages
 - 🟢 **4 Minor:** Terminology inconsistencies and placeholder text
@@ -31,21 +33,29 @@ The application demonstrates strong internationalization practices with comprehe
 ### 🔴 CRITICAL ISSUES
 
 #### 1. Hardcoded Screen Reader Text in LogoutButton
+
 **Location:** `src/shared/components/ui/sidebar/LogoutButton.tsx:51`
 
 **Current:**
+
 ```tsx
-{pending && <span className="sr-only">Logging out, please wait</span>}
+{
+  pending && <span className="sr-only">Logging out, please wait</span>;
+}
 ```
 
 **Issue:** This text is hardcoded in English, breaking accessibility for Spanish screen reader users.
 
 **Fix:**
+
 ```tsx
-{pending && <span className="sr-only">{t("loading_sr")}</span>}
+{
+  pending && <span className="sr-only">{t("loading_sr")}</span>;
+}
 ```
 
 **Translation additions needed:**
+
 ```json
 // messages/en.json
 "sidebar.logout.loading_sr": "Logging out, please wait"
@@ -59,6 +69,7 @@ The application demonstrates strong internationalization practices with comprehe
 ---
 
 #### 2. Hardcoded "Refresh" Link (Suspected)
+
 **Location:** Dashboard or error pages (needs verification)
 
 **Issue:** If "Refresh" or "change language" links exist without translation keys, they break i18n.
@@ -70,6 +81,7 @@ The application demonstrates strong internationalization practices with comprehe
 ### 🟡 IMPORTANT ISSUES
 
 #### 3. Missing Empty State for Projects
+
 **Location:** `src/shared/components/ui/sidebar/segments/projects/Projects.tsx`
 
 **Current:** The component renders an empty `<ul>` when no projects exist.
@@ -77,6 +89,7 @@ The application demonstrates strong internationalization practices with comprehe
 **Issue:** Users see nothing when they have no projects - no guidance on what to do next.
 
 **Recommendation:**
+
 ```tsx
 export const Projects = async () => {
   const currentUser = await getCurrentUser();
@@ -90,15 +103,12 @@ export const Projects = async () => {
     );
   }
 
-  return (
-    <ul data-testid="sidebar-projects-segment">
-      {/* ... */}
-    </ul>
-  );
+  return <ul data-testid="sidebar-projects-segment">{/* ... */}</ul>;
 };
 ```
 
 **Translation additions:**
+
 ```json
 // en.json
 "sidebar.projects.empty_state": "No projects yet. Create your first project to get started!"
@@ -110,15 +120,16 @@ export const Projects = async () => {
 ---
 
 #### 4. Spanish Translation Quality - Too Literal
+
 **Location:** `messages/es.json`
 
 **Examples of overly literal translations:**
 
-| Key | EN | ES (Current) | ES (Better) |
-|-----|----|--------------|--------------
-| `sidebar.welcome_back` | "Welcome back" | "Bienvenido de vuelta" | "¡Bienvenido!" |
-| `sidebar.settings.title` | "Settings" | "Configuración" | ✅ Good |
-| `sidebar.navigation.title` | "Navigation" | "Navegación" | "Menú" or omit |
+| Key                        | EN             | ES (Current)           | ES (Better)    |
+| -------------------------- | -------------- | ---------------------- | -------------- |
+| `sidebar.welcome_back`     | "Welcome back" | "Bienvenido de vuelta" | "¡Bienvenido!" |
+| `sidebar.settings.title`   | "Settings"     | "Configuración"        | ✅ Good        |
+| `sidebar.navigation.title` | "Navigation"   | "Navegación"           | "Menú" or omit |
 
 **Issue:** Some Spanish translations sound mechanical rather than natural.
 
@@ -127,11 +138,13 @@ export const Projects = async () => {
 ---
 
 #### 5. Missing Loading States for Async Components
+
 **Location:** Various Server Components
 
 **Issue:** Components like `<Projects />` use `<Suspense>` but the fallback is just a loader icon without text.
 
 **Current:**
+
 ```tsx
 <Suspense fallback={<BaseLoader className="mx-auto" />}>
   <Projects />
@@ -139,15 +152,18 @@ export const Projects = async () => {
 ```
 
 **Better:**
+
 ```tsx
-<Suspense fallback={
-  <div className="flex flex-col items-center gap-2">
-    <BaseLoader />
-    <span className="text-sm text-muted-foreground">
-      {t("projects.loading")}
-    </span>
-  </div>
-}>
+<Suspense
+  fallback={
+    <div className="flex flex-col items-center gap-2">
+      <BaseLoader />
+      <span className="text-sm text-muted-foreground">
+        {t("projects.loading")}
+      </span>
+    </div>
+  }
+>
   <Projects />
 </Suspense>
 ```
@@ -157,9 +173,11 @@ export const Projects = async () => {
 ### 🟢 MINOR ISSUES
 
 #### 6. Badge Count Placeholder
+
 **Location:** Likely in navigation or task count badges
 
 **Issue:** If badge shows "3" as placeholder, it should be:
+
 - Hidden when count is 0
 - Show actual dynamic count
 
@@ -168,9 +186,11 @@ export const Projects = async () => {
 ---
 
 #### 7. Inconsistent Use of "Tasks" Terminology
+
 **Issue:** Need to verify consistent usage of "task" vs "to-do" vs "item"
 
 **Recommendation:** Create terminology glossary:
+
 - **Task** - Main entity
 - **Project** - Container for tasks
 - **Tag** - Label for tasks
@@ -179,16 +199,18 @@ export const Projects = async () => {
 ---
 
 #### 8. Auth Error Messages Could Be More Helpful
+
 **Location:** `app/[locale]/auth/error/page.tsx`
 
 **Current:** Displays error parameter from URL
 
 **Improvement Opportunity:**
+
 ```tsx
 const errorMessages = {
-  'OAuthAccountNotLinked': t('errors.oauth_not_linked'),
-  'OAuthSignin': t('errors.oauth_signin_failed'),
-  'Default': t('errors.generic')
+  OAuthAccountNotLinked: t("errors.oauth_not_linked"),
+  OAuthSignin: t("errors.oauth_signin_failed"),
+  Default: t("errors.generic"),
 };
 
 const message = errorMessages[error] || errorMessages.Default;
@@ -201,49 +223,54 @@ Provide specific, actionable error messages instead of technical error codes.
 ## 📚 Complete Copy Inventory
 
 ### Authentication
-| Location | EN Text | ES Translation | Status |
-|----------|---------|----------------|--------|
-| Login page title | "Sign in to your account" | "Inicia sesión en tu cuenta" | ✅ |
-| Login subtitle | "Use your email to sign in" | "Usa tu correo para iniciar sesión" | ✅ |
-| Error page heading | "Authentication Error" | "Error de autenticación" | ✅ |
-| Error page description | "There was a problem with the authentication process" | "Hubo un problema con el proceso de autenticación" | ✅ |
-| Error page CTA | "Try again" | "Intentar de nuevo" | ✅ |
+
+| Location               | EN Text                                               | ES Translation                                     | Status |
+| ---------------------- | ----------------------------------------------------- | -------------------------------------------------- | ------ |
+| Login page title       | "Sign in to your account"                             | "Inicia sesión en tu cuenta"                       | ✅     |
+| Login subtitle         | "Use your email to sign in"                           | "Usa tu correo para iniciar sesión"                | ✅     |
+| Error page heading     | "Authentication Error"                                | "Error de autenticación"                           | ✅     |
+| Error page description | "There was a problem with the authentication process" | "Hubo un problema con el proceso de autenticación" | ✅     |
+| Error page CTA         | "Try again"                                           | "Intentar de nuevo"                                | ✅     |
 
 ### Navigation & Sidebar
-| Location | EN Text | ES Translation | Status |
-|----------|---------|----------------|--------|
-| App name | "Plan" | "Plan" | ✅ |
-| Welcome back | "Welcome back" | "Bienvenido de vuelta" | 🟡 Could be more casual |
-| Dashboard link | "Dashboard" | "Panel" | ✅ |
-| Tasks link | "Tasks" | "Tareas" | ✅ |
-| Calendar link | "Calendar" | "Calendario" | ✅ |
-| Tags link | "Tags" | "Etiquetas" | ✅ |
-| Projects section | "Projects" | "Proyectos" | ✅ |
-| Settings link | "Settings" | "Configuración" | ✅ |
-| Logout button | "Logout" | "Cerrar sesión" | ✅ |
-| Logout loading | "Logging out..." | "Cerrando sesión..." | ✅ |
-| Logout SR text | "Logging out, please wait" | ❌ **HARDCODED** | 🔴 |
+
+| Location         | EN Text                    | ES Translation         | Status                  |
+| ---------------- | -------------------------- | ---------------------- | ----------------------- |
+| App name         | "Plan"                     | "Plan"                 | ✅                      |
+| Welcome back     | "Welcome back"             | "Bienvenido de vuelta" | 🟡 Could be more casual |
+| Dashboard link   | "Dashboard"                | "Panel"                | ✅                      |
+| Tasks link       | "Tasks"                    | "Tareas"               | ✅                      |
+| Calendar link    | "Calendar"                 | "Calendario"           | ✅                      |
+| Tags link        | "Tags"                     | "Etiquetas"            | ✅                      |
+| Projects section | "Projects"                 | "Proyectos"            | ✅                      |
+| Settings link    | "Settings"                 | "Configuración"        | ✅                      |
+| Logout button    | "Logout"                   | "Cerrar sesión"        | ✅                      |
+| Logout loading   | "Logging out..."           | "Cerrando sesión..."   | ✅                      |
+| Logout SR text   | "Logging out, please wait" | ❌ **HARDCODED**       | 🔴                      |
 
 ### Accessibility
-| Feature | Text | Status |
-|---------|------|--------|
-| Skip to main | "Skip to main content" / "Saltar al contenido principal" | ✅ |
-| Sidebar label | "Sidebar" | ✅ |
-| Config section | "Configuration" | ✅ |
-| Navigation segment | aria-labelledby working | ✅ |
-| Projects segment | aria-labelledby working | ✅ |
+
+| Feature            | Text                                                     | Status |
+| ------------------ | -------------------------------------------------------- | ------ |
+| Skip to main       | "Skip to main content" / "Saltar al contenido principal" | ✅     |
+| Sidebar label      | "Sidebar"                                                | ✅     |
+| Config section     | "Configuration"                                          | ✅     |
+| Navigation segment | aria-labelledby working                                  | ✅     |
+| Projects segment   | aria-labelledby working                                  | ✅     |
 
 ---
 
 ## ✅ What's Working Well
 
 ### 1. Strong i18n Architecture
+
 - Clean separation with `messages/en.json` and `messages/es.json`
 - Proper use of `next-intl` with `useTranslations()` hooks
 - Namespaced keys (e.g., `sidebar.logout.title`)
 - Server-side translation with `getTranslations()`
 
 ### 2. Excellent Accessibility
+
 - Semantic HTML structure
 - ARIA labels throughout
 - Skip navigation link
@@ -251,12 +278,14 @@ Provide specific, actionable error messages instead of technical error codes.
 - Proper heading hierarchy
 
 ### 3. Consistent Tone
+
 - Professional but friendly
 - Action-oriented (verbs in buttons)
 - Clear and concise
 - Avoids jargon
 
 ### 4. Good Component Structure
+
 - Translations co-located with components
 - Reusable UI primitives
 - Separation of concerns
@@ -316,47 +345,60 @@ Provide specific, actionable error messages instead of technical error codes.
 ## 📖 UX Writing Best Practices for This Project
 
 ### Tone of Voice
+
 - **Professional but approachable** - Not corporate, not too casual
 - **Action-oriented** - Use verbs for buttons ("Create project" not "Project creation")
 - **Concise** - Respect user's time and screen space
 - **Helpful** - Guide users, don't just inform
 
 ### Button Labels
+
 ✅ **Good:**
+
 - "Create project"
 - "Save changes"
 - "Delete task"
 
 ❌ **Avoid:**
+
 - "Submit"
 - "OK"
 - "Click here"
 
 ### Error Messages
+
 ✅ **Good:**
+
 - "We couldn't save your project. Check your connection and try again."
 - "This email is already in use. Try signing in instead."
 
 ❌ **Avoid:**
+
 - "Error 500"
 - "Invalid input"
 - "Something went wrong"
 
 ### Empty States
+
 ✅ **Good:**
+
 - "No tasks yet. Create your first task to get started!"
 - "You haven't created any projects. Projects help organize your tasks."
 
 ❌ **Avoid:**
+
 - "No data"
 - [Empty screen with no message]
 
 ### Loading States
+
 ✅ **Good:**
+
 - "Loading your projects..."
 - "Saving changes..."
 
 ❌ **Avoid:**
+
 - [Just a spinner]
 - "Please wait"
 
@@ -392,11 +434,13 @@ Provide specific, actionable error messages instead of technical error codes.
 ## 📋 Action Items Checklist
 
 ### Critical (Do immediately)
+
 - [ ] Fix hardcoded "Logging out, please wait" in LogoutButton
 - [ ] Add `sidebar.logout.loading_sr` to EN/ES translation files
 - [ ] Test screen reader in Spanish after fix
 
 ### Important (Do this week)
+
 - [ ] Add empty state copy for Projects list
 - [ ] Add `sidebar.projects.empty_state` translations
 - [ ] Review all Spanish translations for naturalness
@@ -404,6 +448,7 @@ Provide specific, actionable error messages instead of technical error codes.
 - [ ] Create error message mapping for auth errors
 
 ### Minor (Do this month)
+
 - [ ] Create terminology glossary
 - [ ] Document tone of voice guidelines
 - [ ] Set up automated i18n coverage checks
@@ -415,12 +460,14 @@ Provide specific, actionable error messages instead of technical error codes.
 ## 🎓 Lessons Learned
 
 ### What This Project Does Right
+
 1. **Comprehensive i18n from the start** - Not bolted on later
 2. **Accessibility-first approach** - Screen readers considered early
 3. **Component-level translations** - Easy to maintain and update
 4. **Professional tone consistency** - Feels polished
 
 ### Areas for Growth
+
 1. **Edge cases coverage** - Empty states, errors, loading
 2. **Translation quality** - Beyond literal translation
 3. **Copy testing** - Ensure no hardcoded strings slip through
@@ -431,6 +478,7 @@ Provide specific, actionable error messages instead of technical error codes.
 ## 📞 Contact & Questions
 
 For questions about this audit or copy recommendations:
+
 - **UX Writing:** Review with UX writer or content designer
 - **Translations:** Consult native Spanish speakers for final review
 - **Accessibility:** Test with actual screen reader users in both languages

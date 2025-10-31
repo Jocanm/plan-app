@@ -5,12 +5,14 @@
 ### 🚧 Pending Architecture Improvements
 
 #### 1. **Middleware Rules Pattern** (Optional - Future)
+
 - [ ] Implement Chain of Responsibility pattern for middleware redirects
 - [ ] Create `lib/middleware/rules/` structure
 - [ ] Add `authErrorRedirect` rule for login error handling
 - [ ] Enable adding redirect rules without touching core middleware
 
 #### 2. **Repository Testing** (Optional - If complexity grows)
+
 - [ ] Add tests for `createProjectsRepository` factory
 - [ ] Add tests for fake repositories (if they grow in complexity)
 
@@ -21,6 +23,7 @@
 ### 🚧 Pending
 
 #### 1. **Middleware: OAuth Error Redirects**
+
 - [ ] Modify `src/proxy.ts` to intercept `/api/auth/signin?error=...`
 - [ ] Redirect OAuth errors to `/{locale}/auth/error?error=...`
 - [ ] Extract locale from Referer header or URL

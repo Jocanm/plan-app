@@ -23,8 +23,9 @@ Este documento explica la estrategia de internacionalización de la aplicación 
 ```typescript
 // src/i18n/request.ts (ACTUAL)
 export default getRequestConfig(async () => {
-  const cookieStore = await cookies();  // ⚠️ Dynamic API
-  const cookieLocale = cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
+  const cookieStore = await cookies(); // ⚠️ Dynamic API
+  const cookieLocale =
+    cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
 
   return {
     locale: validLocale,
@@ -34,6 +35,7 @@ export default getRequestConfig(async () => {
 ```
 
 **Consecuencias**:
+
 - ❌ **Layout completamente dinámico** - No puede pre-renderizarse en build time
 - ❌ **Requiere `<Suspense>` wrapper** - Con `cacheComponents: true` habilitado
 - ❌ **Performance degradada** - Cada request ejecuta el layout completo
@@ -72,6 +74,7 @@ src/app/
 ```
 
 **Ventajas**:
+
 - ✅ **Layout estático** - Pre-renderizado en build time
 - ✅ **No necesita Suspense** - `await params` es estático con `generateStaticParams`
 - ✅ **Mejor performance** - HTML estático servido desde CDN
@@ -106,15 +109,16 @@ import { defineRouting } from "next-intl/routing";
 import { DEFAULT_LOCALE, locales } from "../features/i18n/domain/constants";
 
 export const routing = defineRouting({
-  locales: locales,              // ['en', 'es']
-  defaultLocale: DEFAULT_LOCALE,  // 'en'
+  locales: locales, // ['en', 'es']
+  defaultLocale: DEFAULT_LOCALE, // 'en'
 
   // ⚡ Estrategia de prefijo (ver sección siguiente)
-  localePrefix: 'always'  // Siempre incluye /en o /es
+  localePrefix: "always", // Siempre incluye /en o /es
 });
 ```
 
 **Opciones disponibles**:
+
 - `locales`: Array de locales soportados
 - `defaultLocale`: Locale por defecto
 - `localePrefix`: Estrategia de URL (ver siguiente sección)
@@ -129,8 +133,9 @@ export const routing = defineRouting({
 
 ```typescript
 export default getRequestConfig(async () => {
-  const cookieStore = await cookies();  // ⚠️ Dynamic
-  const cookieLocale = cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
+  const cookieStore = await cookies(); // ⚠️ Dynamic
+  const cookieLocale =
+    cookieStore.get(LOCALE_COOKIE_KEY)?.value ?? DEFAULT_LOCALE;
 
   return {
     locale: validLocale,
@@ -169,18 +174,19 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
 ```typescript
 // src/middleware.ts
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
 
 export default createMiddleware(routing);
 
 export const config = {
   // Excluye API routes, assets, etc.
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
 **Lo que hace el middleware**:
+
 1. **Detecta locale preferido** del usuario:
    - Cookie `NEXT_LOCALE` (si existe)
    - Header `Accept-Language`
@@ -285,6 +291,7 @@ export default async function LocaleLayout({
 ```
 
 **Puntos clave**:
+
 - ✅ `await params` es **estático** porque `generateStaticParams` pre-genera `['en', 'es']`
 - ✅ `<html lang={locale}>` dinámico pero estático (paradoja: valor viene de params estáticos)
 - ✅ No necesita `<Suspense>` porque no hay cache miss
@@ -297,18 +304,20 @@ export default async function LocaleLayout({
 
 ```typescript
 export const routing = defineRouting({
-  locales: ['en', 'es'],
-  defaultLocale: 'en',
-  localePrefix: 'always'  // ← SIEMPRE incluye locale
+  locales: ["en", "es"],
+  defaultLocale: "en",
+  localePrefix: "always", // ← SIEMPRE incluye locale
 });
 ```
 
 **Resultado**:
+
 - `/en/dashboard` (default locale)
 - `/es/dashboard` (otros locales)
 - `/dashboard` → redirige a `/en/dashboard` o `/es/dashboard`
 
 **Ventajas**:
+
 - ✅ URLs explícitas y consistentes
 - ✅ Mejor para SEO (URLs únicas)
 - ✅ Más fácil de cachear en CDN
@@ -319,17 +328,19 @@ export const routing = defineRouting({
 
 ```typescript
 export const routing = defineRouting({
-  locales: ['en', 'es'],
-  defaultLocale: 'en',
-  localePrefix: 'as-needed'  // ← Omite default locale
+  locales: ["en", "es"],
+  defaultLocale: "en",
+  localePrefix: "as-needed", // ← Omite default locale
 });
 ```
 
 **Resultado**:
+
 - `/dashboard` (default locale `en`)
 - `/es/dashboard` (otros locales)
 
 **Ventajas**:
+
 - ✅ URLs más limpias para locale principal
 - ⚠️ Puede confundir usuarios (¿qué idioma es `/dashboard`?)
 
@@ -339,16 +350,18 @@ export const routing = defineRouting({
 
 ```typescript
 export const routing = defineRouting({
-  locales: ['en', 'es'],
-  defaultLocale: 'en',
-  localePrefix: 'never'  // ← Nunca incluye locale en URL
+  locales: ["en", "es"],
+  defaultLocale: "en",
+  localePrefix: "never", // ← Nunca incluye locale en URL
 });
 ```
 
 **Resultado**:
+
 - `/dashboard` (para todos los locales)
 
 **Uso**:
+
 - Solo con **domain-based routing** (`us.example.com` → `en`, `es.example.com` → `es`)
 - O con **cookie/header detection** (pero pierde beneficio de static rendering)
 
@@ -437,6 +450,7 @@ src/app/
 ```
 
 **Comando**:
+
 ```bash
 mkdir -p src/app/[locale]
 mv src/app/page.tsx src/app/[locale]/
@@ -450,13 +464,13 @@ mv src/app/dashboard src/app/[locale]/
 
 ```typescript
 // src/middleware.ts (ANTES: proxy.ts con auth)
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
 
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
@@ -464,13 +478,13 @@ export const config = {
 
 ```typescript
 import { auth } from "@/lib/auth";
-import createIntlMiddleware from 'next-intl/middleware';
-import { NextResponse } from 'next/server';
-import { routing } from './i18n/routing';
+import createIntlMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
+import { routing } from "./i18n/routing";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-export default auth((req) => {
+export default auth(req => {
   // 1. Maneja i18n primero
   const intlResponse = intlMiddleware(req);
 
@@ -484,7 +498,7 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
@@ -494,8 +508,8 @@ export const config = {
 
 ```typescript
 // src/i18n/navigation.ts
-import { createNavigation } from 'next-intl/navigation';
-import { routing } from './routing';
+import { createNavigation } from "next-intl/navigation";
+import { routing } from "./routing";
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =
   createNavigation(routing);
@@ -521,10 +535,12 @@ import { Link, useRouter } from '@/i18n/navigation';
 ### Paso 7: Eliminar Código Viejo
 
 Archivos a eliminar:
+
 - ✅ `src/shared/components/ui/layouts/RootLayoutContent.tsx`
 - ✅ Lógica de cookies en `proxy.ts` (si solo era para i18n)
 
 Código a actualizar:
+
 - ✅ Todos los `import Link from 'next/link'` → `import { Link } from '@/i18n/navigation'`
 - ✅ Todos los `useRouter` de next → `useRouter` de `@/i18n/navigation`
 
@@ -549,6 +565,7 @@ Route (app)
 ```
 
 **Si ves `ƒ` (dynamic) en vez de `○` (static)**:
+
 - ❌ Falta `generateStaticParams` en layout
 - ❌ Estás usando `cookies()` o `headers()` sin `use cache`
 - ❌ Tienes `await params` pero el valor no está en `generateStaticParams`
@@ -586,13 +603,17 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
 ```typescript
 // src/app/[locale]/layout.tsx
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
-    title: t('title'),
-    description: t('description'),
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       locale: locale,
     },
@@ -631,7 +652,7 @@ export default function NotFoundPage() {
 
 ```typescript
 // src/app/[locale]/[...rest]/page.tsx
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
 export default function CatchAllPage() {
   notFound();
@@ -678,26 +699,27 @@ Si quieres diferentes URLs por idioma:
 ```typescript
 // src/i18n/routing.ts
 export const routing = defineRouting({
-  locales: ['en', 'es'],
-  defaultLocale: 'en',
-  localePrefix: 'always',
+  locales: ["en", "es"],
+  defaultLocale: "en",
+  localePrefix: "always",
 
   pathnames: {
-    '/': '/',
-    '/dashboard': '/dashboard',
-    '/about': {
-      en: '/about',
-      es: '/acerca-de'
+    "/": "/",
+    "/dashboard": "/dashboard",
+    "/about": {
+      en: "/about",
+      es: "/acerca-de",
     },
-    '/news/[slug]': {
-      en: '/news/[slug]',
-      es: '/noticias/[slug]'
-    }
-  }
+    "/news/[slug]": {
+      en: "/news/[slug]",
+      es: "/noticias/[slug]",
+    },
+  },
 });
 ```
 
 **Resultado**:
+
 - EN: `/en/about` → renderiza `app/[locale]/about/page.tsx`
 - ES: `/es/acerca-de` → renderiza `app/[locale]/about/page.tsx` (mismo archivo!)
 
@@ -707,23 +729,25 @@ export const routing = defineRouting({
 
 ### 1. Cuándo usar cada estrategia
 
-| Caso de Uso | localePrefix | Razón |
-|-------------|--------------|-------|
-| **Sitio multiidioma estándar** | `always` | URLs explícitas, mejor SEO |
-| **Inglés como principal + otros** | `as-needed` | URLs limpias para principal |
-| **Múltiples dominios** | `never` + domains | `us.example.com` vs `es.example.com` |
-| **Single-page app** | `always` | Consistencia |
+| Caso de Uso                       | localePrefix      | Razón                                |
+| --------------------------------- | ----------------- | ------------------------------------ |
+| **Sitio multiidioma estándar**    | `always`          | URLs explícitas, mejor SEO           |
+| **Inglés como principal + otros** | `as-needed`       | URLs limpias para principal          |
+| **Múltiples dominios**            | `never` + domains | `us.example.com` vs `es.example.com` |
+| **Single-page app**               | `always`          | Consistencia                         |
 
 ---
 
 ### 2. Performance
 
 **Static Generation (○)**:
+
 - Pre-renderiza todas las páginas en build time
 - CDN sirve HTML instantáneamente
 - **Tiempo de respuesta**: 5-20ms
 
 **Server-Side Rendering (ƒ)**:
+
 - Renderiza en cada request
 - No cacheable en CDN
 - **Tiempo de respuesta**: 100-500ms
@@ -735,6 +759,7 @@ export const routing = defineRouting({
 ### 3. SEO
 
 ✅ **Buenas prácticas**:
+
 - Usa `localePrefix: 'always'` para URLs únicas
 - Implementa `alternates.languages` en metadata
 - Agrega `hreflang` tags para Google
@@ -745,11 +770,11 @@ export async function generateMetadata() {
     alternates: {
       canonical: `https://example.com/${locale}`,
       languages: {
-        'en': 'https://example.com/en',
-        'es': 'https://example.com/es',
-        'x-default': 'https://example.com/en'
-      }
-    }
+        en: "https://example.com/en",
+        es: "https://example.com/es",
+        "x-default": "https://example.com/en",
+      },
+    },
   };
 }
 ```
@@ -759,6 +784,7 @@ export async function generateMetadata() {
 ### 4. Testing
 
 **Test checklist**:
+
 - [ ] `/` redirige a `/en` o `/es` según `Accept-Language`
 - [ ] `/en/dashboard` renderiza correctamente
 - [ ] `/es/dashboard` renderiza con textos en español

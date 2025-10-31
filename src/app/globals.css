@@ -91,7 +91,11 @@
   --color-background: hsl(235, 16%, 15%); /* dark-surface */
   --color-foreground: hsl(0, 0%, 100%); /* white */
   --color-muted: hsl(236, 11%, 27%); /* dark-medium */
-  --color-muted-foreground: hsl(216, 19%, 72%); /* Lightened for dark mode contrast */
+  --color-muted-foreground: hsl(
+    216,
+    19%,
+    72%
+  ); /* Lightened for dark mode contrast */
 
   /* UI Colors */
   --color-border: hsl(236, 11%, 30%); /* dark-medium - increased contrast */
