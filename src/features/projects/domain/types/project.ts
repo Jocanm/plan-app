@@ -1,4 +1,4 @@
-import { Task } from "../../../tasks/domain/task";
+import { Task } from "../../../tasks/domain/types/task";
 
 export type Project = {
   id: string;

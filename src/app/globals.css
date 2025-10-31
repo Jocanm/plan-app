@@ -131,6 +131,14 @@
   * {
     border-color: var(--color-border);
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: unset;
+  }
 }
 
 /* ============================================

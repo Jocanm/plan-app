@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectDetails } from "@/features/projects/app/actions/projects.actions";
+import { TaskCard } from "@/features/tasks/components/TaskCard";
 import { Main } from "@/shared/components/ui/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -35,18 +36,36 @@ const ProjectPage = async ({
 }: PageProps<"/[locale]/dashboard/[projectId]">) => {
   const { projectId } = await params;
   const projectDetails = await getProject(projectId);
-  // const t = await getTranslations("project");
 
   if (!projectDetails) return null;
 
   return (
     <Main>
-      <h1 className="text-2xl font-bold leading-tight tracking-tight">
-        {projectDetails.name}
-      </h1>
-      {/* <p className="mt-2 text-md text-muted-foreground">
-        {t("tasks_completed", { completed: "1", total: 1 })}
-      </p> */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold leading-tight tracking-tight">
+          {projectDetails.name}
+        </h1>
+      </div>
+      <ul className="space-y-4">
+        <TaskCard
+          id="1"
+          color="#4F46E5"
+          title="Design homepage"
+          description="Create a modern and responsive design for the homepage."
+        />
+        <TaskCard
+          id="2"
+          color="#FBBF24"
+          title="Implement authentication"
+          description="Set up user login and registration functionality."
+        />
+        <TaskCard
+          id="3"
+          color="#10B981"
+          title="Set up database"
+          description="Configure the database schema and initial data."
+        />
+      </ul>
     </Main>
   );
 };
