@@ -10,6 +10,7 @@ export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] 
         name: true,
         color: true,
       },
+      orderBy: { createdAt: "asc" },
     });
 
     return projects.map(el => ({

@@ -41,14 +41,14 @@
   /* ============================================
     UI COLORS
      ============================================ */
-  --color-border: hsl(221, 69%, 94%);
-  --color-input: hsl(221, 69%, 94%);
+  --color-border: hsl(221, 69%, 90%);
+  --color-input: hsl(221, 69%, 85%);
   --color-ring: hsl(239, 85%, 67%);
 
   /* ============================================
     CARD & SURFACE COLORS
      ============================================ */
-  --color-card: hsl(0, 0%, 100%);
+  --color-card: hsl(0, 0%, 98%);
   --color-card-foreground: hsl(237, 100%, 4%);
   --color-popover: hsl(0, 0%, 100%);
   --color-popover-foreground: hsl(237, 100%, 4%);
@@ -94,11 +94,11 @@
   --color-muted-foreground: hsl(216, 19%, 72%); /* Lightened for dark mode contrast */
 
   /* UI Colors */
-  --color-border: hsl(236, 11%, 27%); /* dark-medium */
-  --color-input: hsl(236, 11%, 27%); /* dark-medium */
+  --color-border: hsl(236, 11%, 30%); /* dark-medium - increased contrast */
+  --color-input: hsl(236, 11%, 35%); /* dark-medium - increased contrast */
 
   /* Card & Surface Colors */
-  --color-card: hsl(237, 100%, 4%); /* dark */
+  --color-card: hsl(235, 16%, 18%); /* lighter than pure dark for elevation */
   --color-card-foreground: hsl(0, 0%, 100%); /* white */
   --color-popover: hsl(235, 16%, 15%); /* dark-surface */
   --color-popover-foreground: hsl(0, 0%, 100%); /* white */

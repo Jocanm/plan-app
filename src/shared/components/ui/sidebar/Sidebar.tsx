@@ -10,7 +10,7 @@ export const Sidebar = async () => {
   const t = await getTranslations();
 
   return (
-    <aside className="w-70 h-full border-r py-6 flex flex-col bg-muted/50">
+    <aside className="w-70 h-full border-r py-6 flex flex-col bg-card">
       <section className="flex items-center gap-2 pb-6 border-b px-6">
         <PlanLogo size="md" />
         <div>
