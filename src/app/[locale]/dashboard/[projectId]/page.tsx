@@ -1,6 +1,8 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectDetails } from "@/features/projects/app/actions/projects.actions";
-import { TaskCard } from "@/features/tasks/components/TaskCard";
+import { ProjectHeader } from "@/features/projects/app/components/ProjectHeader";
+import { NoTasks } from "@/features/projects/app/components/tasks/NoTasks";
+import { ProjectTasks } from "@/features/projects/app/components/tasks/ProjectTasks";
 import { Main } from "@/shared/components/ui/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -38,26 +40,16 @@ const ProjectPage = async ({
   const projectDetails = await getProject(projectId);
 
   if (!projectDetails) return null;
+  const projectTasks = projectDetails.tasks;
 
   return (
     <Main>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold leading-tight tracking-tight">
-          {projectDetails.name}
-        </h1>
-      </div>
-      <ul className="space-y-4">
-        {projectDetails.tasks.map(task => (
-          <li key={task.id}>
-            <TaskCard
-              id={task.id}
-              color={task.color}
-              title={task.title}
-              description={task.description}
-            />
-          </li>
-        ))}
-      </ul>
+      <ProjectHeader project={projectDetails} />
+      {projectTasks.length === 0 ? (
+        <NoTasks />
+      ) : (
+        <ProjectTasks tasks={projectTasks} />
+      )}
     </Main>
   );
 };

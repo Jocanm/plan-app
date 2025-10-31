@@ -1,5 +1,4 @@
 import { locales } from "@/features/i18n/domain/constants";
-import { ThemeSwitcher } from "@/shared/components/dev/ThemeSwitcher";
 import { SkipToMainContent } from "@/shared/components/ui/SkipToMainContent";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import type { Metadata, Viewport } from "next";
@@ -137,7 +136,7 @@ export default function LocaleLayout({
             disableTransitionOnChange
           >
             {children}
-            <ThemeSwitcher />
+            {/* <ThemeSwitcher /> */}
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

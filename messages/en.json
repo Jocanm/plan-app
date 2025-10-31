@@ -11,6 +11,12 @@
   },
   "project": {
     "tasks_completed": "{completed} of {total, plural, =0 {# tasks} one {# task} other {# tasks}}",
+    "edit_button": "Edit",
+    "archive_button": "Archive",
+    "tasks_heading": "Tasks",
+    "completed_tasks_heading": "Completed",
+    "no_tasks_title": "No tasks yet",
+    "no_tasks_message": "Get started by creating your first task for this project.",
     "meta": {
       "title": "{projectName} - Plan App",
       "not_found_title": "Project Not Found - Plan App",
@@ -111,7 +117,8 @@
       "tasks_link": "All Tasks"
     },
     "projects": {
-      "title": "PROJECTS"
+      "title": "PROJECTS",
+      "add_project": "Create Project"
     },
     "logout": {
       "title": "Log Out",

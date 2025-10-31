@@ -12,6 +12,12 @@
 
   "project": {
     "tasks_completed": "{completed} de {total, plural, =0 {# tareas} one {# tarea} other {# tareas}}",
+    "edit_button": "Editar",
+    "archive_button": "Archivar",
+    "tasks_heading": "Tareas",
+    "completed_tasks_heading": "Completadas",
+    "no_tasks_title": "Sin tareas aún",
+    "no_tasks_message": "Comienza creando tu primera tarea para este proyecto.",
     "meta": {
       "title": "{projectName} - Plan App",
       "not_found_title": "Proyecto no encontrado - Plan App",
@@ -113,7 +119,8 @@
       "tasks_link": "Mis tareas"
     },
     "projects": {
-      "title": "PROYECTOS"
+      "title": "PROYECTOS",
+      "add_project": "Crear proyecto"
     },
     "logout": {
       "title": "Cerrar sesión",
