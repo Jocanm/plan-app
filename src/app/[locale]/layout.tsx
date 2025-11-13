@@ -133,7 +133,7 @@ export default function LocaleLayout({
           <ThemeProvider
             enableSystem
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             disableTransitionOnChange
           >
             {children}
