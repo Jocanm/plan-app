@@ -12,6 +12,7 @@ import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
+import { ThemeSwitcher } from "../../shared/components/dev/ThemeSwitcher";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -136,7 +137,7 @@ export default function LocaleLayout({
             disableTransitionOnChange
           >
             {children}
-            {/* <ThemeSwitcher /> */}
+            <ThemeSwitcher />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
