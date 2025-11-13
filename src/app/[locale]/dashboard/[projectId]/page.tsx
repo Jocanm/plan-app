@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectDetails } from "@/features/projects/app/actions/projects.actions";
-import { ProjectHeader } from "@/features/projects/app/components/ProjectHeader";
-import { NoTasks } from "@/features/projects/app/components/tasks/NoTasks";
-import { ProjectTasks } from "@/features/projects/app/components/tasks/ProjectTasks";
+import { ProjectHeader } from "@/features/projects/components/ProjectHeader";
+import { NoTasks } from "@/features/projects/components/tasks/NoTasks";
+import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";
 import { Main } from "@/shared/components/ui/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";

@@ -1,7 +1,7 @@
 import { Button } from "@/shared/components/ui";
 import { Archive, Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Project } from "../../domain/types/project";
+import { Project } from "../domain/types/project";
 
 interface ProjectHeaderProps {
   project: Project;
