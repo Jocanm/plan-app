@@ -37,15 +37,39 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
   });
 
   return (
-    <Main className="min-h-screen">
+    <Main className="min-h-screen relative overflow-hidden">
+      {/* Gradient mesh background */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        {/* Primary gradient orb - top right */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
+        {/* Secondary gradient orb - bottom left */}
+        <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-success/5 blur-3xl" />
+        {/* Grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(hsl(221, 69%, 90%) 1px, transparent 1px),
+              linear-gradient(90deg, hsl(221, 69%, 90%) 1px, transparent 1px)
+            `,
+            backgroundSize: "64px 64px",
+          }}
+        />
+      </div>
+
       {/* Mobile Layout - Hero + Login */}
       <div className="lg:hidden">
         {/* Hero Section */}
         <section
           aria-labelledby="hero-heading-mobile"
-          className="px-4 py-12 text-center"
+          className="px-4 py-12 text-center relative overflow-hidden"
         >
-          <PlanLogo size="lg" className="mx-auto mb-6" />
+          {/* Gradient background - mobile only */}
+          <div
+            className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 via-transparent to-transparent"
+            aria-hidden="true"
+          />
+          <PlanLogo size="lg" className="mx-auto mb-6 drop-shadow-sm" />
           <h1
             id="hero-heading-mobile"
             className="text-4xl font-bold text-foreground mb-3"
@@ -82,7 +106,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
                   </span>
                 </h1>
                 <div
-                  className="h-1 w-32 bg-primary rounded-full mb-6"
+                  className="h-0.5 w-24 bg-gradient-to-r from-primary via-primary/80 to-transparent rounded-full mb-6 shadow-sm shadow-primary/30"
                   aria-hidden="true"
                 />
                 <p className="text-xl text-muted-foreground leading-relaxed">
@@ -92,8 +116,8 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
 
               {/* Features List */}
               <ul className="space-y-6">
-                <li className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center flex-shrink-0">
+                <li className="flex items-center gap-4 group animate-fade-in-up animation-delay-100">
+                  <div className="w-12 h-12 rounded-xl bg-success/15 shadow-md shadow-success/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-success/20 transition-all duration-300">
                     <TaskOrganizationIcon />
                   </div>
                   <div>
@@ -106,8 +130,8 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
                   </div>
                 </li>
 
-                <li className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <li className="flex items-center gap-4 group animate-fade-in-up animation-delay-200">
+                  <div className="w-12 h-12 rounded-xl bg-primary/15 shadow-md shadow-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                     <CalendarIntegrationIcon />
                   </div>
                   <div>
@@ -120,8 +144,8 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
                   </div>
                 </li>
 
-                <li className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-warning/10 flex items-center justify-center flex-shrink-0">
+                <li className="flex items-center gap-4 group animate-fade-in-up animation-delay-300">
+                  <div className="w-12 h-12 rounded-xl bg-warning/15 shadow-md shadow-warning/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-warning/20 transition-all duration-300">
                     <CollaborationIcon />
                   </div>
                   <div>
