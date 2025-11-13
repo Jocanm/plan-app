@@ -118,7 +118,8 @@
     },
     "projects": {
       "title": "PROJECTS",
-      "add_project": "Create Project"
+      "add_project": "Create Project",
+      "create_first_project": "Create your first project"
     },
     "logout": {
       "title": "Log Out",

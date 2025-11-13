@@ -3,7 +3,7 @@ import { IProjectRepository } from "../domain/types/repository";
 
 export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
   async userId => {
-    const projects = await prisma.project.findMany({
+    await prisma.project.findMany({
       where: { userId },
       select: {
         id: true,
@@ -13,12 +13,7 @@ export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] 
       orderBy: { createdAt: "asc" },
     });
 
-    return projects.map(el => ({
-      id: el.id,
-      name: el.name,
-      color: el.color,
-      totalPendingTasks: 0,
-    }));
+    return [];
   };
 
 export const getProjectDetails: IProjectRepository["getProjectDetails"] =

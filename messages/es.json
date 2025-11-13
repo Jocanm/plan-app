@@ -120,7 +120,8 @@
     },
     "projects": {
       "title": "PROYECTOS",
-      "add_project": "Crear proyecto"
+      "add_project": "Crear proyecto",
+      "create_first_project": "Crea tu primer proyecto"
     },
     "logout": {
       "title": "Cerrar sesión",
