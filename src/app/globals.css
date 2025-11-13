@@ -229,3 +229,11 @@
     transform: none !important;
   }
 }
+
+:root {
+  --grid-color: hsl(221, 69%, 80%);
+}
+
+.dark {
+  --grid-color: hsl(236, 11%, 30%);
+}

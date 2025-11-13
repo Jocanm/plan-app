@@ -9,11 +9,19 @@ export const GradientMesh = () => {
 
       {/* Grid pattern overlay */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0"
         style={{
+          opacity: 0.1,
           backgroundImage: `
-            linear-gradient(hsl(221, 69%, 90%) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(221, 69%, 90%) 1px, transparent 1px)
+            linear-gradient(
+              var(--grid-color, hsl(221, 69%, 75%)) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              var(--grid-color, hsl(221, 69%, 75%)) 1px,
+              transparent 1px
+            )
           `,
           backgroundSize: "64px 64px",
         }}
