@@ -5,7 +5,7 @@ import { SegmentSuspense } from "../SegmentSuspense";
 import { SidebarProjectsList } from "./SidebarProjectsList";
 
 export const SidebarProjectsSegment = async () => {
-  const t = await getTranslations("sidebar");
+  const t = await getTranslations("sidebar.projects");
 
   return (
     <nav
@@ -18,14 +18,13 @@ export const SidebarProjectsSegment = async () => {
           id="sidebar-projects-segment-title"
           className="text-sm font-semibold text-muted-foreground"
         >
-          {t("projects.title")}
+          {t("title")}
         </h3>
         <Button
-          disabled
           size="xs"
           variant="ghost"
           className="text-muted-foreground"
-          aria-label={t("projects.add_project")}
+          aria-label={t("add_project")}
         >
           <Plus size={16} aria-hidden="true" />
         </Button>

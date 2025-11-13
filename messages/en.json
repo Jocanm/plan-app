@@ -119,7 +119,7 @@
     "projects": {
       "title": "PROJECTS",
       "add_project": "Create Project",
-      "create_first_project": "Create your first project"
+      "create_first_project": "Create your first project here"
     },
     "logout": {
       "title": "Log Out",

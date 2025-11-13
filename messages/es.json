@@ -121,7 +121,7 @@
     "projects": {
       "title": "PROYECTOS",
       "add_project": "Crear proyecto",
-      "create_first_project": "Crea tu primer proyecto"
+      "create_first_project": "Crea tu primer proyecto aquí"
     },
     "logout": {
       "title": "Cerrar sesión",
