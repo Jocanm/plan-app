@@ -38,7 +38,7 @@ const Login = async ({ params }: PageProps<"/[locale]/auth/login">) => {
       <GradientMesh />
 
       {/* Responsive Layout - Grid on desktop, Stack on mobile */}
-      <div className="min-h-screen lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-6">
+      <div className="min-h-screen lg:grid lg:grid-cols-2 lg:items-center lg:px-6 mx-auto container">
         {/* Left Column (desktop) / Top (mobile) - Hero + Features */}
         <section
           aria-labelledby="hero-heading"

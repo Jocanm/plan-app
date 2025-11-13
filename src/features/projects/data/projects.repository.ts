@@ -25,7 +25,13 @@ export const getProjectDetails: IProjectRepository["getProjectDetails"] =
   async (projectId, userId) => {
     const project = await prisma.project.findUnique({
       where: { id: projectId, userId },
-      include: { tasks: true },
+      include: {
+        tasks: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
     });
 
     return project;
