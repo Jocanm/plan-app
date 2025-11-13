@@ -7,7 +7,6 @@ const DEFAULT_PROJECT = {
   userId: "default-user",
   createdAt: new Date(),
   updatedAt: new Date(),
-  tasks: [],
 } satisfies Partial<Project>;
 
 const makeProject = (overrides: Partial<Project> = {}): Project => ({
@@ -41,6 +40,11 @@ export class FakeProjectsRepositoryManager {
     return this;
   }
 
+  addProject(project: Partial<Project>): FakeProjectsRepositoryManager {
+    this.projects.push(makeProject(project));
+    return this;
+  }
+
   getRepository(): IProjectRepository {
     return {
       getProjectDetails: async (projectId, userId) => {
@@ -48,8 +52,14 @@ export class FakeProjectsRepositoryManager {
           return el.id === projectId && el.userId === userId;
         });
 
-        return project ?? null;
+        if (!project) return null;
+
+        return {
+          ...project,
+          tasks: [],
+        };
       },
+
       getProjectsForSidebar: async userId => {
         const userProjects = this.projects.filter(el => el.userId === userId);
         return userProjects.map(el => ({
@@ -58,6 +68,12 @@ export class FakeProjectsRepositoryManager {
           color: el.color,
           totalPendingTasks: 0,
         }));
+      },
+
+      createProject: async data => {
+        const project = makeProject(data);
+        this.addProject(project);
+        return project;
       },
     };
   }

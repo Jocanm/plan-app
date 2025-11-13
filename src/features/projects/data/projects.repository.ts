@@ -3,7 +3,7 @@ import { IProjectRepository } from "../domain/types/repository";
 
 export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] =
   async userId => {
-    await prisma.project.findMany({
+    const projects = await prisma.project.findMany({
       where: { userId },
       select: {
         id: true,
@@ -14,6 +14,12 @@ export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] 
     });
 
     return [];
+
+    return projects.map(el => ({
+      id: el.id,
+      name: el.name,
+      color: el.color,
+    }));
   };
 
 export const getProjectDetails: IProjectRepository["getProjectDetails"] =
@@ -30,4 +36,13 @@ export const getProjectDetails: IProjectRepository["getProjectDetails"] =
     });
 
     return project;
+  };
+
+export const createProject: IProjectRepository["createProject"] =
+  async data => {
+    const projectCreated = await prisma.project.create({
+      data,
+    });
+
+    return projectCreated;
   };

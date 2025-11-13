@@ -1,9 +1,17 @@
-import { Project, ProjectSidebar } from "./project";
+import {
+  CreateProjectData,
+  Project,
+  ProjectDetail,
+  ProjectSidebar,
+} from "./project";
 
 export interface IProjectRepository {
   getProjectsForSidebar: (userId: string) => Promise<ProjectSidebar[]>;
+
   getProjectDetails: (
     projectId: string,
     userId: string
-  ) => Promise<Project | null>;
+  ) => Promise<ProjectDetail | null>;
+
+  createProject: (data: CreateProjectData) => Promise<Project>;
 }

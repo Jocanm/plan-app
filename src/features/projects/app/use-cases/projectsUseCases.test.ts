@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { FakeProjectsRepositoryManager } from "../../data/projects.repository.fake";
+import { DEFAULT_PROJECT_COLOR } from "../../domain/constants";
 import { Project } from "../../domain/types/project";
 import { projectsUseCases } from "./projectsUseCases";
 
@@ -76,6 +77,44 @@ describe("Projects - use cases", () => {
       const result = await repo.getProjectDetails(projectId, "other-user-id");
 
       expect(result).toBeNull();
+    });
+  });
+
+  describe("Create Project", () => {
+    it("Should allow user to create a project with a default color", async () => {
+      const repo = repoManager.getRepository();
+
+      const result = await projectsUseCases.createProject({
+        repo,
+        data: {
+          name: "Project A",
+          userId: "default-user",
+        },
+      });
+
+      expect(result).toEqual({
+        id: expect.any(String),
+        name: "Project A",
+        userId: "default-user",
+        color: DEFAULT_PROJECT_COLOR,
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+      });
+    });
+
+    it("Should allow user to provide custom color", async () => {
+      const repo = repoManager.getRepository();
+
+      const result = await projectsUseCases.createProject({
+        repo,
+        data: {
+          name: "Project A",
+          userId: "default-user",
+          color: "#ddd",
+        },
+      });
+
+      expect(result.color).toBe("#ddd");
     });
   });
 });

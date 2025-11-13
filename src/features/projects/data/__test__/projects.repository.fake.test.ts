@@ -27,6 +27,27 @@ describe("Projects Repository fake", () => {
     expect(results).toHaveLength(2);
   });
 
+  it("FakeProjectsRepositoryManager should be able to create internal projects", async () => {
+    const manager = FakeProjectsRepositoryManager.getInstance();
+    const repo = manager.getRepository();
+    manager.reset();
+
+    const projectId = crypto.randomUUID();
+    await repo.createProject({
+      id: projectId,
+      color: "#FFFF",
+      name: "new project",
+      userId: "default-user",
+    });
+
+    const allProjects = await repo.getProjectsForSidebar("default-user");
+    const firstProject = allProjects.at(0);
+
+    expect(allProjects).toHaveLength(1);
+    expect(firstProject).not.toBeUndefined();
+    expect(firstProject?.id).toBe(projectId);
+  });
+
   it("Reset method should clear all projects", async () => {
     const manager = FakeProjectsRepositoryManager.getInstance();
     const repo = manager.getRepository();

@@ -1,3 +1,5 @@
+import { buildCreateProjectData } from "../../domain/factories";
+import { CreateProjectInput } from "../../domain/types/project";
 import { IProjectRepository } from "../../domain/types/repository";
 
 interface ProjectUseCaseProps {
@@ -28,7 +30,17 @@ const getProjectDetails = async ({
   return await repo.getProjectDetails(projectId, userId);
 };
 
+interface CreateProjectProps extends ProjectUseCaseProps {
+  data: CreateProjectInput;
+}
+
+const createProject = async ({ repo, data }: CreateProjectProps) => {
+  const projectData = buildCreateProjectData(data);
+  return await repo.createProject(projectData);
+};
+
 export const projectsUseCases = {
   getProjectDetails,
   getProjectsForSidebar,
+  createProject,
 };
