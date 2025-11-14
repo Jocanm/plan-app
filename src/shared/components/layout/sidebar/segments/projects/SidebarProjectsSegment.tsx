@@ -1,7 +1,6 @@
-import { Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { Button } from "../../../../ui/Button";
 import { SegmentSuspense } from "../SegmentSuspense";
+import { SidebarCreateProjectCta } from "./SidebarCreateProjectCta";
 import { SidebarProjectsList } from "./SidebarProjectsList";
 
 export const SidebarProjectsSegment = async () => {
@@ -20,14 +19,7 @@ export const SidebarProjectsSegment = async () => {
         >
           {t("title")}
         </h3>
-        <Button
-          size="xs"
-          variant="ghost"
-          className="text-muted-foreground"
-          aria-label={t("add_project")}
-        >
-          <Plus size={16} aria-hidden="true" />
-        </Button>
+        <SidebarCreateProjectCta />
       </section>
       <SegmentSuspense>
         <SidebarProjectsList />

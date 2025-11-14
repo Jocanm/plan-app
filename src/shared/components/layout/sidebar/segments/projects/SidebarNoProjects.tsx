@@ -1,13 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useSidebarStore } from "../../../../../stores/useSidebarStore";
 import { Button } from "../../../../ui/Button";
 import { SidebarInlineProjectForm } from "./SidebarInlineProjectForm";
 
 export const SidebarNoProjects = () => {
   const t = useTranslations("sidebar");
-  const [showInlineForm, setShowInlineForm] = useState(false);
+  const showInlineForm = useSidebarStore(s => s.showInlineProjectForm);
+  const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
 
   if (showInlineForm) {
     return <SidebarInlineProjectForm />;
