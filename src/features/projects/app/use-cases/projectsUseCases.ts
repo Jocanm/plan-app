@@ -1,6 +1,11 @@
+import {
+  createErrorResult,
+  createSuccessResult,
+} from "@/shared/utils/resultPattern";
 import { buildCreateProjectData } from "../../domain/factories";
 import { CreateProjectInput } from "../../domain/types/project";
 import { IProjectRepository } from "../../domain/types/repository";
+import { CreateProjectResult } from "../../domain/types/results";
 
 interface ProjectUseCaseProps {
   repo: IProjectRepository;
@@ -34,13 +39,21 @@ interface CreateProjectProps extends ProjectUseCaseProps {
   data: CreateProjectInput;
 }
 
-const createProject = async ({ repo, data }: CreateProjectProps) => {
+const createProject = async ({
+  repo,
+  data,
+}: CreateProjectProps): Promise<CreateProjectResult> => {
   const projectData = buildCreateProjectData(data);
-  return await repo.createProject(projectData);
+  try {
+    const project = await repo.createProject(projectData);
+    return createSuccessResult(project);
+  } catch {
+    return createErrorResult("UNKNOWN_ERROR", "something went wrong");
+  }
 };
 
 export const projectsUseCases = {
+  createProject,
   getProjectDetails,
   getProjectsForSidebar,
-  createProject,
 };

@@ -12,9 +12,9 @@ declare global {
         testId: string,
         options?: Partial<
           Cypress.Loggable &
-            Cypress.Timeoutable &
-            Cypress.Withinable &
-            Cypress.Shadow
+          Cypress.Timeoutable &
+          Cypress.Withinable &
+          Cypress.Shadow
         >
       ): Chainable<JQuery<HTMLElement>>;
     }

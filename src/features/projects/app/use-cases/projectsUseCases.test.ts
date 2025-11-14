@@ -84,7 +84,7 @@ describe("Projects - use cases", () => {
     it("Should allow user to create a project with a default color", async () => {
       const repo = repoManager.getRepository();
 
-      const result = await projectsUseCases.createProject({
+      const response = await projectsUseCases.createProject({
         repo,
         data: {
           name: "Project A",
@@ -92,7 +92,7 @@ describe("Projects - use cases", () => {
         },
       });
 
-      expect(result).toEqual({
+      expect(response.result).toEqual({
         id: expect.any(String),
         name: "Project A",
         userId: "default-user",
@@ -105,7 +105,7 @@ describe("Projects - use cases", () => {
     it("Should allow user to provide custom color", async () => {
       const repo = repoManager.getRepository();
 
-      const result = await projectsUseCases.createProject({
+      const response = await projectsUseCases.createProject({
         repo,
         data: {
           name: "Project A",
@@ -114,7 +114,27 @@ describe("Projects - use cases", () => {
         },
       });
 
-      expect(result.color).toBe("#ddd");
+      expect(response.result?.color).toBe("#ddd");
+    });
+
+    it("retorna error cuando el repositorio falla", async () => {
+      const repo = {
+        ...repoManager.getRepository(),
+        createProject: async () => {
+          throw new Error("Database error");
+        },
+      };
+
+      const result = await projectsUseCases.createProject({
+        repo,
+        data: {
+          name: "Project A",
+          userId: "default-user",
+        },
+      });
+
+      expect(result.error?.code).toBe("UNKNOWN_ERROR");
+      expect(result.result).toBeUndefined();
     });
   });
 });

@@ -23,7 +23,11 @@ export const SidebarProjectsList = async () => {
         className="flex justify-center"
         data-testid="sidebar-projects-segment-empty"
       >
-        <Button variant="link" className="underline p-0">
+        <Button
+          variant="link"
+          className="underline h-fit"
+          data-testid="sidebar-create-first-project-cta"
+        >
           {t("projects.create_first_project")}
         </Button>
       </section>

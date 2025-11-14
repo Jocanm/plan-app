@@ -17,7 +17,7 @@ export const SidebarProjectItem = ({ project }: SidebarProjectItemProps) => {
   const isLinkActive = pathname === pathToProject;
 
   return (
-    <li key={project.id}>
+    <li key={project.id} data-testid={`sidebar-project-item-${project.id}`}>
       <SidebarLink
         href={pathToProject}
         isActive={isLinkActive}
