@@ -26,7 +26,14 @@
     "form": {
       "placeholder_name": "Ej., Campaña de marketing",
       "validation_required": "Nombre es obligatorio.",
-      "validation_max_length": "Nombre no puede exceder los 50 caracteres."
+      "validation_max_length": "Nombre no puede exceder los 50 caracteres.",
+      "errors": {
+        "name_required": "El nombre es obligatorio",
+        "name_too_short": "El nombre debe tener al menos 3 caracteres",
+        "name_too_long": "El nombre debe tener menos de 50 caracteres",
+        "unauthorized": "Debes iniciar sesión",
+        "unknown_error": "Ocurrió un error inesperado"
+      }
     }
   },
 

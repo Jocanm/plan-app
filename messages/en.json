@@ -25,7 +25,14 @@
     "form": {
       "placeholder_name": "e.g., Marketing Campaign",
       "validation_required": "Name is required.",
-      "validation_max_length": "Name cannot exceed 50 characters."
+      "validation_max_length": "Name cannot exceed 50 characters.",
+      "errors": {
+        "name_required": "Name is required",
+        "name_too_short": "Name must be at least 3 characters",
+        "name_too_long": "Name must be less than 50 characters",
+        "unauthorized": "You must be logged in",
+        "unknown_error": "An unexpected error occurred"
+      }
     }
   },
   "design_system": {

@@ -46,9 +46,7 @@ const LogoutButtonContent = ({
     >
       {pending ? <BaseLoader /> : <LogOut aria-hidden="true" />}
 
-      <span className="font-medium text-base">
-        {pending ? loadingLabel : label}
-      </span>
+      <span className="font-medium">{pending ? loadingLabel : label}</span>
 
       {pending && <span className="sr-only">Logging out, please wait</span>}
     </Button>

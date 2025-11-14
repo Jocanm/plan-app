@@ -1,11 +1,12 @@
 "use server";
 
-import { cacheLife, cacheTag, updateTag } from "next/cache";
+import { getFirstZodError } from "@/shared/utils/getFirstZodError";
 import {
   createErrorResult,
   createSuccessResult,
   IResult,
-} from "../../../../shared/utils/resultPattern";
+} from "@/shared/utils/resultPattern";
+import { cacheLife, cacheTag, updateTag } from "next/cache";
 import { getCurrentUser } from "../../../auth/app/actions/getCurrentUser";
 import { projectsRepository } from "../../data/projects.repository.factory";
 import { Project } from "../../domain/types/project";
@@ -36,7 +37,7 @@ export const getProjectDetails = async (projectId: string, userId: string) => {
   });
 };
 
-type CreateProjectActionErrorCode =
+export type CreateProjectActionErrorCode =
   | CreateProjectErrorCode
   | "VALIDATION_ERROR"
   | "UNAUTHORIZED";
@@ -47,7 +48,8 @@ export const createProject = async (data: {
 }): Promise<IResult<Project, CreateProjectActionErrorCode>> => {
   const parsedData = createProjectSchema.safeParse(data);
   if (!parsedData.success) {
-    return createErrorResult("VALIDATION_ERROR", parsedData.error.message);
+    const firstError = getFirstZodError(parsedData.error);
+    return createErrorResult("VALIDATION_ERROR", firstError ?? "");
   }
 
   const currentUser = await getCurrentUser();

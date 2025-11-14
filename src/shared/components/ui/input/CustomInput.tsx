@@ -34,7 +34,7 @@ export const CustomInput = ({
         {...props}
       />
       {errorMessage && (
-        <p id={errorId} className="text-sm text-red-600">
+        <p id={errorId} className="text-xs text-red-600">
           {errorMessage}
         </p>
       )}

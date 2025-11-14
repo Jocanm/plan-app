@@ -9,12 +9,8 @@ export const InlineProjectForm = () => {
   const t = useTranslations("project.form");
   const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
 
-  const { formMethods, isLoading, handleSubmit } = useInlineProjectForm();
-
-  const {
-    register,
-    formState: { errors },
-  } = formMethods;
+  const { formMethods, isLoading, handleSubmit, getTranslatedError } =
+    useInlineProjectForm();
 
   return (
     <form data-testid="sidebar-inline-project-form" onSubmit={handleSubmit}>
@@ -22,8 +18,8 @@ export const InlineProjectForm = () => {
         autoFocus
         showBaseLoader={isLoading}
         placeholder={t("placeholder_name")}
-        errorMessage={errors.name?.message}
-        {...register("name", {
+        errorMessage={getTranslatedError("name")}
+        {...formMethods.register("name", {
           disabled: isLoading,
           onBlur: () => setShowInlineForm(false),
         })}
