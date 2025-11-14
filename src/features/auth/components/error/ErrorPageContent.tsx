@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
-import { Main } from "@/shared/components/ui/main/Main";
+import { Main } from "@/shared/components/layout/main/Main";
 import { AlertTriangleIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { use } from "react";

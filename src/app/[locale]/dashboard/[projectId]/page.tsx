@@ -3,7 +3,7 @@ import { getProjectDetails } from "@/features/projects/app/actions/projects.acti
 import { ProjectHeader } from "@/features/projects/components/ProjectHeader";
 import { NoTasks } from "@/features/projects/components/tasks/NoTasks";
 import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";
-import { Main } from "@/shared/components/ui/main/Main";
+import { Main } from "@/shared/components/layout/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { cache } from "react";

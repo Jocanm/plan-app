@@ -1,6 +1,6 @@
-import { Main } from "@/shared/components/ui/main/Main";
-import { Sidebar } from "@/shared/components/ui/sidebar/Sidebar";
-import { SideCalendar } from "../../../shared/components/ui/calendar/sideCalendar/SideCalendar";
+import { Main } from "@/shared/components/layout/main/Main";
+import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
+import { SideCalendar } from "../../../shared/components/layout/calendar/sideCalendar/SideCalendar";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (

@@ -5,7 +5,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { LogOut } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
-import { BaseLoader } from "../loaders/BaseLoader";
+import { BaseLoader } from "../../ui/loaders/BaseLoader";
 
 export const LogoutButton = () => {
   const locale = useLocale();

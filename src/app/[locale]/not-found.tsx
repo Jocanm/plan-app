@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
 import { useTranslations } from "next-intl";
-import { Main } from "../../shared/components/ui/main/Main";
+import { Main } from "../../shared/components/layout/main/Main";
 
 const NotFound = () => {
   const t = useTranslations("not_found");

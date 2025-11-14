@@ -1,8 +1,8 @@
 import { LoginForm } from "@/features/auth/components/login/LoginForm";
 import { FeatureList } from "@/features/auth/components/login/hero/FeatureList";
 import { LoginHero } from "@/features/auth/components/login/hero/LoginHero";
+import { Main } from "@/shared/components/layout/main/Main";
 import { GradientMesh } from "@/shared/components/ui/backgrounds/GradientMesh";
-import { Main } from "@/shared/components/ui/main/Main";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";

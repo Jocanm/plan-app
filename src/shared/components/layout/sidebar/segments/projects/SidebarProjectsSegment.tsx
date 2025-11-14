@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { Button } from "../../../Button";
+import { Button } from "../../../../ui/Button";
 import { SegmentSuspense } from "../SegmentSuspense";
 import { SidebarProjectsList } from "./SidebarProjectsList";
 
