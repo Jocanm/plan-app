@@ -22,6 +22,11 @@
       "title": "{projectName} - Plan App",
       "not_found_title": "Proyecto no encontrado - Plan App",
       "description": "Visualiza y gestiona las tareas y detalles de tu proyecto en Plan App."
+    },
+    "form": {
+      "placeholder_name": "Ej., Campaña de marketing",
+      "validation_required": "Nombre es obligatorio.",
+      "validation_max_length": "Nombre no puede exceder los 50 caracteres."
     }
   },
 

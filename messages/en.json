@@ -21,6 +21,11 @@
       "title": "{projectName} - Plan App",
       "not_found_title": "Project Not Found - Plan App",
       "description": "View and manage your project tasks and details in Plan App."
+    },
+    "form": {
+      "placeholder_name": "e.g., Marketing Campaign",
+      "validation_required": "Name is required.",
+      "validation_max_length": "Name cannot exceed 50 characters."
     }
   },
   "design_system": {

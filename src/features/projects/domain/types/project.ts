@@ -16,6 +16,7 @@ export type ProjectDetail = Project & {
 export type ProjectSidebar = Pick<Project, "id" | "name" | "color">;
 
 export type CreateProjectInput = {
+  id?: string;
   name: string;
   userId: string;
   color?: string;

@@ -5,9 +5,9 @@ export const buildCreateProjectData = (
   input: CreateProjectInput
 ): CreateProjectData => {
   return {
-    id: crypto.randomUUID(),
     name: input.name,
     userId: input.userId,
+    id: input.id ?? crypto.randomUUID(),
     color: input.color ?? getDefaultProjectColor(),
   };
 };

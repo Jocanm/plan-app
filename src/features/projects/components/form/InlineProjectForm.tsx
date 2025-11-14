@@ -2,9 +2,11 @@
 
 import { CustomInput } from "@/shared/components/ui/input/CustomInput";
 import { useSidebarStore } from "@/shared/stores/useSidebarStore";
+import { useTranslations } from "next-intl";
 import { useInlineProjectForm } from "../../app/hooks/useInlineProjectForm";
 
 export const InlineProjectForm = () => {
+  const t = useTranslations("project.form");
   const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
 
   const { formMethods, isLoading, handleSubmit } = useInlineProjectForm();
@@ -19,7 +21,7 @@ export const InlineProjectForm = () => {
       <CustomInput
         autoFocus
         showBaseLoader={isLoading}
-        placeholder="Project Name"
+        placeholder={t("placeholder_name")}
         errorMessage={errors.name?.message}
         {...register("name", {
           disabled: isLoading,

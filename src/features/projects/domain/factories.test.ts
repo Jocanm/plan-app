@@ -28,6 +28,16 @@ describe("Projects - Factories", () => {
       expect(data.color).toBe("#fff");
     });
 
+    it("Should allow to provide custom id", () => {
+      const data = buildCreateProjectData({
+        name: "Project",
+        userId: "default-user",
+        id: "custom-project-id",
+      });
+
+      expect(data.id).toBe("custom-project-id");
+    });
+
     it("Should generate unique IDs", () => {
       const data1 = buildCreateProjectData({ name: "A", userId: "1" });
       const data2 = buildCreateProjectData({ name: "B", userId: "1" });
