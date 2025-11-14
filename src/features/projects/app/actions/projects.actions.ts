@@ -1,6 +1,6 @@
 "use server";
 
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife, cacheTag, updateTag } from "next/cache";
 import {
   createErrorResult,
   createSuccessResult,
@@ -15,12 +15,9 @@ import { projectsUseCases } from "../use-cases/projectsUseCases";
 
 export const getProjectsForSidebar = async (userId: string) => {
   "use cache";
-  cacheTag(`projects-${userId}`, "projects-sidebar");
-  cacheLife({
-    stale: 0,
-    revalidate: 60,
-    expire: 1800,
-  });
+  cacheTag(`projects-list-${userId}`);
+  cacheLife("minutes");
+
   return await projectsUseCases.getProjectsForSidebar({
     userId,
     repo: projectsRepository,
@@ -29,7 +26,7 @@ export const getProjectsForSidebar = async (userId: string) => {
 
 export const getProjectDetails = async (projectId: string, userId: string) => {
   "use cache";
-  cacheTag(`projects-${userId}`, `project-details-${projectId}`);
+  cacheTag(`project-${projectId}`);
   cacheLife("minutes");
 
   return await projectsUseCases.getProjectDetails({
@@ -70,5 +67,6 @@ export const createProject = async (data: {
     return createErrorResult(response.error.code, response.error.message);
   }
 
+  updateTag(`projects-list-${currentUser.id}`);
   return createSuccessResult(response.result);
 };

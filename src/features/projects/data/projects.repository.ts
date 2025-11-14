@@ -13,8 +13,6 @@ export const getProjectsForSidebar: IProjectRepository["getProjectsForSidebar"] 
       orderBy: { createdAt: "asc" },
     });
 
-    return [];
-
     return projects.map(el => ({
       id: el.id,
       name: el.name,
