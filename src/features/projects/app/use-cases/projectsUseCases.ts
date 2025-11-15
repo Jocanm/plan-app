@@ -5,7 +5,10 @@ import {
 import { buildCreateProjectData } from "../../domain/factories";
 import { CreateProjectInput } from "../../domain/types/project";
 import { IProjectRepository } from "../../domain/types/repository";
-import { CreateProjectResult } from "../../domain/types/results";
+import {
+  CountUserProjectsResult,
+  CreateProjectResult,
+} from "../../domain/types/results";
 
 interface ProjectUseCaseProps {
   repo: IProjectRepository;
@@ -52,8 +55,25 @@ const createProject = async ({
   }
 };
 
+interface CountUserProjectsProps extends ProjectUseCaseProps {
+  userId: string;
+}
+
+const countUserProjects = async ({
+  repo,
+  userId,
+}: CountUserProjectsProps): Promise<CountUserProjectsResult> => {
+  try {
+    const userProjectsCount = await repo.countByUser(userId);
+    return createSuccessResult(userProjectsCount);
+  } catch {
+    return createErrorResult("UNKNOWN_ERROR", "something went wrong");
+  }
+};
+
 export const projectsUseCases = {
   createProject,
+  countUserProjects,
   getProjectDetails,
   getProjectsForSidebar,
 };

@@ -58,4 +58,25 @@ describe("Projects Repository fake", () => {
 
     expect(results).toHaveLength(0);
   });
+
+  it("countByUser returns number of user projects", async () => {
+    const manager = FakeProjectsRepositoryManager.getInstance();
+    const repo = manager.getRepository();
+
+    await repo.createProject({
+      id: "projectId",
+      color: "#FFFF",
+      name: "new project",
+      userId: "default-user",
+    });
+    await repo.createProject({
+      id: "projectId",
+      color: "#FFFF",
+      name: "new project",
+      userId: "default-user",
+    });
+
+    const count = await repo.countByUser("default-user");
+    expect(count).toBe(2);
+  });
 });

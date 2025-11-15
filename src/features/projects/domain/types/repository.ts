@@ -14,4 +14,5 @@ export interface IProjectRepository {
   ) => Promise<ProjectDetail | null>;
 
   createProject: (data: CreateProjectData) => Promise<Project>;
+  countByUser: (userId: string) => Promise<number>;
 }

@@ -15,10 +15,14 @@ export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
       <div className="flex items-center gap-4">
         <div
           aria-hidden="true"
-          className="rounded-full h-3 w-3"
+          className="rounded-full h-3 w-3 shrink-0"
           style={{ backgroundColor: project.color }}
         />
-        <h1 className="text-2xl font-bold leading-tight tracking-tight">
+        <h1
+          title={project.name}
+          data-testid="project-header-title"
+          className="text-2xl font-bold leading-tight tracking-tight"
+        >
           {project.name}
         </h1>
       </div>

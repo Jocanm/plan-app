@@ -1,6 +1,7 @@
 import { repositoryConfig } from "@/lib/config/repositories";
 import { IProjectRepository } from "../domain/types/repository";
 import {
+  countByUser,
   createProject,
   getProjectDetails,
   getProjectsForSidebar,
@@ -15,6 +16,7 @@ const createProjectsRepository = (
   }
 
   return {
+    countByUser,
     createProject,
     getProjectDetails,
     getProjectsForSidebar,

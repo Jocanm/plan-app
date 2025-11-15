@@ -16,6 +16,7 @@ export const SidebarCreateProjectCta = () => {
       aria-label={t("add_project")}
       className="text-muted-foreground"
       onClick={() => setShowInlineForm(true)}
+      data-testid="sidebar-create-project-cta"
     >
       <Plus size={16} aria-hidden="true" />
     </Button>

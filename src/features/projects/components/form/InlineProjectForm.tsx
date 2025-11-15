@@ -18,6 +18,7 @@ export const InlineProjectForm = () => {
         autoFocus
         showBaseLoader={isLoading}
         placeholder={t("placeholder_name")}
+        data-testid="create-project-inline-input"
         errorMessage={getTranslatedError("name")}
         {...formMethods.register("name", {
           disabled: isLoading,

@@ -137,4 +137,17 @@ describe("Projects - use cases", () => {
       expect(result.result).toBeUndefined();
     });
   });
+
+  describe("Count projects", () => {
+    it("countUserProjects returns count from repository", async () => {
+      const repo = repoManager
+        .seed([{ userId: "1" }, { userId: "1" }, { userId: "2" }])
+        .getRepository();
+      const response = await projectsUseCases.countUserProjects({
+        repo,
+        userId: "1",
+      });
+      expect(response.result).toBe(2);
+    });
+  });
 });

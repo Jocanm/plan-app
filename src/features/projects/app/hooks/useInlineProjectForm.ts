@@ -40,8 +40,7 @@ export const useInlineProjectForm = () => {
 
   const getTranslatedError = (field: keyof CreateProjectSchema) => {
     const errorMessage = formMethods.formState.errors[field]?.message;
-    if (!errorMessage) return undefined;
-    return translateError(errorMessage);
+    return errorMessage && translateError(errorMessage);
   };
 
   const handleErrors = (error: IError<CreateProjectActionErrorCode>) => {

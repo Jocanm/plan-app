@@ -1,6 +1,10 @@
 import { Project } from "../domain/types/project";
 import { IProjectRepository } from "../domain/types/repository";
 
+declare global {
+  var __fakeProjectsRepo: FakeProjectsRepositoryManager | undefined;
+}
+
 const DEFAULT_PROJECT = {
   name: "Test Project",
   color: "#000000",
@@ -17,17 +21,14 @@ const makeProject = (overrides: Partial<Project> = {}): Project => ({
 
 export class FakeProjectsRepositoryManager {
   private projects: Project[] = [];
-  private static instance: FakeProjectsRepositoryManager;
 
   private constructor() {}
 
-  static getInstance(): FakeProjectsRepositoryManager {
-    if (!FakeProjectsRepositoryManager.instance) {
-      FakeProjectsRepositoryManager.instance =
-        new FakeProjectsRepositoryManager();
+  static getInstance() {
+    if (!global.__fakeProjectsRepo) {
+      global.__fakeProjectsRepo = new FakeProjectsRepositoryManager();
     }
-
-    return FakeProjectsRepositoryManager.instance;
+    return global.__fakeProjectsRepo;
   }
 
   reset(): FakeProjectsRepositoryManager {
@@ -74,6 +75,11 @@ export class FakeProjectsRepositoryManager {
         const project = makeProject(data);
         this.addProject(project);
         return project;
+      },
+
+      countByUser: async userId => {
+        const userProjects = this.projects.filter(el => el.userId === userId);
+        return userProjects.length;
       },
     };
   }

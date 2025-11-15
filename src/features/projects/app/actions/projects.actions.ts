@@ -1,5 +1,7 @@
 "use server";
 
+import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
+import { applyCacheBehavior } from "@/shared/utils/applyCache";
 import { getFirstZodError } from "@/shared/utils/getFirstZodError";
 import {
   createErrorResult,
@@ -7,7 +9,6 @@ import {
   IResult,
 } from "@/shared/utils/resultPattern";
 import { cacheLife, cacheTag, updateTag } from "next/cache";
-import { getCurrentUser } from "../../../auth/app/actions/getCurrentUser";
 import { projectsRepository } from "../../data/projects.repository.factory";
 import { Project } from "../../domain/types/project";
 import { CreateProjectErrorCode } from "../../domain/types/results";
@@ -16,8 +17,10 @@ import { projectsUseCases } from "../use-cases/projectsUseCases";
 
 export const getProjectsForSidebar = async (userId: string) => {
   "use cache";
-  cacheTag(`projects-list-${userId}`);
-  cacheLife("minutes");
+  applyCacheBehavior({
+    profile: "minutes",
+    tags: [`projects-list-${userId}`],
+  });
 
   return await projectsUseCases.getProjectsForSidebar({
     userId,
@@ -45,7 +48,12 @@ export type CreateProjectActionErrorCode =
 export const createProject = async (data: {
   name: string;
   color?: string;
-}): Promise<IResult<Project, CreateProjectActionErrorCode>> => {
+}): Promise<
+  IResult<
+    { project: Project; isFirstProject: boolean },
+    CreateProjectActionErrorCode
+  >
+> => {
   const parsedData = createProjectSchema.safeParse(data);
   if (!parsedData.success) {
     const firstError = getFirstZodError(parsedData.error);
@@ -57,7 +65,7 @@ export const createProject = async (data: {
     return createErrorResult("UNAUTHORIZED", "You must be logged in");
   }
 
-  const response = await projectsUseCases.createProject({
+  const createProjectResponse = await projectsUseCases.createProject({
     repo: projectsRepository,
     data: {
       ...parsedData.data,
@@ -65,10 +73,28 @@ export const createProject = async (data: {
     },
   });
 
-  if (response.error) {
-    return createErrorResult(response.error.code, response.error.message);
+  const countProjectsResponse = await projectsUseCases.countUserProjects({
+    repo: projectsRepository,
+    userId: currentUser.id,
+  });
+
+  if (createProjectResponse.error) {
+    return createErrorResult(
+      createProjectResponse.error.code,
+      createProjectResponse.error.message
+    );
+  }
+
+  if (countProjectsResponse.error) {
+    return createErrorResult(
+      countProjectsResponse.error.code,
+      countProjectsResponse.error.message
+    );
   }
 
   updateTag(`projects-list-${currentUser.id}`);
-  return createSuccessResult(response.result);
+  return createSuccessResult({
+    project: createProjectResponse.result,
+    isFirstProject: countProjectsResponse.result === 1,
+  });
 };

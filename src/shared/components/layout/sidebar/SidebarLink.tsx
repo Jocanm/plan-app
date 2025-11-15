@@ -25,14 +25,21 @@ export const SidebarLink = ({
           className
         )}
       >
-        <div className="flex items-center gap-2 flex-1">{children}</div>
+        <div className="flex items-center gap-2 flex-1 min-w-0">{children}</div>
       </Link>
     </Suspense>
   );
 };
 
 const Label = ({ children }: { children: React.ReactNode }) => {
-  return <span className="font-medium">{children}</span>;
+  return (
+    <span
+      className="font-medium break-words line-clamp-2"
+      title={typeof children === "string" ? children : undefined}
+    >
+      {children}
+    </span>
+  );
 };
 
 const Icon = ({ children }: { children: React.ReactNode }) => {
@@ -42,7 +49,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
 const Color = ({ dot }: { dot: string }) => {
   return (
     <span
-      className="h-3 w-3 rounded-sm"
+      className="h-3 w-3 rounded-sm flex-shrink-0"
       aria-hidden="true"
       style={{
         backgroundColor: dot,

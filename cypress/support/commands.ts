@@ -7,7 +7,6 @@ declare global {
   namespace Cypress {
     interface Chainable {
       login(password: string): Chainable<void>;
-
       getByTestId(
         testId: string,
         options?: Partial<
@@ -17,6 +16,7 @@ declare global {
           Cypress.Shadow
         >
       ): Chainable<JQuery<HTMLElement>>;
+      resetRepos(): Chainable<void>
     }
   }
 }
@@ -29,5 +29,9 @@ Cypress.Commands.add("login", password => {
 Cypress.Commands.add("getByTestId", (testId, ...args) => {
   return cy.get(`[data-testid="${testId}"]`, ...args);
 });
+
+Cypress.Commands.add("resetRepos", () => {
+  cy.request("POST", "/api/test/fake/repo/reset")
+})
 
 export { };

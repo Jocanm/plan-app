@@ -44,3 +44,7 @@ export const createProject: IProjectRepository["createProject"] =
 
     return projectCreated;
   };
+
+export const countByUser: IProjectRepository["countByUser"] = async userId => {
+  return await prisma.project.count({ where: { userId } });
+};
