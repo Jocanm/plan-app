@@ -1,4 +1,7 @@
+import { useRouter } from "@/i18n/navigation";
+import { ROUTES } from "@/lib/config/constants";
 import { useSidebarStore } from "@/shared/stores/useSidebarStore";
+import { buildPath } from "@/shared/utils/buildPath";
 import { IError } from "@/shared/utils/resultPattern";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -14,6 +17,7 @@ import {
 } from "../schemas/createProject.schema";
 
 export const useInlineProjectForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
   const t = useTranslations("project.form.errors");
@@ -59,15 +63,21 @@ export const useInlineProjectForm = () => {
 
   const onSubmit = async (data: CreateProjectSchema) => {
     setIsLoading(true);
-    const response = await createProject(data);
+    const { result, error } = await createProject(data);
     setIsLoading(false);
-
-    if (response.error) {
-      handleErrors(response.error);
-    } else {
-      setShowInlineForm(false);
-      formMethods.reset();
+    if (error) {
+      return handleErrors(error);
     }
+
+    if (result.isFirstProject) {
+      const projectPath = buildPath(ROUTES.PROJECT, {
+        projectId: result.project.id,
+      });
+      router.push(projectPath);
+    }
+
+    setShowInlineForm(false);
+    formMethods.reset();
   };
 
   const handleSubmit = formMethods.handleSubmit(onSubmit);

@@ -21,6 +21,7 @@ const makeProject = (overrides: Partial<Project> = {}): Project => ({
 
 export class FakeProjectsRepositoryManager {
   private projects: Project[] = [];
+  public overrides: Partial<IProjectRepository> = {};
 
   private constructor() {}
 
@@ -33,6 +34,7 @@ export class FakeProjectsRepositoryManager {
 
   reset(): FakeProjectsRepositoryManager {
     this.projects = [];
+    this.overrides = {};
     return this;
   }
 
@@ -46,9 +48,21 @@ export class FakeProjectsRepositoryManager {
     return this;
   }
 
+  withOverride<K extends keyof IProjectRepository>(
+    method: K,
+    implementation: IProjectRepository[K]
+  ): FakeProjectsRepositoryManager {
+    this.overrides[method] = implementation;
+    return this;
+  }
+
   getRepository(): IProjectRepository {
     return {
       getProjectDetails: async (projectId, userId) => {
+        if (this.overrides.getProjectDetails) {
+          return this.overrides.getProjectDetails(projectId, userId);
+        }
+
         const project = this.projects.find(el => {
           return el.id === projectId && el.userId === userId;
         });
@@ -62,6 +76,10 @@ export class FakeProjectsRepositoryManager {
       },
 
       getProjectsForSidebar: async userId => {
+        if (this.overrides.getProjectsForSidebar) {
+          return this.overrides.getProjectsForSidebar(userId);
+        }
+
         const userProjects = this.projects.filter(el => el.userId === userId);
         return userProjects.map(el => ({
           id: el.id,
@@ -72,12 +90,20 @@ export class FakeProjectsRepositoryManager {
       },
 
       createProject: async data => {
+        if (this.overrides.createProject) {
+          return this.overrides.createProject(data);
+        }
+
         const project = makeProject(data);
         this.addProject(project);
         return project;
       },
 
       countByUser: async userId => {
+        if (this.overrides.countByUser) {
+          return this.overrides.countByUser(userId);
+        }
+
         const userProjects = this.projects.filter(el => el.userId === userId);
         return userProjects.length;
       },

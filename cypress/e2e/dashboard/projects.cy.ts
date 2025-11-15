@@ -25,8 +25,8 @@ describe("Projects flow test", () => {
       .contains("My first project");
   });
 
-  it.only("When user creates a first project, it should be redirected to the new project page", () => {
-    // createFirstProject("My first project");
+  it("When user creates a first project, it should be redirected to the new project page", () => {
+    createFirstProject("My first project");
     cy.getByTestId("project-header-title")
       .should("have.prop", "tagName", "H1")
       .should("contain.text", "My first project");

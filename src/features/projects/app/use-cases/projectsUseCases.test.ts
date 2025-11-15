@@ -118,12 +118,11 @@ describe("Projects - use cases", () => {
     });
 
     it("retorna error cuando el repositorio falla", async () => {
-      const repo = {
-        ...repoManager.getRepository(),
-        createProject: async () => {
-          throw new Error("Database error");
-        },
-      };
+      const repo = repoManager
+        .withOverride("createProject", () => {
+          throw new Error("DB error");
+        })
+        .getRepository();
 
       const result = await projectsUseCases.createProject({
         repo,
@@ -148,6 +147,22 @@ describe("Projects - use cases", () => {
         userId: "1",
       });
       expect(response.result).toBe(2);
+    });
+
+    it("Should handle unexpected error", async () => {
+      const repo = repoManager
+        .withOverride("countByUser", () => {
+          throw new Error("DB error");
+        })
+        .getRepository();
+
+      const response = await projectsUseCases.countUserProjects({
+        repo,
+        userId: "default-user",
+      });
+
+      expect(response.error).not.toBeUndefined();
+      expect(response.error?.code).toBe("UNKNOWN_ERROR");
     });
   });
 });

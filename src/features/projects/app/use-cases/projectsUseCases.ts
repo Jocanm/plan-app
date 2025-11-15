@@ -51,7 +51,10 @@ const createProject = async ({
     const project = await repo.createProject(projectData);
     return createSuccessResult(project);
   } catch {
-    return createErrorResult("UNKNOWN_ERROR", "something went wrong");
+    return createErrorResult(
+      "UNKNOWN_ERROR",
+      "something went wrong creating project"
+    );
   }
 };
 
@@ -67,7 +70,10 @@ const countUserProjects = async ({
     const userProjectsCount = await repo.countByUser(userId);
     return createSuccessResult(userProjectsCount);
   } catch {
-    return createErrorResult("UNKNOWN_ERROR", "something went wrong");
+    return createErrorResult(
+      "UNKNOWN_ERROR",
+      "something went wrong counting projects"
+    );
   }
 };
 
