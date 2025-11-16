@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { FakeProjectsRepositoryManager } from "../../data/projects.repository.fake";
 import { DEFAULT_PROJECT_COLOR } from "../../domain/constants";
 import { Project } from "../../domain/types/project";
@@ -11,6 +11,10 @@ describe("Projects - use cases", () => {
     repoManager.reset();
   });
 
+  afterAll(() => {
+    repoManager.reset();
+  });
+
   describe("Get projects for sidebar", () => {
     it("returns only projects for the specified user", async () => {
       const repo = repoManager
@@ -20,13 +24,13 @@ describe("Projects - use cases", () => {
         ])
         .getRepository();
 
-      const result = await projectsUseCases.getProjectsForSidebar({
+      const { result } = await projectsUseCases.getProjectsForSidebar({
         repo,
         userId: "user-1",
       });
 
       expect(result).toHaveLength(1);
-      expect(result[0].name).toBe("Work");
+      expect(result?.[0].name).toBe("Work");
     });
 
     it("returns correct shape with totalPendingTasks", async () => {
@@ -34,17 +38,34 @@ describe("Projects - use cases", () => {
         .seed([{ name: "Work", color: "#FF0000" }])
         .getRepository();
 
-      const result = await projectsUseCases.getProjectsForSidebar({
+      const { result } = await projectsUseCases.getProjectsForSidebar({
         repo,
         userId: "default-user",
       });
 
-      expect(result[0]).toEqual({
+      expect(result?.[0]).toEqual({
         name: "Work",
         color: "#FF0000",
         totalPendingTasks: 0,
         id: expect.any(String),
       });
+    });
+
+    it("Should handle unexpected errors", async () => {
+      const repo = repoManager
+        .seed([{ name: "work" }])
+        .withOverride("getProjectsForSidebar", () => {
+          throw new Error();
+        })
+        .getRepository();
+
+      const { error } = await projectsUseCases.getProjectsForSidebar({
+        repo,
+        userId: "default-user",
+      });
+
+      expect(error).not.toBeUndefined();
+      expect(error?.code).toBe("UNKNOWN_ERROR");
     });
   });
 
@@ -60,7 +81,7 @@ describe("Projects - use cases", () => {
       };
       const repo = repoManager.seed([mockProject]).getRepository();
 
-      const result = await projectsUseCases.getProjectDetails({
+      const { result } = await projectsUseCases.getProjectDetails({
         repo,
         userId,
         projectId,
@@ -77,6 +98,24 @@ describe("Projects - use cases", () => {
       const result = await repo.getProjectDetails(projectId, "other-user-id");
 
       expect(result).toBeNull();
+    });
+
+    it("Should handle unexpected errors", async () => {
+      const repo = repoManager
+        .withOverride("getProjectDetails", () => {
+          throw new Error();
+        })
+        .seed([{ name: "work", id: "default-project" }])
+        .getRepository();
+
+      const { error } = await projectsUseCases.getProjectDetails({
+        repo,
+        userId: "default-user",
+        projectId: "default-project",
+      });
+
+      expect(error).not.toBeUndefined();
+      expect(error?.code).toBe("UNKNOWN_ERROR");
     });
   });
 

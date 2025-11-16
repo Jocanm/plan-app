@@ -8,6 +8,8 @@ import { IProjectRepository } from "../../domain/types/repository";
 import {
   CountUserProjectsResult,
   CreateProjectResult,
+  GetProjectDetailsResult,
+  GetProjectsForSidebarResult,
 } from "../../domain/types/results";
 
 interface ProjectUseCaseProps {
@@ -21,8 +23,16 @@ interface GetProjectsForSidebarProps extends ProjectUseCaseProps {
 const getProjectsForSidebar = async ({
   repo,
   userId,
-}: GetProjectsForSidebarProps) => {
-  return await repo.getProjectsForSidebar(userId);
+}: GetProjectsForSidebarProps): Promise<GetProjectsForSidebarResult> => {
+  try {
+    const projects = await repo.getProjectsForSidebar(userId);
+    return createSuccessResult(projects);
+  } catch {
+    return createErrorResult(
+      "UNKNOWN_ERROR",
+      "something went wrong getting sidebar projects"
+    );
+  }
 };
 
 interface GetProjectDetailsProps extends ProjectUseCaseProps {
@@ -34,8 +44,16 @@ const getProjectDetails = async ({
   repo,
   userId,
   projectId,
-}: GetProjectDetailsProps) => {
-  return await repo.getProjectDetails(projectId, userId);
+}: GetProjectDetailsProps): Promise<GetProjectDetailsResult> => {
+  try {
+    const project = await repo.getProjectDetails(projectId, userId);
+    return createSuccessResult(project);
+  } catch {
+    return createErrorResult(
+      "UNKNOWN_ERROR",
+      "something went wrong getting project details"
+    );
+  }
 };
 
 interface CreateProjectProps extends ProjectUseCaseProps {

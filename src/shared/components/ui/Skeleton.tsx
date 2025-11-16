@@ -9,7 +9,7 @@ export const Skeleton = ({ className, ...props }: SkeletonProps) => {
     <div
       role="status"
       aria-hidden="true"
-      className={cn("animate-pulse rounded-md bg-muted/50", className)}
+      className={cn("animate-pulse rounded-md bg-muted", className)}
       {...props}
     />
   );

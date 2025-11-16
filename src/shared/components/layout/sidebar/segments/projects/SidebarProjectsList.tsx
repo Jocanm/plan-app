@@ -6,7 +6,13 @@ import { SidebarInlineProjectForm } from "./form/SidebarInlineProjectForm";
 
 export const SidebarProjectsList = async () => {
   const currentUser = await getCurrentUser();
-  const projects = await getProjectsForSidebar(currentUser.id);
+  const { result: projects, error } = await getProjectsForSidebar(
+    currentUser.id
+  );
+
+  if (error) {
+    return <div>Error loading projects</div>;
+  }
 
   if (projects.length === 0) {
     return <SidebarNoProjects />;

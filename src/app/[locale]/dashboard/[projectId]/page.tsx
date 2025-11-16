@@ -24,7 +24,7 @@ export const generateMetadata = async ({
     locale: locale as Locale,
     namespace: "project",
   });
-  const project = await getProject(projectId);
+  const { result: project } = await getProject(projectId);
 
   return {
     title: project
@@ -38,7 +38,11 @@ const ProjectPage = async ({
   params,
 }: PageProps<"/[locale]/dashboard/[projectId]">) => {
   const { projectId } = await params;
-  const projectDetails = await getProject(projectId);
+  const { result: projectDetails, error } = await getProject(projectId);
+
+  if (error) {
+    return <div>Error loading project details</div>;
+  }
 
   if (!projectDetails) {
     notFound();
