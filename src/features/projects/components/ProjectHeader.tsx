@@ -15,7 +15,7 @@ export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
       <div className="flex items-center gap-4">
         <div
           aria-hidden="true"
-          className="rounded-full h-3 w-3 shrink-0"
+          className="rounded-sm h-3 w-3 shrink-0"
           style={{ backgroundColor: project.color }}
         />
         <h1

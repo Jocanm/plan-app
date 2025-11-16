@@ -6,6 +6,7 @@ import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks"
 import { Main } from "@/shared/components/layout/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 import { cache } from "react";
 
 const getProject = cache(async (projectId: string) => {
@@ -39,7 +40,10 @@ const ProjectPage = async ({
   const { projectId } = await params;
   const projectDetails = await getProject(projectId);
 
-  if (!projectDetails) return null;
+  if (!projectDetails) {
+    notFound();
+  }
+
   const projectTasks = projectDetails.tasks;
 
   return (

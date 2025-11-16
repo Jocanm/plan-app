@@ -33,6 +33,14 @@
         "unauthorized": "You must be logged in",
         "unknown_error": "An unexpected error occurred"
       }
+    },
+    "not_found": {
+      "title": "Oops! Project not found",
+      "description": "This project doesn't exist or you don't have access to it. It might have been deleted or you may have followed an old link.",
+      "go_to_dashboard": "Go to Dashboard"
+    },
+    "loading": {
+      "loading_project": "Loading project details..."
     }
   },
   "design_system": {

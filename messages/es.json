@@ -34,6 +34,14 @@
         "unauthorized": "Debes iniciar sesión",
         "unknown_error": "Ocurrió un error inesperado"
       }
+    },
+    "not_found": {
+      "title": "¡Ups! Proyecto no encontrado",
+      "description": "Este proyecto no existe o no tienes acceso a él. Puede que haya sido eliminado o que hayas seguido un enlace antiguo.",
+      "go_to_dashboard": "Ir al Dashboard"
+    },
+    "loading": {
+      "loading_project": "Cargando detalles del proyecto..."
     }
   },
 
