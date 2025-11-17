@@ -21,6 +21,6 @@ export type CreateTaskData = {
   color: string;
   title: string;
   userId: string;
-  projectId: string;
+  projectId?: string;
   description?: string;
 };
