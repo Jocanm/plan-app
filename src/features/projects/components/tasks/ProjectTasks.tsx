@@ -1,4 +1,4 @@
-import { TaskCard } from "@/features/tasks/components/TaskCard";
+import { TaskCard } from "@/features/tasks/components/card/TaskCard";
 import { Task } from "@/features/tasks/domain/types/task";
 import { useTranslations } from "next-intl";
 
