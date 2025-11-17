@@ -163,5 +163,12 @@
       "title": "Cerrar sesión",
       "loading": "Cerrando sesión..."
     }
+  },
+  "task": {
+    "form": {
+      "placeholder": "Agregar nueva tarea...",
+      "aria_label": "Nombre de la nueva tarea",
+      "submit_aria_label": "Agregar tarea"
+    }
   }
 }

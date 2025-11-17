@@ -161,5 +161,12 @@
       "title": "Log Out",
       "loading": "Logging out..."
     }
+  },
+  "task": {
+    "form": {
+      "placeholder": "Add a new task...",
+      "aria_label": "New task name",
+      "submit_aria_label": "Add task"
+    }
   }
 }

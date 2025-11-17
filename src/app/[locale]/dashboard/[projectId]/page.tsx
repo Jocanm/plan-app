@@ -53,6 +53,8 @@ const ProjectPage = async ({
   return (
     <Main>
       <ProjectHeader project={projectDetails} />
+      <ProjectTasks tasks={projectTasks} />
+
       {projectTasks.length === 0 ? (
         <NoTasks />
       ) : (
