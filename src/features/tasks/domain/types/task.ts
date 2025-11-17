@@ -12,7 +12,7 @@ export type CreateTaskInput = {
   title: string;
   userId: string;
   color?: string;
-  projectId: string;
+  projectId?: string;
   description?: string;
 };
 

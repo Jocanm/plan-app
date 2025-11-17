@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_TASK_COLOR } from "./constants";
 import { buildCreateTaskData } from "./factories";
-import { CreateTaskInput } from "./types/task";
+import { CreateTaskData, CreateTaskInput } from "./types/task";
 
 describe("Task - factories", () => {
   describe("Build createTaskData", () => {
@@ -14,7 +14,7 @@ describe("Task - factories", () => {
 
       const data = buildCreateTaskData(input);
 
-      expect(data).toEqual({
+      expect(data).toEqual<CreateTaskData>({
         id: expect.any(String),
         color: DEFAULT_TASK_COLOR,
         title: "Task",
@@ -35,7 +35,7 @@ describe("Task - factories", () => {
 
       const data = buildCreateTaskData(input);
 
-      expect(data).toEqual({
+      expect(data).toEqual<CreateTaskData>({
         id: expect.any(String),
         color: "#FFF",
         title: "Task",
