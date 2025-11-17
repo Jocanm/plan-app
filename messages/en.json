@@ -7,7 +7,11 @@
     "skip_to_main_content": "Skip to main content",
     "logo_alt": "Plan App logo",
     "company_name": "Plan App Team",
-    "app_name": "Plan App"
+    "app_name": "Plan App",
+    "errors": {
+      "unknown_error": "An unexpected error occurred. Please try again.",
+      "validation_error": "There were validation errors. Please check your input."
+    }
   },
   "project": {
     "tasks_completed": "{completed} of {total, plural, =0 {# tasks} one {# task} other {# tasks}}",
@@ -160,6 +164,17 @@
     "logout": {
       "title": "Log Out",
       "loading": "Logging out..."
+    }
+  },
+  "task": {
+    "form": {
+      "placeholder": "Add a new task...",
+      "aria_label": "New task name",
+      "submit_aria_label": "Add task",
+      "validation": {
+        "name_required": "",
+        "name_too_long": "title cannot exceed {max} characters"
+      }
     }
   }
 }

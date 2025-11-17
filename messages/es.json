@@ -7,7 +7,11 @@
     "skip_to_main_content": "Saltar al contenido principal",
     "logo_alt": "Logotipo de Plan App",
     "company_name": "Equipo Plan App",
-    "app_name": "Plan App"
+    "app_name": "Plan App",
+    "errors": {
+      "unknown_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+      "validation_error": "Hubo errores de validación. Por favor, verifica los datos ingresados."
+    }
   },
 
   "project": {
@@ -162,6 +166,17 @@
     "logout": {
       "title": "Cerrar sesión",
       "loading": "Cerrando sesión..."
+    }
+  },
+  "task": {
+    "form": {
+      "placeholder": "Agregar nueva tarea...",
+      "aria_label": "Nombre de la nueva tarea",
+      "submit_aria_label": "Agregar tarea",
+      "validation": {
+        "name_required": "",
+        "name_too_long": "título no puede exceder los {max} caracteres"
+      }
     }
   }
 }
