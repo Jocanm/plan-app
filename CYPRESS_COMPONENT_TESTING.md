@@ -27,6 +27,7 @@
 **Recommendation:** ✅ **ADOPT** Cypress Component Testing
 
 **Key Benefits:**
+
 - ✅ Test React components with **real Server Actions** (no mocking!)
 - ✅ Use our **existing FakeRepos** for fast, deterministic tests
 - ✅ **5-10x faster** than E2E tests
@@ -35,6 +36,7 @@
 - ✅ Keep E2E suite focused on **critical user journeys only**
 
 **What Changes:**
+
 - E2E tests (Cypress) → Focus on critical multi-page flows only
 - Component tests (NEW) → Test UI + hooks + Server Actions integration
 - Unit tests (Vitest) → Keep for pure domain logic
@@ -107,21 +109,23 @@ cy.getByTestId('create-project-inline-input').type('Test Project{enter}')
 ### 2. **No Mock Hell**
 
 Current E2E approach:
+
 ```typescript
 // ❌ E2E Test - Slow, boots entire server
 beforeEach(() => {
-  cy.resetRepos()  // API call to reset DB
-  cy.login("password")  // Full auth flow
-})
+  cy.resetRepos(); // API call to reset DB
+  cy.login("password"); // Full auth flow
+});
 ```
 
 Component Testing approach:
+
 ```typescript
 // ✅ Component Test - Fast, direct control
 beforeEach(() => {
-  FakeProjectsRepositoryManager.getInstance().reset()  // Instant
+  FakeProjectsRepositoryManager.getInstance().reset(); // Instant
   // No server needed, no login needed for component tests
-})
+});
 ```
 
 ### 3. **Test What E2E Tests Can't**
@@ -147,22 +151,23 @@ E2E tests are too slow to test every edge case. Component tests let you:
 
 ### Current Strategy (Heavy E2E)
 
-| Test Type | Coverage | Speed | Example |
-|-----------|----------|-------|---------|
-| **E2E** | Full flows | 🐢 Slow | User creates project → sees it in list |
-| **Unit** | Pure logic | ⚡ Fast | `validateProjectName()` returns error for short names |
+| Test Type | Coverage   | Speed   | Example                                               |
+| --------- | ---------- | ------- | ----------------------------------------------------- |
+| **E2E**   | Full flows | 🐢 Slow | User creates project → sees it in list                |
+| **Unit**  | Pure logic | ⚡ Fast | `validateProjectName()` returns error for short names |
 
 **Gap:** No fast way to test **UI + Hooks + Server Actions** integration.
 
 ### Proposed Strategy (Balanced Pyramid)
 
-| Test Type | Coverage | Speed | Example |
-|-----------|----------|-------|---------|
-| **E2E** | Critical journeys | 🐢 Slow | OAuth login → create project → create task → complete |
-| **Component** 🆕 | UI integration | 🚀 Medium | `InlineProjectForm` validates, submits, closes on success |
-| **Unit** | Pure logic | ⚡ Fast | `validateProjectName()` returns error for short names |
+| Test Type        | Coverage          | Speed     | Example                                                   |
+| ---------------- | ----------------- | --------- | --------------------------------------------------------- |
+| **E2E**          | Critical journeys | 🐢 Slow   | OAuth login → create project → create task → complete     |
+| **Component** 🆕 | UI integration    | 🚀 Medium | `InlineProjectForm` validates, submits, closes on success |
+| **Unit**         | Pure logic        | ⚡ Fast   | `validateProjectName()` returns error for short names     |
 
 **Benefits:**
+
 - E2E suite stays small and focused (faster CI)
 - Component tests cover edge cases and integrations
 - Unit tests stay pure and fast
@@ -198,12 +203,12 @@ export default defineConfig({
   // NEW: Component Testing config
   component: {
     devServer: {
-      framework: 'next',
-      bundler: 'webpack',
+      framework: "next",
+      bundler: "webpack",
       // Cypress auto-detects Next.js webpack config - no manual config needed!
     },
-    specPattern: 'src/**/*.cy.{ts,tsx}',
-    supportFile: 'cypress/support/component.ts',
+    specPattern: "src/**/*.cy.{ts,tsx}",
+    supportFile: "cypress/support/component.ts",
   },
 });
 ```
@@ -214,19 +219,19 @@ export default defineConfig({
 
 ```typescript
 // Import existing commands (resetRepos, getByTestId, etc.)
-import './commands'
+import "./commands";
 
 // Import Cypress React mount
-import { mount } from 'cypress/react'
+import { mount } from "cypress/react";
 
 // Make mount available globally as cy.mount()
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add("mount", mount);
 
 // TypeScript support
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }
@@ -256,6 +261,7 @@ declare global {
 ### Step 5: Verify Setup
 
 Run:
+
 ```bash
 npm run test:component
 ```
@@ -626,6 +632,7 @@ describe('ProjectHeader', () => {
 5. ✅ Verify FakeRepo integration works
 
 **Success Criteria:**
+
 - Can run `npm run test:component`
 - Can mount a component
 - Can interact with it using Cypress commands
@@ -641,14 +648,18 @@ From `cypress/e2e/dashboard/projects.cy.ts`:
 
 ```typescript
 // ❌ Keep in E2E - Multi-page flow
-it("When user creates a first project, it should be redirected to the new project page")
+it(
+  "When user creates a first project, it should be redirected to the new project page"
+);
 
 // ✅ Move to Component Test
-it("New users should not have projects and should be able to create their first project")
+it(
+  "New users should not have projects and should be able to create their first project"
+);
 // → Becomes InlineProjectForm.cy.tsx test
 
 // ✅ Move to Component Test
-it("Users should be able to create multiple projects")
+it("Users should be able to create multiple projects");
 // → Becomes InlineProjectForm.cy.tsx test with multiple submissions
 ```
 
@@ -690,28 +701,28 @@ it("creates project", () => {
 
 ```typescript
 // Critical multi-page user journey
-describe('Complete Project Workflow', () => {
-  it('user creates project, adds task, completes task', () => {
-    cy.login('password')
+describe("Complete Project Workflow", () => {
+  it("user creates project, adds task, completes task", () => {
+    cy.login("password");
     // Create project (full page)
-    cy.visit('/')
-    cy.getByTestId('sidebar-create-first-project-cta').click()
-    cy.getByTestId('create-project-inline-input').type('Work{enter}')
+    cy.visit("/");
+    cy.getByTestId("sidebar-create-first-project-cta").click();
+    cy.getByTestId("create-project-inline-input").type("Work{enter}");
     // Navigate to project (routing)
-    cy.getByTestId('sidebar-project-item-Work').click()
-    cy.url().should('include', '/projects/')
+    cy.getByTestId("sidebar-project-item-Work").click();
+    cy.url().should("include", "/projects/");
     // Create task (different component)
-    cy.getByTestId('create-task-btn').click()
+    cy.getByTestId("create-task-btn").click();
     // ... etc
-  })
-})
+  });
+});
 
 // OAuth flow
-describe('Authentication', () => {
-  it('logs in with Google OAuth', () => {
+describe("Authentication", () => {
+  it("logs in with Google OAuth", () => {
     // Full OAuth flow
-  })
-})
+  });
+});
 ```
 
 **Remove these E2E tests (now covered by Component tests):**
@@ -722,6 +733,7 @@ describe('Authentication', () => {
 - ❌ Error message display tests
 
 **Expected Results:**
+
 - E2E suite: 15 tests → 5 tests (critical journeys only)
 - Component suite: 0 tests → 30+ tests (comprehensive coverage)
 - Total test execution time: 5 minutes → 2 minutes
@@ -735,13 +747,13 @@ describe('Authentication', () => {
 ```typescript
 // ✅ GOOD - Real integration
 beforeEach(() => {
-  FakeProjectsRepositoryManager.getInstance().reset()
-})
+  FakeProjectsRepositoryManager.getInstance().reset();
+});
 
 // ❌ BAD - Mocking Server Actions
 beforeEach(() => {
-  cy.stub(createProject).resolves({ success: true })
-})
+  cy.stub(createProject).resolves({ success: true });
+});
 ```
 
 **Why?** FakeRepos are already tested, deterministic, and allow testing the entire integration stack.
@@ -762,11 +774,11 @@ cy.mount(<DashboardPage />)
 
 ```typescript
 // ✅ GOOD - Test what user sees/does
-cy.getByTestId('create-project-inline-input').type('Project{enter}')
-cy.getByTestId('sidebar-inline-project-form').should('not.exist')
+cy.getByTestId("create-project-inline-input").type("Project{enter}");
+cy.getByTestId("sidebar-inline-project-form").should("not.exist");
 
 // ❌ BAD - Test internal state
-cy.window().its('formState.isSubmitting').should('be.false')
+cy.window().its("formState.isSubmitting").should("be.false");
 ```
 
 ### 4. **Use Custom Commands**
@@ -814,24 +826,24 @@ it('shows translated error messages', () => {
 ### 7. **Group Related Tests**
 
 ```typescript
-describe('InlineProjectForm', () => {
-  describe('Validation', () => {
-    it('rejects short names', () => {})
-    it('rejects long names', () => {})
-    it('rejects special characters', () => {})
-  })
+describe("InlineProjectForm", () => {
+  describe("Validation", () => {
+    it("rejects short names", () => {});
+    it("rejects long names", () => {});
+    it("rejects special characters", () => {});
+  });
 
-  describe('Submission', () => {
-    it('creates project successfully', () => {})
-    it('shows loading state', () => {})
-    it('resets form after success', () => {})
-  })
+  describe("Submission", () => {
+    it("creates project successfully", () => {});
+    it("shows loading state", () => {});
+    it("resets form after success", () => {});
+  });
 
-  describe('Error Handling', () => {
-    it('handles server errors', () => {})
-    it('handles network errors', () => {})
-  })
-})
+  describe("Error Handling", () => {
+    it("handles server errors", () => {});
+    it("handles network errors", () => {});
+  });
+});
 ```
 
 ---
@@ -841,69 +853,76 @@ describe('InlineProjectForm', () => {
 ### What Component Tests CAN'T Test
 
 ❌ **Full page routing**
+
 ```typescript
 // Use E2E instead
-it('navigates to project page after creation', () => {
-  cy.visit('/')
-  cy.createProject('Test')
-  cy.url().should('include', '/projects/')
-})
+it("navigates to project page after creation", () => {
+  cy.visit("/");
+  cy.createProject("Test");
+  cy.url().should("include", "/projects/");
+});
 ```
 
 ❌ **Server-side redirects**
+
 ```typescript
 // Use E2E instead
-it('redirects unauthenticated users to login', () => {
-  cy.visit('/dashboard')
-  cy.url().should('include', '/login')
-})
+it("redirects unauthenticated users to login", () => {
+  cy.visit("/dashboard");
+  cy.url().should("include", "/login");
+});
 ```
 
 ❌ **OAuth flows**
+
 ```typescript
 // Use E2E instead
-it('logs in with Google', () => {
-  cy.visit('/login')
-  cy.get('[data-provider="google"]').click()
+it("logs in with Google", () => {
+  cy.visit("/login");
+  cy.get('[data-provider="google"]').click();
   // ... OAuth flow
-})
+});
 ```
 
 ❌ **Middleware / Route Protection**
+
 ```typescript
 // Use E2E instead - requires server
 ```
 
 ❌ **Next.js Layouts**
+
 ```typescript
 // Use E2E instead - layouts are server-rendered
 ```
 
 ### When to Use Each Test Type
 
-| Scenario | Test Type | Why |
-|----------|-----------|-----|
-| Form validation logic | **Component** | Fast, focused, covers edge cases |
-| Button click triggers function | **Component** | UI interaction + behavior |
-| Hook with Server Action | **Component** | Integration without full page |
-| Navigation between pages | **E2E** | Requires router + server |
-| OAuth login flow | **E2E** | Requires external provider |
-| Full user journey | **E2E** | End-to-end validation |
-| Pure validation function | **Unit (Vitest)** | No UI needed |
-| Repository method | **Unit (Vitest)** | Already covered |
-| Use case logic | **Unit (Vitest)** | Already covered |
+| Scenario                       | Test Type         | Why                              |
+| ------------------------------ | ----------------- | -------------------------------- |
+| Form validation logic          | **Component**     | Fast, focused, covers edge cases |
+| Button click triggers function | **Component**     | UI interaction + behavior        |
+| Hook with Server Action        | **Component**     | Integration without full page    |
+| Navigation between pages       | **E2E**           | Requires router + server         |
+| OAuth login flow               | **E2E**           | Requires external provider       |
+| Full user journey              | **E2E**           | End-to-end validation            |
+| Pure validation function       | **Unit (Vitest)** | No UI needed                     |
+| Repository method              | **Unit (Vitest)** | Already covered                  |
+| Use case logic                 | **Unit (Vitest)** | Already covered                  |
 
 ### Server Action Limitations
 
 Component tests run in the **browser context**, but Server Actions run on the **server**. This means:
 
 ✅ **Works:**
+
 - Testing Server Action calls (they execute)
 - Testing with FakeRepos (DI pattern works)
 - Testing success/error handling
 - Testing form submission flows
 
 ⚠️ **May need workarounds:**
+
 - Server Actions that require `getCurrentUser()` (auth context)
 - Server Actions that use Next.js cache (`revalidatePath`, `updateTag`)
 - Server Actions that access request headers
@@ -925,6 +944,7 @@ Component tests run in the **browser context**, but Server Actions run on the **
 ### Q: How do I test authentication?
 
 **A:** For component tests, you can:
+
 - Mock `getCurrentUser()` to return a user
 - Or test components that don't require auth
 - For full auth flows, use E2E tests
@@ -932,6 +952,7 @@ Component tests run in the **browser context**, but Server Actions run on the **
 ### Q: What about Next.js App Router features?
 
 **A:** Component tests focus on **components**, not routing. For testing:
+
 - Layouts → E2E tests
 - Middleware → E2E tests
 - Server Components → Component tests (mount the client portion)
@@ -940,19 +961,22 @@ Component tests run in the **browser context**, but Server Actions run on the **
 ### Q: Can I use Testing Library queries?
 
 **A:** Yes! Install `@testing-library/cypress`:
+
 ```bash
 npm install --save-dev @testing-library/cypress
 ```
 
 Then use Testing Library queries:
+
 ```typescript
-cy.findByRole('button', { name: 'Create' }).click()
-cy.findByLabelText('Project Name').type('Test')
+cy.findByRole("button", { name: "Create" }).click();
+cy.findByLabelText("Project Name").type("Test");
 ```
 
 ### Q: How do I debug failing tests?
 
 **A:** Cypress has excellent debugging:
+
 1. Open Cypress UI: `npm run test:component`
 2. Click on failing test
 3. Use time-travel to see each step
@@ -963,6 +987,7 @@ cy.findByLabelText('Project Name').type('Test')
 ### Q: Should I delete all E2E tests?
 
 **A:** No! Keep E2E tests for:
+
 - Critical user journeys
 - Multi-page flows
 - Authentication flows
@@ -973,6 +998,7 @@ Delete E2E tests that just test single components in isolation.
 ### Q: How do I test hooks?
 
 **A:** Create a test harness component:
+
 ```typescript
 function TestHarness() {
   const hook = useMyHook()
@@ -986,12 +1012,13 @@ cy.getByTestId('output').should('contain', 'expected value')
 ### Q: Can I intercept network requests?
 
 **A:** Yes, but you shouldn't need to! Use FakeRepos instead:
+
 ```typescript
 // ❌ Don't do this
-cy.intercept('POST', '/api/projects', { success: true })
+cy.intercept("POST", "/api/projects", { success: true });
 
 // ✅ Do this
-FakeProjectsRepositoryManager.getInstance().reset()
+FakeProjectsRepositoryManager.getInstance().reset();
 // Component uses real Server Action → Use Case → FakeRepo
 ```
 
@@ -1002,6 +1029,7 @@ FakeProjectsRepositoryManager.getInstance().reset()
 ### Q: How do I run tests in CI?
 
 **A:** Add to your CI pipeline:
+
 ```yaml
 - name: Run Component Tests
   run: npm run test:component:run
@@ -1067,6 +1095,7 @@ Cypress Component Testing is a **perfect fit** for our Clean Architecture approa
 **Recommendation:** Adopt component testing incrementally, starting with form components.
 
 **Expected ROI:**
+
 - Faster test suite (2x-5x improvement)
 - Better coverage (more edge cases tested)
 - Easier debugging (visual + time-travel)
