@@ -25,11 +25,23 @@ const LoadingProject = () => {
 
         {/* Tasks Section Skeleton */}
         <section className="mb-8">
+          {/* TaskInputCard skeleton */}
+          <div className="w-full p-4 rounded-2xl border border-border bg-card/50 shadow-sm border-l-[3px] border-l-muted">
+            <div className="flex items-center gap-3.5">
+              <div className="flex-1 relative">
+                <div className="bg-background/60 rounded-xl px-4 py-3 border border-border/40">
+                  <Skeleton className="h-6 w-full max-w-xs" />
+                </div>
+              </div>
+              <Skeleton className="shrink-0 h-11 w-11 rounded-xl" />
+            </div>
+          </div>
+
           {/* Tasks heading skeleton */}
-          <Skeleton className="h-7 w-32 mb-4" />
+          <Skeleton className="h-7 w-32 mt-4" />
 
           {/* Task cards skeletons */}
-          <ul className="space-y-4">
+          <ul className="space-y-4 mt-4">
             {[0, 1, 2, 3].map(index => (
               <li key={index}>
                 <div className="p-4 border bg-card rounded-lg w-full text-card-foreground border-l-4 border-l-muted flex items-start gap-4">

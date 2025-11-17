@@ -1,7 +1,7 @@
 import { Button } from "@/shared/components/ui";
-import { Input } from "@/shared/components/ui/input/Input";
 import { CirclePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { CustomInput } from "../../../../shared/components/ui/input/CustomInput";
 
 export const TaskInputCard = () => {
   const t = useTranslations("task.form");
@@ -14,7 +14,7 @@ export const TaskInputCard = () => {
             {t("aria_label")}
           </label>
           <div className="bg-background/60 rounded-xl px-4 py-3 border border-border/40 group-focus-within:border-primary/40 group-focus-within:bg-background transition-all">
-            <Input
+            <CustomInput
               id="new-task-input"
               placeholder={t("placeholder")}
               aria-label={t("aria_label")}

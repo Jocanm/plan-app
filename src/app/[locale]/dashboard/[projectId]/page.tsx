@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectDetails } from "@/features/projects/app/actions/projects.actions";
-import { ProjectHeader } from "@/features/projects/components/ProjectHeader";
+import { ProjectHeader } from "@/features/projects/components/header/ProjectHeader";
 import { NoTasks } from "@/features/projects/components/tasks/NoTasks";
 import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";
 import { Main } from "@/shared/components/layout/main/Main";
@@ -48,17 +48,13 @@ const ProjectPage = async ({
     notFound();
   }
 
-  const projectTasks = projectDetails.tasks;
-
   return (
     <Main>
       <ProjectHeader project={projectDetails} />
-      <ProjectTasks tasks={projectTasks} />
-
-      {projectTasks.length === 0 ? (
+      {projectDetails.tasks.length === 0 ? (
         <NoTasks />
       ) : (
-        <ProjectTasks tasks={projectTasks} />
+        <ProjectTasks tasks={projectDetails.tasks} />
       )}
     </Main>
   );
