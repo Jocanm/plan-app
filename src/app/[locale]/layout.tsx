@@ -1,5 +1,5 @@
 import { locales } from "@/features/i18n/domain/constants";
-import { SkipToMainContent } from "@/shared/components/ui/SkipToMainContent";
+import { SkipToMainContent } from "@/shared/components/custom/SkipToMainContent";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import type { Metadata, Viewport } from "next";
 import { Locale, NextIntlClientProvider } from "next-intl";

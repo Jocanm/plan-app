@@ -1,5 +1,5 @@
 import { Main } from "@/shared/components/layout/main/Main";
-import { Skeleton } from "@/shared/components/ui/Skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SKELETON_TASK_WIDTHS = ["w-2/3", "w-3/4", "w-1/2", "w-4/5"] as const;
 

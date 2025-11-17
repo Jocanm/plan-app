@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/shared/components/ui";
-import { CustomInput } from "@/shared/components/ui/input/CustomInput";
+import { Button } from "@/components/ui/button";
+import { CustomInput } from "@/shared/components/custom/CustomInput";
 import { useFormErrorTranslator } from "@/shared/hooks/useErrorTranslator";
 import { CirclePlus } from "lucide-react";
 import { useTranslations } from "next-intl";

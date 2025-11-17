@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/shared/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 import { LoginHeader } from "./LoginHeader";
 import { OauthForm } from "./oauth/OauthForm";
 import { SecurityBadge } from "./SecurityBadge";

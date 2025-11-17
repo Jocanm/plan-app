@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui";
 import { AlertTriangle } from "lucide-react";
 import { useEffect } from "react";
-import { Button } from "../shared/components/ui";
 
 export default function GlobalError({
   error,

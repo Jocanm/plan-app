@@ -1,4 +1,4 @@
-import { Checkbox } from "@/shared/components/ui/checkbox/Checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TaskCardProps {
   id: string;

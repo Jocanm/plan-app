@@ -551,7 +551,7 @@ mkdir -p shared/{ui,hooks,utils,types}
 ```typescript
 // ❌ Antes
 import { isLocaleValid } from "@/lib/validations/i18n";
-import { getPrimaryLanguage } from "@/lib/utils/i18n";
+import { getPrimaryLanguage } from "@/shared/utils/cn/i18n";
 import { locales } from "@/lib/constants/locale";
 import { getAuthRedirect } from "@/lib/validations/auth";
 import { Button } from "@/components/ui/Button";

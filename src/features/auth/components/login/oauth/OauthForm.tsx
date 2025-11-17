@@ -2,7 +2,7 @@
 
 import { signInAction } from "@/features/auth/app/actions/signIn";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
-import { Button, ButtonProps } from "@/shared/components/ui/Button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";

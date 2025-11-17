@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
 import { Main } from "@/shared/components/layout/main/Main";
-import { Button } from "@/shared/components/ui";
+import { Button } from "@/components/ui/button";
 import { FolderX } from "lucide-react";
 import { useTranslations } from "next-intl";
 

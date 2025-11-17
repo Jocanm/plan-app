@@ -1,6 +1,6 @@
 "use client";
 
-import { CustomInput } from "@/shared/components/ui/input/CustomInput";
+import { CustomInput } from "@/shared/components/custom/CustomInput";
 import { useSidebarStore } from "@/shared/stores/useSidebarStore";
 import { useTranslations } from "next-intl";
 import { useInlineProjectForm } from "../../app/hooks/useInlineProjectForm";

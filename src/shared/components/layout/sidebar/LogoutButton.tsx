@@ -1,11 +1,11 @@
 "use client";
 
 import { signOutAction } from "@/features/auth/app/actions/signOut";
-import { Button } from "@/shared/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
-import { BaseLoader } from "../../ui/loaders/BaseLoader";
+import { BaseLoader } from "../../custom/BaseLoader";
 
 export const LogoutButton = () => {
   const locale = useLocale();

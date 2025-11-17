@@ -3,7 +3,7 @@
 import { InlineProjectForm } from "@/features/projects/components/form/InlineProjectForm";
 import { useTranslations } from "next-intl";
 import { useSidebarStore } from "../../../../../stores/useSidebarStore";
-import { Button } from "../../../../ui/Button";
+import { Button } from "@/components/ui/button";
 
 export const SidebarNoProjects = () => {
   const t = useTranslations("sidebar");

@@ -1,8 +1,11 @@
 import { useId } from "react";
-import { BaseLoader } from "../loaders/BaseLoader";
-import { Input, InputProps } from "./Input";
+import { BaseLoader } from "./BaseLoader";
+import {
+  InputWithVariants,
+  type InputWithVariantsProps,
+} from "@/components/ui/input-with-variants";
 
-interface CustomInputProps extends InputProps {
+interface CustomInputProps extends InputWithVariantsProps {
   label?: string;
   errorMessage?: string;
   showBaseLoader?: boolean;
@@ -26,7 +29,7 @@ export const CustomInput = ({
           {label}
         </label>
       )}
-      <Input
+      <InputWithVariants
         id={inputId}
         aria-invalid={!!errorMessage}
         variant={errorMessage ? "error" : "default"}

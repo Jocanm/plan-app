@@ -24,6 +24,7 @@
 ### 🔍 Análisis de la Infraestructura Actual
 
 #### Tecnologías Base
+
 - **Framework**: Next.js 16.0.0 con App Router + Turbopack
 - **React**: v19.2.0
 - **TypeScript**: v5
@@ -34,6 +35,7 @@
 #### Sistema de Diseño Actual
 
 **Tokens CSS Variables** (`src/app/globals.css`):
+
 - ✅ Ya usa CSS variables con Tailwind 4
 - ✅ Ya tiene `@theme` directive para tokens personalizados
 - ✅ Sistema de colores completo con semántica shadcn-compatible:
@@ -45,6 +47,7 @@
 - ✅ Border radius tokens: `--radius-sm/md/lg/xl`
 
 **Componentes UI Existentes** (`src/shared/components/ui/`):
+
 ```
 src/shared/components/ui/
 ├── Button.tsx              ✅ Compatible shadcn (usa Radix Slot + cva)
@@ -64,10 +67,12 @@ src/shared/components/ui/
 ```
 
 **Utilidades**:
+
 - ✅ `src/shared/utils/cn.ts` ya existe (clsx + tailwind-merge)
 - ✅ Arquitectura limpia con separación features/shared
 
 #### Dependencias Radix UI Actuales
+
 ```json
 "@radix-ui/react-checkbox": "^1.3.3",
 "@radix-ui/react-slot": "^1.2.3"
@@ -75,14 +80,14 @@ src/shared/components/ui/
 
 ### 📊 Evaluación de Compatibilidad
 
-| Aspecto | Estado | Notas |
-|---------|--------|-------|
-| Tailwind CSS 4 | ✅ Instalado | Ya usando nueva sintaxis `@theme` |
-| CSS Variables | ✅ Listo | Nomenclatura compatible con shadcn |
-| Dark Mode | ✅ Funcional | Implementación clase-based compatible |
-| Componentes base | ⚠️ Parcial | Button y Card ya compatibles |
-| Path aliases | ✅ Configurados | `@/*`, `@/lib/*`, `@/shared/*` |
-| Testing setup | ✅ Completo | Vitest + RTL listo para componentes |
+| Aspecto          | Estado          | Notas                                 |
+| ---------------- | --------------- | ------------------------------------- |
+| Tailwind CSS 4   | ✅ Instalado    | Ya usando nueva sintaxis `@theme`     |
+| CSS Variables    | ✅ Listo        | Nomenclatura compatible con shadcn    |
+| Dark Mode        | ✅ Funcional    | Implementación clase-based compatible |
+| Componentes base | ⚠️ Parcial      | Button y Card ya compatibles          |
+| Path aliases     | ✅ Configurados | `@/*`, `@/lib/*`, `@/shared/*`        |
+| Testing setup    | ✅ Completo     | Vitest + RTL listo para componentes   |
 
 **Conclusión**: El proyecto está en excelente posición para adoptar shadcn/ui. La base de Tailwind 4 y la estructura de tokens ya está alineada. La migración será mayormente incremental.
 
@@ -116,29 +121,33 @@ src/shared/components/ui/
 #### Tareas:
 
 1. **Instalar shadcn/ui CLI**
+
    ```bash
    npm install -D shadcn@latest
    ```
 
 2. **Inicializar shadcn/ui**
+
    ```bash
    npx shadcn@latest init
    ```
 
    **Configuración recomendada**:
+
    ```
    ✔ Preflight and base styles? (recommended) … yes
    ✔ Where is your global CSS file? › src/app/globals.css
    ✔ Would you like to use CSS variables for theming? › yes
    ✔ Where is your tailwind.config located? › postcss.config.mjs
    ✔ Configure the import alias for components? › @/components
-   ✔ Configure the import alias for utils? › @/lib/utils
+   ✔ Configure the import alias for utils? › @/shared/utils/cn
    ✔ Write configuration to components.json? › yes
    ```
 
 3. **Crear `components.json`**
 
    El CLI lo creará automáticamente. Contenido esperado:
+
    ```json
    {
      "$schema": "https://ui.shadcn.com/schema.json",
@@ -153,12 +162,13 @@ src/shared/components/ui/
      },
      "aliases": {
        "components": "@/components",
-       "utils": "@/lib/utils"
+       "utils": "@/shared/utils/cn"
      }
    }
    ```
 
 4. **Crear `src/lib/utils.ts`** (shadcn convention)
+
    ```typescript
    import { clsx, type ClassValue } from "clsx";
    import { twMerge } from "tailwind-merge";
@@ -181,6 +191,7 @@ src/shared/components/ui/
    ```
 
 #### ✅ Criterios de Éxito:
+
 - [ ] `shadcn` CLI instalado
 - [ ] `components.json` creado y configurado
 - [ ] `src/lib/utils.ts` existe
@@ -221,6 +232,7 @@ npx shadcn@latest add tooltip
 #### 1.2 Verificar Instalación
 
 **Estructura esperada**:
+
 ```
 src/components/ui/
 ├── button.tsx
@@ -241,6 +253,7 @@ src/components/ui/
 #### 1.3 Ajustar Imports en `globals.css`
 
 **Verificar que `globals.css` mantenga**:
+
 ```css
 @import "tailwindcss";
 
@@ -254,6 +267,7 @@ src/components/ui/
 **⚠️ Advertencia**: shadcn puede intentar sobrescribir tokens. Revisar diff cuidadosamente.
 
 #### ✅ Criterios de Éxito:
+
 - [ ] Componentes shadcn instalados en `src/components/ui/`
 - [ ] Build exitoso sin errores TypeScript
 - [ ] Tokens CSS custom preservados
@@ -282,10 +296,11 @@ src/components/ui/
 import { cn } from "@/shared/utils/cn";
 
 // DESPUÉS (shadcn convention)
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/utils/cn";
 ```
 
 **Tests**: Verificar que todos los tests de Button pasen:
+
 ```bash
 npm run test -- Button
 ```
@@ -296,6 +311,7 @@ npm run test -- Button
 **Acción**: Tu Card actual es casi idéntico a shadcn. Comparar y adoptar versión shadcn si es mejor.
 
 **Tests**:
+
 ```bash
 npm run test -- Card
 ```
@@ -306,6 +322,7 @@ npm run test -- Card
 **Acción**: Reemplazar con `npx shadcn@latest add checkbox`
 
 **Proceso**:
+
 1. Identificar todos los usos de Checkbox actual
    ```bash
    grep -r "from.*checkbox.*Checkbox" src/
@@ -321,6 +338,7 @@ npm run test -- Card
 ##### **Componentes Custom** ✅ (Mantener)
 
 **NO migrar** (son únicos de tu app):
+
 - `SkipToMainContent.tsx` → Accesibilidad custom
 - `GradientMesh.tsx` → Background custom
 - `BaseLoader.tsx` → Loader custom
@@ -332,6 +350,7 @@ npm run test -- Card
 #### 2.3 Actualizar Index Exports
 
 **Crear `src/components/ui/index.ts`**:
+
 ```typescript
 // shadcn components
 export * from "./button";
@@ -350,6 +369,7 @@ export * from "./tooltip";
 ```
 
 **Mantener `src/shared/components/ui/index.ts`** para customs:
+
 ```typescript
 // Custom components (no shadcn)
 export * from "./SkipToMainContent";
@@ -360,6 +380,7 @@ export * from "./main/Main";
 ```
 
 #### ✅ Criterios de Éxito:
+
 - [ ] Todos los componentes migrados funcionan
 - [ ] Todos los tests pasan
 - [ ] No hay import errors
@@ -391,6 +412,7 @@ export * from "./main/Main";
 #### 3.3 Workflow de Iteración
 
 **Proceso recomendado**:
+
 ```
 1. Experimentar en tweakcn (visual, sin código)
 2. Cuando estés conforme, copiar CSS variables
@@ -402,6 +424,7 @@ export * from "./main/Main";
 #### 3.4 Crear Script de Sync (Opcional)
 
 **`scripts/sync-theme.sh`**:
+
 ```bash
 #!/bin/bash
 # Script para aplicar tema de tweakcn
@@ -414,6 +437,7 @@ echo "Si todo está bien, reemplaza manualmente en globals.css"
 ```
 
 #### ✅ Criterios de Éxito:
+
 - [ ] Puedes editar tema en tweakcn
 - [ ] Puedes exportar CSS desde tweakcn
 - [ ] CSS se aplica correctamente en tu app
@@ -429,6 +453,7 @@ echo "Si todo está bien, reemplaza manualmente en globals.css"
 #### 4.1 Consolidar Estructura de Carpetas
 
 **Estructura final recomendada**:
+
 ```
 src/
 ├── components/                    # shadcn/ui components
@@ -468,6 +493,7 @@ src/
 #### 4.2 Actualizar Path Aliases
 
 **`tsconfig.json`** (añadir si falta):
+
 ```json
 {
   "compilerOptions": {
@@ -485,6 +511,7 @@ src/
 #### 4.3 Refactor de Imports
 
 **Buscar y reemplazar** (cuidado, hazlo feature por feature):
+
 ```typescript
 // ANTES
 import { Button } from "@/shared/components/ui/Button";
@@ -494,6 +521,7 @@ import { Button } from "@/components/ui/button";
 ```
 
 **Script de ayuda**:
+
 ```bash
 # Encontrar todos los imports a actualizar
 grep -r "from.*@/shared/components/ui" src/features/
@@ -504,9 +532,10 @@ grep -r "from.*@/shared/components/ui" src/features/
 **Para componentes que quieras customizar globalmente**:
 
 **Ejemplo** (`src/shared/components/custom/CustomButton.tsx`):
+
 ```typescript
 import { Button as ShadcnButton, ButtonProps } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/utils/cn";
 
 export function CustomButton({ className, ...props }: ButtonProps) {
   return (
@@ -521,27 +550,32 @@ export function CustomButton({ className, ...props }: ButtonProps) {
 #### 4.5 Documentar Convenciones
 
 **Crear `docs/COMPONENTS.md`**:
+
 ```markdown
 # Convenciones de Componentes
 
 ## Cuándo usar qué
 
 ### `src/components/ui/` (shadcn)
+
 - Componentes de shadcn/ui
 - NO modificar directamente (se pueden regenerar)
 - Si necesitas customizar, crear wrapper
 
 ### `src/shared/components/custom/`
+
 - Componentes únicos de la aplicación
 - GradientMesh, Sidebar, etc.
 - Mantener con tests
 
 ### `src/features/*/components/`
+
 - Componentes específicos de feature
 - Pueden usar tanto shadcn como custom
 ```
 
 #### ✅ Criterios de Éxito:
+
 - [ ] Estructura de carpetas clara y documentada
 - [ ] Imports actualizados consistentemente
 - [ ] No hay imports rotos
@@ -555,37 +589,38 @@ export function CustomButton({ className, ...props }: ButtonProps) {
 
 ### 📋 Componentes Actuales → shadcn/ui
 
-| Componente Actual | Ubicación Actual | Acción | shadcn Equivalente | Notas |
-|-------------------|------------------|--------|-------------------|-------|
-| `Button.tsx` | `src/shared/components/ui/` | ✅ Reemplazar | `button` | Ya compatible, adoptar versión shadcn |
-| `Card.tsx` | `src/shared/components/ui/` | ✅ Reemplazar | `card` | Ya compatible, casi idéntico |
-| `Checkbox.tsx` | `src/shared/components/ui/checkbox/` | ⚠️ Migrar | `checkbox` | Reemplazar con shadcn |
-| `SkipToMainContent.tsx` | `src/shared/components/ui/` | 🔒 Mantener | N/A | Componente de accesibilidad custom |
-| `GradientMesh.tsx` | `src/shared/components/ui/backgrounds/` | 🔒 Mantener | N/A | Background custom único |
-| `BaseLoader.tsx` | `src/shared/components/ui/loaders/` | 🔒 Mantener | `skeleton` (opcional) | Loader custom, podría complementarse con skeleton |
-| `Main.tsx` | `src/shared/components/ui/main/` | 🔒 Mantener | N/A | Layout component |
-| `Sidebar/*` | `src/shared/components/ui/sidebar/` | 🔒 Mantener | N/A | Navegación compleja y específica |
-| `SideCalendar/*` | `src/shared/components/ui/calendar/` | 🤔 Evaluar | `calendar` | Comparar con shadcn calendar |
+| Componente Actual       | Ubicación Actual                        | Acción        | shadcn Equivalente    | Notas                                             |
+| ----------------------- | --------------------------------------- | ------------- | --------------------- | ------------------------------------------------- |
+| `Button.tsx`            | `src/shared/components/ui/`             | ✅ Reemplazar | `button`              | Ya compatible, adoptar versión shadcn             |
+| `Card.tsx`              | `src/shared/components/ui/`             | ✅ Reemplazar | `card`                | Ya compatible, casi idéntico                      |
+| `Checkbox.tsx`          | `src/shared/components/ui/checkbox/`    | ⚠️ Migrar     | `checkbox`            | Reemplazar con shadcn                             |
+| `SkipToMainContent.tsx` | `src/shared/components/ui/`             | 🔒 Mantener   | N/A                   | Componente de accesibilidad custom                |
+| `GradientMesh.tsx`      | `src/shared/components/ui/backgrounds/` | 🔒 Mantener   | N/A                   | Background custom único                           |
+| `BaseLoader.tsx`        | `src/shared/components/ui/loaders/`     | 🔒 Mantener   | `skeleton` (opcional) | Loader custom, podría complementarse con skeleton |
+| `Main.tsx`              | `src/shared/components/ui/main/`        | 🔒 Mantener   | N/A                   | Layout component                                  |
+| `Sidebar/*`             | `src/shared/components/ui/sidebar/`     | 🔒 Mantener   | N/A                   | Navegación compleja y específica                  |
+| `SideCalendar/*`        | `src/shared/components/ui/calendar/`    | 🤔 Evaluar    | `calendar`            | Comparar con shadcn calendar                      |
 
 ### 📦 Nuevos Componentes shadcn a Agregar
 
 **Componentes que no tienes pero podrías necesitar**:
 
-| Componente | Cuándo Usarlo | Prioridad |
-|------------|---------------|-----------|
-| `input` | Forms (crear tareas, proyectos) | 🔥 Alta |
-| `label` | Accesibilidad en forms | 🔥 Alta |
-| `dialog` | Modales (confirmar eliminación, etc.) | 🔥 Alta |
-| `dropdown-menu` | Menús contextuales | 🔥 Alta |
-| `toast` | Notificaciones (éxito, error) | 🔥 Alta |
-| `select` | Dropdowns de selección | 🟡 Media |
-| `popover` | Info adicional, tooltips | 🟡 Media |
-| `tabs` | Organizar contenido | 🟡 Media |
-| `accordion` | FAQs, listas colapsables | 🟢 Baja |
-| `avatar` | Perfil de usuario | 🟢 Baja |
-| `progress` | Barra de progreso de tareas | 🟢 Baja |
+| Componente      | Cuándo Usarlo                         | Prioridad |
+| --------------- | ------------------------------------- | --------- |
+| `input`         | Forms (crear tareas, proyectos)       | 🔥 Alta   |
+| `label`         | Accesibilidad en forms                | 🔥 Alta   |
+| `dialog`        | Modales (confirmar eliminación, etc.) | 🔥 Alta   |
+| `dropdown-menu` | Menús contextuales                    | 🔥 Alta   |
+| `toast`         | Notificaciones (éxito, error)         | 🔥 Alta   |
+| `select`        | Dropdowns de selección                | 🟡 Media  |
+| `popover`       | Info adicional, tooltips              | 🟡 Media  |
+| `tabs`          | Organizar contenido                   | 🟡 Media  |
+| `accordion`     | FAQs, listas colapsables              | 🟢 Baja   |
+| `avatar`        | Perfil de usuario                     | 🟢 Baja   |
+| `progress`      | Barra de progreso de tareas           | 🟢 Baja   |
 
 **Comando rápido para instalar prioritarios**:
+
 ```bash
 npx shadcn@latest add input label dialog dropdown-menu toast
 ```
@@ -597,6 +632,7 @@ npx shadcn@latest add input label dialog dropdown-menu toast
 ### 📂 Estructura Actual vs Propuesta
 
 #### ANTES (Actual)
+
 ```
 src/
 ├── shared/
@@ -620,6 +656,7 @@ src/
 ```
 
 #### DESPUÉS (Propuesta)
+
 ```
 src/
 ├── components/                     # 🆕 shadcn/ui exclusivo
@@ -671,6 +708,7 @@ src/
 ### 🔄 Script de Migración de Estructura
 
 **`scripts/migrate-structure.sh`**:
+
 ```bash
 #!/bin/bash
 
@@ -696,6 +734,7 @@ echo "✅ Estructura migrada. Revisar y actualizar imports manualmente."
 ```
 
 **⚠️ IMPORTANTE**: Este script es un punto de partida. Debes:
+
 1. Ejecutarlo en una rama separada
 2. Revisar cada cambio
 3. Actualizar imports manualmente feature por feature
@@ -712,15 +751,18 @@ echo "✅ Estructura migrada. Revisar y actualizar imports manualmente."
 **✅ Recomendación**: CSS Variables (ya lo tienes)
 
 **Pros**:
+
 - Runtime theming (cambiar tema sin rebuild)
 - Compatible con tweakcn
 - Mejor para dark mode
 - Más flexible
 
 **Contras**:
+
 - Ligeramente menos performante (negligible)
 
 **Implementación actual** (mantener):
+
 ```css
 @theme {
   --color-primary: hsl(239, 85%, 67%);
@@ -734,6 +776,7 @@ echo "✅ Estructura migrada. Revisar y actualizar imports manualmente."
 **✅ Recomendación**: Class-based (ya implementado)
 
 **Configuración actual** (mantener):
+
 ```css
 .dark {
   --color-background: hsl(235, 16%, 15%);
@@ -743,6 +786,7 @@ echo "✅ Estructura migrada. Revisar y actualizar imports manualmente."
 ```
 
 **Con next-themes** (ya instalado en `package.json`):
+
 ```typescript
 // app/providers.tsx
 import { ThemeProvider } from "next-themes";
@@ -761,16 +805,18 @@ export function Providers({ children }) {
 **✅ Recomendación**: Tokens CSS (ya los tienes)
 
 **Actual** (mantener y usar):
+
 ```css
---radius-sm: 0.25rem;   /* 4px */
---radius-md: 0.375rem;  /* 6px */
---radius-lg: 0.5rem;    /* 8px */
---radius-xl: 1rem;      /* 16px */
+--radius-sm: 0.25rem; /* 4px */
+--radius-md: 0.375rem; /* 6px */
+--radius-lg: 0.5rem; /* 8px */
+--radius-xl: 1rem; /* 16px */
 ```
 
 **Uso en componentes**:
+
 ```typescript
-className="rounded-[var(--radius-lg)]"
+className = "rounded-[var(--radius-lg)]";
 ```
 
 #### Decisión 4: Typography System
@@ -778,11 +824,13 @@ className="rounded-[var(--radius-lg)]"
 **🤔 Evaluar**: Crear escala tipográfica
 
 **Opción A**: Usar valores Tailwind default
+
 ```typescript
 <h1 className="text-4xl font-bold">
 ```
 
 **Opción B**: Crear tokens custom
+
 ```css
 @theme {
   --font-size-h1: 2.5rem;
@@ -801,6 +849,7 @@ className="rounded-[var(--radius-lg)]"
 #### Decisión 5: Style Preset
 
 **Opciones**:
+
 - `default` → Esquinas más redondeadas, sombras suaves
 - `new-york` → Esquinas menos redondeadas, más plano
 
@@ -809,6 +858,7 @@ className="rounded-[var(--radius-lg)]"
 **Razón**: Tu `--radius-lg: 0.5rem` (8px) se alinea mejor con new-york. Default usa radios más grandes.
 
 **Configuración** (`components.json`):
+
 ```json
 {
   "style": "new-york",
@@ -823,6 +873,7 @@ className="rounded-[var(--radius-lg)]"
 **Tu paleta actual**: Blues/purples (`hsl(239, 85%, 67%)`)
 
 **Opciones shadcn**:
+
 - `slate` → Neutros fríos (grisáceos)
 - `gray` → Neutros puros
 - `zinc` → Neutros cálidos
@@ -840,6 +891,7 @@ className="rounded-[var(--radius-lg)]"
 **✅ Recomendación**: Test solo tu uso, no shadcn
 
 **Enfoque**:
+
 ```typescript
 // ❌ NO testear shadcn internals
 test("button renders correctly", () => {
@@ -861,11 +913,13 @@ test("create project button disables while loading", () => {
 **🤔 Evaluar**: Agregar Storybook + Chromatic
 
 **Pros**:
+
 - Detecta cambios visuales automáticamente
 - Útil con tweakcn (ver impacto de cambios de tema)
 - Documentación visual de componentes
 
 **Contras**:
+
 - Setup adicional
 - Costo (Chromatic es de pago para privados)
 
@@ -878,12 +932,14 @@ test("create project button disables while loading", () => {
 #### Decisión 9: Actualizar Radix Primitives
 
 **Estado actual**:
+
 ```json
 "@radix-ui/react-checkbox": "^1.3.3",
 "@radix-ui/react-slot": "^1.2.3"
 ```
 
 **shadcn instalará más** (automáticamente):
+
 ```json
 "@radix-ui/react-dialog": "...",
 "@radix-ui/react-dropdown-menu": "...",
@@ -909,12 +965,14 @@ test("create project button disables while loading", () => {
 **Escenario**: Actualizar imports rompe componentes en producción
 
 **Mitigación**:
+
 1. ✅ **Migrar feature por feature** (no todo de golpe)
 2. ✅ **Tests automáticos** antes de cada merge
 3. ✅ **Branch separada** para toda la migración
 4. ✅ **Rollback plan**: Mantener backup de `ui-legacy/`
 
 **Checklist**:
+
 ```bash
 # Antes de mergear cada feature
 npm run test           # Tests unitarios
@@ -933,12 +991,14 @@ npm run typecheck      # Sin errores TS
 **Escenario**: shadcn sobrescribe tokens CSS en `globals.css`
 
 **Mitigación**:
+
 1. ✅ **Backup de `globals.css`** antes de `shadcn init`
 2. ✅ **Revisar diff** cuidadosamente después de cada `npx shadcn add`
 3. ✅ **Commit separado** para cada componente agregado
 4. ✅ **Git blame** para rastrear cambios
 
 **Workflow**:
+
 ```bash
 # Antes de agregar componente
 cp src/app/globals.css src/app/globals.backup.css
@@ -963,17 +1023,18 @@ git diff src/app/globals.css
 **Escenario**: tweakcn genera CSS que no funciona con tu setup
 
 **Mitigación**:
+
 1. ✅ **Testear en localhost primero** antes de commitear
 2. ✅ **Usar tweakcn como herramienta de exploración**, no source of truth
 3. ✅ **Validar dark mode** después de cada cambio de tema
 4. ✅ **Documentar tokens custom** que no deben cambiar
 
 **Tokens críticos a proteger**:
+
 ```css
 /* NO cambiar estos sin validar features */
---color-primary: ...        /* Usado en brand, CTA */
---color-background: ...     /* Layout base */
---color-danger: ...         /* Delete actions, alerts */
+--color-primary: ... /* Usado en brand, CTA */ --color-background: ...
+  /* Layout base */ --color-danger: ... /* Delete actions, alerts */;
 ```
 
 ---
@@ -986,12 +1047,14 @@ git diff src/app/globals.css
 **Escenario**: Versiones de Radix incompatibles entre custom y shadcn
 
 **Mitigación**:
+
 1. ✅ **Usar mismas versiones** que shadcn instala
 2. ✅ **No instalar Radix manualmente** (dejar a shadcn)
 3. ✅ **Revisar `package.json`** después de cada add
 4. ✅ **Lock file committed** (npm/pnpm)
 
 **Verificación**:
+
 ```bash
 # Ver qué versiones usa shadcn
 npm list @radix-ui/react-dialog
@@ -1010,12 +1073,14 @@ npm install @radix-ui/react-dialog@<version-shadcn>
 **Escenario**: shadcn components impactan performance
 
 **Mitigación**:
+
 1. ✅ **Lazy load** componentes pesados (Dialog, Calendar)
 2. ✅ **Medir antes y después** con Lighthouse
 3. ✅ **Tree-shaking** (Vite/Turbopack lo hace automáticamente)
 4. ✅ **Code splitting** por feature
 
 **Benchmark**:
+
 ```bash
 # Antes de migración
 npm run build
@@ -1039,12 +1104,14 @@ npm run build
 **Escenario**: Migración introduce problemas de a11y
 
 **Mitigación**:
+
 1. ✅ **shadcn usa Radix** (excelente a11y out-of-the-box)
 2. ✅ **Mantener componentes a11y custom** (SkipToMainContent)
 3. ✅ **Tests con axe-core** (opcional pero recomendado)
 4. ✅ **Manual testing** con screen reader
 
 **Validación**:
+
 ```bash
 # Instalar axe para Cypress (opcional)
 npm install -D @axe-core/cypress
@@ -1084,6 +1151,7 @@ cy.checkA11y();
 ### ✅ Fase 2: Migración de Componentes
 
 #### Button
+
 - [ ] Button de shadcn instalado
 - [ ] Button actual comparado con shadcn
 - [ ] Mejoras adoptadas (si aplica)
@@ -1092,6 +1160,7 @@ cy.checkA11y();
 - [ ] Features con Button verificadas
 
 #### Card
+
 - [ ] Card de shadcn instalado
 - [ ] Card actual comparado con shadcn
 - [ ] Imports actualizados
@@ -1099,6 +1168,7 @@ cy.checkA11y();
 - [ ] Features con Card verificadas
 
 #### Checkbox
+
 - [ ] Checkbox de shadcn instalado
 - [ ] Usos de Checkbox identificados (`grep -r`)
 - [ ] Imports actualizados uno por uno
@@ -1106,12 +1176,14 @@ cy.checkA11y();
 - [ ] Funcionalidad verificada en todas las features
 
 #### Componentes Custom
+
 - [ ] Componentes custom identificados
 - [ ] NO se intentó migrar (mantener)
 - [ ] Movidos a `src/shared/components/custom/` (opcional)
 - [ ] Imports actualizados si se movieron
 
 #### Validación General
+
 - [ ] Todos los tests pasan al 100%
 - [ ] No hay imports rotos
 - [ ] UI se ve igual (o mejor)
@@ -1135,35 +1207,41 @@ cy.checkA11y();
 ### ✅ Fase 4: Optimización
 
 #### Estructura de Carpetas
+
 - [ ] `src/components/ui/` solo contiene shadcn
 - [ ] `src/shared/components/custom/` contiene componentes custom
 - [ ] `src/shared/components/layouts/` contiene layouts
 - [ ] Estructura clara y lógica
 
 #### Path Aliases
+
 - [ ] `@/components/*` apunta a `src/components/`
 - [ ] `@/lib/*` apunta a `src/lib/`
 - [ ] Aliases actualizados en `tsconfig.json`
 
 #### Imports
+
 - [ ] Todos los imports de shadcn usan `@/components/ui/`
 - [ ] Todos los imports de custom usan `@/shared/components/custom/`
 - [ ] No hay imports con paths relativos innecesarios
 - [ ] Script de búsqueda de imports antiguos ejecutado
 
 #### Documentación
+
 - [ ] `docs/COMPONENTS.md` creado con convenciones
 - [ ] `SHADCN_MIGRATION_PLAN.md` completado y actualizado
 - [ ] README actualizado con nuevas convenciones
 - [ ] Comentarios en código actualizados si aplica
 
 #### Testing
+
 - [ ] Tests unitarios al 100%
 - [ ] Tests E2E críticos pasan
 - [ ] No hay tests flakey
 - [ ] Coverage mantenido o mejorado
 
 #### Build y Deploy
+
 - [ ] Build de producción exitoso
 - [ ] Bundle size aceptable (+15% máximo)
 - [ ] No hay warnings en consola
@@ -1274,6 +1352,7 @@ cy.checkA11y();
 Este plan de migración está diseñado para ser **incremental, seguro y reversible**. No hay prisa: mejor migrar lentamente y bien que rápido y romper cosas.
 
 **Filosofía clave**:
+
 - 🧪 **Testea constantemente**
 - 📸 **Commitea frecuentemente**
 - 🔄 **Valida después de cada paso**

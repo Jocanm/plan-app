@@ -3,7 +3,7 @@
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSidebarStore } from "../../../../../stores/useSidebarStore";
-import { Button } from "../../../../ui/Button";
+import { Button } from "@/components/ui/button";
 
 export const SidebarCreateProjectCta = () => {
   const t = useTranslations("sidebar.projects");
@@ -11,7 +11,7 @@ export const SidebarCreateProjectCta = () => {
 
   return (
     <Button
-      size="xs"
+      size="sm"
       variant="ghost"
       aria-label={t("add_project")}
       className="text-muted-foreground"

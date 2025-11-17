@@ -1,5 +1,5 @@
 import { Main } from "@/shared/components/layout/main/Main";
-import { Button } from "@/shared/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 

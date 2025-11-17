@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { Button } from "@/shared/components/ui";
+import { Button } from "@/components/ui/button";
 import { Loader2, LucideIcon, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 

@@ -10,7 +10,7 @@
  * TODO: Remove this file and its usage in layout.tsx when theme toggle is properly implemented
  */
 
-import { Button } from "@/shared/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";

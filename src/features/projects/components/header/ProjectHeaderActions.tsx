@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/ui";
+import { Button } from "@/components/ui/button";
 import { Archive, Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
 
