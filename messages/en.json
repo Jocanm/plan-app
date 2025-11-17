@@ -108,6 +108,22 @@
     }
   },
   "error": {
+    "title": "Oops! Something went wrong",
+    "description": "We encountered an unexpected error. Don't worry, it's not your fault! Try again or go back to your dashboard.",
+    "try_again": "Try Again",
+    "trying": "Trying...",
+    "go_to_dashboard": "Go to Dashboard",
+    "error_code": "Error Code",
+    "project": {
+      "title": "Couldn't load this project",
+      "description": "We encountered an error while loading this project. Try again or go back to your projects.",
+      "back_to_projects": "Back to Projects"
+    },
+    "inline": {
+      "title": "Something went wrong",
+      "description": "We couldn't load this content.",
+      "retry": "Retry"
+    },
     "go_to_login": "Go to Login",
     "errors": {
       "oauth_account_not_linked": {

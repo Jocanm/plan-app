@@ -110,6 +110,22 @@
     }
   },
   "error": {
+    "title": "¡Ups! Algo salió mal",
+    "description": "Encontramos un error inesperado. ¡No te preocupes, no es tu culpa! Intenta de nuevo o regresa a tu dashboard.",
+    "try_again": "Intentar de nuevo",
+    "trying": "Intentando...",
+    "go_to_dashboard": "Ir al Dashboard",
+    "error_code": "Código de error",
+    "project": {
+      "title": "No pudimos cargar este proyecto",
+      "description": "Encontramos un error al cargar este proyecto. Intenta de nuevo o regresa a tus proyectos.",
+      "back_to_projects": "Volver a Proyectos"
+    },
+    "inline": {
+      "title": "Algo salió mal",
+      "description": "No pudimos cargar este contenido.",
+      "retry": "Reintentar"
+    },
     "go_to_login": "Ir a inicio de sesión",
     "errors": {
       "oauth_account_not_linked": {

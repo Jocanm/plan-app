@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
 import { getProjectsForSidebar } from "@/features/projects/app/actions/projects.actions";
+import { InlineError } from "../../../../errors/InlineError";
 import { SidebarNoProjects } from "./SidebarNoProjects";
 import { SidebarProjectItem } from "./SidebarProjectItem";
 import { SidebarInlineProjectForm } from "./form/SidebarInlineProjectForm";
@@ -11,7 +12,7 @@ export const SidebarProjectsList = async () => {
   );
 
   if (error) {
-    return <div>Error loading projects</div>;
+    return <InlineError />;
   }
 
   if (projects.length === 0) {

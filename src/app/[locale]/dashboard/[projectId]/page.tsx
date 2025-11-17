@@ -41,7 +41,7 @@ const ProjectPage = async ({
   const { result: projectDetails, error } = await getProject(projectId);
 
   if (error) {
-    return <div>Error loading project details</div>;
+    throw new Error(error.message);
   }
 
   if (!projectDetails) {
