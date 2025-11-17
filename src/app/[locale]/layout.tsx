@@ -12,6 +12,7 @@ import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
+import { Toaster } from "sonner";
 import { ThemeSwitcher } from "../../shared/components/dev/ThemeSwitcher";
 import "../globals.css";
 
@@ -137,6 +138,7 @@ export default function LocaleLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster richColors position="bottom-right" />
             <ThemeSwitcher />
           </ThemeProvider>
         </NextIntlClientProvider>

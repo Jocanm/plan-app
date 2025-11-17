@@ -26,7 +26,7 @@ export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
         </div>
         <ProjectHeaderActions />
       </div>
-      <TaskInputCard />
+      <TaskInputCard projectId={project.id} />
     </div>
   );
 };

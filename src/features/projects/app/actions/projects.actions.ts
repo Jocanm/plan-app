@@ -1,6 +1,10 @@
 "use server";
 
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
+import {
+  UnauthorizedErrorCode,
+  ValidationErrorCode,
+} from "@/shared/types/results";
 import { applyCacheBehavior } from "@/shared/utils/applyCache";
 import { getFirstZodError } from "@/shared/utils/getFirstZodError";
 import {
@@ -8,7 +12,7 @@ import {
   createSuccessResult,
   IResult,
 } from "@/shared/utils/resultPattern";
-import { cacheLife, cacheTag, updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { projectsRepository } from "../../data/projects.repository.factory";
 import { Project } from "../../domain/types/project";
 import { CreateProjectErrorCode } from "../../domain/types/results";
@@ -30,8 +34,10 @@ export const getProjectsForSidebar = async (userId: string) => {
 
 export const getProjectDetails = async (projectId: string, userId: string) => {
   "use cache";
-  cacheTag(`project-${projectId}`);
-  cacheLife("minutes");
+  applyCacheBehavior({
+    profile: "minutes",
+    tags: [`project-${projectId}`],
+  });
 
   return await projectsUseCases.getProjectDetails({
     userId,
@@ -42,8 +48,8 @@ export const getProjectDetails = async (projectId: string, userId: string) => {
 
 export type CreateProjectActionErrorCode =
   | CreateProjectErrorCode
-  | "VALIDATION_ERROR"
-  | "UNAUTHORIZED";
+  | ValidationErrorCode
+  | UnauthorizedErrorCode;
 
 export const createProject = async (data: {
   name: string;
