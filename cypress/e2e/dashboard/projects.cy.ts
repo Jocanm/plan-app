@@ -38,9 +38,10 @@ describe("Projects flow test", () => {
 
     createFirstProject("Custom project");
 
+    cy.url().should("match", /\/dashboard\/[a-zA-Z0-9_-]+$/);
     cy.getByTestId("sidebar-create-project-cta").click();
     cy.getByTestId("create-project-inline-input").type(
-      "My second project {enter}"
+      "My second project{enter}"
     );
     cy.get('[data-testid^="sidebar-project-item"]').should("have.length", 2);
   });
