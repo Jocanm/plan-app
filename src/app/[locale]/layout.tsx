@@ -1,6 +1,7 @@
 import { locales } from "@/features/i18n/domain/constants";
 import { SkipToMainContent } from "@/shared/components/custom/SkipToMainContent";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Locale, NextIntlClientProvider } from "next-intl";
 import {
@@ -140,6 +141,7 @@ export default function LocaleLayout({
             {children}
             <Toaster richColors position="bottom-right" />
             <ThemeSwitcher />
+            <Analytics />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
