@@ -37,7 +37,7 @@ export const TaskInputCard = ({ projectId }: TaskInputCardProps) => {
               placeholder={t("placeholder")}
               aria-label={t("aria_label")}
               autoComplete="off"
-              className="border-0 shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-0 h-6 text-[15px]"
+              className="border-0 shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-0 h-6"
               disabled={isLoading}
               showBaseLoader={isLoading}
               errorMessage={translateError(errors.title?.message)}
