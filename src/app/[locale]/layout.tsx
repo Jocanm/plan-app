@@ -2,6 +2,7 @@ import { locales } from "@/features/i18n/domain/constants";
 import { SkipToMainContent } from "@/shared/components/custom/SkipToMainContent";
 import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Locale, NextIntlClientProvider } from "next-intl";
 import {
@@ -142,6 +143,7 @@ export default function LocaleLayout({
             <Toaster richColors position="bottom-right" />
             <ThemeSwitcher />
             <Analytics />
+            <SpeedInsights />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
