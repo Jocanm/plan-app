@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
 
 export const SideCalendar = () => {

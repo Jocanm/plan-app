@@ -237,3 +237,8 @@
 .dark {
   --grid-color: hsl(236, 11%, 30%);
 }
+
+/* ============================================
+  THIRD-PARTY LIBRARY OVERRIDES
+   ============================================ */
+@import "./calendar-overrides.css";

@@ -1,0 +1,175 @@
+@import "react-big-calendar/lib/css/react-big-calendar.css";
+
+.rbc-time-view {
+  border: none; /* Elimina el borde predeterminado */
+  box-shadow: none; /* Elimina cualquier sombra */
+}
+
+.rbc-events-container {
+  border-left: none;
+}
+
+/* 2. Main Backgrounds and Borders */
+.rbc-day-bg,
+.rbc-month-view,
+.rbc-agenda-view,
+.rbc-time-content, /* Incluido para vistas de hora */
+.rbc-time-gutter { /* Incluido para columna de horas */
+  background-color: var(--color-card); /* Usa tu color de superficie para tarjetas */
+  border-color: var(--color-border);
+}
+
+.rbc-time-gutter .rbc-timeslot-group {
+  border-bottom: 0;
+}
+
+/* 3. Toolbar (Navegación) */
+.rbc-toolbar {
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 0; /* Mayor espaciado */
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem; /* Ajuste para el texto principal */
+  background-color: var(--color-card); /* Aseguramos el fondo */
+  color: var(--color-foreground);
+  border-color: var(--color-border);
+}
+
+/* Estilo para el botón de 'Hoy' y los de navegación */
+.rbc-toolbar button {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  color: var(--color-foreground); /* Color de texto normal */
+}
+
+.rbc-toolbar button:hover {
+  background-color: var(--color-muted);
+  border-color: var(--color-primary); /* Resaltar al pasar el ratón */
+}
+
+.rbc-toolbar button.rbc-active {
+  /* Botón activo (vistas de mes/semana/día) */
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+}
+
+/* 4. Encabezados de Día (D, L, M, X...) y Títulos */
+.rbc-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: var(--color-card);
+}
+
+/* 5. Vistas de Mes y Día/Semana */
+.rbc-row-content {
+  color: var(--color-foreground);
+}
+
+.rbc-off-range-bg {
+  /* Días que no son del mes actual */
+  background-color: var(--color-muted);
+}
+
+.rbc-today {
+  /* El día de hoy */
+  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-background));
+}
+
+/* 6. Corrección de la Cuadrícula y Líneas de Tiempo */
+
+/* Columna de etiquetas de tiempo (las horas 12:00 AM, 1:00 PM...) */
+.rbc-time-gutter {
+  border-right: 1px solid var(--color-border);
+  padding-right: 0.5rem;
+}
+
+/* El texto de la hora en sí */
+.rbc-timeslot-group .rbc-label {
+  text-align: right;
+  padding-top: 0.5rem; 
+  font-size: 0.75rem;
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+/* Líneas divisorias horizontales (slots de tiempo) */
+.rbc-time-slot {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+/* Líneas divisorias verticales de la cuadrícula de días */
+.rbc-day-slot {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+/* Encabezado del día en la vista de hora (ej: "18 Tue") */
+.rbc-day-slot .rbc-time-header {
+    background-color: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-foreground);
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.rbc-day-slot .rbc-time-slot {
+    border-top: 0;
+}
+
+/* Arreglo para el espaciado del header de tiempo */
+.rbc-time-header-content .rbc-row:first-child {
+  min-height: 40px;
+}
+
+/* 7. Eventos (El corazón del calendario) */
+.rbc-event {
+  background-color: var(--color-primary); 
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-foreground);
+  padding: 0.25rem 0.5rem;
+  border: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+  /* Asegura que los eventos flotantes tengan un buen contraste */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.rbc-event:hover {
+  opacity: 0.85;
+}
+
+/* Estilos para el texto de eventos pequeños (Month View) */
+.rbc-event-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+}
+
+/* 8. Focus/Selección (Accesibilidad) */
+.rbc-toolbar button:focus,
+.rbc-toolbar button:active,
+.rbc-toolbar button:focus-visible,
+.rbc-event:focus,
+.rbc-event:active {
+  box-shadow: 0 0 0 2px var(--color-ring);
+  outline: none;
+}
+
+/* Opcional: Color de selección de texto */
+::selection {
+  background: var(--color-primary-hover);
+  color: var(--color-foreground);
+}
