@@ -9,6 +9,11 @@
   border-left: none;
 }
 
+.rbc-timeslot-group {
+  border-left: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
 /* 2. Main Backgrounds and Borders */
 .rbc-day-bg,
 .rbc-month-view,
@@ -17,6 +22,10 @@
 .rbc-time-gutter { /* Incluido para columna de horas */
   background-color: var(--color-card); /* Usa tu color de superficie para tarjetas */
   border-color: var(--color-border);
+}
+
+.rbc-time-content {
+  border-top: 0;
 }
 
 .rbc-time-gutter .rbc-timeslot-group {
@@ -79,7 +88,7 @@
 
 .rbc-today {
   /* El día de hoy */
-  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-background));
+  background-color: var(--color-card);
 }
 
 /* 6. Corrección de la Cuadrícula y Líneas de Tiempo */
@@ -128,11 +137,6 @@
     border-top: 0;
 }
 
-/* Arreglo para el espaciado del header de tiempo */
-.rbc-time-header-content .rbc-row:first-child {
-  min-height: 40px;
-}
-
 /* 7. Eventos (El corazón del calendario) */
 .rbc-event {
   background-color: var(--color-primary); 
@@ -158,6 +162,10 @@
   font-size: 0.875rem;
 }
 
+.rbc-day-slot .rbc-event-content {
+  line-height: unset;
+}
+
 /* 8. Focus/Selección (Accesibilidad) */
 .rbc-toolbar button:focus,
 .rbc-toolbar button:active,
@@ -173,3 +181,4 @@
   background: var(--color-primary-hover);
   color: var(--color-foreground);
 }
+

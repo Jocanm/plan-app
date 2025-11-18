@@ -2,6 +2,7 @@
 
 import { add, format, getDay, parse, startOfWeek } from "date-fns";
 import { enUS, es } from "date-fns/locale";
+import { useLocale } from "next-intl";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 
 const locales = {
@@ -18,28 +19,27 @@ const localizer = dateFnsLocalizer({
 });
 
 export const DayCalendar = () => {
+  const locale = useLocale();
+
   return (
-    <div style={{ height: "100%" }}>
+    <div className="h-full [&_.rbc-time-header]:hidden! py-5">
       <Calendar
         localizer={localizer}
-        events={[
-          {
-            start: new Date(),
-            end: add(new Date(), { hours: 1 }),
-            title: "Evento de ejemplo",
-          },
-        ]}
-        defaultView="day"
-        views={["day"]}
-        components={{
-          header: () => null,
-          toolbar: () => null,
-        }}
+        culture={locale}
+        events={[getEvent()]}
         formats={{
           timeGutterFormat: "h a",
         }}
-        style={{}}
+        views={["day"]}
+        defaultView="day"
+        toolbar={false}
       />
     </div>
   );
 };
+
+const getEvent = () => ({
+  start: new Date(),
+  end: add(new Date(), { hours: 1 }),
+  title: "Ejemplo",
+});
