@@ -2,16 +2,17 @@ import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
 import { Locale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import { use } from "react";
 import { SideCalendar } from "../../../shared/components/layout/calendar/sideCalendar/SideCalendar";
 
-const DashboardLayout = async ({
+const DashboardLayout = ({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) => {
-  const { locale } = await params;
+  const { locale } = use(params);
   setRequestLocale(locale as Locale);
 
   return (
