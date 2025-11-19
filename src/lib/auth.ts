@@ -3,6 +3,8 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { AuthEvents } from "@/features/auth/domain/events/catalog";
+import { logger } from "./logger";
 import { env } from "./env";
 import prisma from "./prisma";
 
@@ -67,6 +69,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: isEndToEndEnvironment ? undefined : "/auth/login",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      logger.info(
+        {
+          event: AuthEvents.signin_success,
+          userId: user.id,
+          provider: account?.provider,
+        },
+        AuthEvents.signin_success
+      );
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;

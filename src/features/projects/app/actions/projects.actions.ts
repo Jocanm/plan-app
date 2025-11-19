@@ -1,6 +1,7 @@
 "use server";
 
 import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
+import { logger } from "@/lib/logger";
 import {
   UnauthorizedErrorCode,
   ValidationErrorCode,
@@ -14,6 +15,7 @@ import {
 } from "@/shared/utils/resultPattern";
 import { updateTag } from "next/cache";
 import { projectsRepository } from "../../data/projects.repository.factory";
+import { ProjectEvents } from "../../domain/events/catalog";
 import { Project } from "../../domain/types/project";
 import { CreateProjectErrorCode } from "../../domain/types/results";
 import { createProjectSchema } from "../schemas/createProject.schema";
@@ -63,13 +65,18 @@ export const createProject = async (data: {
   const parsedData = createProjectSchema.safeParse(data);
   if (!parsedData.success) {
     const firstError = getFirstZodError(parsedData.error);
+    logger.error(
+      {
+        event: ProjectEvents.validation_failed,
+        input: data,
+        error: firstError,
+      },
+      ProjectEvents.validation_failed
+    );
     return createErrorResult("VALIDATION_ERROR", firstError ?? "");
   }
 
   const currentUser = await getCurrentUser();
-  if (!currentUser) {
-    return createErrorResult("UNAUTHORIZED", "You must be logged in");
-  }
 
   const createProjectResponse = await projectsUseCases.createProject({
     repo: projectsRepository,
@@ -85,6 +92,15 @@ export const createProject = async (data: {
   });
 
   if (createProjectResponse.error) {
+    logger.error(
+      {
+        event: ProjectEvents.create_failed,
+        userId: currentUser.id,
+        error: createProjectResponse.error.message,
+        input: parsedData.data,
+      },
+      ProjectEvents.create_failed
+    );
     return createErrorResult(
       createProjectResponse.error.code,
       createProjectResponse.error.message
@@ -97,6 +113,17 @@ export const createProject = async (data: {
       countProjectsResponse.error.message
     );
   }
+
+  logger.info(
+    {
+      event: ProjectEvents.created,
+      userId: currentUser.id,
+      projectId: createProjectResponse.result.id,
+      projectName: createProjectResponse.result.name,
+      isFirstProject: countProjectsResponse.result === 1,
+    },
+    ProjectEvents.created
+  );
 
   updateTag(`projects-list-${currentUser.id}`);
   return createSuccessResult({

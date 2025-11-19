@@ -1,9 +1,12 @@
 "use client";
 
+import { logger } from "@/lib/logger";
 import { ErrorBoundaryContent } from "@/shared/components/errors/ErrorBoundaryContent";
 import { Main } from "@/shared/components/layout/main/Main";
-import { useTranslations } from "next-intl";
+import { GlobalEvents } from "@/shared/domain/events/catalog";
 import { XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -13,6 +16,19 @@ export default function Error({
   reset: () => void;
 }) {
   const t = useTranslations("error");
+
+  useEffect(() => {
+    logger.error(
+      {
+        event: GlobalEvents.error_page_viewed,
+        errorMessage: error.message,
+        errorDigest: error.digest,
+        errorStack: error.stack,
+        page: window.location.pathname,
+      },
+      GlobalEvents.error_page_viewed
+    );
+  }, [error]);
 
   return (
     <Main className="h-screen">
