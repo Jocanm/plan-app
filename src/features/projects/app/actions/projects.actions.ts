@@ -67,11 +67,11 @@ export const createProject = async (data: {
     const firstError = getFirstZodError(parsedData.error);
     logger.error(
       {
-        event: ProjectEvents.validation_failed,
+        event: ProjectEvents.validationFail,
         input: data,
         error: firstError,
       },
-      ProjectEvents.validation_failed
+      "Project validation failed"
     );
     return createErrorResult("VALIDATION_ERROR", firstError ?? "");
   }
@@ -94,12 +94,12 @@ export const createProject = async (data: {
   if (createProjectResponse.error) {
     logger.error(
       {
-        event: ProjectEvents.create_failed,
+        event: ProjectEvents.createFail,
         userId: currentUser.id,
         error: createProjectResponse.error.message,
         input: parsedData.data,
       },
-      ProjectEvents.create_failed
+      "Failed to create project"
     );
     return createErrorResult(
       createProjectResponse.error.code,
@@ -122,7 +122,7 @@ export const createProject = async (data: {
       projectName: createProjectResponse.result.name,
       isFirstProject: countProjectsResponse.result === 1,
     },
-    ProjectEvents.created
+    "Project created successfully"
   );
 
   updateTag(`projects-list-${currentUser.id}`);

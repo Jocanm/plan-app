@@ -20,13 +20,12 @@ export default function Error({
   useEffect(() => {
     logger.error(
       {
-        event: GlobalEvents.error_page_viewed,
-        errorMessage: error.message,
-        errorDigest: error.digest,
-        errorStack: error.stack,
+        event: GlobalEvents.errorPageViewed,
+        err: error,
+        digest: error.digest,
         page: window.location.pathname,
       },
-      GlobalEvents.error_page_viewed
+      "User encountered error page"
     );
   }, [error]);
 

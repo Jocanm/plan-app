@@ -1,5 +1,5 @@
 export const TaskEvents = {
-  created: "task.created",
-  create_failed: "task.create.failed",
-  validation_failed: "task.validation_failed",
+  created: "task.create.success",
+  createFail: "task.create.fail",
+  validationFail: "task.validation.fail",
 } as const;

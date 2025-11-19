@@ -72,11 +72,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ user, account }) {
       logger.info(
         {
-          event: AuthEvents.signin_success,
+          event: AuthEvents.signinSuccess,
           userId: user.id,
           provider: account?.provider,
         },
-        AuthEvents.signin_success
+        "User signed in successfully"
       );
       return true;
     },

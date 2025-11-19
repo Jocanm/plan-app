@@ -17,4 +17,18 @@ export const logger = pino({
   base: {
     env: process.env.NODE_ENV,
   },
+  redact: {
+    paths: [
+      "password",
+      "token",
+      "credentials",
+      "input.password",
+      "input.token",
+      "input.credentials",
+      "authorization",
+      "cookie",
+      "sessionId",
+    ],
+    censor: "[REDACTED]",
+  },
 });

@@ -24,10 +24,10 @@ export const createTask = async (data: {
   if (!parsedData.success) {
     logger.error(
       {
-        event: TaskEvents.validation_failed,
+        event: TaskEvents.validationFail,
         input: data,
       },
-      TaskEvents.validation_failed
+      "Task validation failed"
     );
     return createErrorResult("VALIDATION_ERROR", "Invalid task data");
   }
@@ -47,18 +47,18 @@ export const createTask = async (data: {
         taskTitle: response.result.title,
         projectId: data.projectId,
       },
-      TaskEvents.created
+      "Task created successfully"
     );
     updateTag(`project-${data.projectId}`);
   } else if (response.error) {
     logger.error(
       {
-        event: TaskEvents.create_failed,
+        event: TaskEvents.createFail,
         userId: currentUser.id,
         error: response.error.message,
         input: parsedData.data,
       },
-      TaskEvents.create_failed
+      "Failed to create task"
     );
   }
 

@@ -1,3 +1,3 @@
 export const GlobalEvents = {
-  error_page_viewed: "error.page_viewed",
+  errorPageViewed: "error.page.viewed",
 } as const;
