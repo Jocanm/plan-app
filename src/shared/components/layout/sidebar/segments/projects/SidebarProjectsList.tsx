@@ -1,5 +1,5 @@
-import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
-import { getProjectsForSidebar } from "@/features/projects/app/actions/projects.actions";
+import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
+import { getProjectsForSidebar } from "@/features/projects/app/queries/projects.queries";
 import { InlineError } from "../../../../errors/InlineError";
 import { SidebarNoProjects } from "./SidebarNoProjects";
 import { SidebarProjectItem } from "./SidebarProjectItem";

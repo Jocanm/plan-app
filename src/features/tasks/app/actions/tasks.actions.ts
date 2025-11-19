@@ -4,7 +4,7 @@ import { logger } from "@/lib/logger";
 import { ValidationErrorCode } from "@/shared/types/results";
 import { createErrorResult, IResult } from "@/shared/utils/resultPattern";
 import { updateTag } from "next/cache";
-import { getCurrentUser } from "../../../auth/app/actions/getCurrentUser";
+import { getCurrentUser } from "../../../auth/app/queries/getCurrentUser";
 import { tasksRepository } from "../../data/tasks.repository.factory";
 import { TaskEvents } from "../../domain/events/catalog";
 import { CreateTaskErrorCode } from "../../domain/types/results";

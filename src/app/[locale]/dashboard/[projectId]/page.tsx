@@ -1,5 +1,5 @@
-import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
-import { getProjectDetails } from "@/features/projects/app/actions/projects.actions";
+import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
+import { getProjectDetails } from "@/features/projects/app/queries/projects.queries";
 import { ProjectHeader } from "@/features/projects/components/header/ProjectHeader";
 import { NoTasks } from "@/features/projects/components/tasks/NoTasks";
 import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";

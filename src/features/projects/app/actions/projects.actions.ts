@@ -1,12 +1,11 @@
 "use server";
 
-import { getCurrentUser } from "@/features/auth/app/actions/getCurrentUser";
+import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
 import { logger } from "@/lib/logger";
 import {
   UnauthorizedErrorCode,
   ValidationErrorCode,
 } from "@/shared/types/results";
-import { applyCacheBehavior } from "@/shared/utils/applyCache";
 import { getFirstZodError } from "@/shared/utils/getFirstZodError";
 import {
   createErrorResult,
@@ -20,33 +19,6 @@ import { Project } from "../../domain/types/project";
 import { CreateProjectErrorCode } from "../../domain/types/results";
 import { createProjectSchema } from "../schemas/createProject.schema";
 import { projectsUseCases } from "../use-cases/projectsUseCases";
-
-export const getProjectsForSidebar = async (userId: string) => {
-  "use cache";
-  applyCacheBehavior({
-    profile: "minutes",
-    tags: [`projects-list-${userId}`],
-  });
-
-  return await projectsUseCases.getProjectsForSidebar({
-    userId,
-    repo: projectsRepository,
-  });
-};
-
-export const getProjectDetails = async (projectId: string, userId: string) => {
-  "use cache";
-  applyCacheBehavior({
-    profile: "minutes",
-    tags: [`project-${projectId}`],
-  });
-
-  return await projectsUseCases.getProjectDetails({
-    userId,
-    projectId,
-    repo: projectsRepository,
-  });
-};
 
 export type CreateProjectActionErrorCode =
   | CreateProjectErrorCode
@@ -108,6 +80,14 @@ export const createProject = async (data: {
   }
 
   if (countProjectsResponse.error) {
+    logger.error(
+      {
+        event: ProjectEvents.countFail,
+        userId: currentUser.id,
+        error: countProjectsResponse.error.message,
+      },
+      "Failed to count user projects"
+    );
     return createErrorResult(
       countProjectsResponse.error.code,
       countProjectsResponse.error.message
