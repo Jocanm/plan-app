@@ -18,10 +18,13 @@ export const signOutAction = async (
 
   try {
     await signOutUseCase({ redirectTo: localizedRoute }, authRepository);
-    logger.info({ event: AuthEvents.signout }, "User signed out successfully");
+    logger.info(
+      { event: AuthEvents.signoutSuccess },
+      "User signed out successfully"
+    );
   } catch (error) {
     logger.error(
-      { event: AuthEvents.signout_failed, error },
+      { event: AuthEvents.signoutFail, error },
       "User sign out failed"
     );
     throw error;
