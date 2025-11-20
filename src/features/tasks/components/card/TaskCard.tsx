@@ -16,7 +16,10 @@ export const TaskCard = ({ id, title, description, color }: TaskCardProps) => {
       className="p-4 border bg-card rounded-lg w-full text-card-foreground border-l-4 flex items-start gap-4"
     >
       <div data-testid={`task-card-checkbox-${id}`} className="my-auto">
-        <Checkbox id={`task-checkbox-${id}`} />
+        <Checkbox
+          id={`task-checkbox-${id}`}
+          aria-labelledby={`task-card-title-${id}`}
+        />
       </div>
 
       <button
