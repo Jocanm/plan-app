@@ -15,7 +15,7 @@ export const OauthForm = () => {
   const params = useSearchParams();
   const t = useTranslations("login");
 
-  const from = params.get(QUERY_KEYS.from);
+  const from = params.get(QUERY_KEYS.from) || undefined;
 
   return (
     <div className="space-y-4">
