@@ -18,3 +18,5 @@ prisma/migrations/
 messages/en.d.json.ts
 # Cypress files (TypeScript auto-formatting conflicts)
 cypress/support/commands.ts
+# Prisma generated client
+/generated
