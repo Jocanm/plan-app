@@ -158,7 +158,7 @@ test("calcula estadísticas correctamente", () => {
 // src/data/projects.ts
 
 import { prisma } from "@/lib/prisma";
-import type { Prisma, Project } from "@prisma/client";
+import type { Prisma, Project } from "@/prisma";
 
 // ✅ Tipo para el contrato (la "interfaz")
 export type ProjectRepository = {
