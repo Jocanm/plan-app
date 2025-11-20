@@ -2,8 +2,8 @@
 
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { signInAction } from "@/features/auth/app/actions/signIn";
+import { QUERY_KEYS } from "@/lib/config/constants";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
-import { QUERY_KEYS } from "@/shared/types/qs";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";

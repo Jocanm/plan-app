@@ -12,3 +12,7 @@ export const ROUTES = {
   TASKS: `${DASHBOARD_PATH}/tasks`,
   PROJECT: `${DASHBOARD_PATH}/:projectId`,
 } as const;
+
+export const QUERY_KEYS = {
+  from: "fr",
+} as const;

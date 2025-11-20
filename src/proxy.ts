@@ -7,7 +7,7 @@ import {
   removeLocalePrefix,
 } from "./features/auth/domain/validations";
 import { routing } from "./i18n/routing";
-import { QUERY_KEYS } from "./shared/types/qs";
+import { QUERY_KEYS } from "./lib/config/constants";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
