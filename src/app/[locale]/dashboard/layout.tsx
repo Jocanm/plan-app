@@ -1,9 +1,9 @@
+import { SideCalendar } from "@/shared/components/layout/calendar/sideCalendar/SideCalendar";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
 import { Locale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
-import { SideCalendar } from "../../../shared/components/layout/calendar/sideCalendar/SideCalendar";
 
 const DashboardLayout = ({
   children,
