@@ -87,6 +87,8 @@ model Project {
   userId String
 
   tasks Task[]
+
+  @@index([userId])
 }
 
 model Task {
@@ -110,6 +112,9 @@ model Task {
   calendarEvents CalendarEvent[]
   completions    TaskCompletion[]
   tags           Tag[]            @relation("TaskTags")
+
+  @@index([userId])
+  @@index([projectId])
 }
 
 model TaskCompletion {
@@ -139,6 +144,9 @@ model CalendarEvent {
 
   task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId String
+
+  @@index([userId, date])
+  @@index([taskId, date])
 }
 
 model Tag {
