@@ -1,8 +1,13 @@
 import { auth } from "@/lib/auth";
 import createIntlMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
-import { getAuthRedirect } from "./features/auth/domain/validations";
+import {
+  getAuthRedirect,
+  isPublicRoute,
+  removeLocalePrefix,
+} from "./features/auth/domain/validations";
 import { routing } from "./i18n/routing";
+import { QUERY_KEYS } from "./shared/types/qs";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -18,7 +23,14 @@ export default auth(req => {
   const redirectResponse = getAuthRedirect({ isLoggedIn, pathname });
 
   if (redirectResponse.shouldRedirect) {
+    const isBeingRedirectToPublic = isPublicRoute(redirectResponse.redirectTo);
     const url = new URL(redirectResponse.redirectTo, req.url);
+
+    if (isBeingRedirectToPublic) {
+      const pathWithoutLocale = removeLocalePrefix(pathname);
+      url.searchParams.set(QUERY_KEYS.from, pathWithoutLocale);
+    }
+
     return NextResponse.redirect(url);
   }
 

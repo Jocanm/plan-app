@@ -1,7 +1,7 @@
 export type AuthProvider = "google" | "github";
 
 export interface AuthOptions {
-  redirectTo?: string;
+  redirectTo?: string | null;
 }
 
 export interface User {

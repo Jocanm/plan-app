@@ -1,21 +1,26 @@
 "use client";
 
+import { Button, type ButtonProps } from "@/components/ui/button";
 import { signInAction } from "@/features/auth/app/actions/signIn";
 import { GoogleIcon } from "@/shared/components/icons/GoogleIcon";
-import { Button, type ButtonProps } from "@/components/ui/button";
+import { QUERY_KEYS } from "@/shared/types/qs";
 import clsx from "clsx";
 import { Github } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { useFormStatus } from "react-dom";
 
 export const OauthForm = () => {
   const locale = useLocale();
+  const params = useSearchParams();
   const t = useTranslations("login");
+
+  const from = params.get(QUERY_KEYS.from);
 
   return (
     <div className="space-y-4">
       <form
-        action={() => signInAction("google", undefined, locale)}
+        action={() => signInAction("google", { redirectTo: from }, locale)}
         aria-label={t("continue_with_google")}
       >
         <OauthButton aria-label={t("continue_with_google")}>
@@ -27,7 +32,7 @@ export const OauthForm = () => {
       <Separator />
 
       <form
-        action={() => signInAction("github", undefined, locale)}
+        action={() => signInAction("github", { redirectTo: from }, locale)}
         aria-label={t("continue_with_github")}
       >
         <OauthButton aria-label={t("continue_with_github")}>
