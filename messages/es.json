@@ -13,11 +13,8 @@
       "validation_error": "Hubo errores de validación. Por favor, verifica los datos ingresados."
     }
   },
-
   "project": {
     "tasks_completed": "{completed} de {total, plural, =0 {# tareas} one {# tarea} other {# tareas}}",
-    "edit_button": "Editar",
-    "archive_button": "Archivar",
     "tasks_heading": "Tareas",
     "completed_tasks_heading": "Completadas",
     "no_tasks_title": "Sin tareas aún",
@@ -46,9 +43,14 @@
     },
     "loading": {
       "loading_project": "Cargando detalles del proyecto..."
+    },
+    "header": {
+      "edit_project": "Editar",
+      "archive_project": "Archivar",
+      "a11y_edit_project": "Editar proyecto {projectName}",
+      "a11y_archive_project": "Archivar proyecto {projectName}"
     }
   },
-
   "design_system": {
     "title": "Sistema de diseño",
     "description": "Biblioteca de componentes y patrones visuales de Plan App",

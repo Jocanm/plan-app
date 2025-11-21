@@ -19,12 +19,12 @@ export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
           <h1
             title={project.name}
             data-testid="project-header-title"
-            className="text-2xl font-bold leading-tight tracking-tight"
+            className="text-xl xs:text-2xl font-bold leading-tight tracking-tight"
           >
             {project.name}
           </h1>
         </div>
-        <ProjectHeaderActions />
+        <ProjectHeaderActions projectName={project.name} />
       </div>
       <TaskInputCard projectId={project.id} />
     </div>

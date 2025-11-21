@@ -15,8 +15,6 @@
   },
   "project": {
     "tasks_completed": "{completed} of {total, plural, =0 {# tasks} one {# task} other {# tasks}}",
-    "edit_button": "Edit",
-    "archive_button": "Archive",
     "tasks_heading": "Tasks",
     "completed_tasks_heading": "Completed",
     "no_tasks_title": "No tasks yet",
@@ -45,6 +43,12 @@
     },
     "loading": {
       "loading_project": "Loading project details..."
+    },
+    "header": {
+      "edit_project": "Edit",
+      "archive_project": "Archive",
+      "a11y_edit_project": "Edit project {projectName}",
+      "a11y_archive_project": "Archive project {projectName}"
     }
   },
   "design_system": {
