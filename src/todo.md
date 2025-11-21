@@ -20,22 +20,22 @@
 ---
 
 ### 📋 Fase 1: Sidebar Drawer (1d)
-- [ ] Create `MobileSidebarDrawer` component
-- [ ] Add hamburger button (☰) in mobile header
-- [ ] Hide Sidebar on < 1280px, show drawer
-- [ ] Drawer from left, 80% width max 280px
-- [ ] Click outside / Escape closes
+- [x] Create `MobileSidebarDrawer` component
+- [x] Add hamburger button (☰) in mobile header
+- [x] Hide Sidebar on < 1280px, show drawer
+- [x] Drawer from left, 80% width max 280px
+- [x] Click outside / Escape closes
 
 **Behavior:** Desktop visible | Tablet/Mobile drawer
 
 ---
 
 ### 📋 Fase 2: Calendar Visibility (1d)
-- [ ] Create `MobileCalendarDrawer` component
-- [ ] Add calendar button (📅) in mobile header
-- [ ] Calendar visible on >= 768px
-- [ ] Drawer from right on mobile, 85% width
-- [ ] Leave space for cancel zone
+- [x] Create `MobileCalendarDrawer` component
+- [x] Add calendar button (📅) in mobile header
+- [x] Calendar visible on >= 768px
+- [x] Drawer from right on mobile, 85% width
+- [x] Leave space for cancel zone
 
 **Behavior:** Desktop/Tablet visible | Mobile drawer
 
