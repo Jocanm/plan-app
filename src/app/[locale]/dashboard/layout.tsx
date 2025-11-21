@@ -1,6 +1,6 @@
-import { SideCalendar } from "@/shared/components/layout/calendar/sideCalendar/SideCalendar";
-import { SideCalendarDesktopWrapper } from "@/shared/components/layout/calendar/wrappers/SideCalendarDesktopWrapper";
-import { SideCalendarMobileWrapper } from "@/shared/components/layout/calendar/wrappers/SideCalendarMobileWrapper";
+import { SideCalendar } from "@/features/calendar/components/sideCalendar/SideCalendar";
+import { SideCalendarDesktopWrapper } from "@/features/calendar/components/wrappers/SideCalendarDesktopWrapper";
+import { SideCalendarMobileWrapper } from "@/features/calendar/components/wrappers/SideCalendarMobileWrapper";
 import { MobileHeader } from "@/shared/components/layout/header/MobileHeader";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";

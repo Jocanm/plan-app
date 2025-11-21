@@ -8,7 +8,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useTranslations } from "next-intl";
-import { useUiStore } from "../../../../stores/useUiStore";
+import { useUiStore } from "../../../../shared/stores/useUiStore";
 
 interface SideCalendarMobileWrapperProps {
   children: React.ReactNode;
