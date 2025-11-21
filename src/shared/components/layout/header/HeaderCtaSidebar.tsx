@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/components/ui";
 import { useTranslations } from "next-intl";
+import { useUiStore } from "../../../stores/useUiStore";
 
 export const HeaderCtaSidebar = () => {
   const t = useTranslations("mobile_header");
+  const setShowSidebar = useUiStore(state => state.setShowSidebar);
 
   return (
     <Button
-      variant="outline"
       size="icon"
-      className="group h-10 w-10"
-      aria-label={t("open_menu")}
+      variant="outline"
       aria-expanded="false"
+      aria-label={t("open_menu")}
+      className="group h-10 w-10"
+      onClick={() => setShowSidebar(true)}
     >
       <div className="relative h-5 w-5">
         <span className="absolute left-0 top-1 h-0.5 w-5 bg-current transition-all duration-300 group-hover:top-0.5" />

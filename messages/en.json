@@ -172,6 +172,10 @@
     "logout": {
       "title": "Log Out",
       "loading": "Logging out..."
+    },
+    "mobile": {
+      "a11y_title": "Sidebar Menu",
+      "a11y_description": "Navigation links and project list"
     }
   },
   "task": {

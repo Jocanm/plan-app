@@ -2,6 +2,8 @@ import { SideCalendar } from "@/shared/components/layout/calendar/sideCalendar/S
 import { MobileHeader } from "@/shared/components/layout/header/MobileHeader";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
+import { SidebarDesktopWrapper } from "@/shared/components/layout/sidebar/wrappers/SidebarDesktopWrapper";
+import { SidebarMobileWrapper } from "@/shared/components/layout/sidebar/wrappers/SidebarMobileWrapper";
 import { Locale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
@@ -20,10 +22,15 @@ const DashboardLayout = ({
     <div className="flex flex-col h-screen">
       <MobileHeader />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
+        <SidebarDesktopWrapper>
+          <Sidebar />
+        </SidebarDesktopWrapper>
         <Main className="flex-1 p-6">{children}</Main>
         <SideCalendar />
       </div>
+      <SidebarMobileWrapper>
+        <Sidebar />
+      </SidebarMobileWrapper>
     </div>
   );
 };

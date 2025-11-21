@@ -172,6 +172,10 @@
     "logout": {
       "title": "Cerrar sesión",
       "loading": "Cerrando sesión..."
+    },
+    "mobile": {
+      "a11y_title": "Menú lateral",
+      "a11y_description": "Enlaces de navegación y lista de proyectos"
     }
   },
   "task": {
