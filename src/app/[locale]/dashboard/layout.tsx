@@ -1,4 +1,5 @@
 import { SideCalendar } from "@/shared/components/layout/calendar/sideCalendar/SideCalendar";
+import { MobileHeader } from "@/shared/components/layout/header/MobileHeader";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
 import { Locale } from "next-intl";
@@ -16,10 +17,13 @@ const DashboardLayout = ({
   setRequestLocale(locale as Locale);
 
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <Main className="flex-1 p-6">{children}</Main>
-      <SideCalendar />
+    <div className="flex flex-col h-screen">
+      <MobileHeader />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar />
+        <Main className="flex-1 p-6">{children}</Main>
+        <SideCalendar />
+      </div>
     </div>
   );
 };
