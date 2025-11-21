@@ -1,4 +1,6 @@
 import { SideCalendar } from "@/shared/components/layout/calendar/sideCalendar/SideCalendar";
+import { SideCalendarDesktopWrapper } from "@/shared/components/layout/calendar/wrappers/SideCalendarDesktopWrapper";
+import { SideCalendarMobileWrapper } from "@/shared/components/layout/calendar/wrappers/SideCalendarMobileWrapper";
 import { MobileHeader } from "@/shared/components/layout/header/MobileHeader";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Sidebar } from "@/shared/components/layout/sidebar/Sidebar";
@@ -26,11 +28,16 @@ const DashboardLayout = ({
           <Sidebar />
         </SidebarDesktopWrapper>
         <Main className="flex-1 p-6">{children}</Main>
-        <SideCalendar />
+        <SideCalendarDesktopWrapper>
+          <SideCalendar />
+        </SideCalendarDesktopWrapper>
       </div>
       <SidebarMobileWrapper>
         <Sidebar />
       </SidebarMobileWrapper>
+      <SideCalendarMobileWrapper>
+        <SideCalendar />
+      </SideCalendarMobileWrapper>
     </div>
   );
 };

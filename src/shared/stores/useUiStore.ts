@@ -16,6 +16,7 @@ export const useUiStore = create(
   (set): UiStore => ({
     showSidebar: false,
     showCalendar: false,
+
     setShowSidebar: val => set({ showSidebar: val }),
     setShowCalendar: val => set({ showCalendar: val }),
   })

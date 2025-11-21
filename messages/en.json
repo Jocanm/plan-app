@@ -188,5 +188,11 @@
         "name_too_long": "title cannot exceed {max} characters"
       }
     }
+  },
+  "side_calendar": {
+    "mobile": {
+      "a11y_title": "Side Calendar",
+      "a11y_description": "Calendar view for scheduled tasks and events"
+    }
   }
 }

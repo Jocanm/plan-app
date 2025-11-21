@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Sheet,
   SheetContent,
@@ -9,20 +10,20 @@ import {
 import { useTranslations } from "next-intl";
 import { useUiStore } from "../../../../stores/useUiStore";
 
-interface SidebarMobileWrapperProps {
+interface SideCalendarMobileWrapperProps {
   children: React.ReactNode;
 }
 
-export const SidebarMobileWrapper = ({
+export const SideCalendarMobileWrapper = ({
   children,
-}: SidebarMobileWrapperProps) => {
-  const t = useTranslations("sidebar.mobile");
-  const isOpen = useUiStore(state => state.showSidebar);
-  const setShowSidebar = useUiStore(state => state.setShowSidebar);
+}: SideCalendarMobileWrapperProps) => {
+  const t = useTranslations("side_calendar.mobile");
+  const isOpen = useUiStore(state => state.showCalendar);
+  const setShowCalendar = useUiStore(state => state.setShowCalendar);
 
   return (
-    <Sheet open={isOpen} onOpenChange={setShowSidebar}>
-      <SheetContent side="left" className="w-4/5">
+    <Sheet open={isOpen} onOpenChange={setShowCalendar}>
+      <SheetContent side="right" className="w-4/5">
         <SheetHeader className="sr-only">
           <SheetTitle>{t("a11y_title")}</SheetTitle>
           <SheetDescription>{t("a11y_description")}</SheetDescription>

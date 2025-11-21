@@ -22,7 +22,7 @@ export const DayCalendar = () => {
   const locale = useLocale();
 
   return (
-    <div className="h-full [&_.rbc-time-header]:hidden! py-5">
+    <div className="h-full [&_.rbc-time-header]:hidden!">
       <Calendar
         localizer={localizer}
         culture={locale}

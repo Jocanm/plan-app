@@ -188,5 +188,11 @@
         "name_too_long": "título no puede exceder los {max} caracteres"
       }
     }
+  },
+    "side_calendar": {
+    "mobile": {
+      "a11y_title": "Calendario Lateral",
+      "a11y_description": "Vista del calendario para tareas y eventos programados"
+    }
   }
 }
