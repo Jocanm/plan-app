@@ -11,8 +11,7 @@ import { cache } from "react";
 
 const getProject = cache(async (projectId: string) => {
   const currentUser = await getCurrentUser();
-  const projectDetails = await getProjectDetails(projectId, currentUser.id);
-  return projectDetails;
+  return await getProjectDetails(projectId, currentUser.id);
 });
 
 export const generateMetadata = async ({

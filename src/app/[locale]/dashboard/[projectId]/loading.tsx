@@ -1,5 +1,5 @@
-import { Main } from "@/shared/components/layout/main/Main";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Main } from "@/shared/components/layout/main/Main";
 
 const SKELETON_TASK_WIDTHS = ["w-2/3", "w-3/4", "w-1/2", "w-4/5"] as const;
 
@@ -13,13 +13,13 @@ const LoadingProject = () => {
             {/* Color indicator skeleton */}
             <Skeleton className="rounded-sm h-3 w-3 shrink-0" />
             {/* Project name skeleton */}
-            <Skeleton className="h-8 w-48 sm:w-64" />
+            <Skeleton className="h-8 w-30 xs:w-48 sm:w-64" />
           </div>
           <div className="flex items-center gap-2">
             {/* Edit button skeleton */}
-            <Skeleton className="h-10 w-20 sm:w-24" />
+            <Skeleton className="h-10 w-10 sm:w-24" />
             {/* Archive button skeleton */}
-            <Skeleton className="h-10 w-24 sm:w-28" />
+            <Skeleton className="h-10 w-10 sm:w-28" />
           </div>
         </div>
 

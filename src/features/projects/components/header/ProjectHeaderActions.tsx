@@ -15,7 +15,7 @@ export const ProjectHeaderActions = ({ projectName }: Props) => {
         disabled
         type="button"
         variant="ghost"
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 max-sm:p-2"
         aria-label={t("a11y_edit_project", { projectName })}
       >
         <Pencil size={16} aria-hidden="true" />
@@ -27,7 +27,7 @@ export const ProjectHeaderActions = ({ projectName }: Props) => {
         disabled
         type="button"
         variant="ghost"
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 max-sm:p-2"
         aria-label={t("a11y_archive_project", { projectName })}
       >
         <Archive size={16} aria-hidden="true" />
