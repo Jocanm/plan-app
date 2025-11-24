@@ -10,7 +10,8 @@
     "app_name": "Plan App",
     "errors": {
       "unknown_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
-      "validation_error": "Hubo errores de validación. Por favor, verifica los datos ingresados."
+      "validation_error": "Hubo errores de validación. Por favor, verifica los datos ingresados.",
+      "not_authenticated": "Debes iniciar sesión para realizar esta acción."
     }
   },
   "project": {

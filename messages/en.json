@@ -10,7 +10,8 @@
     "app_name": "Plan App",
     "errors": {
       "unknown_error": "An unexpected error occurred. Please try again.",
-      "validation_error": "There were validation errors. Please check your input."
+      "validation_error": "There were validation errors. Please check your input.",
+      "not_authenticated": "You must be logged in to perform this action."
     }
   },
   "project": {

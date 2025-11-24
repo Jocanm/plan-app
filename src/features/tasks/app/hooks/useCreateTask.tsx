@@ -26,42 +26,49 @@ export const useCreateTask = () => {
     resolver: zodResolver(createTaskSchema),
   });
 
-  const getCurrentTitle = () => {
-    return methods.getValues("title");
-  };
-
-  const handleErrorMessage = ({ code }: IError<CreateTaskActionErrorCode>) => {
-    let toastMessage: string;
-    if (code === "VALIDATION_ERROR") {
-      toastMessage = tCommon("errors.validation_error");
-    } else {
-      toastMessage = tCommon("errors.unknown_error");
+  const handleTaskCreationError = (
+    error: IError<CreateTaskActionErrorCode>,
+    taskId: string,
+    draftTitle: string
+  ) => {
+    const currentTitle = methods.getValues("title");
+    if (!currentTitle) {
+      methods.setValue("title", draftTitle);
     }
-    toast.error(toastMessage);
+
+    removeOptimisticTask(taskId);
+
+    const message =
+      error.code === "VALIDATION_ERROR"
+        ? tCommon("errors.validation_error")
+        : tCommon("errors.unknown_error");
+    toast.error(message);
   };
 
   const onSubmit = async (data: CreateTaskSchema, projectId: string) => {
-    if (!user) return;
+    if (!user) {
+      toast.error(tCommon("errors.not_authenticated"));
+      return;
+    }
+
+    const userId = user.id;
 
     startTransition(async () => {
-      const customId = crypto.randomUUID();
+      const taskId = crypto.randomUUID();
       const optimisticTask = buildOptimisticTask({
         ...data,
         projectId,
-        id: customId,
-        userId: user.id,
+        id: taskId,
+        userId,
       });
+
       addOptimisticTask(optimisticTask);
       methods.reset();
 
-      const response = await createTask({ ...data, projectId, id: customId });
+      const response = await createTask({ ...data, projectId, id: taskId });
+
       if (response.error) {
-        const currentTitle = getCurrentTitle();
-        if (!currentTitle) {
-          methods.setValue("title", optimisticTask.title);
-        }
-        removeOptimisticTask(customId);
-        handleErrorMessage(response.error);
+        handleTaskCreationError(response.error, taskId, data.title);
       }
     });
   };
