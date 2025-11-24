@@ -7,6 +7,7 @@ import {
 } from "../../domain/constants";
 
 export const createTaskSchema = z.object({
+  id: z.uuid().optional(),
   title: z
     .string()
     .trim()

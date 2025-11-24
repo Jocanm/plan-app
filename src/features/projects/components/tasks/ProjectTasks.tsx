@@ -1,13 +1,17 @@
+"use client";
+
 import { TaskCard } from "@/features/tasks/components/card/TaskCard";
-import { Task } from "@/features/tasks/domain/types/task";
 import { useTranslations } from "next-intl";
+import { useProjectTasks } from "../providers/ProjectTasksProvider";
+import { NoTasks } from "./NoTasks";
 
-interface ProjectTasksProps {
-  tasks: Task[];
-}
-
-export const ProjectTasks = ({ tasks }: ProjectTasksProps) => {
+export const ProjectTasks = () => {
+  const { tasks } = useProjectTasks();
   const t = useTranslations("project");
+
+  if (tasks.length === 0) {
+    return <NoTasks />;
+  }
 
   return (
     <section className="mb-8">
@@ -15,12 +19,7 @@ export const ProjectTasks = ({ tasks }: ProjectTasksProps) => {
       <ul className="space-y-4 mt-4">
         {tasks.map(task => (
           <li key={task.id}>
-            <TaskCard
-              id={task.id}
-              color={task.color}
-              title={task.title}
-              description={task.description}
-            />
+            <TaskCard task={task} />
           </li>
         ))}
       </ul>

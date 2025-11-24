@@ -16,10 +16,13 @@ export type CreateTaskActionErrorCode =
   | CreateTaskErrorCode
   | ValidationErrorCode;
 
+export type CreateTaskActionResult = IResult<Task, CreateTaskActionErrorCode>;
+
 export const createTask = async (data: {
+  id?: string;
   title: string;
   projectId: string;
-}): Promise<IResult<Task, CreateTaskActionErrorCode>> => {
+}): Promise<CreateTaskActionResult> => {
   const parsedData = createTaskSchema.safeParse(data);
   if (!parsedData.success) {
     logger.error(

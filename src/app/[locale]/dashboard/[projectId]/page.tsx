@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
 import { getProjectDetails } from "@/features/projects/app/queries/projects.queries";
 import { ProjectHeader } from "@/features/projects/components/header/ProjectHeader";
-import { NoTasks } from "@/features/projects/components/tasks/NoTasks";
+import { ProjectTasksProvider } from "@/features/projects/components/providers/ProjectTasksProvider";
 import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";
 import { Main } from "@/shared/components/layout/main/Main";
 import { Locale } from "next-intl";
@@ -48,14 +48,12 @@ const ProjectPage = async ({
   }
 
   return (
-    <Main>
-      <ProjectHeader project={projectDetails} />
-      {projectDetails.tasks.length === 0 ? (
-        <NoTasks />
-      ) : (
-        <ProjectTasks tasks={projectDetails.tasks} />
-      )}
-    </Main>
+    <ProjectTasksProvider initialTasks={projectDetails.tasks}>
+      <Main>
+        <ProjectHeader project={projectDetails} />
+        <ProjectTasks />
+      </Main>
+    </ProjectTasksProvider>
   );
 };
 

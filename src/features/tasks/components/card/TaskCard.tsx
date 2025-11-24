@@ -1,13 +1,12 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import { Task } from "../../domain/types/task";
 
 interface TaskCardProps {
-  id: string;
-  title: string;
-  color: string;
-  description?: string | null;
+  task: Task;
 }
 
-export const TaskCard = ({ id, title, description, color }: TaskCardProps) => {
+export const TaskCard = ({ task }: TaskCardProps) => {
+  const { id, title, description, color } = task;
   return (
     <article
       data-testid={`task-card-${id}`}
@@ -15,6 +14,7 @@ export const TaskCard = ({ id, title, description, color }: TaskCardProps) => {
       aria-labelledby={`task-card-title-${id}`}
       className="p-4 border bg-card rounded-lg w-full text-card-foreground border-l-4 flex items-start gap-4"
     >
+      {task.userId}
       <div data-testid={`task-card-checkbox-${id}`} className="my-auto">
         <Checkbox
           id={`task-checkbox-${id}`}
