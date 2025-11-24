@@ -1,4 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import { BaseLoader } from "@/shared/components/custom/BaseLoader";
 import clsx from "clsx";
 import { OptimisticTask } from "../../domain/types/task";
 
@@ -37,7 +38,13 @@ export const TaskCard = ({ task }: TaskCardProps) => {
         )}
       </button>
 
-      <div data-testid="task-card-metadata" />
+      <div data-testid={`task-card-metadata-${id}`} />
+      <div
+        className="my-auto ml-auto"
+        data-testid={`task-card-optimistic-indicator-${id}`}
+      >
+        {isOptimistic && <BaseLoader />}
+      </div>
     </article>
   );
 };
