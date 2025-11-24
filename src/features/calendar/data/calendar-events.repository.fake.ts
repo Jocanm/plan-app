@@ -72,6 +72,27 @@ export class FakeCalendarEventsRepositoryManager {
         this.addEvent(event);
         return event;
       },
+
+      getByUserAndDate: async (userId, date) => {
+        if (this.overrides.getByUserAndDate) {
+          return this.overrides.getByUserAndDate(userId, date);
+        }
+
+        return this.events
+          .filter(
+            event =>
+              event.userId === userId &&
+              event.date.toDateString() === date.toDateString()
+          )
+          .map(event => ({
+            ...event,
+            task: {
+              id: event.taskId,
+              title: "Default Task Title",
+              projectId: null,
+            },
+          }));
+      },
     };
   }
 }

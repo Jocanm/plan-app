@@ -1,5 +1,5 @@
 import { IResult } from "@/shared/utils/resultPattern";
-import { CalendarEvent } from "./calendar-event";
+import { CalendarEvent, CalendarEventWithTask } from "./calendar-event";
 
 export type CreateCalendarEventErrorCode =
   | "UNKNOWN_ERROR"
@@ -9,4 +9,11 @@ export type CreateCalendarEventErrorCode =
 export type CreateCalendarEventResult = IResult<
   CalendarEvent,
   CreateCalendarEventErrorCode
+>;
+
+export type GetCalendarEventsByUserAndDateErrorCode = "UNKNOWN_ERROR";
+
+export type GetCalendarEventsByUserAndDateResult = IResult<
+  CalendarEventWithTask[],
+  GetCalendarEventsByUserAndDateErrorCode
 >;

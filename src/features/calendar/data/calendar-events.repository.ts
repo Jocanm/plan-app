@@ -8,3 +8,21 @@ export const create: ICalendarEventRepository["create"] = async data => {
 
   return calendarEvent;
 };
+
+export const getByUserAndDate: ICalendarEventRepository["getByUserAndDate"] =
+  async (userId, date) => {
+    const calendarEvents = await prisma.calendarEvent.findMany({
+      where: {
+        date,
+        userId,
+      },
+      include: {
+        task: {
+          select: { id: true, title: true, projectId: true },
+        },
+      },
+      orderBy: { startTime: "asc" },
+    });
+
+    return calendarEvents;
+  };

@@ -79,4 +79,31 @@ describe("CalendarEvents Repository fake", () => {
       })
     ).rejects.toThrow("DB error");
   });
+
+  it("Should handle override for getByUserAndDate method", async () => {
+    const manager = FakeCalendarEventsRepositoryManager.getInstance();
+    const date = new Date("2025-01-20");
+
+    const repo = manager
+      .withOverride("getByUserAndDate", async () => {
+        return [
+          {
+            id: "event-1",
+            taskId: "task-1",
+            userId: "user-1",
+            date,
+            startTime: new Date(),
+            endTime: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ];
+      })
+      .getRepository();
+
+    const events = await repo.getByUserAndDate("user-1", date);
+
+    expect(events).toHaveLength(1);
+    expect(events[0].id).toBe("event-1");
+  });
 });

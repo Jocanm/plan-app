@@ -1,6 +1,11 @@
 import { CalendarEvent as PrismaCalendarEvent } from "@prisma/client";
+import { CalendarEventTask } from "../../../tasks/domain/types/task";
 
 export type CalendarEvent = PrismaCalendarEvent;
+
+export type CalendarEventWithTask = CalendarEvent & {
+  task: CalendarEventTask;
+};
 
 export interface CreateCalendarEventInput {
   id?: string;

@@ -44,6 +44,28 @@ const createCalendarEvent = async ({
   }
 };
 
+interface GetByUserAndDateProps extends CalendarEventUseCaseProps {
+  userId: string;
+  date: Date;
+}
+
+const getByUserAndDate = async ({
+  date,
+  repo,
+  userId,
+}: GetByUserAndDateProps) => {
+  try {
+    const events = await repo.getByUserAndDate(userId, date);
+    return createSuccessResult(events);
+  } catch {
+    return createErrorResult(
+      "UNKNOWN_ERROR",
+      "something went wrong retrieving calendar events"
+    );
+  }
+};
+
 export const calendarEventsUseCases = {
+  getByUserAndDate,
   createCalendarEvent,
 };
