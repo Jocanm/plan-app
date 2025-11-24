@@ -8,7 +8,7 @@ export type Task = {
 };
 
 export type OptimisticTask = Task & {
-  isOptimistic: boolean;
+  isOptimistic?: boolean;
 };
 
 export type CreateTaskInput = {

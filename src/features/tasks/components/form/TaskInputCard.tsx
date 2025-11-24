@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useFormErrorTranslator } from "@/features/i18n/app/hooks/useErrorTranslator";
 import { CustomInput } from "@/shared/components/custom/CustomInput";
-import { useFormErrorTranslator } from "@/shared/hooks/useErrorTranslator";
 import { CirclePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCreateTask } from "../../app/hooks/useCreateTask";
@@ -18,7 +18,7 @@ export const TaskInputCard = ({ projectId }: TaskInputCardProps) => {
     max: MAX_TASK_TITLE_LENGTH,
   });
 
-  const { methods, isLoading, onSubmit } = useCreateTask();
+  const { methods, onSubmit } = useCreateTask();
   const errors = methods.formState.errors;
 
   return (
@@ -38,8 +38,6 @@ export const TaskInputCard = ({ projectId }: TaskInputCardProps) => {
               aria-label={t("aria_label")}
               autoComplete="off"
               className="border-0 shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-0 h-6"
-              disabled={isLoading}
-              showBaseLoader={isLoading}
               errorMessage={translateError(errors.title?.message)}
               {...methods.register("title", {
                 onBlur: () => methods.clearErrors(),
@@ -51,7 +49,6 @@ export const TaskInputCard = ({ projectId }: TaskInputCardProps) => {
         <Button
           size="lg"
           type="submit"
-          disabled={isLoading}
           aria-label={t("submit_aria_label")}
           className="shrink-0 h-11 w-11 p-0 rounded-xl shadow-sm hover:shadow-md"
         >

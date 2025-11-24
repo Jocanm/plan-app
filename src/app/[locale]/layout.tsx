@@ -4,6 +4,7 @@ import { getBaseUrl } from "@/shared/utils/getBaseUrl";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Locale, NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
@@ -132,20 +133,22 @@ export default function LocaleLayout({
         <Suspense>
           <SkipToMainContent />
         </Suspense>
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            enableSystem
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster richColors position="bottom-right" />
-            <ThemeSwitcher />
-            <Analytics />
-            <SpeedInsights />
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider
+              enableSystem
+              attribute="class"
+              defaultTheme="dark"
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster richColors position="bottom-right" />
+              <ThemeSwitcher />
+              <Analytics />
+              <SpeedInsights />
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );
