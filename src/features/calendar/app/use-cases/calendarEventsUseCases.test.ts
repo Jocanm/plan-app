@@ -85,5 +85,47 @@ describe("CalendarEvents - use cases", () => {
       expect(response.result).toBeDefined();
       expect(response.error).toBeUndefined();
     });
+
+    it("should return error result on validation failure", async () => {
+      const repo = repoManager.getRepository();
+
+      const eventData = {
+        taskId: "task-1",
+        userId: "default-user",
+        date: new Date("2025-01-20"),
+        startTime: new Date("2025-01-20T10:00:00"),
+        endTime: new Date("2025-01-20T09:00:00"),
+      };
+
+      const response = await calendarEventsUseCases.createCalendarEvent({
+        repo,
+        data: eventData,
+      });
+
+      expect(response.error).toBeDefined();
+      expect(response.result).toBeUndefined();
+      expect(response.error?.code).toBe("END_BEFORE_START");
+    });
+
+    it("should return error result when start and end times are the same", async () => {
+      const repo = repoManager.getRepository();
+
+      const eventData = {
+        taskId: "task-1",
+        userId: "default-user",
+        date: new Date("2025-01-20"),
+        startTime: new Date("2025-01-20T10:00:00"),
+        endTime: new Date("2025-01-20T10:00:00"),
+      };
+
+      const response = await calendarEventsUseCases.createCalendarEvent({
+        repo,
+        data: eventData,
+      });
+
+      expect(response.error).toBeDefined();
+      expect(response.result).toBeUndefined();
+      expect(response.error?.code).toBe("SAME_START_END");
+    });
   });
 });
