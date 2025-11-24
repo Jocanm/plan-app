@@ -1,14 +1,11 @@
 "use client";
 
-import { add, format, getDay, parse, startOfWeek } from "date-fns";
+import { format, getDay, parse, startOfWeek } from "date-fns";
 import { enUS, es } from "date-fns/locale";
 import { useLocale } from "next-intl";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 
-const locales = {
-  es,
-  en: enUS,
-};
+const locales = { es, en: enUS };
 
 const localizer = dateFnsLocalizer({
   format,
@@ -24,22 +21,17 @@ export const DayCalendar = () => {
   return (
     <div className="h-full [&_.rbc-time-header]:hidden!">
       <Calendar
-        localizer={localizer}
+        selectable
         culture={locale}
-        events={[getEvent()]}
+        localizer={localizer}
         formats={{
           timeGutterFormat: "h a",
         }}
         views={["day"]}
         defaultView="day"
         toolbar={false}
+        onSelectSlot={({}) => {}}
       />
     </div>
   );
 };
-
-const getEvent = () => ({
-  start: new Date(),
-  end: add(new Date(), { hours: 1 }),
-  title: "Ejemplo",
-});

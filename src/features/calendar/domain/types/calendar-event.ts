@@ -5,9 +5,9 @@ export type CalendarEvent = PrismaCalendarEvent;
 export interface CreateCalendarEventInput {
   taskId: string;
   userId: string;
-  date: Date;
-  startTime: Date;
-  endTime: Date;
+  date: Date | string;
+  endTime: Date | string;
+  startTime: Date | string;
 }
 
 export type CreateCalendarEventData = Omit<
