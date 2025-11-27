@@ -23,7 +23,7 @@ describe("handleUnknownError", () => {
   it("should return the string representation of an object error", () => {
     const error = { code: 500, message: "Internal Server Error" };
     const result = handleUnknownError(error);
-    expect(result).toBe("[object Object]");
+    expect(result).toBe('{"code":500,"message":"Internal Server Error"}');
   });
 
   it("should return 'undefined' for an undefined error", () => {
