@@ -2,10 +2,13 @@ import { IResult } from "../../../shared/utils/resultPattern";
 import { CreateCalendarEventErrorCode } from "./types/results";
 
 export const validateCalendarEventDateRange = (
-  startTime: Date,
-  endTime: Date
+  startTime: Date | string,
+  endTime: Date | string
 ): IResult<true, CreateCalendarEventErrorCode> => {
-  if (endTime < startTime) {
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+
+  if (end < start) {
     return {
       error: {
         code: "END_BEFORE_START",
@@ -14,7 +17,7 @@ export const validateCalendarEventDateRange = (
     };
   }
 
-  if (endTime.getTime() === startTime.getTime()) {
+  if (end.getTime() === start.getTime()) {
     return {
       error: {
         code: "SAME_START_END",
