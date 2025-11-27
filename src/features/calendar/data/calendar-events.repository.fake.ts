@@ -78,11 +78,13 @@ export class FakeCalendarEventsRepositoryManager {
           return this.overrides.getByUserAndDate(userId, date);
         }
 
+        const dateToCompare = typeof date === "string" ? new Date(date) : date;
+
         return this.events
           .filter(
             event =>
               event.userId === userId &&
-              event.date.toDateString() === date.toDateString()
+              event.date.toDateString() === dateToCompare.toDateString()
           )
           .map(event => ({
             ...event,

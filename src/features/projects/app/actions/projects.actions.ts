@@ -1,6 +1,7 @@
 "use server";
 
 import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
+import { projectsTags } from "@/lib/cache";
 import { logger } from "@/lib/logger";
 import {
   UnauthorizedErrorCode,
@@ -105,7 +106,7 @@ export const createProject = async (data: {
     "Project created successfully"
   );
 
-  updateTag(`projects-list-${currentUser.id}`);
+  updateTag(projectsTags.byUser(currentUser.id));
   return createSuccessResult({
     project: createProjectResponse.result,
     isFirstProject: countProjectsResponse.result === 1,

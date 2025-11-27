@@ -96,6 +96,11 @@ describe("CalendarEvents Repository fake", () => {
             endTime: new Date(),
             createdAt: new Date(),
             updatedAt: new Date(),
+            task: {
+              id: "task-1",
+              title: "Override Task",
+              projectId: null,
+            },
           },
         ];
       })

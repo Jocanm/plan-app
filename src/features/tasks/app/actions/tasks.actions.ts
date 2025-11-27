@@ -1,5 +1,6 @@
 "use server";
 
+import { projectsTags } from "@/lib/cache";
 import { logger } from "@/lib/logger";
 import { ValidationErrorCode } from "@/shared/types/results";
 import { createErrorResult, IResult } from "@/shared/utils/resultPattern";
@@ -52,7 +53,7 @@ export const createTask = async (data: {
       },
       "Task created successfully"
     );
-    updateTag(`project-${data.projectId}`);
+    updateTag(projectsTags.byId(data.projectId));
   } else if (response.error) {
     logger.error(
       {

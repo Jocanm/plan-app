@@ -1,3 +1,4 @@
+import { projectsTags } from "@/lib/cache";
 import { applyCacheBehavior } from "@/shared/utils/applyCache";
 import { projectsRepository } from "../../data/projects.repository.factory";
 import { projectsUseCases } from "../use-cases/projectsUseCases";
@@ -6,7 +7,7 @@ export const getProjectsForSidebar = async (userId: string) => {
   "use cache";
   applyCacheBehavior({
     profile: "minutes",
-    tags: [`projects-list-${userId}`],
+    tags: [projectsTags.byUser(userId)],
   });
 
   return await projectsUseCases.getProjectsForSidebar({
@@ -19,7 +20,7 @@ export const getProjectDetails = async (projectId: string, userId: string) => {
   "use cache";
   applyCacheBehavior({
     profile: "minutes",
-    tags: [`project-${projectId}`],
+    tags: [projectsTags.byId(projectId)],
   });
 
   return await projectsUseCases.getProjectDetails({
