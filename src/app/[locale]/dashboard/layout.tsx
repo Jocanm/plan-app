@@ -1,4 +1,5 @@
 import { SideCalendar } from "@/features/calendar/components/sideCalendar/SideCalendar";
+import { SideCalendarSkeleton } from "@/features/calendar/components/sideCalendar/SideCalendarSkeleton";
 import { SideCalendarDesktopWrapper } from "@/features/calendar/components/wrappers/SideCalendarDesktopWrapper";
 import { SideCalendarMobileWrapper } from "@/features/calendar/components/wrappers/SideCalendarMobileWrapper";
 import { MobileHeader } from "@/shared/components/layout/header/MobileHeader";
@@ -8,7 +9,7 @@ import { SidebarDesktopWrapper } from "@/shared/components/layout/sidebar/wrappe
 import { SidebarMobileWrapper } from "@/shared/components/layout/sidebar/wrappers/SidebarMobileWrapper";
 import { Locale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
+import { Suspense, use } from "react";
 
 const DashboardLayout = ({
   children,
@@ -27,16 +28,24 @@ const DashboardLayout = ({
         <SidebarDesktopWrapper>
           <Sidebar />
         </SidebarDesktopWrapper>
+
         <Main className="flex-1 p-6">{children}</Main>
+
         <SideCalendarDesktopWrapper>
-          <SideCalendar />
+          <Suspense fallback={<SideCalendarSkeleton />}>
+            <SideCalendar />
+          </Suspense>
         </SideCalendarDesktopWrapper>
       </div>
+
       <SidebarMobileWrapper>
         <Sidebar />
       </SidebarMobileWrapper>
+
       <SideCalendarMobileWrapper>
-        <SideCalendar />
+        <Suspense fallback={<SideCalendarSkeleton />}>
+          <SideCalendar />
+        </Suspense>
       </SideCalendarMobileWrapper>
     </div>
   );

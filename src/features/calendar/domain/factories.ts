@@ -15,9 +15,9 @@ export const buildCreateCalendarEventData = (
     userId,
     date,
     startTime,
-    endTime: endTime
-      ? endTime
-      : buildCalendarEndTime(startTime, MIN_CALENDAR_EVENT_DURATION_MINUTES),
+    endTime:
+      endTime ??
+      buildCalendarEndTime(startTime, MIN_CALENDAR_EVENT_DURATION_MINUTES),
   };
 };
 

@@ -26,7 +26,10 @@ const getProjectsForSidebar = async ({
     const projects = await repo.getProjectsForSidebar(userId);
     return createSuccessResult(projects);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(
+      error,
+      "An error occurred fetching sidebar projects"
+    );
   }
 };
 
@@ -44,7 +47,10 @@ const getProjectDetails = async ({
     const project = await repo.getProjectDetails(projectId, userId);
     return createSuccessResult(project);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(
+      error,
+      "An error occurred fetching project details"
+    );
   }
 };
 
@@ -61,7 +67,7 @@ const createProject = async ({
     const project = await repo.createProject(projectData);
     return createSuccessResult(project);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(error, "An error occurred creating project");
   }
 };
 
@@ -77,7 +83,7 @@ const countUserProjects = async ({
     const userProjectsCount = await repo.countByUser(userId);
     return createSuccessResult(userProjectsCount);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(error, "An error occurred counting user projects");
   }
 };
 

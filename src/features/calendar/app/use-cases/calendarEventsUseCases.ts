@@ -41,7 +41,7 @@ const createCalendarEvent = async ({
     const calendarEvent = await repo.create(calendarEventData);
     return createSuccessResult(calendarEvent);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(error, "An error occurred creating calendar event");
   }
 };
 
@@ -59,7 +59,10 @@ const getByUserAndDate = async ({
     const events = await repo.getByUserAndDate(userId, date);
     return createSuccessResult(events);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(
+      error,
+      "An error occurred fetching calendar events"
+    );
   }
 };
 

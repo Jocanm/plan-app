@@ -3,10 +3,14 @@ import { AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface InlineErrorProps {
+  showRetryButton?: boolean;
   showDescription?: boolean;
 }
 
-export const InlineError = ({ showDescription }: InlineErrorProps) => {
+export const InlineError = ({
+  showRetryButton,
+  showDescription,
+}: InlineErrorProps) => {
   const t = useTranslations("error.inline");
 
   return (
@@ -32,9 +36,11 @@ export const InlineError = ({ showDescription }: InlineErrorProps) => {
         </p>
       )}
 
-      <Button size="sm" variant="link" className="min-w-24">
-        {t("retry")}
-      </Button>
+      {showRetryButton && (
+        <Button size="sm" variant="link" className="min-w-24">
+          {t("retry")}
+        </Button>
+      )}
     </div>
   );
 };

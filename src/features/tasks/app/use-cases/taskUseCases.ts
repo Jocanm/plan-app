@@ -22,7 +22,7 @@ const createTask = async ({
     const task = await repo.createTask(taskData);
     return createSuccessResult(task);
   } catch (error) {
-    return handleCatchError(error);
+    return handleCatchError(error, "An error occurred creating task");
   }
 };
 

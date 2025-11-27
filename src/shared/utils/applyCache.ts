@@ -15,7 +15,6 @@ export type CacheProfile =
   | "days"
   | "weeks"
   | "max"
-  | (string & {})
   | NextCacheProfile;
 
 export interface CacheBehavior {

@@ -3,7 +3,6 @@ import { getProjectDetails } from "@/features/projects/app/queries/projects.quer
 import { ProjectHeader } from "@/features/projects/components/header/ProjectHeader";
 import { ProjectTasksProvider } from "@/features/projects/components/providers/ProjectTasksProvider";
 import { ProjectTasks } from "@/features/projects/components/tasks/ProjectTasks";
-import { Main } from "@/shared/components/layout/main/Main";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -49,10 +48,8 @@ const ProjectPage = async ({
 
   return (
     <ProjectTasksProvider initialTasks={projectDetails.tasks}>
-      <Main>
-        <ProjectHeader project={projectDetails} />
-        <ProjectTasks />
-      </Main>
+      <ProjectHeader project={projectDetails} />
+      <ProjectTasks />
     </ProjectTasksProvider>
   );
 };

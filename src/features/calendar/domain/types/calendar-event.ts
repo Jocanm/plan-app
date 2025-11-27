@@ -11,9 +11,9 @@ export interface CreateCalendarEventInput {
   id?: string;
   taskId: string;
   userId: string;
-  date: Date;
-  endTime?: Date;
-  startTime: Date;
+  date: Date | string;
+  endTime?: Date | string;
+  startTime: Date | string;
 }
 
 export type CreateCalendarEventData = Omit<

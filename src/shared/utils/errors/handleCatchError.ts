@@ -4,15 +4,15 @@ import { CommonResultErrorCode } from "../../types/results";
 import { createErrorResult } from "../resultPattern";
 import { handleUnknownError } from "./handleUnknownError";
 
-export const handleCatchError = (error: unknown) => {
+export const handleCatchError = (error: unknown, customMessage: string) => {
   const errorMessage = handleUnknownError(error);
   logger.error(
     { event: GlobalEvents.unknownErrorOccurred, errorMessage },
-    "An unknown error occurred"
+    customMessage
   );
 
   return createErrorResult<CommonResultErrorCode>(
     "UNKNOWN_ERROR",
-    "An unknown error occurred"
+    customMessage
   );
 };
