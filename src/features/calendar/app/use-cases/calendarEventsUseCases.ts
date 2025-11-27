@@ -1,3 +1,4 @@
+import { handleCatchError } from "@/shared/utils/errors/handleCatchError";
 import {
   createErrorResult,
   createSuccessResult,
@@ -5,7 +6,10 @@ import {
 import { buildCreateCalendarEventData } from "../../domain/factories";
 import { CreateCalendarEventInput } from "../../domain/types/calendar-event";
 import { ICalendarEventRepository } from "../../domain/types/repository";
-import { CreateCalendarEventResult } from "../../domain/types/results";
+import {
+  CreateCalendarEventResult,
+  GetCalendarEventsByUserAndDateResult,
+} from "../../domain/types/results";
 import { validateCalendarEventDateRange } from "../../domain/validations";
 
 interface CalendarEventUseCaseProps {
@@ -36,32 +40,26 @@ const createCalendarEvent = async ({
 
     const calendarEvent = await repo.create(calendarEventData);
     return createSuccessResult(calendarEvent);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong creating calendar event"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 
 interface GetByUserAndDateProps extends CalendarEventUseCaseProps {
   userId: string;
-  date: Date;
+  date: Date | string;
 }
 
 const getByUserAndDate = async ({
   date,
   repo,
   userId,
-}: GetByUserAndDateProps) => {
+}: GetByUserAndDateProps): Promise<GetCalendarEventsByUserAndDateResult> => {
   try {
     const events = await repo.getByUserAndDate(userId, date);
     return createSuccessResult(events);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong retrieving calendar events"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 

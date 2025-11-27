@@ -1,7 +1,5 @@
-import {
-  createErrorResult,
-  createSuccessResult,
-} from "@/shared/utils/resultPattern";
+import { handleCatchError } from "@/shared/utils/errors/handleCatchError";
+import { createSuccessResult } from "@/shared/utils/resultPattern";
 import { buildCreateTaskData } from "../../domain/factories";
 import { ITaskRepository } from "../../domain/types/repository";
 import { CreateTaskResult } from "../../domain/types/results";
@@ -23,11 +21,8 @@ const createTask = async ({
     const taskData = buildCreateTaskData(data);
     const task = await repo.createTask(taskData);
     return createSuccessResult(task);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong creating new task"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 

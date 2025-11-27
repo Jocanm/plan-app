@@ -1,7 +1,5 @@
-import {
-  createErrorResult,
-  createSuccessResult,
-} from "@/shared/utils/resultPattern";
+import { handleCatchError } from "@/shared/utils/errors/handleCatchError";
+import { createSuccessResult } from "@/shared/utils/resultPattern";
 import { buildCreateProjectData } from "../../domain/factories";
 import { CreateProjectInput } from "../../domain/types/project";
 import { IProjectRepository } from "../../domain/types/repository";
@@ -27,11 +25,8 @@ const getProjectsForSidebar = async ({
   try {
     const projects = await repo.getProjectsForSidebar(userId);
     return createSuccessResult(projects);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong getting sidebar projects"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 
@@ -48,11 +43,8 @@ const getProjectDetails = async ({
   try {
     const project = await repo.getProjectDetails(projectId, userId);
     return createSuccessResult(project);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong getting project details"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 
@@ -68,11 +60,8 @@ const createProject = async ({
   try {
     const project = await repo.createProject(projectData);
     return createSuccessResult(project);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong creating project"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 
@@ -87,11 +76,8 @@ const countUserProjects = async ({
   try {
     const userProjectsCount = await repo.countByUser(userId);
     return createSuccessResult(userProjectsCount);
-  } catch {
-    return createErrorResult(
-      "UNKNOWN_ERROR",
-      "something went wrong counting projects"
-    );
+  } catch (error) {
+    return handleCatchError(error);
   }
 };
 
