@@ -68,7 +68,12 @@ export class FakeCalendarEventsRepositoryManager {
           return this.overrides.create(data);
         }
 
-        const event = makeCalendarEvent(data);
+        const event = makeCalendarEvent({
+          ...data,
+          date: new Date(data.date),
+          startTime: new Date(data.startTime),
+          endTime: new Date(data.endTime),
+        });
         this.addEvent(event);
         return event;
       },
