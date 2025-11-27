@@ -22,7 +22,7 @@ export const buildCreateCalendarEventData = (
 };
 
 export const buildCalendarEndTime = (
-  startTime: Date,
+  startTime: Date | string,
   durationMinutes = MIN_CALENDAR_EVENT_DURATION_MINUTES
 ): Date => {
   return add(startTime, { minutes: durationMinutes });
