@@ -11,7 +11,16 @@ import { getCurrentUser } from "../../../auth/app/queries/getCurrentUser";
 import { calendarEventsRepository } from "../../data/calendar-events.repository.factory";
 import { CalendarEvent } from "../../domain/types/calendar-event";
 import { CreateCalendarEventErrorCode } from "../../domain/types/results";
+import { getCalendarEventsForUser } from "../queries/calendar-events.queries";
 import { calendarEventsUseCases } from "../use-cases/calendarEventsUseCases";
+
+export const getUserEvents = async (date: string, userId: string) => {
+  try {
+    return await getCalendarEventsForUser(date, userId);
+  } catch (error) {
+    return handleCatchError(error, "An error occurred in getUserEvents action");
+  }
+};
 
 type CreateCalendarEventActionErrorCode =
   | CreateCalendarEventErrorCode

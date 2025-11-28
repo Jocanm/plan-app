@@ -17,6 +17,7 @@ import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
 import { Toaster } from "sonner";
 import { ThemeSwitcher } from "../../shared/components/dev/ThemeSwitcher";
+import { QueryProvider } from "../../shared/components/providers/QueryProvider";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -133,22 +134,24 @@ export default function LocaleLayout({
         <Suspense>
           <SkipToMainContent />
         </Suspense>
-        <SessionProvider>
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider
-              enableSystem
-              attribute="class"
-              defaultTheme="dark"
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster richColors position="bottom-right" />
-              <ThemeSwitcher />
-              <Analytics />
-              <SpeedInsights />
-            </ThemeProvider>
-          </NextIntlClientProvider>
-        </SessionProvider>
+        <QueryProvider>
+          <SessionProvider>
+            <NextIntlClientProvider messages={messages}>
+              <ThemeProvider
+                enableSystem
+                attribute="class"
+                defaultTheme="dark"
+                disableTransitionOnChange
+              >
+                {children}
+                <Toaster richColors position="bottom-right" />
+                <ThemeSwitcher />
+                <Analytics />
+                <SpeedInsights />
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

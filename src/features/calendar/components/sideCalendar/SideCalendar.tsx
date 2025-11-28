@@ -1,29 +1,32 @@
 import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
+import { getQueryClient } from "@/lib/query/get-query-client";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { getCalendarEventsForUser } from "../../app/queries/calendar-events.queries";
-import { DayCalendar } from "../dayCalendar/DayCalendar";
+import { toCalendarDateISO } from "../../domain/utils";
+import { SideCalendarClient } from "./SideCalendarClient";
 import { SideCalendarRequestError } from "./SideCalendarRequestError";
 
 export const SideCalendar = async () => {
+  const queryClient = getQueryClient();
   const user = await getCurrentUser();
-  const { error } = await getCalendarEventsForUser(
-    "2025-01-01T00:00:00.000Z",
-    user.id
-  );
+  const today = toCalendarDateISO(new Date());
+
+  const { error } = await queryClient.fetchQuery({
+    queryKey: ["calendarEvents", user.id, today],
+    queryFn: () => getCalendarEventsForUser(today, user.id),
+  });
 
   if (error) {
-    return (
-      <SideCalendarRequestError
-        userId={user.id}
-        date="2025-01-01T00:00:00.000Z"
-      />
-    );
+    return <SideCalendarRequestError date={today} userId={user.id} />;
   }
 
   return (
     <div className="bg-card shrink-0 py-5 h-full">
       <Suspense>
-        <DayCalendar />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <SideCalendarClient userId={user.id} />
+        </HydrationBoundary>
       </Suspense>
     </div>
   );

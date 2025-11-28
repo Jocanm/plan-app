@@ -12,6 +12,7 @@ export const InlineError = ({
   retryAction,
   showDescription,
   className,
+  children,
   ...props
 }: InlineErrorProps) => {
   const t = useTranslations("error.inline");
@@ -48,6 +49,8 @@ export const InlineError = ({
           <InlineErrorRetryCta />
         </form>
       )}
+
+      {children}
     </div>
   );
 };

@@ -3,7 +3,12 @@
 import { format, getDay, parse, startOfWeek } from "date-fns";
 import { enUS, es } from "date-fns/locale";
 import { useLocale } from "next-intl";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import {
+  Calendar,
+  CalendarProps,
+  dateFnsLocalizer,
+  Event,
+} from "react-big-calendar";
 
 const locales = { es, en: enUS };
 
@@ -15,12 +20,17 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-export const DayCalendar = () => {
+interface DayCalendarProps extends Partial<CalendarProps> {
+  events: Event[];
+}
+
+export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
   const locale = useLocale();
 
   return (
     <div className="h-full [&_.rbc-time-header]:hidden!">
       <Calendar
+        events={events}
         selectable
         culture={locale}
         localizer={localizer}
@@ -30,7 +40,7 @@ export const DayCalendar = () => {
         views={["day"]}
         defaultView="day"
         toolbar={false}
-        onSelectSlot={({}) => {}}
+        {...props}
       />
     </div>
   );
