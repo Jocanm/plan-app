@@ -36,19 +36,19 @@ const ProjectPage = async ({
   params,
 }: PageProps<"/[locale]/dashboard/[projectId]">) => {
   const { projectId } = await params;
-  const { result: projectDetails, error } = await getProject(projectId);
+  const { result: project, error } = await getProject(projectId);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  if (!projectDetails) {
+  if (!project) {
     notFound();
   }
 
   return (
-    <ProjectTasksProvider initialTasks={projectDetails.tasks}>
-      <ProjectHeader project={projectDetails} />
+    <ProjectTasksProvider initialTasks={project.tasks}>
+      <ProjectHeader project={project} />
       <ProjectTasks />
     </ProjectTasksProvider>
   );

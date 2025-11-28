@@ -23,14 +23,14 @@ export const Sidebar = async () => {
         </div>
       </section>
 
-      <section className="h-full px-6 flex flex-col py-6 gap-6">
+      <section className="flex-1 px-6 flex flex-col py-6 gap-6 min-h-0 overflow-hidden">
         <SidebarNavigationSegment />
         <SidebarProjectsSegment />
       </section>
 
       <section
         aria-label="Configuration"
-        className="px-6 space-y-2 border-t pt-4"
+        className="px-6 space-y-2 border-t pt-4 shrink-0"
       >
         <SidebarLink href="/settings">
           <SidebarLink.Icon>

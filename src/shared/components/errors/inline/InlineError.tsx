@@ -1,15 +1,18 @@
-import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { cn } from "../../../utils/cn";
+import { InlineErrorRetryCta } from "./InlineErrorRetryCta";
 
-interface InlineErrorProps {
-  showRetryButton?: boolean;
+interface InlineErrorProps extends React.ComponentProps<"div"> {
   showDescription?: boolean;
+  retryAction?: () => Promise<void>;
 }
 
 export const InlineError = ({
-  showRetryButton,
+  retryAction,
   showDescription,
+  className,
+  ...props
 }: InlineErrorProps) => {
   const t = useTranslations("error.inline");
 
@@ -17,7 +20,11 @@ export const InlineError = ({
     <div
       role="status"
       aria-live="polite"
-      className="flex flex-col items-center justify-center py-8 px-4 text-center"
+      className={cn(
+        "flex flex-col items-center justify-center py-8 px-4 text-center",
+        className
+      )}
+      {...props}
     >
       <div className="mb-4 p-3 rounded-full bg-muted/20 border border-border">
         <AlertCircle
@@ -36,10 +43,10 @@ export const InlineError = ({
         </p>
       )}
 
-      {showRetryButton && (
-        <Button size="sm" variant="link" className="min-w-24">
-          {t("retry")}
-        </Button>
+      {retryAction && (
+        <form action={retryAction}>
+          <InlineErrorRetryCta />
+        </form>
       )}
     </div>
   );

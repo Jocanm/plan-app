@@ -9,7 +9,7 @@ export const SidebarProjectsSegment = async () => {
   return (
     <nav
       role="navigation"
-      className="space-y-4"
+      className="flex flex-col gap-4 flex-1 min-h-0"
       aria-labelledby="sidebar-projects-segment-title"
     >
       <section className="flex items-center justify-between">
