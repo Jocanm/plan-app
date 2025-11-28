@@ -19,8 +19,11 @@
 .rbc-month-view,
 .rbc-agenda-view,
 .rbc-time-content, /* Incluido para vistas de hora */
-.rbc-time-gutter { /* Incluido para columna de horas */
-  background-color: var(--color-card); /* Usa tu color de superficie para tarjetas */
+.rbc-time-gutter {
+  /* Incluido para columna de horas */
+  background-color: var(
+    --color-card
+  ); /* Usa tu color de superficie para tarjetas */
   border-color: var(--color-border);
 }
 
@@ -102,7 +105,7 @@
 /* El texto de la hora en sí */
 .rbc-timeslot-group .rbc-label {
   text-align: right;
-  padding-top: 0.5rem; 
+  padding-top: 0.5rem;
   font-size: 0.75rem;
   color: var(--color-muted-foreground);
   font-weight: 500;
@@ -126,20 +129,20 @@
 
 /* Encabezado del día en la vista de hora (ej: "18 Tue") */
 .rbc-day-slot .rbc-time-header {
-    background-color: var(--color-card);
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-foreground);
-    padding: 0.5rem 0;
-    font-size: 0.9rem;
+  background-color: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-foreground);
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
 }
 
 .rbc-day-slot .rbc-time-slot {
-    border-top: 0;
+  border-top: 0;
 }
 
 /* 7. Eventos (El corazón del calendario) */
 .rbc-event {
-  background-color: var(--color-primary); 
+  background-color: var(--color-primary);
   border-radius: var(--radius-sm);
   color: var(--color-primary-foreground);
   padding: 0.25rem 0.5rem;
@@ -147,7 +150,7 @@
   font-weight: 500;
   transition: opacity 0.2s;
   /* Asegura que los eventos flotantes tengan un buen contraste */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .rbc-event:hover {
@@ -181,4 +184,3 @@
   background: var(--color-primary-hover);
   color: var(--color-foreground);
 }
-
