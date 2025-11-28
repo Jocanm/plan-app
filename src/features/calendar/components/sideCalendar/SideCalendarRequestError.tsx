@@ -1,5 +1,5 @@
+import { InlineError } from "@/shared/components/errors/inline/InlineError";
 import { updateTag } from "next/cache";
-import { InlineError } from "../../../../shared/components/errors/inline/InlineError";
 import { calendarEventsTags } from "../../app/cache/tags";
 
 interface SideCalendarRequestErrorProps {

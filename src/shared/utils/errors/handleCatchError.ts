@@ -1,4 +1,4 @@
-import { logger } from "../../../lib/logger";
+import { logger } from "@/lib/logger";
 import { GlobalEvents } from "../../domain/events/catalog";
 import { CommonResultErrorCode } from "../../types/results";
 import { createErrorResult } from "../resultPattern";

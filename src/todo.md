@@ -71,11 +71,11 @@
 **Est: 1h** | **Test Coverage: Skipped per decision**
 
 #### Server Query
-- [ ] Create `calendar-events.queries.ts`
-- [ ] Function: `getEventsForDayQuery(date: Date)`
-- [ ] Wrap with `unstable_cache`
-- [ ] Tag format: `calendar-events-YYYY-MM-DD`
-- [ ] Return CalendarEvent[] with tasks
+- [x] Create `calendar-events.queries.ts`
+- [x] Function: `getEventsForDayQuery(date: Date)`
+- [x] Wrap with `unstable_cache`
+- [x] Tag format: `calendar-events-YYYY-MM-DD`
+- [x] Return CalendarEvent[] with tasks
 
 #### Schema
 - [ ] Create `calendar-event.schema.ts`
@@ -83,13 +83,13 @@
 - [ ] Export CreateCalendarEventSchema type
 
 #### Server Action
-- [ ] Create `calendar-events.actions.ts`
-- [ ] Action: `createCalendarEventAction(data)`
+- [x] Create `calendar-events.actions.ts`
+- [x] Action: `createCalendarEventAction(data)`
 - [ ] Validate with schema
-- [ ] Get userId from session
-- [ ] Call use case with real repo
-- [ ] On success: `revalidateTag(calendar-events-${date})`
-- [ ] Return result pattern
+- [x] Get userId from session
+- [x] Call use case with real repo
+- [x] On success: `revalidateTag(calendar-events-${date})`
+- [x] Return result pattern
 
 **Output:** Query + Action ready for UI consumption
 
