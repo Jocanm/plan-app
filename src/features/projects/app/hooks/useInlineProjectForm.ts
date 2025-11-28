@@ -61,17 +61,20 @@ export const useInlineProjectForm = () => {
     setCustomError("name", errorMessage);
   };
 
-  const onSubmit = async (data: CreateProjectSchema) => {
+  const onSubmit = async (
+    data: CreateProjectSchema,
+    projectsCount?: number
+  ) => {
     setIsLoading(true);
-    const { result, error } = await createProject(data);
+    const { result: project, error } = await createProject(data);
     setIsLoading(false);
     if (error) {
       return handleErrors(error);
     }
 
-    if (result.isFirstProject) {
+    if (projectsCount === 0) {
       const projectPath = buildPath(ROUTES.PROJECT, {
-        projectId: result.project.id,
+        projectId: project.id,
       });
       router.push(projectPath);
     }
@@ -80,12 +83,11 @@ export const useInlineProjectForm = () => {
     formMethods.reset();
   };
 
-  const handleSubmit = formMethods.handleSubmit(onSubmit);
-
   return {
     isLoading,
     formMethods,
-    handleSubmit,
+
+    onSubmit,
     getTranslatedError,
   };
 };

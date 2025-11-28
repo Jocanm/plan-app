@@ -29,12 +29,7 @@ export type CreateProjectActionErrorCode =
 export const createProject = async (data: {
   name: string;
   color?: string;
-}): Promise<
-  IResult<
-    { project: Project; isFirstProject: boolean },
-    CreateProjectActionErrorCode
-  >
-> => {
+}): Promise<IResult<Project, CreateProjectActionErrorCode>> => {
   const parsedData = createProjectSchema.safeParse(data);
   if (!parsedData.success) {
     const firstError = getFirstZodError(parsedData.error);
@@ -59,11 +54,6 @@ export const createProject = async (data: {
     },
   });
 
-  const countProjectsResponse = await projectsUseCases.countUserProjects({
-    repo: projectsRepository,
-    userId: currentUser.id,
-  });
-
   if (createProjectResponse.error) {
     logger.error(
       {
@@ -80,35 +70,16 @@ export const createProject = async (data: {
     );
   }
 
-  if (countProjectsResponse.error) {
-    logger.error(
-      {
-        event: ProjectEvents.countFail,
-        userId: currentUser.id,
-        error: countProjectsResponse.error.message,
-      },
-      "Failed to count user projects"
-    );
-    return createErrorResult(
-      countProjectsResponse.error.code,
-      countProjectsResponse.error.message
-    );
-  }
-
   logger.info(
     {
       event: ProjectEvents.created,
       userId: currentUser.id,
       projectId: createProjectResponse.result.id,
       projectName: createProjectResponse.result.name,
-      isFirstProject: countProjectsResponse.result === 1,
     },
     "Project created successfully"
   );
 
   updateTag(projectsTags.byUser(currentUser.id));
-  return createSuccessResult({
-    project: createProjectResponse.result,
-    isFirstProject: countProjectsResponse.result === 1,
-  });
+  return createSuccessResult(createProjectResponse.result);
 };

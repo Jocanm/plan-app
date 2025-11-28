@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { InlineProjectForm } from "@/features/projects/components/form/InlineProjectForm";
 import { useTranslations } from "next-intl";
 import { useSidebarStore } from "../../../../../stores/useSidebarStore";
-import { Button } from "@/components/ui/button";
 
 export const SidebarNoProjects = () => {
   const t = useTranslations("sidebar");
@@ -11,7 +11,7 @@ export const SidebarNoProjects = () => {
   const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
 
   if (showInlineForm) {
-    return <InlineProjectForm />;
+    return <InlineProjectForm projectsCount={0} />;
   }
 
   return (

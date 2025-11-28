@@ -3,7 +3,13 @@
 import { InlineProjectForm } from "@/features/projects/components/form/InlineProjectForm";
 import { useSidebarStore } from "../../../../../../stores/useSidebarStore";
 
-export const SidebarInlineProjectForm = () => {
+interface SidebarInlineProjectFormProps {
+  projectsCount?: number;
+}
+
+export const SidebarInlineProjectForm = ({
+  projectsCount,
+}: SidebarInlineProjectFormProps) => {
   const showInlineForm = useSidebarStore(s => s.showInlineProjectForm);
 
   if (!showInlineForm) {
@@ -12,7 +18,7 @@ export const SidebarInlineProjectForm = () => {
 
   return (
     <div className="p-2">
-      <InlineProjectForm />
+      <InlineProjectForm projectsCount={projectsCount} />
     </div>
   );
 };

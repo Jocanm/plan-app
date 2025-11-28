@@ -33,7 +33,7 @@ export const SidebarProjectsList = async () => {
       data-testid="sidebar-projects-segment"
       className="flex-1 overflow-y-auto min-h-0 scrollbar-thin"
     >
-      <SidebarInlineProjectForm />
+      <SidebarInlineProjectForm projectsCount={projects.length} />
       {projects.map(project => (
         <SidebarProjectItem key={project.id} project={project} />
       ))}

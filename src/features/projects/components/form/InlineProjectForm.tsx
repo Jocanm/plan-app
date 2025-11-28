@@ -5,15 +5,24 @@ import { useSidebarStore } from "@/shared/stores/useSidebarStore";
 import { useTranslations } from "next-intl";
 import { useInlineProjectForm } from "../../app/hooks/useInlineProjectForm";
 
-export const InlineProjectForm = () => {
+interface InlineProjectFormProps {
+  projectsCount?: number;
+}
+
+export const InlineProjectForm = ({
+  projectsCount,
+}: InlineProjectFormProps) => {
   const t = useTranslations("project.form");
   const setShowInlineForm = useSidebarStore(s => s.setShowInlineProjectForm);
 
-  const { formMethods, isLoading, handleSubmit, getTranslatedError } =
+  const { formMethods, isLoading, onSubmit, getTranslatedError } =
     useInlineProjectForm();
 
   return (
-    <form data-testid="sidebar-inline-project-form" onSubmit={handleSubmit}>
+    <form
+      data-testid="sidebar-inline-project-form"
+      onSubmit={formMethods.handleSubmit(data => onSubmit(data, projectsCount))}
+    >
       <CustomInput
         autoFocus
         showBaseLoader={isLoading}
