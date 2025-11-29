@@ -15,13 +15,13 @@ interface SideCalendarClientProps {
 export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   const t = useTranslations("error.inline");
   const [today] = useState(() => toCalendarDateISO(new Date()));
-  const { data, isLoading, refetch, isFetching } = useCalendarEventsQuery(
+  const { data, refetch, isFetching, status } = useCalendarEventsQuery(
     today,
     userId
   );
 
-  if (isLoading || !data) return <SideCalendarSkeleton />;
-  if (data.error)
+  if (status === "pending") return <SideCalendarSkeleton />;
+  if (status === "error" || data.error) {
     return (
       <InlineError className="h-full">
         <Button disabled={isFetching} variant="link" onClick={() => refetch()}>
@@ -29,6 +29,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
         </Button>
       </InlineError>
     );
+  }
 
   return (
     <>

@@ -32,7 +32,9 @@ export const TaskCard = ({ task }: TaskCardProps) => {
         className="flex flex-col items-start"
         data-testid={`task-card-content-${id}`}
       >
-        <h3 id={`task-card-title-${id}`}>{title}</h3>
+        <h3 className="text-left" id={`task-card-title-${id}`}>
+          {title}
+        </h3>
         {description && (
           <p className="text-muted-foreground text-sm">{description}</p>
         )}
