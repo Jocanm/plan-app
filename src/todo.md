@@ -114,18 +114,18 @@
 
 #### Context Provider
 
-- [ ] Create `CalendarEventsProvider.tsx`
-- [ ] Props: `initialEvents`, `date`
-- [ ] State: `useOptimistic` for events
-- [ ] Methods: `addOptimisticEvent(event)`
-- [ ] Hook: `useCalendarEvents()` with context
+- [x] Create `CalendarEventsProvider.tsx`
+- [x] Props: `initialEvents`, `date`
+- [x] State: `useOptimistic` for events
+- [x] Methods: `addOptimisticEvent(event)`
+- [x] Hook: `useCalendarEvents()` with context
 
 #### Layout Integration
 
-- [ ] In dashboard layout (server):
-  - [ ] Fetch: `getEventsForDayQuery(new Date())`
-  - [ ] Wrap children with provider
-  - [ ] Pass initialEvents + date
+- [x] In dashboard layout (server):
+  - [x] Fetch: `getEventsForDayQuery(new Date())`
+  - [x] Wrap children with provider
+  - [x] Pass initialEvents + date
 
 #### Calendar Display
 

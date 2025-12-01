@@ -348,6 +348,13 @@
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-primary-hover);
   }
+
+  .scrollbar-invisible {
+    scrollbar-width: none;
+  }
+  .scrollbar-invisible::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ============================================

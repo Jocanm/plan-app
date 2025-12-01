@@ -23,6 +23,7 @@ export const useCreateTask = () => {
   const { addOptimisticTask, removeOptimisticTask } = useProjectTasks();
 
   const methods = useForm({
+    values: { title: "" },
     resolver: zodResolver(createTaskSchema),
   });
 
@@ -51,15 +52,13 @@ export const useCreateTask = () => {
       return;
     }
 
-    const userId = user.id;
-
     startTransition(async () => {
       const taskId = crypto.randomUUID();
       const optimisticTask = buildOptimisticTask({
         ...data,
         projectId,
         id: taskId,
-        userId,
+        userId: user.id,
       });
 
       addOptimisticTask(optimisticTask);

@@ -16,9 +16,12 @@ export const ProjectTasks = () => {
   }
 
   return (
-    <section className="mb-8">
-      <h2 className="text-lg font-semibold mb-4">{t("tasks_heading")}</h2>
-      <ul className="space-y-4 mt-4" ref={tasksParent}>
+    <section className="mb-8 h-full flex flex-col">
+      <h2 className="text-lg font-semibold">{t("tasks_heading")}</h2>
+      <ul
+        ref={tasksParent}
+        className="space-y-4 mt-4 overflow-y-auto flex-1 scrollbar-invisible"
+      >
         {tasks.map(task => (
           <li key={task.id}>
             <TaskCard task={task} />
