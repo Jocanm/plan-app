@@ -3,8 +3,8 @@
 import { ProjectSidebar } from "@/features/projects/domain/types/project";
 import { usePathname } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/config/constants";
-import { buildPath } from "../../../../../utils/buildPath";
-import { SidebarLink } from "../../SidebarLink";
+import { buildPath } from "../../../../../../utils/buildPath";
+import { SidebarLink } from "../../../SidebarLink";
 
 interface SidebarProjectItemProps {
   project: ProjectSidebar;

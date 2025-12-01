@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { SegmentSuspense } from "../SegmentSuspense";
 import { SidebarCreateProjectCta } from "./SidebarCreateProjectCta";
-import { SidebarProjectsList } from "./SidebarProjectsList";
+import { SidebarProjectsList } from "./list/SidebarProjectsList";
 
 export const SidebarProjectsSegment = async () => {
   const t = await getTranslations("sidebar.projects");
