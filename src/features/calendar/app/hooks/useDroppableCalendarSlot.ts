@@ -7,7 +7,7 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 type Options = Omit<DropTargetArgs<ElementDragType>, "element">;
 
-export const useCalendarDropSlot = ({
+export const useDroppableCalendarSlot = ({
   onDrop,
   onDragLeave,
   onDragEnter,
@@ -39,10 +39,7 @@ export const useCalendarDropSlot = ({
     if (ref.current) {
       const isTimeGutter = ref.current.closest(".rbc-time-gutter") !== null;
       if (isTimeGutter) return;
-
-      const cleanup = setDropTarget(ref.current);
-
-      return cleanup;
+      return setDropTarget(ref.current);
     }
   }, []);
 

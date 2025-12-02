@@ -5,12 +5,15 @@ import { InlineError } from "@/shared/components/errors/inline/InlineError";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCalendarEventsQuery } from "../../app/hooks/queries/useCalendarEvents";
-import { useCalendarDropSlot } from "../../app/hooks/useCalendarDropSlot";
 import { toCalendarDateISO } from "../../domain/utils";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
 import { SideCalendarSkeleton } from "./SideCalendarSkeleton";
+import {
+  SideCalendarTimeSlotWrapper,
+  SideCalendarTimeSlotWrapperProps,
+} from "./slots/SideCalendarTimeSlotWrapper";
 
 interface SideCalendarClientProps {
   userId: string;
@@ -55,34 +58,11 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
           title: event.task.title,
         }))}
         components={{
-          timeSlotWrapper: (props: TimeSlotWrapperProps) => (
-            <TimeSlotWrapper {...props} />
+          timeSlotWrapper: (props: SideCalendarTimeSlotWrapperProps) => (
+            <SideCalendarTimeSlotWrapper {...props} />
           ),
         }}
       />
-    </div>
-  );
-};
-
-interface TimeSlotWrapperProps {
-  [key: string]: unknown;
-  children?: React.ReactNode;
-}
-
-const TimeSlotWrapper = ({ children, ...props }: TimeSlotWrapperProps) => {
-  const { ref, isDraggedOver } = useCalendarDropSlot();
-
-  return (
-    <div
-      ref={ref}
-      {...props}
-      className={clsx(
-        "flex-1",
-        isDraggedOver && "bg-primary/10 border-2 border-primary border-dashed",
-        props.className as string
-      )}
-    >
-      {children}
     </div>
   );
 };

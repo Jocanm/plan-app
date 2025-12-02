@@ -3,6 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { BaseLoader } from "@/shared/components/custom/BaseLoader";
 import clsx from "clsx";
+import { GripVertical } from "lucide-react";
 import { useDraggableTask } from "../../app/hooks/useDraggableTask";
 import { OptimisticTask } from "../../domain/types/task";
 
@@ -12,11 +13,16 @@ interface TaskCardProps {
 
 export const TaskCard = ({ task }: TaskCardProps) => {
   const { id, title, description, color, isOptimistic } = task;
-  const { ref, isDragging } = useDraggableTask(id);
+  const { mainRef, dragHandleRef, isDragging } = useDraggableTask({
+    id,
+    title,
+    color,
+    isOptimistic: isOptimistic ?? false,
+  });
 
   return (
     <article
-      ref={ref}
+      ref={mainRef}
       data-testid={`task-card-${id}`}
       style={{ borderLeftColor: color }}
       aria-labelledby={`task-card-title-${id}`}
@@ -36,8 +42,8 @@ export const TaskCard = ({ task }: TaskCardProps) => {
 
       <button
         disabled={isOptimistic}
-        className="flex flex-col items-start"
         data-testid={`task-card-content-${id}`}
+        className="flex flex-col flex-1 items-start"
       >
         <h3 className="text-left" id={`task-card-title-${id}`}>
           {title}
@@ -47,13 +53,22 @@ export const TaskCard = ({ task }: TaskCardProps) => {
         )}
       </button>
 
-      <div data-testid={`task-card-metadata-${id}`} />
       <div
-        className="my-auto ml-auto"
-        data-testid={`task-card-optimistic-indicator-${id}`}
+        ref={dragHandleRef}
+        className={clsx("cursor-grab my-auto", isOptimistic && "hidden")}
+        data-testid={`task-card-drag-handle-${id}`}
       >
-        {isOptimistic && <BaseLoader />}
+        <GripVertical className="my-auto text-muted-foreground" />
       </div>
+
+      {isOptimistic && (
+        <div
+          className="my-auto ml-auto"
+          data-testid={`task-card-optimistic-indicator-${id}`}
+        >
+          <BaseLoader />
+        </div>
+      )}
     </article>
   );
 };
