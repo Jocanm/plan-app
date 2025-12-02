@@ -4,17 +4,17 @@ import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useCurrentUser } from "../../../auth/app/hooks/useCurrentUser";
-import { useProjectTasks } from "../../../projects/components/providers/ProjectTasksProvider";
-import { buildOptimisticTask } from "../../domain/factories";
+import { useCurrentUser } from "../../../../auth/app/hooks/useCurrentUser";
+import { useProjectTasks } from "../../../../projects/components/providers/ProjectTasksProvider";
+import { buildOptimisticTask } from "../../../domain/factories";
 import {
   createTask,
   CreateTaskActionErrorCode,
-} from "../actions/tasks.actions";
+} from "../../actions/tasks.actions";
 import {
   createTaskSchema,
   CreateTaskSchema,
-} from "../schemas/createTask.schema";
+} from "../../schemas/createTask.schema";
 
 export const useCreateTask = () => {
   const user = useCurrentUser();

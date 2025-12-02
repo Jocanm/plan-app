@@ -3,7 +3,7 @@
 import { CustomInput } from "@/shared/components/custom/CustomInput";
 import { useSidebarStore } from "@/shared/stores/useSidebarStore";
 import { useTranslations } from "next-intl";
-import { useInlineProjectForm } from "../../app/hooks/useInlineProjectForm";
+import { useInlineProjectForm } from "../../app/hooks/actions/useInlineProjectForm";
 
 interface InlineProjectFormProps {
   projectsCount?: number;

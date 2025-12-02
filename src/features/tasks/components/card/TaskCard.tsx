@@ -1,6 +1,9 @@
+"use client";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { BaseLoader } from "@/shared/components/custom/BaseLoader";
 import clsx from "clsx";
+import { useDraggableTask } from "../../app/hooks/useDraggableTask";
 import { OptimisticTask } from "../../domain/types/task";
 
 interface TaskCardProps {
@@ -9,14 +12,18 @@ interface TaskCardProps {
 
 export const TaskCard = ({ task }: TaskCardProps) => {
   const { id, title, description, color, isOptimistic } = task;
+  const { ref, isDragging } = useDraggableTask(id);
+
   return (
     <article
+      ref={ref}
       data-testid={`task-card-${id}`}
       style={{ borderLeftColor: color }}
       aria-labelledby={`task-card-title-${id}`}
       className={clsx(
         "p-4 border bg-card rounded-lg w-full text-card-foreground border-l-4 flex items-start gap-4",
-        isOptimistic && "opacity-50 cursor-progress"
+        isOptimistic && "opacity-50 cursor-progress",
+        isDragging && "opacity-75 shadow-lg"
       )}
     >
       <div data-testid={`task-card-checkbox-${id}`} className="my-auto">

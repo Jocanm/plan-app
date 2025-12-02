@@ -5,7 +5,7 @@ import { useFormErrorTranslator } from "@/features/i18n/app/hooks/useErrorTransl
 import { CustomInput } from "@/shared/components/custom/CustomInput";
 import { CirclePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCreateTask } from "../../app/hooks/useCreateTask";
+import { useCreateTask } from "../../app/hooks/actions/useCreateTask";
 import { MAX_TASK_TITLE_LENGTH } from "../../domain/constants";
 
 interface TaskInputCardProps {

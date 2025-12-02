@@ -10,11 +10,11 @@ import { useForm } from "react-hook-form";
 import {
   createProject,
   CreateProjectActionErrorCode,
-} from "../actions/projects.actions";
+} from "../../actions/projects.actions";
 import {
   createProjectSchema,
   CreateProjectSchema,
-} from "../schemas/createProject.schema";
+} from "../../schemas/createProject.schema";
 
 export const useInlineProjectForm = () => {
   const router = useRouter();
