@@ -1,3 +1,4 @@
+// src/features/calendar/app/hooks/useDroppableCalendarSlot.ts
 import {
   DropTargetArgs,
   ElementDragType,
@@ -36,11 +37,10 @@ export const useDroppableCalendarSlot = ({
   });
 
   useEffect(() => {
-    if (ref.current) {
-      const isTimeGutter = ref.current.closest(".rbc-time-gutter") !== null;
-      if (isTimeGutter) return;
-      return setDropTarget(ref.current);
-    }
+    const element = ref.current;
+    if (!element) return;
+
+    return setDropTarget(element);
   }, []);
 
   return { ref, isDraggedOver };
