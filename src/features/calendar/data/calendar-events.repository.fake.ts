@@ -1,3 +1,4 @@
+import { generateId } from "@/lib/utils/id";
 import { CalendarEvent } from "../domain/types/calendar-event";
 import { ICalendarEventRepository } from "../domain/types/repository";
 
@@ -19,7 +20,7 @@ const makeCalendarEvent = (
   overrides: Partial<CalendarEvent> = {}
 ): CalendarEvent => ({
   ...DEFAULT_CALENDAR_EVENT,
-  id: crypto.randomUUID(),
+  id: generateId(),
   ...overrides,
 });
 

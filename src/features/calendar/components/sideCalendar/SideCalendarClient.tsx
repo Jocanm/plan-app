@@ -36,7 +36,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   }, []);
 
   if (status === "pending") return <SideCalendarSkeleton />;
-  if (status === "error" || !data) {
+  if (status === "error") {
     return (
       <InlineError className="h-full">
         <Button disabled={isFetching} variant="link" onClick={() => refetch()}>

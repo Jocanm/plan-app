@@ -1,3 +1,4 @@
+import { generateId } from "@/lib/utils/id";
 import { beforeEach, describe, expect, it } from "vitest";
 import { FakeTasksRepositoryManager } from "../tasks.repository.fake";
 
@@ -18,7 +19,7 @@ describe("Tasks Repository fake", () => {
     const repo = manager.getRepository();
     manager.reset();
 
-    const taskId = crypto.randomUUID();
+    const taskId = generateId();
     await repo.createTask({
       id: taskId,
       color: "#FFFF",

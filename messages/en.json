@@ -195,5 +195,13 @@
       "a11y_title": "Side Calendar",
       "a11y_description": "Calendar view for scheduled tasks and events"
     }
+  },
+  "calendar": {
+    "errors": {
+      "create_event_failed": "Failed to create calendar event",
+      "create_event_failed_description": "An error occurred while scheduling the task. Please try again.",
+      "missing_data": "Missing required data",
+      "invalid_drag_data": "Invalid task data received"
+    }
   }
 }

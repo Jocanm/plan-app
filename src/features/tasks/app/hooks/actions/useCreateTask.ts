@@ -1,3 +1,4 @@
+import { generateId } from "@/lib/utils/id";
 import { IError } from "@/shared/utils/resultPattern";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -53,7 +54,7 @@ export const useCreateTask = () => {
     }
 
     startTransition(async () => {
-      const taskId = crypto.randomUUID();
+      const taskId = generateId();
       const optimisticTask = buildOptimisticTask({
         ...data,
         projectId,

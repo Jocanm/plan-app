@@ -1,3 +1,4 @@
+import { generateId } from "@/lib/utils/id";
 import { ITaskRepository } from "../domain/types/repository";
 import { Task } from "../domain/types/task";
 
@@ -15,7 +16,7 @@ const DEFAULT_TASK = {
 
 const makeTask = (overrides: Partial<Task> = {}): Task => ({
   ...DEFAULT_TASK,
-  id: crypto.randomUUID(),
+  id: generateId(),
   ...overrides,
 });
 

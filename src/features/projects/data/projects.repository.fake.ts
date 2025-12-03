@@ -1,3 +1,4 @@
+import { generateId } from "@/lib/utils/id";
 import { Project } from "../domain/types/project";
 import { IProjectRepository } from "../domain/types/repository";
 
@@ -15,7 +16,7 @@ const DEFAULT_PROJECT = {
 
 const makeProject = (overrides: Partial<Project> = {}): Project => ({
   ...DEFAULT_PROJECT,
-  id: crypto.randomUUID(),
+  id: generateId(),
   ...overrides,
 });
 

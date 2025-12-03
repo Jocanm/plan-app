@@ -1,4 +1,6 @@
+import { logger } from "@/lib/logger";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CalendarEvents } from "../../../domain/events/catalog";
 import { buildCalendarEndTime } from "../../../domain/factories";
 import {
   CalendarEvent,
@@ -56,22 +58,32 @@ export const useCreateCalendarEvent = () => {
       return { prevEvents };
     },
 
-    onError: (_, payload, onMutateResult) => {
+    onError: (error, payload, onMutateResult) => {
+      logger.error(
+        {
+          event: CalendarEvents.createFail,
+          userId: payload.userId,
+          taskId: payload.taskId,
+          date: payload.date,
+          startTime: payload.startTime,
+          error: error.message || String(error),
+        },
+        "Calendar event creation mutation failed"
+      );
+
       queryClient.setQueryData(
         clientCalendarEventsTags.byUserAndDate(payload.userId, payload.date),
         onMutateResult?.prevEvents
       );
     },
 
-    onSettled: async data => {
-      if (data) {
-        await queryClient.invalidateQueries({
-          queryKey: clientCalendarEventsTags.byUserAndDate(
-            data.userId,
-            data.date.toISOString()
-          ),
-        });
-      }
+    onSettled: async (_, __, variables) => {
+      await queryClient.invalidateQueries({
+        queryKey: clientCalendarEventsTags.byUserAndDate(
+          variables.userId,
+          variables.date
+        ),
+      });
     },
   });
 
