@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useCalendarEventsQuery } from "../../app/hooks/queries/useCalendarEvents";
+import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "../../domain/constants";
 import { toCalendarDateISO } from "../../domain/utils";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
 import { SideCalendarSkeleton } from "./SideCalendarSkeleton";
@@ -35,7 +36,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   }, []);
 
   if (status === "pending") return <SideCalendarSkeleton />;
-  if (status === "error" || data.error) {
+  if (status === "error" || !data) {
     return (
       <InlineError className="h-full">
         <Button disabled={isFetching} variant="link" onClick={() => refetch()}>
@@ -52,7 +53,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
       )}
     >
       <DayCalendar
-        events={data.result.map(event => ({
+        events={data.map(event => ({
           end: event.endTime,
           start: event.startTime,
           title: event.task.title,
@@ -62,6 +63,8 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
             <SideCalendarTimeSlotWrapper {...props} />
           ),
         }}
+        timeslots={1}
+        step={MIN_CALENDAR_EVENT_DURATION_MINUTES}
       />
     </div>
   );

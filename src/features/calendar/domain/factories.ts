@@ -8,9 +8,10 @@ import {
 export const buildCreateCalendarEventData = (
   input: CreateCalendarEventInput
 ): CreateCalendarEventData => {
-  const { taskId, userId, date, startTime, endTime } = input;
+  const { taskId, userId, date, startTime, endTime, id } = input;
 
   return {
+    id,
     taskId,
     userId,
     date,

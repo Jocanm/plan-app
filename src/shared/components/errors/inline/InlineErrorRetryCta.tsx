@@ -18,7 +18,7 @@ export const InlineErrorRetryCta = () => {
       disabled={pending}
     >
       {t("retry")}
-      {pending && <BaseLoader className="ml-2" key="loader" />}
+      {pending && <BaseLoader className="ml-1" key="loader" />}
     </Button>
   );
 };

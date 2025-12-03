@@ -7,10 +7,11 @@ import {
   createSuccessResult,
   IResult,
 } from "@/shared/utils/resultPattern";
-import { getCurrentUser } from "../../../auth/app/queries/getCurrentUser";
+import { updateTag } from "next/cache";
 import { calendarEventsRepository } from "../../data/calendar-events.repository.factory";
 import { CalendarEvent } from "../../domain/types/calendar-event";
 import { CreateCalendarEventErrorCode } from "../../domain/types/results";
+import { calendarEventsTags } from "../cache/tags";
 import { getCalendarEventsForUser } from "../queries/calendar-events.queries";
 import { calendarEventsUseCases } from "../use-cases/calendarEventsUseCases";
 
@@ -22,28 +23,33 @@ export const getUserEvents = async (date: string, userId: string) => {
   }
 };
 
-type CreateCalendarEventActionErrorCode =
+export type CreateCalendarEventActionErrorCode =
   | CreateCalendarEventErrorCode
   | UnauthorizedErrorCode;
 
-export const createCalendarEvent = async (data: {
+export type CreateCalendarEventActionPayload = {
+  id: string;
   date: string;
+  userId: string;
   taskId: string;
   endTime?: string;
   startTime: string;
-}): Promise<IResult<CalendarEvent, CreateCalendarEventActionErrorCode>> => {
-  try {
-    const user = await getCurrentUser();
+};
 
+export const createCalendarEvent = async (
+  data: CreateCalendarEventActionPayload
+): Promise<IResult<CalendarEvent, CreateCalendarEventActionErrorCode>> => {
+  try {
     const { result, error } = await calendarEventsUseCases.createCalendarEvent({
       repo: calendarEventsRepository,
-      data: { ...data, userId: user.id },
+      data,
     });
 
     if (error) {
       return createErrorResult(error.code, error.message);
     }
 
+    updateTag(calendarEventsTags.byUserAndDate(data.userId, data.date));
     return createSuccessResult(result);
   } catch (error) {
     return handleCatchError(

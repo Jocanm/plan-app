@@ -37,8 +37,6 @@ export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
         formats={{
           timeGutterFormat: "h a",
         }}
-        step={60}
-        timeslots={1}
         views={["day"]}
         defaultView="day"
         toolbar={false}

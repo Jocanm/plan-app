@@ -29,7 +29,7 @@ export const useDraggableTask = ({
       dragHandle: dragHandleRef.current,
       onDrop: () => setIsDragging(false),
       onDragStart: () => setIsDragging(true),
-      getInitialData: () => ({ taskId: id }),
+      getInitialData: () => ({ taskId: id, title, color }),
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         setCustomNativeDragPreview({
           render({ container }) {

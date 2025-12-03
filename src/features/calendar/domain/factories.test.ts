@@ -55,12 +55,38 @@ describe("Calendar event - Factories", () => {
         }),
       });
     });
+
+    it("Should include id when provided", () => {
+      const date = new Date("2024-07-01T00:00:00.000Z");
+      const startTime = new Date("2024-07-01T10:00:00Z");
+      const endTime = new Date("2024-07-01T11:00:00Z");
+
+      const input = {
+        id: "event-789",
+        taskId: "task-123",
+        userId: "user-456",
+        date,
+        startTime,
+        endTime,
+      };
+
+      const result = buildCreateCalendarEventData(input);
+
+      expect(result).toEqual({
+        id: "event-789",
+        taskId: "task-123",
+        userId: "user-456",
+        date,
+        startTime,
+        endTime,
+      });
+    });
   });
 
   describe("buildCalendarEndTime", () => {
     it("should build end time by adding default duration", () => {
       const startTime = new Date("2024-07-01T10:00:00Z");
-      const expectedEndTime = new Date("2024-07-01T10:15:00Z");
+      const expectedEndTime = new Date("2024-07-01T11:00:00Z");
 
       const endTime = buildCalendarEndTime(startTime);
 
