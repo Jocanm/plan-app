@@ -11,7 +11,6 @@ export const buildCreateCalendarEventData = (
   const { taskId, userId, date, startTime, endTime, id } = input;
 
   return {
-    id,
     taskId,
     userId,
     date,
@@ -19,6 +18,7 @@ export const buildCreateCalendarEventData = (
     endTime:
       endTime ??
       buildCalendarEndTime(startTime, MIN_CALENDAR_EVENT_DURATION_MINUTES),
+    ...(id ? { id } : {}),
   };
 };
 
