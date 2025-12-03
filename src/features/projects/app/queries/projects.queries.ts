@@ -1,6 +1,6 @@
-import { projectsTags } from "@/lib/cache";
 import { applyCacheBehavior } from "@/shared/utils/applyCache";
 import { projectsRepository } from "../../data/projects.repository.factory";
+import { projectsTags } from "../cache/tags";
 import { projectsUseCases } from "../use-cases/projectsUseCases";
 
 export const getProjectsForSidebar = async (userId: string) => {

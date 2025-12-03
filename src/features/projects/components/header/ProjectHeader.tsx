@@ -8,7 +8,7 @@ interface ProjectHeaderProps {
 
 export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
   return (
-    <div className="w-full mb-4 flex flex-col gap-4 xs:gap-8">
+    <div className="w-full flex flex-col gap-4 xs:gap-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div

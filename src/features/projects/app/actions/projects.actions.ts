@@ -1,7 +1,6 @@
 "use server";
 
 import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
-import { projectsTags } from "@/lib/cache";
 import { logger } from "@/lib/logger";
 import {
   UnauthorizedErrorCode,
@@ -18,6 +17,7 @@ import { projectsRepository } from "../../data/projects.repository.factory";
 import { ProjectEvents } from "../../domain/events/catalog";
 import { Project } from "../../domain/types/project";
 import { CreateProjectErrorCode } from "../../domain/types/results";
+import { projectsTags } from "../cache/tags";
 import { createProjectSchema } from "../schemas/createProject.schema";
 import { projectsUseCases } from "../use-cases/projectsUseCases";
 

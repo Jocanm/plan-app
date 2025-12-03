@@ -48,8 +48,10 @@ const ProjectPage = async ({
 
   return (
     <ProjectTasksProvider initialTasks={project.tasks}>
-      <ProjectHeader project={project} />
-      <ProjectTasks />
+      <section className="h-full flex flex-col gap-4">
+        <ProjectHeader project={project} />
+        <ProjectTasks />
+      </section>
     </ProjectTasksProvider>
   );
 };

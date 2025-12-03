@@ -1,11 +1,11 @@
 "use server";
 
-import { projectsTags } from "@/lib/cache";
 import { logger } from "@/lib/logger";
 import { ValidationErrorCode } from "@/shared/types/results";
 import { createErrorResult, IResult } from "@/shared/utils/resultPattern";
 import { updateTag } from "next/cache";
 import { getCurrentUser } from "../../../auth/app/queries/getCurrentUser";
+import { projectsTags } from "../../../projects/app/cache/tags";
 import { tasksRepository } from "../../data/tasks.repository.factory";
 import { TaskEvents } from "../../domain/events/catalog";
 import { CreateTaskErrorCode } from "../../domain/types/results";

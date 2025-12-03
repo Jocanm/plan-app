@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/features/auth/app/queries/getCurrentUser";
+import { projectsTags } from "@/features/projects/app/cache/tags";
 import { getProjectsForSidebar } from "@/features/projects/app/queries/projects.queries";
-import { projectsTags } from "@/lib/cache";
 import { updateTag } from "next/cache";
 import { InlineError } from "../../../../../errors/inline/InlineError";
 import { SidebarInlineProjectForm } from "../form/SidebarInlineProjectForm";
