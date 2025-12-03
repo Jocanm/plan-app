@@ -37,7 +37,7 @@ describe("Auth tests", () => {
     it("Should take the user to login after he pressed logout button", () => {
       cy.login("password");
 
-      cy.getByTestId("signout-button").should("be.visible").click();
+      cy.getByTestId("signout-button").click();
       cy.location("pathname").should("contain", withLocale(ROUTES.LOGIN));
     });
   });
