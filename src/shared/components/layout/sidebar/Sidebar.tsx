@@ -12,7 +12,7 @@ export const Sidebar = async () => {
   return (
     <aside className="flex w-full h-full py-6 flex-col bg-card shrink-0">
       <section className="flex items-center gap-2 pb-6 border-b px-6">
-        <PlanLogo size="md" />
+        <PlanLogo size="md" priority />
         <div>
           <h2 className="text-lg font-bold text-foreground">
             {t("common.app_name")}

@@ -27,7 +27,11 @@ export const LoginHero = () => {
         aria-hidden="true"
       />
 
-      <PlanLogo size="lg" className="mx-auto lg:mx-0 mb-6 drop-shadow-sm" />
+      <PlanLogo
+        size="lg"
+        priority
+        className="mx-auto lg:mx-0 mb-6 drop-shadow-sm"
+      />
 
       <h1
         id="hero-heading"
