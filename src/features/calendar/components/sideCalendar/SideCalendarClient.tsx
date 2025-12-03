@@ -29,8 +29,8 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
 
   useEffect(() => {
     return monitorForElements({
-      onDragStart: () => setIsDragging(true),
       onDrop: () => setIsDragging(false),
+      onDragStart: () => setIsDragging(true),
     });
   }, []);
 
