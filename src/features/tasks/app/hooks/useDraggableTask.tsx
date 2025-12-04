@@ -1,7 +1,8 @@
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { DraggableTaskSchema } from "../../../calendar/app/schemas/draggableTask.schema";
 import { TaskDragPreview } from "../../components/card/TaskDragPreview";
 
 interface UseDraggableTaskProps {
@@ -23,6 +24,15 @@ export const useDraggableTask = ({
   const dragHandleRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  const getInitialData = useEffectEvent(
+    (): DraggableTaskSchema => ({
+      taskId: id,
+      taskTitle: title,
+      taskColor: color,
+      taskProjectId: projectId,
+    })
+  );
+
   useEffect(() => {
     if (!mainRef.current || !dragHandleRef.current || isOptimistic) return;
 
@@ -31,7 +41,7 @@ export const useDraggableTask = ({
       dragHandle: dragHandleRef.current,
       onDrop: () => setIsDragging(false),
       onDragStart: () => setIsDragging(true),
-      getInitialData: () => ({ taskId: id, title, color, projectId }),
+      getInitialData,
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         setCustomNativeDragPreview({
           render({ container }) {
@@ -49,7 +59,7 @@ export const useDraggableTask = ({
     return () => {
       cleanup();
     };
-  }, [id, title, color, projectId, isOptimistic]);
+  }, [title, color, isOptimistic]);
 
   return { mainRef, dragHandleRef, isDragging };
 };

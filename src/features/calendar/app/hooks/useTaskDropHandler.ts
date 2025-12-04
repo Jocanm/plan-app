@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useCurrentUser } from "../../../auth/app/hooks/useCurrentUser";
 import { CalendarEvents } from "../../domain/events/catalog";
 import { toCalendarDateISO } from "../../domain/utils";
+import { draggableTaskSchema } from "../schemas/draggableTask.schema";
 import { useCreateCalendarEvent } from "./actions/useCreateCalendarEvent";
 
 export const useTaskDropHandler = () => {
@@ -34,12 +35,9 @@ export const useTaskDropHandler = () => {
       return;
     }
 
-    const { taskId, taskTitle, taskColor, taskProjectId } = data as Record<
-      string,
-      string | undefined
-    >;
+    const taskData = draggableTaskSchema.safeParse(data);
 
-    if (!taskId || !taskTitle || !taskColor) {
+    if (!taskData.success) {
       logger.error(
         {
           dragData: data,
@@ -55,13 +53,13 @@ export const useTaskDropHandler = () => {
     try {
       await mutation.mutateAsync({
         id: generateId(),
-        taskId,
-        taskTitle,
-        taskColor,
-        taskProjectId,
         userId: currentUser.id,
         date: toCalendarDateISO(date),
         startTime: date.toISOString(),
+        taskId: taskData.data.taskId,
+        color: taskData.data.taskColor,
+        taskTitle: taskData.data.taskTitle,
+        taskProjectId: taskData.data.taskProjectId,
       });
     } catch {
       toast.error(t("create_event_failed"), {
