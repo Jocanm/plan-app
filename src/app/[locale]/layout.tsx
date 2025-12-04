@@ -51,10 +51,7 @@ export async function generateMetadata({
     title: t("meta.title"),
     description: t("meta.description"),
     icons: {
-      icon: [
-        { url: "/favicon.ico" },
-        { url: "/favicon.svg", type: "image/svg+xml" },
-      ],
+      icon: "/favicon.ico",
       apple: "/apple-touch-icon.png",
     },
     alternates: {

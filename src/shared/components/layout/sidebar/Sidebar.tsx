@@ -6,13 +6,17 @@ import { SidebarNavigationSegment } from "./segments/navigation/SidebarNavigatio
 import { SidebarProjectsSegment } from "./segments/projects/SidebarProjectsSegment";
 import { SidebarLink } from "./SidebarLink";
 
-export const Sidebar = async () => {
+interface Props {
+  isLogoPriority: boolean;
+}
+
+export const Sidebar = async ({ isLogoPriority }: Props) => {
   const t = await getTranslations();
 
   return (
     <aside className="flex w-full h-full py-6 flex-col bg-card shrink-0">
       <section className="flex items-center gap-2 pb-6 border-b px-6">
-        <PlanLogo size="md" priority />
+        <PlanLogo size="md" priority={isLogoPriority} />
         <div>
           <h2 className="text-lg font-bold text-foreground">
             {t("common.app_name")}

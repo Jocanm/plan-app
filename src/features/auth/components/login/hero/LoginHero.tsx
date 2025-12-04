@@ -3,16 +3,6 @@
 import { PlanLogo } from "@/shared/components/icons/PlanLogo";
 import { useTranslations } from "next-intl";
 
-/**
- * LoginHero - Hero section with logo, title, and description
- *
- * Features:
- * - Responsive typography (mobile: 4xl bold, desktop: 5xl light)
- * - Decorative gradient line (desktop only)
- * - Mobile gradient background (mobile only)
- * - Single h1 for SEO
- */
-
 export const LoginHero = () => {
   const t = useTranslations("login");
 
@@ -27,11 +17,7 @@ export const LoginHero = () => {
         aria-hidden="true"
       />
 
-      <PlanLogo
-        size="lg"
-        priority
-        className="mx-auto lg:mx-0 mb-6 drop-shadow-sm"
-      />
+      <PlanLogo size="lg" className="mx-auto lg:mx-0 mb-6 drop-shadow-sm" />
 
       <h1
         id="hero-heading"

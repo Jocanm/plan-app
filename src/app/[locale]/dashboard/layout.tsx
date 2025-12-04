@@ -26,7 +26,7 @@ const DashboardLayout = ({
       <MobileHeader />
       <div className="flex flex-1 overflow-hidden">
         <SidebarDesktopWrapper>
-          <Sidebar />
+          <Sidebar isLogoPriority />
         </SidebarDesktopWrapper>
 
         <Main className="flex-1 p-6">{children}</Main>
@@ -39,7 +39,7 @@ const DashboardLayout = ({
       </div>
 
       <SidebarMobileWrapper>
-        <Sidebar />
+        <Sidebar isLogoPriority={false} />
       </SidebarMobileWrapper>
 
       <SideCalendarMobileWrapper>
