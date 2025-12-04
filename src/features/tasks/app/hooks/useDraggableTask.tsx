@@ -8,6 +8,7 @@ interface UseDraggableTaskProps {
   id: string;
   title: string;
   color: string;
+  projectId?: string | null;
   isOptimistic: boolean;
 }
 
@@ -15,6 +16,7 @@ export const useDraggableTask = ({
   id,
   title,
   color,
+  projectId,
   isOptimistic,
 }: UseDraggableTaskProps) => {
   const mainRef = useRef<HTMLElement>(null);
@@ -29,7 +31,7 @@ export const useDraggableTask = ({
       dragHandle: dragHandleRef.current,
       onDrop: () => setIsDragging(false),
       onDragStart: () => setIsDragging(true),
-      getInitialData: () => ({ taskId: id, title, color }),
+      getInitialData: () => ({ taskId: id, title, color, projectId }),
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         setCustomNativeDragPreview({
           render({ container }) {
@@ -47,7 +49,7 @@ export const useDraggableTask = ({
     return () => {
       cleanup();
     };
-  }, [id, title, color, isOptimistic]);
+  }, [id, title, color, projectId, isOptimistic]);
 
   return { mainRef, dragHandleRef, isDragging };
 };

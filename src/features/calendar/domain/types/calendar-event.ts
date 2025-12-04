@@ -24,3 +24,10 @@ export type CreateCalendarEventData = {
   startTime: Date | string;
   endTime: Date | string;
 };
+
+export type CalendarEventData = {
+  title: string;
+  start: Date;
+  end: Date;
+  color: string;
+};

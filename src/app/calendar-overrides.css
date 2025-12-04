@@ -141,28 +141,30 @@
 }
 
 /* 7. Eventos (El corazón del calendario) */
+/* El componente custom CalendarEventCard maneja todos los estilos visuales */
 .rbc-event {
-  background-color: var(--color-primary);
-  border-radius: var(--radius-sm);
-  color: var(--color-primary-foreground);
-  padding: 0.25rem 0.5rem;
-  border: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
-  /* Asegura que los eventos flotantes tengan un buen contraste */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  border: none !important;
+  padding: 0;
+  box-shadow: none;
+  /* React Big Calendar maneja solo el posicionamiento (top, height, etc.) */
 }
 
-.rbc-event:hover {
-  opacity: 0.85;
+/* Ocultar labels de tiempo de RBC - nuestro componente custom los maneja */
+.rbc-event-label {
+  display: none !important;
 }
 
-/* Estilos para el texto de eventos pequeños (Month View) */
+/* Ocultar cualquier contenido generado automáticamente */
+.rbc-event::before,
+.rbc-event::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Limpieza de estilos para permitir que el componente custom tome control total */
 .rbc-event-content {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.875rem;
+  height: 100%;
 }
 
 .rbc-day-slot .rbc-event-content {
@@ -172,9 +174,7 @@
 /* 8. Focus/Selección (Accesibilidad) */
 .rbc-toolbar button:focus,
 .rbc-toolbar button:active,
-.rbc-toolbar button:focus-visible,
-.rbc-event:focus,
-.rbc-event:active {
+.rbc-toolbar button:focus-visible {
   box-shadow: 0 0 0 2px var(--color-ring);
   outline: none;
 }

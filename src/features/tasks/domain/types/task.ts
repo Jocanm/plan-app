@@ -7,7 +7,10 @@ export type Task = {
   description?: string | null;
 };
 
-export type CalendarEventTask = Pick<Task, "id" | "title" | "projectId">;
+export type CalendarEventTask = Pick<
+  Task,
+  "id" | "title" | "projectId" | "color"
+>;
 
 export type OptimisticTask = Task & {
   isOptimistic?: boolean;

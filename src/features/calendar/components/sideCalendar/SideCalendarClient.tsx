@@ -10,6 +10,7 @@ import { useCalendarEventsQuery } from "../../app/hooks/queries/useCalendarEvent
 import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "../../domain/constants";
 import { toCalendarDateISO } from "../../domain/utils";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
+import { CalendarEventCard } from "../event/CalendarEventCard";
 import { SideCalendarSkeleton } from "./SideCalendarSkeleton";
 import {
   SideCalendarTimeSlotWrapper,
@@ -57,8 +58,10 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
           end: event.endTime,
           start: event.startTime,
           title: event.task.title,
+          color: event.task.color,
         }))}
         components={{
+          event: CalendarEventCard,
           timeSlotWrapper: (props: SideCalendarTimeSlotWrapperProps) => (
             <SideCalendarTimeSlotWrapper {...props} />
           ),

@@ -14,13 +14,20 @@ import { clientCalendarEventsTags } from "../../cache/tags";
 
 type Payload = CreateCalendarEventActionPayload & {
   taskTitle: string;
+  taskColor: string;
+  taskProjectId?: string | null;
 };
 
 export const useCreateCalendarEvent = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async ({ taskTitle: _, ...payload }: Payload) => {
+    mutationFn: async ({
+      taskTitle: _,
+      taskColor: __,
+      taskProjectId: ___,
+      ...payload
+    }: Payload) => {
       const response = await createCalendarEvent(payload);
       if (response.error) {
         throw response.error;
@@ -45,6 +52,8 @@ export const useCreateCalendarEvent = () => {
         task: {
           id: payload.taskId,
           title: payload.taskTitle,
+          color: payload.taskColor,
+          projectId: payload.taskProjectId ?? null,
         },
       };
 

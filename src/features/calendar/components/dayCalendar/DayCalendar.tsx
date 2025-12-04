@@ -3,12 +3,13 @@
 import { format, getDay, parse, startOfWeek } from "date-fns";
 import { enUS, es } from "date-fns/locale";
 import { useLocale } from "next-intl";
-import {
-  Calendar,
-  CalendarProps,
-  dateFnsLocalizer,
-  Event,
-} from "react-big-calendar";
+import React from "react";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import { CalendarEventData } from "../../domain/types/calendar-event";
+
+const DnDCalendar = withDragAndDrop<CalendarEventData>(Calendar);
 
 const locales = { es, en: enUS };
 
@@ -20,18 +21,15 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-interface DayCalendarProps extends Partial<CalendarProps> {
-  events: Event[];
-}
+type DayCalendarProps = Partial<React.ComponentProps<typeof DnDCalendar>>;
 
 export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
   const locale = useLocale();
 
   return (
     <div className="h-full [&_.rbc-time-header]:hidden!">
-      <Calendar
+      <DnDCalendar
         events={events}
-        selectable
         culture={locale}
         localizer={localizer}
         formats={{
@@ -40,6 +38,7 @@ export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
         views={["day"]}
         defaultView="day"
         toolbar={false}
+        draggableAccessor={() => true}
         {...props}
       />
     </div>

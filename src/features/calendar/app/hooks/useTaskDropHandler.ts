@@ -34,10 +34,12 @@ export const useTaskDropHandler = () => {
       return;
     }
 
-    const taskId = data.taskId as string | undefined;
-    const taskTitle = data.title as string | undefined;
+    const { taskId, taskTitle, taskColor, taskProjectId } = data as Record<
+      string,
+      string | undefined
+    >;
 
-    if (!taskId || !taskTitle) {
+    if (!taskId || !taskTitle || !taskColor) {
       logger.error(
         {
           dragData: data,
@@ -55,6 +57,8 @@ export const useTaskDropHandler = () => {
         id: generateId(),
         taskId,
         taskTitle,
+        taskColor,
+        taskProjectId,
         userId: currentUser.id,
         date: toCalendarDateISO(date),
         startTime: date.toISOString(),

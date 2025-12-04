@@ -12,11 +12,12 @@ interface TaskCardProps {
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
-  const { id, title, description, color, isOptimistic } = task;
+  const { id, title, description, color, projectId, isOptimistic } = task;
   const { mainRef, dragHandleRef, isDragging } = useDraggableTask({
     id,
     title,
     color,
+    projectId,
     isOptimistic: isOptimistic ?? false,
   });
 
