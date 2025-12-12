@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const useScrollToCurrentTime = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const scrollToNowIndicator = () => {
-      const indicator = document.querySelector(".rbc-current-time-indicator");
+      const indicator = containerRef.current?.querySelector(
+        ".rbc-current-time-indicator"
+      );
 
       if (indicator) {
         indicator.scrollIntoView({
@@ -14,8 +18,10 @@ export const useScrollToCurrentTime = () => {
       }
     };
 
-    const timeoutId = setTimeout(scrollToNowIndicator, 50);
+    const timeoutId = setTimeout(scrollToNowIndicator, 150);
 
     return () => clearTimeout(timeoutId);
   }, []);
+
+  return { containerRef };
 };

@@ -31,7 +31,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
     userId
   );
 
-  useScrollToCurrentTime();
+  const { containerRef } = useScrollToCurrentTime();
 
   useEffect(() => {
     return monitorForElements({
@@ -52,7 +52,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col" ref={containerRef}>
       <CalendarHeader date={today} />
       <div
         className={clsx(
