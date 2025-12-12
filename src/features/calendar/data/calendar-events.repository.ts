@@ -18,11 +18,23 @@ export const getByUserAndDate: ICalendarEventRepository["getByUserAndDate"] =
       },
       include: {
         task: {
-          select: { id: true, title: true, projectId: true, color: true },
+          select: {
+            id: true,
+            title: true,
+            projectId: true,
+            color: true,
+            project: { select: { color: true } },
+          },
         },
       },
       orderBy: { startTime: "asc" },
     });
 
-    return calendarEvents;
+    return calendarEvents.map(event => ({
+      ...event,
+      task: {
+        ...event.task,
+        projectColor: event.task.project?.color,
+      },
+    }));
   };

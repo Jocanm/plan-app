@@ -97,8 +97,9 @@ export class FakeCalendarEventsRepositoryManager {
             task: {
               id: event.taskId,
               title: "Default Task Title",
-              projectId: null,
+              projectId: "project-1",
               color: "#3b82f6",
+              projectColor: "#ffffff",
             },
           }));
       },

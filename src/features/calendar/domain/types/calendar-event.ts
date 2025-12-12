@@ -29,5 +29,6 @@ export type CalendarEventData = {
   title: string;
   start: Date;
   end: Date;
-  color: string;
+  taskColor: string;
+  projectColor?: string;
 };

@@ -59,7 +59,8 @@ export const useTaskDropHandler = () => {
         taskId: taskData.data.taskId,
         color: taskData.data.taskColor,
         taskTitle: taskData.data.taskTitle,
-        taskProjectId: taskData.data.taskProjectId,
+        projectId: taskData.data.taskProjectId,
+        projectColor: taskData.data.taskProjectColor,
       });
     } catch {
       toast.error(t("create_event_failed"), {

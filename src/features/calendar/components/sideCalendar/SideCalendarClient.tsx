@@ -58,7 +58,8 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
           end: event.endTime,
           start: event.startTime,
           title: event.task.title,
-          color: event.task.color,
+          taskColor: event.task.color,
+          projectColor: event.task.projectColor,
         }))}
         components={{
           event: CalendarEventCard,

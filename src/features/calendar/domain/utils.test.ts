@@ -157,7 +157,7 @@ describe("Calendar Utils", () => {
 
         const result = formatEventTime({ start, end, locale: "es" });
 
-        expect(result).toBe("9:00 a. m. - 10:00 a. m.");
+        expect(result).toBe("9:00 AM - 10:00 AM");
       });
 
       it("should default to English for unknown locale", () => {

@@ -50,7 +50,7 @@ const ProjectPage = async ({
     <ProjectTasksProvider initialTasks={project.tasks}>
       <section className="h-full flex flex-col gap-4">
         <ProjectHeader project={project} />
-        <ProjectTasks />
+        <ProjectTasks project={project} />
       </section>
     </ProjectTasksProvider>
   );

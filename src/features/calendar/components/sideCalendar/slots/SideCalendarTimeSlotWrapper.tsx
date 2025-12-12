@@ -15,7 +15,7 @@ export const SideCalendarTimeSlotWrapper = (
 
   const { ref, isDraggedOver } = useDroppableCalendarSlot({
     onDrop: ({ source }) => handleDrop(source.data, props.value),
-    canDrop: element => element.element.closest(".rbc-time-gutter") === null,
+    canDrop: ({ element }) => element.closest(".rbc-time-gutter") === null,
   });
 
   return (

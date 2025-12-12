@@ -11,10 +11,10 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
   const isShort = isShortEvent(event.start, event.end);
 
   const timeRange = formatEventTime({
-    start: event.start,
-    end: event.end,
     locale,
     short: isShort,
+    end: event.end,
+    start: event.start,
   });
 
   return (
@@ -27,59 +27,40 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
         "border-l-4"
       )}
       style={{
-        backgroundColor: `${event.color}15`,
-        borderLeftColor: event.color,
+        borderLeftColor: event.projectColor,
+        backgroundColor: `${event.projectColor}B3`,
       }}
     >
-      {isShort ? (
-        // Layout inline para eventos cortos
-        <div className="flex items-center gap-2 h-full">
+      <div
+        className={cn("flex flex-col gap-0.5 text-sm", {
+          // "flex-row gap-2 items-center h-full": isShort,
+          "grid grid-cols-2 gap-2 w-fit": isShort,
+        })}
+      >
+        <div className="flex items-center gap-2">
+          {!isShort && (
+            <span
+              aria-hidden
+              className="h-2 w-2 rounded-sm flex-shrink-0"
+              style={{ backgroundColor: event.projectColor }}
+            />
+          )}
           <span
-            className="h-2 w-2 rounded-sm flex-shrink-0"
-            aria-hidden="true"
-            style={{
-              backgroundColor: event.color,
-            }}
-          />
-          <span
-            className="text-xs font-medium flex-shrink-0"
-            style={{ color: `${event.color}B3` }}
+            className={cn("font-medium text-white", {
+              "flex-shrink-0": isShort,
+            })}
           >
             {timeRange}
           </span>
-          <span
-            style={{ color: event.color }}
-            className="text-sm font-medium truncate"
-          >
-            {event.title}
-          </span>
         </div>
-      ) : (
-        // Layout stack para eventos largos
-        <div className="flex flex-col gap-0.5 h-full">
-          <div className="flex items-center gap-2">
-            <span
-              className="h-2 w-2 rounded-sm flex-shrink-0"
-              aria-hidden="true"
-              style={{
-                backgroundColor: event.color,
-              }}
-            />
-            <span
-              className="text-xs font-medium"
-              style={{ color: `${event.color}B3` }}
-            >
-              {timeRange}
-            </span>
-          </div>
-          <span
-            style={{ color: event.color }}
-            className="text-sm font-medium truncate pl-4"
-          >
-            {event.title}
-          </span>
-        </div>
-      )}
+        <span
+          className={cn("font-medium text-white pl-4", {
+            "pl-0 line-clamp-1 w-fit": isShort,
+          })}
+        >
+          {event.title}
+        </span>
+      </div>
     </div>
   );
 };

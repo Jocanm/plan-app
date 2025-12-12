@@ -9,8 +9,9 @@ interface UseDraggableTaskProps {
   id: string;
   title: string;
   color: string;
-  projectId?: string | null;
   isOptimistic: boolean;
+  projectId: string | undefined;
+  projectColor: string | undefined;
 }
 
 export const useDraggableTask = ({
@@ -19,6 +20,7 @@ export const useDraggableTask = ({
   color,
   projectId,
   isOptimistic,
+  projectColor,
 }: UseDraggableTaskProps) => {
   const mainRef = useRef<HTMLElement>(null);
   const dragHandleRef = useRef<HTMLDivElement>(null);
@@ -30,6 +32,7 @@ export const useDraggableTask = ({
       taskTitle: title,
       taskColor: color,
       taskProjectId: projectId,
+      taskProjectColor: projectColor,
     })
   );
 

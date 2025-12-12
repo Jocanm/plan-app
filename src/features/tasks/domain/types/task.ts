@@ -10,7 +10,9 @@ export type Task = {
 export type CalendarEventTask = Pick<
   Task,
   "id" | "title" | "projectId" | "color"
->;
+> & {
+  projectColor: string | undefined;
+};
 
 export type OptimisticTask = Task & {
   isOptimistic?: boolean;

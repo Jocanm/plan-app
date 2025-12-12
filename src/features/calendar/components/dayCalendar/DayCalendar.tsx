@@ -23,13 +23,12 @@ const localizer = dateFnsLocalizer({
 
 type DayCalendarProps = Partial<React.ComponentProps<typeof DnDCalendar>>;
 
-export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
+export const DayCalendar = (props: DayCalendarProps) => {
   const locale = useLocale();
 
   return (
     <div className="h-full [&_.rbc-time-header]:hidden!">
       <DnDCalendar
-        events={events}
         culture={locale}
         localizer={localizer}
         formats={{
@@ -38,6 +37,7 @@ export const DayCalendar = ({ events, ...props }: DayCalendarProps) => {
         views={["day"]}
         defaultView="day"
         toolbar={false}
+        dayLayoutAlgorithm="no-overlap"
         draggableAccessor={() => true}
         {...props}
       />

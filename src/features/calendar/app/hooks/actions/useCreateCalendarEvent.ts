@@ -15,7 +15,8 @@ import { clientCalendarEventsTags } from "../../cache/tags";
 type Payload = CreateCalendarEventActionPayload & {
   color: string;
   taskTitle: string;
-  taskProjectId?: string | null;
+  projectId: string | undefined;
+  projectColor: string | undefined;
 };
 
 export const useCreateCalendarEvent = () => {
@@ -25,7 +26,7 @@ export const useCreateCalendarEvent = () => {
     mutationFn: async ({
       color: __,
       taskTitle: _,
-      taskProjectId: ___,
+      projectId: ___,
       ...payload
     }: Payload) => {
       const response = await createCalendarEvent(payload);
@@ -53,7 +54,8 @@ export const useCreateCalendarEvent = () => {
           id: payload.taskId,
           color: payload.color,
           title: payload.taskTitle,
-          projectId: payload.taskProjectId ?? null,
+          projectId: payload.projectId,
+          projectColor: payload.projectColor,
         },
       };
 

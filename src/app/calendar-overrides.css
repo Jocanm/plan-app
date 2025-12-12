@@ -94,6 +94,10 @@
   background-color: var(--color-card);
 }
 
+.rbc-timeslot-group {
+  min-height: 4rem;
+}
+
 /* 6. Corrección de la Cuadrícula y Líneas de Tiempo */
 
 /* Columna de etiquetas de tiempo (las horas 12:00 AM, 1:00 PM...) */

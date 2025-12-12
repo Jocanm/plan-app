@@ -9,15 +9,17 @@ import { OptimisticTask } from "../../domain/types/task";
 
 interface TaskCardProps {
   task: OptimisticTask;
+  projectColor: string | undefined;
 }
 
-export const TaskCard = ({ task }: TaskCardProps) => {
+export const TaskCard = ({ task, projectColor }: TaskCardProps) => {
   const { id, title, description, color, projectId, isOptimistic } = task;
   const { mainRef, dragHandleRef, isDragging } = useDraggableTask({
     id,
     title,
     color,
-    projectId,
+    projectColor,
+    projectId: projectId ?? undefined,
     isOptimistic: isOptimistic ?? false,
   });
 

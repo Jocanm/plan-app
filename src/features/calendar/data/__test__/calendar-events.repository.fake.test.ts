@@ -99,8 +99,9 @@ describe("CalendarEvents Repository fake", () => {
             task: {
               id: "task-1",
               title: "Override Task",
-              projectId: null,
+              projectId: "project-1",
               color: "#3b82f6",
+              projectColor: "#ffffff",
             },
           },
         ];

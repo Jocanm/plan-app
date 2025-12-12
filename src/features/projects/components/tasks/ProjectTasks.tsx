@@ -3,10 +3,15 @@
 import { TaskCard } from "@/features/tasks/components/card/TaskCard";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useTranslations } from "next-intl";
+import { ProjectDetail } from "../../domain/types/project";
 import { useProjectTasks } from "../providers/ProjectTasksProvider";
 import { NoTasks } from "./NoTasks";
 
-export const ProjectTasks = () => {
+interface ProjectTasksProps {
+  project: ProjectDetail;
+}
+
+export const ProjectTasks = ({ project }: ProjectTasksProps) => {
   const { tasks } = useProjectTasks();
   const t = useTranslations("project");
   const [tasksParent] = useAutoAnimate();
@@ -24,7 +29,7 @@ export const ProjectTasks = () => {
       >
         {tasks.map(task => (
           <li key={task.id}>
-            <TaskCard task={task} />
+            <TaskCard task={task} projectColor={project.color} />
           </li>
         ))}
       </ul>
