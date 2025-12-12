@@ -1,10 +1,8 @@
 import { format } from "date-fns";
-import { enUS, es } from "date-fns/locale";
+import { dateFnsLocales } from "../app/hooks/useFormatDate";
 import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "./constants";
 
-const locales = { en: enUS, es };
-
-type Locale = keyof typeof locales;
+type Locale = keyof typeof dateFnsLocales;
 
 export const toCalendarDateISO = (date: Date): string => {
   const dateString = format(date, "yyyy-MM-dd");
@@ -25,7 +23,7 @@ export const formatEventTime = ({
   locale = "en",
   short = false,
 }: FormatEventTimeOptions): string => {
-  const dateLocale = locales[locale as Locale] ?? locales.en;
+  const dateLocale = dateFnsLocales[locale as Locale] ?? dateFnsLocales.en;
   const timeFormat = "h:mm a";
 
   if (short) {

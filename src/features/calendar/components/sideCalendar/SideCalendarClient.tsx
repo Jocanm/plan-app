@@ -7,10 +7,12 @@ import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useCalendarEventsQuery } from "../../app/hooks/queries/useCalendarEvents";
+import { useScrollToCurrentTime } from "../../app/hooks/useScrollToCurrentTime";
 import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "../../domain/constants";
 import { toCalendarDateISO } from "../../domain/utils";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
 import { CalendarEventCard } from "../event/CalendarEventCard";
+import { CalendarHeader } from "./CalendarHeader";
 import { SideCalendarSkeleton } from "./SideCalendarSkeleton";
 import {
   SideCalendarTimeSlotWrapper,
@@ -28,6 +30,8 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
     today,
     userId
   );
+
+  useScrollToCurrentTime();
 
   useEffect(() => {
     return monitorForElements({
@@ -48,28 +52,34 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   }
 
   return (
-    <div
-      className={clsx(
-        isDragging && "[&_.rbc-events-container]:pointer-events-none"
-      )}
-    >
-      <DayCalendar
-        events={data.map(event => ({
-          end: event.endTime,
-          start: event.startTime,
-          title: event.task.title,
-          taskColor: event.task.color,
-          projectColor: event.task.projectColor,
-        }))}
-        components={{
-          event: CalendarEventCard,
-          timeSlotWrapper: (props: SideCalendarTimeSlotWrapperProps) => (
-            <SideCalendarTimeSlotWrapper {...props} />
-          ),
-        }}
-        timeslots={1}
-        step={MIN_CALENDAR_EVENT_DURATION_MINUTES}
-      />
+    <div className="h-full flex flex-col">
+      <CalendarHeader date={today} />
+      <div
+        className={clsx(
+          "flex-1 py-5",
+          isDragging && "[&_.rbc-events-container]:pointer-events-none"
+        )}
+      >
+        <DayCalendar
+          events={data.map(event => ({
+            id: event.id,
+            end: event.endTime,
+            start: event.startTime,
+            title: event.task.title,
+            taskColor: event.task.color,
+            projectColor: event.task.projectColor,
+          }))}
+          components={{
+            event: CalendarEventCard,
+            timeSlotWrapper: (props: SideCalendarTimeSlotWrapperProps) => (
+              <SideCalendarTimeSlotWrapper {...props} />
+            ),
+          }}
+          timeslots={1}
+          step={MIN_CALENDAR_EVENT_DURATION_MINUTES}
+          onEventResize={data => console.log("Resize event", data)}
+        />
+      </div>
     </div>
   );
 };

@@ -26,6 +26,7 @@ export type CreateCalendarEventData = {
 };
 
 export type CalendarEventData = {
+  id: string;
   title: string;
   start: Date;
   end: Date;

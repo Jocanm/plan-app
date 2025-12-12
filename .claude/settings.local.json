@@ -24,12 +24,13 @@
       "mcp__next-devtools__browser_eval",
       "mcp__next-devtools__nextjs_docs",
       "mcp__next-devtools__nextjs_runtime",
-      "WebSearch"
+      "WebSearch",
+      "Bash(cat:*)"
     ],
     "deny": []
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "shadcn"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

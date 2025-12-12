@@ -25,12 +25,14 @@ export const SideCalendar = async () => {
     });
 
     return (
-      <div className="bg-card shrink-0 py-5 h-full">
-        <Suspense>
-          <HydrationBoundary state={dehydrate(queryClient)}>
-            <SideCalendarClient userId={user.id} />
-          </HydrationBoundary>
-        </Suspense>
+      <div className="bg-card shrink-0 h-full flex flex-col">
+        <div className="flex-1 overflow-y-auto scrollbar-thin">
+          <Suspense>
+            <HydrationBoundary state={dehydrate(queryClient)}>
+              <SideCalendarClient userId={user.id} />
+            </HydrationBoundary>
+          </Suspense>
+        </div>
       </div>
     );
   } catch {
