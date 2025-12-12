@@ -2,14 +2,13 @@
 
 import { Button } from "@/components/ui";
 import { InlineError } from "@/shared/components/errors/inline/InlineError";
-import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { useCalendarEventsQuery } from "../../app/hooks/queries/useCalendarEvents";
+import { useCalendarEventsModel } from "../../app/hooks/useCalendarEventsModel";
+import { useIsDraggingInCalendar } from "../../app/hooks/useIsDraggingInCalendar";
 import { useScrollToCurrentTime } from "../../app/hooks/useScrollToCurrentTime";
+import { useUpdateEventRange } from "../../app/hooks/useUpdateEventRange";
 import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "../../domain/constants";
-import { toCalendarDateISO } from "../../domain/utils";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
 import { CalendarEventCard } from "../event/CalendarEventCard";
 import { CalendarHeader } from "./CalendarHeader";
@@ -22,23 +21,16 @@ import {
 interface SideCalendarClientProps {
   userId: string;
 }
+
 export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   const t = useTranslations("error.inline");
-  const [isDragging, setIsDragging] = useState(false);
-  const [today] = useState(() => toCalendarDateISO(new Date()));
-  const { data, refetch, isFetching, status } = useCalendarEventsQuery(
-    today,
-    userId
-  );
+  const isDragging = useIsDraggingInCalendar();
+
+  const { handleEventRangeUpdate } = useUpdateEventRange();
+  const { data, status, isFetching, date, refetch } =
+    useCalendarEventsModel(userId);
 
   const { containerRef } = useScrollToCurrentTime();
-
-  useEffect(() => {
-    return monitorForElements({
-      onDrop: () => setIsDragging(false),
-      onDragStart: () => setIsDragging(true),
-    });
-  }, []);
 
   if (status === "pending") return <SideCalendarSkeleton />;
   if (status === "error") {
@@ -53,7 +45,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
 
   return (
     <div className="h-full flex flex-col" ref={containerRef}>
-      <CalendarHeader date={today} />
+      <CalendarHeader date={date} />
       <div
         className={clsx(
           "flex-1 py-5",
@@ -75,9 +67,10 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
               <SideCalendarTimeSlotWrapper {...props} />
             ),
           }}
+          onEventDrop={data => handleEventRangeUpdate(data, userId)}
+          onEventResize={data => handleEventRangeUpdate(data, userId)}
           timeslots={1}
           step={MIN_CALENDAR_EVENT_DURATION_MINUTES}
-          onEventResize={data => console.log("Resize event", data)}
         />
       </div>
     </div>

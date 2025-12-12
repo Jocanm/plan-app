@@ -5,4 +5,6 @@ export const CalendarEvents = {
   missingUserSession: "calendar.validation.no_user",
   missingSlotValue: "calendar.validation.no_slot",
   invalidDragData: "calendar.validation.invalid_drag",
+  updated: "calendar.update.success",
+  updateFail: "calendar.update.fail",
 } as const;

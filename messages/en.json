@@ -201,7 +201,9 @@
       "create_event_failed": "Failed to create calendar event",
       "create_event_failed_description": "An error occurred while scheduling the task. Please try again.",
       "missing_data": "Missing required data",
-      "invalid_drag_data": "Invalid task data received"
+      "invalid_drag_data": "Invalid task data received",
+      "update_event_failed": "Failed to update calendar event",
+      "update_event_failed_description": "An error occurred while updating. Please try again."
     }
   }
 }

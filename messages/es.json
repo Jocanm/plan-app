@@ -201,7 +201,9 @@
       "create_event_failed": "Error al crear evento",
       "create_event_failed_description": "Ocurrió un error al agendar la tarea. Por favor intenta de nuevo.",
       "missing_data": "Faltan datos requeridos",
-      "invalid_drag_data": "Datos de tarea inválidos recibidos"
+      "invalid_drag_data": "Datos de tarea inválidos recibidos",
+      "update_event_failed": "Error al actualizar evento",
+      "update_event_failed_description": "Ocurrió un error al actualizar. Por favor intenta de nuevo."
     }
   }
 }

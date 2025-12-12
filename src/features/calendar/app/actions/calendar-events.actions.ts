@@ -1,5 +1,6 @@
 "use server";
 
+import { logger } from "@/lib/logger";
 import { UnauthorizedErrorCode } from "@/shared/types/results";
 import { handleCatchError } from "@/shared/utils/errors/handleCatchError";
 import {
@@ -9,6 +10,7 @@ import {
 } from "@/shared/utils/resultPattern";
 import { updateTag } from "next/cache";
 import { calendarEventsRepository } from "../../data/calendar-events.repository.factory";
+import { CalendarEvents } from "../../domain/events/catalog";
 import { CalendarEvent } from "../../domain/types/calendar-event";
 import {
   CreateCalendarEventErrorCode,
@@ -49,8 +51,27 @@ export const createCalendarEvent = async (
     });
 
     if (error) {
+      logger.error(
+        {
+          event: CalendarEvents.created,
+          errorCode: error.code,
+          errorMessage: error.message,
+          userId: data.userId,
+          payload: data,
+        },
+        "Error creating calendar event"
+      );
       return createErrorResult(error.code, error.message);
     }
+
+    logger.info(
+      {
+        event: CalendarEvents.created,
+        id: result.id,
+        userId: result.userId,
+      },
+      "Calendar event created successfully"
+    );
 
     updateTag(calendarEventsTags.byUserAndDate(data.userId, data.date));
     return createSuccessResult(result);
