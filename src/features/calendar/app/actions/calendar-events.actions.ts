@@ -69,6 +69,7 @@ export const createCalendarEvent = async (
         event: CalendarEvents.created,
         id: result.id,
         userId: result.userId,
+        result,
       },
       "Calendar event created successfully"
     );
@@ -105,9 +106,27 @@ export const updateCalendarEvent = async (
       });
 
     if (error) {
+      logger.error(
+        {
+          event: CalendarEvents.updated,
+          errorCode: error.code,
+          errorMessage: error.message,
+          payload: data,
+        },
+        "Error updating calendar event"
+      );
       return createErrorResult(error.code, error.message);
     }
 
+    logger.info(
+      {
+        event: CalendarEvents.updated,
+        id: event.id,
+        userId: event.userId,
+        result: event,
+      },
+      "Calendar event updated successfully"
+    );
     updateTag(calendarEventsTags.byUserAndDate(event.userId, data.date));
 
     return createSuccessResult(event);

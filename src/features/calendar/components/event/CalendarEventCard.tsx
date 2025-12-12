@@ -3,6 +3,7 @@
 import { cn } from "@/shared/utils/cn";
 import { useLocale } from "next-intl";
 import { EventProps } from "react-big-calendar";
+import { BaseLoader } from "../../../../shared/components/custom/BaseLoader";
 import { CalendarEventData } from "../../domain/types/calendar-event";
 import { formatEventTime, isShortEvent } from "../../domain/utils";
 
@@ -24,13 +25,20 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
         "transition-all duration-200",
         "hover:opacity-90",
         "shadow-sm hover:shadow-md",
-        "border-l-4"
+        "border-l-4",
+        "relative",
+        {
+          "opacity-50 cursor-progress hover:opacity-50": event.isOptimistic,
+        }
       )}
       style={{
         borderLeftColor: event.projectColor,
         backgroundColor: `${event.projectColor}B3`,
       }}
     >
+      {event.isOptimistic && (
+        <BaseLoader className="absolute top-1 right-1 w-3 h-3 border-white" />
+      )}
       <div
         className={cn("flex flex-col gap-0.5 text-sm", {
           "flex-row flex-wrap gap-2 items-center": isShort,

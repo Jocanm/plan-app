@@ -1,7 +1,9 @@
 import { CalendarEvent as PrismaCalendarEvent } from "@prisma/client";
 import { CalendarEventTask } from "../../../tasks/domain/types/task";
 
-export type CalendarEvent = PrismaCalendarEvent;
+type WithIsOptimistic<T> = T & { isOptimistic?: boolean };
+
+export type CalendarEvent = WithIsOptimistic<PrismaCalendarEvent>;
 
 export type CalendarEventWithTask = CalendarEvent & {
   task: CalendarEventTask;
@@ -39,11 +41,11 @@ export type UpdateCalendarEventData = {
   endTime: Date | string;
 };
 
-export type CalendarEventData = {
+export type CalendarEventData = WithIsOptimistic<{
   id: string;
   title: string;
   start: Date;
   end: Date;
   taskColor: string;
   projectColor?: string;
-};
+}>;

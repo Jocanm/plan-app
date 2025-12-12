@@ -50,6 +50,7 @@ export const useCreateCalendarEvent = () => {
         startTime: new Date(payload.startTime),
         createdAt: new Date(),
         updatedAt: new Date(),
+        isOptimistic: true,
         task: {
           id: payload.taskId,
           color: payload.color,

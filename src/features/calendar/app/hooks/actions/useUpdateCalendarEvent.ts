@@ -33,6 +33,7 @@ export const useUpdateCalendarEvent = () => {
       if (currentEvent) {
         const updatedEvent: CalendarEvent = {
           ...currentEvent,
+          isOptimistic: true,
           date: new Date(date),
           endTime: endTime ? new Date(endTime) : currentEvent.endTime,
           startTime: startTime ? new Date(startTime) : currentEvent.startTime,
