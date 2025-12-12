@@ -25,6 +25,20 @@ export type CreateCalendarEventData = {
   endTime: Date | string;
 };
 
+export interface UpdateCalendarEventInput {
+  id: string;
+  date: Date | string;
+  startTime?: Date | string;
+  endTime?: Date | string;
+}
+
+export type UpdateCalendarEventData = {
+  id: string;
+  date: Date | string;
+  startTime: Date | string;
+  endTime: Date | string;
+};
+
 export type CalendarEventData = {
   id: string;
   title: string;

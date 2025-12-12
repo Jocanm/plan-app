@@ -3,14 +3,24 @@ import {
   createErrorResult,
   createSuccessResult,
 } from "@/shared/utils/resultPattern";
-import { buildCreateCalendarEventData } from "../../domain/factories";
-import { CreateCalendarEventInput } from "../../domain/types/calendar-event";
+import {
+  buildCreateCalendarEventData,
+  buildUpdateCalendarEventData,
+} from "../../domain/factories";
+import {
+  CreateCalendarEventInput,
+  UpdateCalendarEventInput,
+} from "../../domain/types/calendar-event";
 import { ICalendarEventRepository } from "../../domain/types/repository";
 import {
   CreateCalendarEventResult,
   GetCalendarEventsByUserAndDateResult,
+  UpdateCalendarEventResult,
 } from "../../domain/types/results";
-import { validateCalendarEventDateRange } from "../../domain/validations";
+import {
+  validateCalendarEventDateRange,
+  validateUpdateCalendarEventInput,
+} from "../../domain/validations";
 
 interface CalendarEventUseCaseProps {
   repo: ICalendarEventRepository;
@@ -66,7 +76,52 @@ const getByUserAndDate = async ({
   }
 };
 
+interface UpdateCalendarEventProps extends CalendarEventUseCaseProps {
+  data: UpdateCalendarEventInput;
+}
+
+const updateCalendarEvent = async ({
+  repo,
+  data,
+}: UpdateCalendarEventProps): Promise<UpdateCalendarEventResult> => {
+  try {
+    const inputValidation = validateUpdateCalendarEventInput(data);
+    if (inputValidation.error) {
+      return createErrorResult(
+        inputValidation.error.code,
+        inputValidation.error.message
+      );
+    }
+
+    const currentEvent = await repo.getById(data.id);
+    if (!currentEvent) {
+      return createErrorResult("EVENT_NOT_FOUND", "Calendar event not found");
+    }
+
+    const updateData = buildUpdateCalendarEventData(data, currentEvent);
+
+    const rangeValidation = validateCalendarEventDateRange(
+      updateData.startTime,
+      updateData.endTime
+    );
+
+    if (rangeValidation.error) {
+      return createErrorResult(
+        rangeValidation.error.code,
+        rangeValidation.error.message
+      );
+    }
+
+    const updatedEvent = await repo.update(updateData);
+
+    return createSuccessResult(updatedEvent);
+  } catch (error) {
+    return handleCatchError(error, "An error occurred updating calendar event");
+  }
+};
+
 export const calendarEventsUseCases = {
   getByUserAndDate,
   createCalendarEvent,
+  updateCalendarEvent,
 };

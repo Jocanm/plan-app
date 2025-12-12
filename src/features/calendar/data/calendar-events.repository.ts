@@ -38,3 +38,22 @@ export const getByUserAndDate: ICalendarEventRepository["getByUserAndDate"] =
       },
     }));
   };
+
+export const update: ICalendarEventRepository["update"] = async data => {
+  const { id, ...updateData } = data;
+
+  const calendarEvent = await prisma.calendarEvent.update({
+    where: { id },
+    data: updateData,
+  });
+
+  return calendarEvent;
+};
+
+export const getById: ICalendarEventRepository["getById"] = async id => {
+  const calendarEvent = await prisma.calendarEvent.findUnique({
+    where: { id },
+  });
+
+  return calendarEvent;
+};

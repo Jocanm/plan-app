@@ -113,4 +113,84 @@ describe("CalendarEvents Repository fake", () => {
     expect(events).toHaveLength(1);
     expect(events[0].id).toBe("event-1");
   });
+
+  describe("update method", () => {
+    it("should update an event successfully", async () => {
+      const manager = FakeCalendarEventsRepositoryManager.getInstance();
+      const repo = manager
+        .seed([
+          {
+            id: "event-1",
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+            date: new Date("2025-01-15"),
+          },
+        ])
+        .getRepository();
+
+      const updated = await repo.update({
+        id: "event-1",
+        date: new Date("2025-01-15"),
+        startTime: new Date("2025-01-15T10:00:00"),
+        endTime: new Date("2025-01-15T11:00:00"),
+      });
+
+      expect(updated).not.toBeNull();
+      expect(updated?.startTime).toEqual(new Date("2025-01-15T10:00:00"));
+      expect(updated?.endTime).toEqual(new Date("2025-01-15T11:00:00"));
+    });
+
+    it("should throw error if event not found", async () => {
+      const manager = FakeCalendarEventsRepositoryManager.getInstance();
+      const repo = manager.getRepository();
+
+      await expect(
+        repo.update({
+          id: "non-existent",
+          date: new Date(),
+          startTime: new Date(),
+          endTime: new Date(),
+        })
+      ).rejects.toThrow("Record to update not found.");
+    });
+
+    it("should allow overriding update method", async () => {
+      const manager = FakeCalendarEventsRepositoryManager.getInstance();
+      const repo = manager
+        .withOverride("update", async () => {
+          throw new Error("DB error");
+        })
+        .getRepository();
+
+      await expect(
+        repo.update({
+          id: "event-1",
+          date: new Date(),
+          startTime: new Date(),
+          endTime: new Date(),
+        })
+      ).rejects.toThrow("DB error");
+    });
+  });
+
+  describe("getById method", () => {
+    it("should get event by id", async () => {
+      const manager = FakeCalendarEventsRepositoryManager.getInstance();
+      const repo = manager.seed([{ id: "event-1" }]).getRepository();
+
+      const event = await repo.getById("event-1");
+
+      expect(event).not.toBeNull();
+      expect(event?.id).toBe("event-1");
+    });
+
+    it("should return null if not found", async () => {
+      const manager = FakeCalendarEventsRepositoryManager.getInstance();
+      const repo = manager.getRepository();
+
+      const event = await repo.getById("non-existent");
+
+      expect(event).toBeNull();
+    });
+  });
 });

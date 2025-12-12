@@ -1,5 +1,9 @@
 import { IResult } from "../../../shared/utils/resultPattern";
-import { CreateCalendarEventErrorCode } from "./types/results";
+import {
+  CreateCalendarEventErrorCode,
+  UpdateCalendarEventErrorCode,
+} from "./types/results";
+import { UpdateCalendarEventInput } from "./types/calendar-event";
 
 export const validateCalendarEventDateRange = (
   startTime: Date | string,
@@ -22,6 +26,23 @@ export const validateCalendarEventDateRange = (
       error: {
         code: "SAME_START_END",
         message: "Start time and end time cannot be the same",
+      },
+    };
+  }
+
+  return {
+    result: true,
+  };
+};
+
+export const validateUpdateCalendarEventInput = (
+  input: UpdateCalendarEventInput
+): IResult<true, UpdateCalendarEventErrorCode> => {
+  if (!input.startTime && !input.endTime) {
+    return {
+      error: {
+        code: "NO_CHANGES_PROVIDED",
+        message: "At least one of startTime or endTime must be provided",
       },
     };
   }

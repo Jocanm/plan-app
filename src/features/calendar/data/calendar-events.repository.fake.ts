@@ -103,6 +103,38 @@ export class FakeCalendarEventsRepositoryManager {
             },
           }));
       },
+
+      update: async data => {
+        if (this.overrides.update) {
+          return this.overrides.update(data);
+        }
+
+        const index = this.events.findIndex(e => e.id === data.id);
+
+        if (index === -1) {
+          throw new Error("Record to update not found.");
+        }
+
+        this.events[index] = {
+          ...this.events[index],
+          ...data,
+          date: new Date(data.date),
+          startTime: new Date(data.startTime),
+          endTime: new Date(data.endTime),
+          updatedAt: new Date(),
+        };
+
+        return this.events[index];
+      },
+
+      getById: async id => {
+        if (this.overrides.getById) {
+          return this.overrides.getById(id);
+        }
+
+        const event = this.events.find(e => e.id === id);
+        return event ?? null;
+      },
     };
   }
 }

@@ -225,4 +225,208 @@ describe("CalendarEvents - use cases", () => {
       expect(response.result?.[0].id).toBe("event-1");
     });
   });
+
+  describe("Update calendar event", () => {
+    it("should update event successfully with both fields", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            userId: "user-1",
+            taskId: "task-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { result } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          startTime: new Date("2025-01-15T10:00:00"),
+          endTime: new Date("2025-01-15T11:00:00"),
+        },
+      });
+
+      expect(result).toBeDefined();
+      expect(result?.startTime).toEqual(new Date("2025-01-15T10:00:00"));
+      expect(result?.endTime).toEqual(new Date("2025-01-15T11:00:00"));
+    });
+
+    it("should update only startTime (resize start)", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { result } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          startTime: new Date("2025-01-15T08:30:00"),
+        },
+      });
+
+      expect(result?.startTime).toEqual(new Date("2025-01-15T08:30:00"));
+      expect(result?.endTime).toEqual(new Date("2025-01-15T10:00:00")); // Sin cambio
+    });
+
+    it("should update only endTime (resize end)", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { result } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          endTime: new Date("2025-01-15T11:30:00"),
+        },
+      });
+
+      expect(result?.startTime).toEqual(new Date("2025-01-15T09:00:00")); // Sin cambio
+      expect(result?.endTime).toEqual(new Date("2025-01-15T11:30:00"));
+    });
+
+    it("should use date from client when crossing midnight", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T23:00:00"),
+            endTime: new Date("2025-01-16T00:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { result } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-16"), // Cliente calcula el nuevo date
+          startTime: new Date("2025-01-16T01:00:00"),
+          endTime: new Date("2025-01-16T02:00:00"),
+        },
+      });
+
+      // Date debe ser el que envió el cliente
+      expect(result?.date).toEqual(new Date("2025-01-16"));
+    });
+
+    it("should return EVENT_NOT_FOUND if event does not exist", async () => {
+      const repo = repoManager.getRepository();
+
+      const { error } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "non-existent",
+          date: new Date("2025-01-15"),
+          startTime: new Date(),
+        },
+      });
+
+      expect(error?.code).toBe("EVENT_NOT_FOUND");
+    });
+
+    it("should return NO_CHANGES_PROVIDED if no fields sent", async () => {
+      const repo = repoManager.getRepository();
+
+      const { error } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+        },
+      });
+
+      expect(error?.code).toBe("NO_CHANGES_PROVIDED");
+    });
+
+    it("should return END_BEFORE_START on validation failure", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { error } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          startTime: new Date("2025-01-15T11:00:00"), // Después del endTime actual
+        },
+      });
+
+      expect(error?.code).toBe("END_BEFORE_START");
+    });
+
+    it("should return SAME_START_END if times are equal", async () => {
+      const repo = repoManager
+        .seed([
+          {
+            id: "event-1",
+            date: new Date("2025-01-15"),
+            startTime: new Date("2025-01-15T09:00:00"),
+            endTime: new Date("2025-01-15T10:00:00"),
+          },
+        ])
+        .getRepository();
+
+      const { error } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          startTime: new Date("2025-01-15T10:00:00"),
+          endTime: new Date("2025-01-15T10:00:00"),
+        },
+      });
+
+      expect(error?.code).toBe("SAME_START_END");
+    });
+
+    it("should handle unexpected errors", async () => {
+      const repo = repoManager
+        .withOverride("getById", () => {
+          throw new Error("DB error");
+        })
+        .getRepository();
+
+      const { error } = await calendarEventsUseCases.updateCalendarEvent({
+        repo,
+        data: {
+          id: "event-1",
+          date: new Date("2025-01-15"),
+          startTime: new Date(),
+        },
+      });
+
+      expect(error?.code).toBe("UNKNOWN_ERROR");
+    });
+  });
 });

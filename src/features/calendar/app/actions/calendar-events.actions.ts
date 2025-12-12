@@ -10,7 +10,10 @@ import {
 import { updateTag } from "next/cache";
 import { calendarEventsRepository } from "../../data/calendar-events.repository.factory";
 import { CalendarEvent } from "../../domain/types/calendar-event";
-import { CreateCalendarEventErrorCode } from "../../domain/types/results";
+import {
+  CreateCalendarEventErrorCode,
+  UpdateCalendarEventErrorCode,
+} from "../../domain/types/results";
 import { calendarEventsTags } from "../cache/tags";
 import { getCalendarEventsForUser } from "../queries/calendar-events.queries";
 import { calendarEventsUseCases } from "../use-cases/calendarEventsUseCases";
@@ -55,6 +58,42 @@ export const createCalendarEvent = async (
     return handleCatchError(
       error,
       "An error occurred in createCalendarEvent action"
+    );
+  }
+};
+
+export type UpdateCalendarEventActionErrorCode =
+  | UpdateCalendarEventErrorCode
+  | UnauthorizedErrorCode;
+
+export type UpdateCalendarEventActionPayload = {
+  id: string;
+  date: string;
+  startTime?: string;
+  endTime?: string;
+};
+
+export const updateCalendarEvent = async (
+  data: UpdateCalendarEventActionPayload
+): Promise<IResult<CalendarEvent, UpdateCalendarEventActionErrorCode>> => {
+  try {
+    const { result: event, error } =
+      await calendarEventsUseCases.updateCalendarEvent({
+        repo: calendarEventsRepository,
+        data,
+      });
+
+    if (error) {
+      return createErrorResult(error.code, error.message);
+    }
+
+    updateTag(calendarEventsTags.byUserAndDate(event.userId, data.date));
+
+    return createSuccessResult(event);
+  } catch (error) {
+    return handleCatchError(
+      error,
+      "An error occurred in updateCalendarEvent action"
     );
   }
 };

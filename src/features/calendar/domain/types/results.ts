@@ -17,3 +17,15 @@ export type GetCalendarEventsByUserAndDateResult = IResult<
   CalendarEventWithTask[],
   GetCalendarEventsByUserAndDateErrorCode
 >;
+
+export type UpdateCalendarEventErrorCode =
+  | "UNKNOWN_ERROR"
+  | "EVENT_NOT_FOUND"
+  | "END_BEFORE_START"
+  | "SAME_START_END"
+  | "NO_CHANGES_PROVIDED";
+
+export type UpdateCalendarEventResult = IResult<
+  CalendarEvent,
+  UpdateCalendarEventErrorCode
+>;
