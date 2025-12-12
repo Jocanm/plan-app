@@ -33,8 +33,7 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
     >
       <div
         className={cn("flex flex-col gap-0.5 text-sm", {
-          // "flex-row gap-2 items-center h-full": isShort,
-          "grid grid-cols-2 gap-2 w-fit": isShort,
+          "flex-row flex-wrap gap-2 items-center": isShort,
         })}
       >
         <div className="flex items-center gap-2">
@@ -47,7 +46,7 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
           )}
           <span
             className={cn("font-medium text-white", {
-              "flex-shrink-0": isShort,
+              "flex-shrink-0 whitespace-nowrap": isShort,
             })}
           >
             {timeRange}
@@ -55,7 +54,7 @@ export const CalendarEventCard = ({ event }: EventProps<CalendarEventData>) => {
         </div>
         <span
           className={cn("font-medium text-white pl-4", {
-            "pl-0 line-clamp-1 w-fit": isShort,
+            "pl-0 truncate flex-1 min-w-0": isShort,
           })}
         >
           {event.title}
