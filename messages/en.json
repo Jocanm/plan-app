@@ -197,6 +197,13 @@
     }
   },
   "calendar": {
+    "header": {
+      "today": "Today",
+      "goToToday": "Go to today",
+      "previousDay": "Previous day",
+      "nextDay": "Next day",
+      "calendarHeader": "Calendar header"
+    },
     "errors": {
       "create_event_failed": "Failed to create calendar event",
       "create_event_failed_description": "An error occurred while scheduling the task. Please try again.",

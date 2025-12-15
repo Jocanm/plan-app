@@ -1,4 +1,4 @@
-import { add } from "date-fns";
+import { add, isSameDay } from "date-fns";
 import { useSideCalendarStore } from "../stores/sideCalendar.store";
 
 export const useSideCalendarCurrentDate = () => {
@@ -17,10 +17,19 @@ export const useSideCalendarCurrentDate = () => {
     setCurrentDate(previous.toISOString());
   };
 
+  const goToToday = () => {
+    setCurrentDate(new Date().toISOString());
+  };
+
+  const current = new Date(currentDate);
+  const today = new Date();
+  const isToday = isSameDay(current, today);
+
   return {
     nextDate,
     previousDate,
-
-    currentDate: new Date(currentDate),
+    goToToday,
+    isToday,
+    currentDate: current,
   };
 };

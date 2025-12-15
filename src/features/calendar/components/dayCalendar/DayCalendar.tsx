@@ -33,12 +33,17 @@ export const DayCalendar = (props: DayCalendarProps) => {
         localizer={localizer}
         formats={{
           timeGutterFormat: "h a",
+          selectRangeFormat: ({ start, end }, culture, localizer) => {
+            if (localizer) {
+              return `${localizer.format(start, "h:mm a", culture)} - ${localizer.format(end, "h:mm a", culture)}`;
+            }
+            return `${format(start, "h:mm a")} - ${format(end, "h:mm a")}`;
+          },
         }}
         views={["day"]}
         defaultView="day"
         toolbar={false}
         dayLayoutAlgorithm="no-overlap"
-        // draggableAccessor={() => true}
         {...props}
       />
     </div>

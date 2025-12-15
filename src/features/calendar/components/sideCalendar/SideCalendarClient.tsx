@@ -54,6 +54,11 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
         )}
       >
         <DayCalendar
+          selectable
+          onSelectSlot={slotInfo => {
+            // eslint-disable-next-line no-console
+            console.log("Slot selected:", slotInfo.start, slotInfo.end);
+          }}
           events={data.map(event => ({
             id: event.id,
             end: event.endTime,

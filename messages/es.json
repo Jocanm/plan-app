@@ -197,6 +197,13 @@
     }
   },
   "calendar": {
+    "header": {
+      "today": "Hoy",
+      "goToToday": "Ir a hoy",
+      "previousDay": "Día anterior",
+      "nextDay": "Día siguiente",
+      "calendarHeader": "Encabezado del calendario"
+    },
     "errors": {
       "create_event_failed": "Error al crear evento",
       "create_event_failed_description": "Ocurrió un error al agendar la tarea. Por favor intenta de nuevo.",
