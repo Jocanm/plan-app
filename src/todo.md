@@ -1,6 +1,135 @@
 # Plan App - Todo List
 
-## 🚀 Active Sprint: Calendar Events - Backend & Drag-Drop (2 weeks)
+## 🚀 Active Sprint: Mobile Drag & Drop
+
+**Goal:** Implement directional drag detection to schedule tasks from mobile by dragging right to open calendar drawer and drop.
+
+**Scope MVP:**
+
+- Detect drag direction (horizontal vs vertical)
+- Threshold: `deltaX > 150px` = open calendar drawer
+- Allow drop inside drawer to create event
+- Distinguish: scroll (vertical) vs kanban (<50px) vs calendar (>150px)
+- Visual feedback during drag (arrow indicator, haptic feedback)
+
+**Tech Stack:**
+
+- @atlaskit/pragmatic-drag-and-drop
+- react-big-calendar (inside drawer)
+- Custom gesture detection logic
+- Tailwind for visual feedback
+
+---
+
+### 📋 Phase 1: Gesture Detection Infrastructure
+
+**Est: 1-2h** | **Test Coverage: Optional (gesture logic complex to unit test)**
+
+#### Drag Direction Detector
+
+- [ ] Create `useDragDirection` hook
+- [ ] Track drag start position (touchstart/mousedown)
+- [ ] Calculate delta: `deltaX`, `deltaY` on move
+- [ ] Determine direction: `Math.abs(deltaX) > Math.abs(deltaY)` = horizontal
+- [ ] Thresholds:
+  - `deltaY > 50px && deltaX < 50px` = scroll (cancel drag)
+  - `deltaX > 50px && deltaX < 150px` = kanban drag
+  - `deltaX > 150px` = calendar trigger
+- [ ] Return: `{ direction: 'vertical' | 'horizontal', distance: number, shouldOpenCalendar: boolean }`
+
+**Output:** Hook that detects drag direction and thresholds
+
+---
+
+### 📋 Phase 2: Calendar Drawer Integration
+
+**Est: 2-3h** | **Test Coverage: Skipped (UI integration)**
+
+#### Mobile Calendar Drawer Updates
+
+- [ ] Update `MobileCalendarDrawer.tsx`:
+  - [ ] Add `isOpen` state controlled by parent
+  - [ ] Add `onOpen` prop (called when drag > 150px)
+  - [ ] Add `onTaskDrop` prop (receives taskId + time)
+  - [ ] Auto-open when drag threshold reached
+  - [ ] Close when task dropped or canceled
+
+#### TaskCard Mobile Drag
+
+- [ ] Update `TaskCard.tsx` (mobile only):
+  - [ ] Use `useDragDirection` hook
+  - [ ] On `deltaX > 150px`:
+    - [ ] Trigger calendar drawer open
+    - [ ] Show visual indicator (→ arrow, "Release to schedule")
+    - [ ] Optional: haptic feedback (if available)
+  - [ ] On drop inside calendar:
+    - [ ] Get `taskId` from drag data
+    - [ ] Calculate `startTime` from drop position
+    - [ ] Create calendar event
+    - [ ] Close drawer
+  - [ ] On cancel (drag back or escape):
+    - [ ] Reset state
+    - [ ] Close drawer
+
+**Output:** Mobile drag opens calendar, allows drop, creates event
+
+---
+
+### 📋 Phase 3: Visual Feedback & Polish
+
+**Est: 1-2h** | **Test Coverage: Skipped (visual/UX)**
+
+#### Drag Indicators
+
+- [ ] Create drag overlay component:
+  - [ ] Show arrow (→) when `deltaX > 100px`
+  - [ ] Change to ✓ when over calendar drop zone
+  - [ ] Fade out on drop/cancel
+- [ ] Add CSS transitions for smooth drawer open
+- [ ] Add haptic feedback (iOS/Android) if supported
+- [ ] Color coding:
+  - [ ] Primary color when dragging right
+  - [ ] Success color when over drop zone
+  - [ ] Muted when canceled
+
+#### Edge Cases
+
+- [ ] Handle scroll vs drag conflict
+- [ ] Prevent accidental triggers during normal scrolling
+- [ ] Handle rapid swipes (velocity detection)
+- [ ] Test with different screen sizes (small phones)
+- [ ] Ensure accessible alternative (schedule button exists)
+
+**Output:** Polished UX with clear visual feedback
+
+---
+
+### 🎯 Definition of Done
+
+- [ ] Drag task right > 150px opens calendar drawer
+- [ ] Visual feedback (arrow indicator) during drag
+- [ ] Drop task in calendar creates 30min event
+- [ ] Distinguishes scroll (vertical) vs drag (horizontal)
+- [ ] Doesn't interfere with kanban drag (<50px)
+- [ ] Works on iOS Safari + Android Chrome
+- [ ] Accessible fallback (schedule button) available
+- [ ] No regressions on desktop/tablet drag & drop
+
+---
+
+### 📊 Progress Tracking
+
+- **Estimated Total:** 4-7 hours
+- **Complexity:** High (gesture detection, mobile-specific)
+- **Testing:** Manual testing on real devices required
+- **Dependencies:** Desktop/tablet drag & drop already working
+
+---
+
+## ✅ Completed Sprints
+
+<details>
+<summary><strong>Sprint 2: Calendar Events - Backend & Drag-Drop (2 weeks) - COMPLETED ✅</strong></summary>
 
 ### 📋 EPIC: Schedule Tasks via Calendar Drag & Drop
 
@@ -11,7 +140,7 @@
 - ✅ Display today's events in calendar
 - ✅ Drag task → calendar → create event (30min default)
 - ✅ Highlight current project events visually
-- ⏳ Backend: Create + List only (edit/delete post-MVP)
+- ✅ Backend: Create + List (edit/delete post-MVP)
 
 **Tech Stack:**
 
@@ -22,9 +151,9 @@
 
 ---
 
-### ✅ Phase 1: Backend Foundation (TDD) - IN PROGRESS
+### ✅ Phase 1: Backend Foundation (TDD) - COMPLETED
 
-**Est: 2-3h** | **Test Coverage: Required**
+**Test Coverage: Required**
 
 #### Domain Layer
 
@@ -32,181 +161,59 @@
 - [x] Validation: `validateCalendarEventDateRange()` ✅
 - [x] Test: Factory calculates endTime (+30min)
 - [x] Test: Validation rejects endTime < startTime
-- [ ] Test: Validation rejects duration > 8h (optional)
 
 #### Data Layer - Repository
 
 - [x] Interface: Add `getByUserAndDate(userId: string, date: Date)`
 - [x] Real repo: Implement with Prisma
-  - [x] Query: `where: { userId, date }`
-  - [x] Include: `{ task: true }` (for title, projectId)
-  - [x] Order by: `startTime ASC`
 - [x] Fake repo: Implement in-memory filter
-- [x] Test: Returns events for user + date
-- [x] Test: Returns empty array if no events
-- [x] Test: Filters by date correctly
-- [x] Test: Does not return other users' events
-- [ ] Test: Includes task data populated
-- [x] Test: Sorts by startTime
-
-**Output:** Repository has `create()` + `getByUserAndDate()` methods
+- [x] Tests: Returns events, filters by date, sorts by startTime
 
 ---
 
-### 📋 Phase 2: Use Cases (TDD)
-
-**Est: 1-2h** | **Test Coverage: Required**
-
-#### getEventsForDay
+### ✅ Phase 2: Use Cases (TDD) - COMPLETED
 
 - [x] Use Case: `getEventsForDay(userId, date, repo)`
-- [x] Test: Calls repo.getByUserAndDate correctly
-- [x] Test: Returns events with result pattern
-- [x] Test: Handles empty results
-- [x] Test: Handles repo errors
-
-#### createCalendarEvent (update existing)
-
-- [x] Update to use factory for endTime/date calculation
-- [x] Test: Creates with calculated endTime
-- [x] Test: Extracts date correctly
-- [x] Test: Calls validation before repo
-
-**Output:** Both use cases tested and working
+- [x] Use Case: `createCalendarEvent` with factory
+- [x] Tests: Repo calls, error handling, validation
 
 ---
 
-### 📋 Phase 3: Application Layer (No Tests)
+### ✅ Phase 3: Application Layer - COMPLETED
 
-**Est: 1h** | **Test Coverage: Skipped per decision**
-
-#### Server Query
-
-- [x] Create `calendar-events.queries.ts`
-- [x] Function: `getEventsForDayQuery(date: Date)`
-- [x] Wrap with `unstable_cache`
-- [x] Tag format: `calendar-events-YYYY-MM-DD`
-- [x] Return CalendarEvent[] with tasks
-
-#### Schema
-
-- [ ] Create `calendar-event.schema.ts`
-- [ ] Fields: `taskId` (uuid), `startTime` (datetime)
-- [ ] Export CreateCalendarEventSchema type
-
-#### Server Action
-
-- [x] Create `calendar-events.actions.ts`
-- [x] Action: `createCalendarEventAction(data)`
-- [ ] Validate with schema
-- [x] Get userId from session
-- [x] Call use case with real repo
-- [x] On success: `revalidateTag(calendar-events-${date})`
-- [x] Return result pattern
-
-**Output:** Query + Action ready for UI consumption
+- [x] Create `calendar-events.queries.ts` with caching
+- [x] Create `calendar-events.actions.ts` with revalidation
+- [x] Schema validation for inputs
 
 ---
 
-### 📋 Phase 4: Presentation Base (No Tests)
+### ✅ Phase 4: Presentation Base - COMPLETED
 
-**Est: 2-3h** | **Test Coverage: Components not tested**
-
-#### Context Provider
-
-- [x] Create `CalendarEventsProvider.tsx`
-- [x] Props: `initialEvents`, `date`
-- [x] State: `useOptimistic` for events
-- [x] Methods: `addOptimisticEvent(event)`
-- [x] Hook: `useCalendarEvents()` with context
-
-#### Layout Integration
-
-- [x] In dashboard layout (server):
-  - [x] Fetch: `getEventsForDayQuery(new Date())`
-  - [x] Wrap children with provider
-  - [x] Pass initialEvents + date
-
-#### Calendar Display
-
-- [ ] Update `DayCalendar.tsx`:
-  - [ ] Use `useCalendarEvents()` hook
-  - [ ] Map events to big-calendar format
-  - [ ] Implement `eventStyleGetter`:
-    - [ ] Detect current projectId from URL
-    - [ ] Highlight if `event.task.projectId === projectId`
-    - [ ] Colors: primary (highlight) / muted (normal)
-  - [ ] Event title: `event.task.title`
-
-**Output:** Calendar shows today's events with highlighting
+- [x] `CalendarEventsProvider` with `useOptimistic`
+- [x] `useCalendarEvents()` hook
+- [x] Layout integration with server data
+- [x] Calendar display with event highlighting
 
 ---
 
-### 📋 Phase 5: Drag & Drop ⚠️ (No Tests)
+### ✅ Phase 5: Drag & Drop Desktop/Tablet - COMPLETED
 
-**Est: 3-4h** | **Most Complex** | **Drop calculation TBD**
-
-#### Setup
-
-- [ ] Install: `@atlaskit/pragmatic-drag-and-drop`
-- [ ] Install: `@atlaskit/pragmatic-drag-and-drop-react-drop-indicator`
-
-#### TaskCard - Drag Source
-
-- [ ] Import `draggable` from pragmatic-dnd
-- [ ] Add ref to article element
-- [ ] Setup: `draggable({ element, getInitialData })`
-- [ ] Data: `{ taskId: task.id }`
-- [ ] Visual feedback: cursor, opacity on drag
-
-#### DayCalendar - Drop Target
-
-- [ ] Import `dropTargetForElements`
-- [ ] Add ref to calendar container
-- [ ] Setup: `dropTargetForElements({ element, onDrop })`
-- [ ] **TBD**: Calculate startTime from drop position
-  - Options to explore during implementation:
-    - A) Mouse Y coords → time calculation
-    - B) Activate selection mode + use `onSelectSlot`
-    - C) Hybrid approach
-- [ ] On drop:
-  - [ ] Get taskId from `source.data`
-  - [ ] Calculate startTime (30min slot)
-  - [ ] Create optimistic event with factory
-  - [ ] Call `addOptimisticEvent()`
-  - [ ] Trigger `createCalendarEventAction()`
-  - [ ] On error: Toast + manual rollback
-
-**Note:** Drop position → time calculation to be solved during implementation
-
-**Output:** Fully functional drag & drop creating events
+- [x] TaskCard as drag source
+- [x] DayCalendar as drop target
+- [x] Drop position → time calculation
+- [x] Optimistic updates + server action
+- [x] Error handling with rollback
 
 ---
 
-### 🎯 Definition of Done
+**Notes:**
 
-- [ ] All Phase 1-2 TDD tests passing (domain, data, use cases)
-- [ ] Calendar displays today's events on load
-- [ ] Events include task.title and task.projectId
-- [ ] Project events highlighted when on project page
-- [ ] Drag task from list → drop on calendar → event created
-- [ ] Optimistic update shows event immediately
-- [ ] Server action persists to database
-- [ ] Error handling with rollback works
-- [ ] Tag revalidation updates UI correctly
+- Date field in schema used for fast indexing
+- Non-transactional for MVP (create task + event separately)
+- Highlight logic: primary/muted colors (project colors post-MVP)
+- TDD for domain/data/use cases, no tests for UI layers
 
----
-
-### 📊 Progress Tracking
-
-- **TDD Coverage:** Phase 1-2 (~30% of sprint)
-- **No Tests:** Phase 3-5 (~70% of sprint)
-- **Estimated Total:** 9-13 hours
-- **Most Uncertain:** Phase 5 drop calculation (may take longer)
-
----
-
-## ✅ Completed Sprints
+</details>
 
 <details>
 <summary><strong>Sprint 1: Responsive Design (2 weeks) - COMPLETED ✅</strong></summary>
@@ -226,7 +233,6 @@
 - [x] Create breakpoints config
 - [x] Refactor layout with responsive classes
 - [x] Install shadcn Sheet component
-- [x] Verify no visual regressions
 
 ---
 
@@ -236,7 +242,6 @@
 - [x] Add hamburger button (☰) in mobile header
 - [x] Hide Sidebar on < 1280px, show drawer
 - [x] Drawer from left, 80% width max 280px
-- [x] Click outside / Escape closes
 
 **Behavior:** Desktop visible | Tablet/Mobile drawer
 
@@ -248,58 +253,16 @@
 - [x] Add calendar button (📅) in mobile header
 - [x] Calendar visible on >= 768px
 - [x] Drawer from right on mobile, 85% width
-- [x] Leave space for cancel zone
 
 **Behavior:** Desktop/Tablet visible | Mobile drawer
 
 ---
 
-### 📋 Fase 3: Drag & Drop Desktop/Tablet (2d) - MOVED TO CURRENT SPRINT
+### ✅ Fase 3: Drag & Drop Desktop/Tablet (2d) - COMPLETED
 
-- See "Active Sprint: Calendar Events" above
-
----
-
-### 📋 Fase 4: Drag Direccional Mobile (3d) - BACKLOG
-
-- Implement drag direction detection
-- Thresholds: `deltaX > 150px` = open calendar
-- Allow drop inside drawer
-- Distinguish: scroll (vertical) vs kanban (<50px) vs calendar (>150px)
-
-**Note:** Post-MVP - Complex, needs more planning
-
----
-
-### 📋 Fase 5: Tutorial/Onboarding (1d) - BACKLOG
-
-- Create `OnboardingTutorial` component
-- Detect first visit (localStorage)
-- Show "Drag → to schedule" hint
-
-**Note:** Post-MVP
-
----
-
-### 📋 Fase 6: Schedule Button Fallback (1d) - BACKLOG
-
-- Add "📅 Schedule" button in TaskCard
-- Only visible on mobile (< 768px)
-- Opens calendar drawer with task pre-selected
-
-**Why:** Fallback for users who don't discover drag
+- See Sprint 2: Calendar Events above
 
 </details>
-
----
-
-## 🚧 Pending Architecture Improvements
-
-### 1. **Middleware Rules Pattern** (Optional - Future)
-
-- [ ] Implement Chain of Responsibility pattern for middleware redirects
-- [ ] Create `lib/middleware/rules/` structure
-- [ ] Add `authErrorRedirect` rule for login error handling
 
 ---
 
@@ -307,33 +270,39 @@
 
 ### Features
 
-- Mobile drag direction detection (Responsive Sprint - Fase 4)
-- Onboarding tutorial (Responsive Sprint - Fase 5)
-- Schedule button fallback mobile (Responsive Sprint - Fase 6)
-- Edit calendar events (drag to move)
+- Onboarding tutorial (first-time user hints)
+- Schedule button fallback for mobile (alternative to drag)
+- Edit calendar events (drag to move time)
 - Delete calendar events
 - Create task + event simultaneously
 - Event validation (overlaps, business hours)
 - Handle day change at midnight
+- Real project colors in calendar (vs primary/muted)
 
 ### Technical
 
+- Middleware rules pattern (Chain of Responsibility)
 - Language switcher UI component
 - Analytics setup
 - Performance optimization
-- Error tracking
-- Error boundary
-- Test coverage analysis (Copilot agent)
+- Error tracking & boundary
+- Test coverage analysis
 
 ---
 
 ## 📝 Notes & Decisions
 
-### Calendar Events Sprint
+### Mobile Drag & Drop Sprint
 
-- **Date field in schema:** Used for fast indexing (`WHERE userId AND date`), must match startTime date
-- **Transaction handling:** Non-transactional for MVP (create task + event separately, orphan task OK if event fails)
-- **Drop calculation:** TBD during Phase 5 implementation, multiple approaches to explore
-- **Highlight logic:** Simple for MVP (primary/muted colors), real project colors post-MVP
-- **No tests for:** Server actions, hooks, components (per project philosophy)
-- **TDD required for:** Domain, data layer, use cases
+- **Gesture detection:** Custom hook vs library (TBD during implementation)
+- **Haptic feedback:** Progressive enhancement (if device supports)
+- **Scroll conflict:** Vertical drag > 50px cancels horizontal drag
+- **Accessibility:** Schedule button remains as fallback
+- **Testing:** Requires manual testing on real iOS/Android devices
+
+### General
+
+- **TDD Philosophy:** Required for domain/data/use cases, optional for UI
+- **Architecture:** Clean Architecture with functional approach (no classes)
+- **Testing Stack:** Jest (unit) + RTL (integration) + Cypress (E2E)
+- **Styling:** Tailwind CSS v4 + shadcn/ui components

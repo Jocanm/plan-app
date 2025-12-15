@@ -4,7 +4,7 @@ import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "./constants";
 
 type Locale = keyof typeof dateFnsLocales;
 
-export const toCalendarDateISO = (date: Date): string => {
+export const toCalendarDateISO = (date: Date | string): string => {
   const dateString = format(date, "yyyy-MM-dd");
 
   return `${dateString}T00:00:00.000Z`;

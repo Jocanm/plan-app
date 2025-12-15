@@ -17,6 +17,14 @@ describe("Calendar Utils", () => {
 
         expect(result).toBe("2023-10-25T00:00:00.000Z");
       });
+
+      it("should handle string input", () => {
+        const dateString = "2023-10-25T15:30:00";
+
+        const result = toCalendarDateISO(dateString);
+
+        expect(result).toBe("2023-10-25T00:00:00.000Z");
+      });
     });
 
     describe("Edge cases (Timezone safety)", () => {

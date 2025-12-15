@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useCalendarEventsModel } from "../../app/hooks/useCalendarEventsModel";
 import { useIsDraggingInCalendar } from "../../app/hooks/useIsDraggingInCalendar";
 import { useScrollToCurrentTime } from "../../app/hooks/useScrollToCurrentTime";
+import { useSideCalendarCurrentDate } from "../../app/hooks/useSideCalendarCurrentDate";
 import { useUpdateEventRange } from "../../app/hooks/useUpdateEventRange";
 import { MIN_CALENDAR_EVENT_DURATION_MINUTES } from "../../domain/constants";
 import { DayCalendar } from "../dayCalendar/DayCalendar";
@@ -25,10 +26,10 @@ interface SideCalendarClientProps {
 export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
   const t = useTranslations("error.inline");
   const isDragging = useIsDraggingInCalendar();
+  const { currentDate } = useSideCalendarCurrentDate();
 
   const { handleEventRangeUpdate } = useUpdateEventRange();
-  const { data, status, isFetching, date, refetch } =
-    useCalendarEventsModel(userId);
+  const { data, status, isFetching, refetch } = useCalendarEventsModel(userId);
 
   const { containerRef } = useScrollToCurrentTime();
 
@@ -45,7 +46,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
 
   return (
     <div className="h-full flex flex-col" ref={containerRef}>
-      <CalendarHeader date={date} />
+      <CalendarHeader />
       <div
         className={clsx(
           "flex-1 py-5",
@@ -72,6 +73,7 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
           onEventResize={data => handleEventRangeUpdate(data, userId)}
           timeslots={1}
           step={MIN_CALENDAR_EVENT_DURATION_MINUTES}
+          date={currentDate}
         />
       </div>
     </div>

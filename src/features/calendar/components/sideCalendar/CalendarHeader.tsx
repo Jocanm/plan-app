@@ -3,17 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFormatDate } from "../../app/hooks/useFormatDate";
+import { useSideCalendarCurrentDate } from "../../app/hooks/useSideCalendarCurrentDate";
 
-interface CalendarHeaderProps {
-  date: string;
-}
-
-export const CalendarHeader = ({ date }: CalendarHeaderProps) => {
+export const CalendarHeader = () => {
   const { format } = useFormatDate();
-  const parsedDate = new Date(date);
+  const { currentDate, nextDate, previousDate } = useSideCalendarCurrentDate();
 
-  const fullDate = format({ date: parsedDate, formatStr: "PPPP" });
-  const formattedDate = format({ date: parsedDate, formatStr: "EEEE d" });
+  const fullDate = format({ date: currentDate, formatStr: "PPPP" });
+  const formattedDate = format({ date: currentDate, formatStr: "EEEE d" });
 
   return (
     <header
@@ -23,11 +20,11 @@ export const CalendarHeader = ({ date }: CalendarHeaderProps) => {
     >
       <div className="flex h-12 items-center justify-between px-3 sm:px-4">
         <Button
-          disabled
           variant="ghost"
           size="icon"
           aria-label="Previous day"
           className="h-8 w-8"
+          onClick={previousDate}
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -38,7 +35,6 @@ export const CalendarHeader = ({ date }: CalendarHeaderProps) => {
             aria-hidden="true"
           />
           <time
-            dateTime={date}
             aria-label={fullDate}
             className="text-sm sm:text-base font-semibold text-foreground"
           >
@@ -47,11 +43,11 @@ export const CalendarHeader = ({ date }: CalendarHeaderProps) => {
         </div>
 
         <Button
-          disabled
           variant="ghost"
           size="icon"
           aria-label="Next day"
           className="h-8 w-8"
+          onClick={nextDate}
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
