@@ -4,6 +4,7 @@ import { Button } from "@/components/ui";
 import { InlineError } from "@/shared/components/errors/inline/InlineError";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
+import { logger } from "../../../../lib/logger";
 import { useCalendarEventsModel } from "../../app/hooks/useCalendarEventsModel";
 import { useIsDraggingInCalendar } from "../../app/hooks/useIsDraggingInCalendar";
 import { useScrollToCurrentTime } from "../../app/hooks/useScrollToCurrentTime";
@@ -54,10 +55,9 @@ export const SideCalendarClient = ({ userId }: SideCalendarClientProps) => {
         )}
       >
         <DayCalendar
-          selectable
+          selectable="ignoreEvents"
           onSelectSlot={slotInfo => {
-            // eslint-disable-next-line no-console
-            console.log("Slot selected:", slotInfo.start, slotInfo.end);
+            logger.info(slotInfo);
           }}
           events={data.map(event => ({
             id: event.id,
