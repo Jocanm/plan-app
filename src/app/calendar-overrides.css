@@ -183,6 +183,18 @@
   outline: none;
 }
 
+/* Fix event selection/focus styles to maintain custom colors */
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: transparent; /* Prevent color override - maintain project color */
+}
+
+.rbc-event:focus,
+.rbc-day-slot .rbc-background-event:focus {
+  outline: 2px solid var(--color-ring); /* Use design system color */
+  outline-offset: 2px;
+}
+
 /* Opcional: Color de selección de texto */
 ::selection {
   background: var(--color-primary-hover);

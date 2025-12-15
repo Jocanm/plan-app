@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useDroppableCalendarSlot } from "../../../app/hooks/useDroppableCalendarSlot";
 import { useTaskDropHandler } from "../../../app/hooks/useTaskDropHandler";
+import { CalendarEventPreview } from "./CalendarEventPreview";
 
 export interface SideCalendarTimeSlotWrapperProps {
   [key: string]: unknown;
@@ -13,20 +14,28 @@ export const SideCalendarTimeSlotWrapper = (
 ) => {
   const { handleDrop } = useTaskDropHandler();
 
-  const { ref, isDraggedOver } = useDroppableCalendarSlot({
+  const { ref, draggedTaskData } = useDroppableCalendarSlot({
     onDrop: ({ source }) => handleDrop(source.data, props.value),
     canDrop: ({ element }) => element.closest(".rbc-time-gutter") === null,
   });
 
+  const { children, className, ...restProps } = props;
+
   return (
     <div
       ref={ref}
-      {...props}
-      className={clsx(
-        "flex-1",
-        isDraggedOver && "bg-primary/10 border-2 border-primary border-dashed",
-        props.className as string
+      {...restProps}
+      className={clsx("flex-1 relative", className as string)}
+    >
+      {children}
+      {draggedTaskData && props.value && (
+        <CalendarEventPreview
+          taskTitle={draggedTaskData.taskTitle}
+          taskColor={draggedTaskData.taskColor}
+          projectColor={draggedTaskData.taskProjectColor}
+          startTime={props.value}
+        />
       )}
-    />
+    </div>
   );
 };

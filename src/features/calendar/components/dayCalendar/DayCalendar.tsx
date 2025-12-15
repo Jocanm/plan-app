@@ -38,7 +38,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
         defaultView="day"
         toolbar={false}
         dayLayoutAlgorithm="no-overlap"
-        draggableAccessor={() => true}
+        // draggableAccessor={() => true}
         {...props}
       />
     </div>
